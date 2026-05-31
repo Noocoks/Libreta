@@ -291,12 +291,22 @@ function loadTree() {
         .then(function (response) {
             return response.json();
         })
+
         .then(function (data) {
 
             treeData = data;
 
             buildTree(data);
+
+            var page =
+                window.location.hash.replace("#", "");
+
+            if (page) {
+                navigate(page, false);
+            }
+
         })
+
         .catch(function (error) {
 
             console.error(
@@ -603,12 +613,6 @@ function syncFrameTags(tag) {
 window.onload = function () {
 
     loadTree();
-
-    var page = window.location.hash.replace("#", "");
-
-    if (page) {
-        navigate(page, false);
-    }
 
     document.onkeydown = function (ev) {
 
