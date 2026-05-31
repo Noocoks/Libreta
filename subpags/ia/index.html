@@ -1,12 +1,70 @@
 <!doctype html>
 <html>
+
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <title>IA</title>
   <meta name="generator" content="CherryTree">
-  <link rel="stylesheet" href="../../res/styles4.css" type="text/css" />
+  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+  <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
-<div class='page'><p><strong><h1>IA</h1></strong></p><p>En este apartado he ido creando poco a poco un mecanismo basado en inteligencia artificial para poder trabajar de la forma más rápida, eficiente y fácil posible. Para poder usar este sector de los apuntes primero tendremos que crear un entorno virtual con python con los siguientes comandos.</p><p></p><p>Antes de empezar, a continuación está la estructura recomendada para llevar a cabo el proyecto</p><p><a href="file:///home/nico/ai">~/ai/</a><small></small></p><p><small>├── </small><a href="file:///home/nico/ai/venv">venv/</a><small></small></p><p><small>├── .env</small><small></small></p><p><small>├── .gitignore</small><small></small></p><p><small>├── </small><a href="Notas--IA--Comprobante_APIs_35.html">test_apis.py</a></p><p></p><p></p><p>Comenzamos creando una carpeta aparte con el entorno.</p><p><small>└─$</small><small> </small><small>mkdir</small><small> ~/ai &amp;&amp; </small><small>cd</small><small> ~/ai</small></p><p><small>└─$</small><small> python3 </small><small>-m</small><small> venv venv</small></p><p><small>└─$</small><small> </small><small>source</small><small> venv/bin/activate</small></p><p></p><p>Con estas lineas de comando ya lo tendríamos hecho y estaremos ya dentro para empezar a trabajar.</p><p></p><p>❗Comando para entrar en el entorno directamente desde nuestro [~]:</p><p><small>└─$</small><small> cd ~/ai &amp;&amp; </small><small>source</small><small> venv/bin/activate</small><small></small></p><p><small></small><sub>.</sub></p><p><sub>Disclaimer: Puedes cambiar la ruta a tu gusto, pero te dejo la mía por motivos del tutorial.</sub><small></small></p><p><small></small></p><p><em>Instalar | Actualizar todo del tirón:</em></p><p><small>└─$</small><small> pip install --upgrade \</small><small></small></p><p><small>openai \</small><small></small></p><p><small>anthropic \</small><small></small></p><p><small>shell-gpt \</small><small></small></p><p><small>ipython \</small><small></small></p><p><small>python-dotenv</small></p><p></p><p>Empezaremos creando el archivo con nuestras <a href="Notas--IA--APIs_39.html">APIs</a></p><p>Guardaremos el contenido del archivo y le daremos estos permisos:</p><p><small>└─$</small><small> </small><small>chmod 600</small><small> </small><small>.env</small></p><p></p><p>De esta forma dejamos el archivo completamente privado a nuestro usuario, código y Github, totalmente para nuestro uso exclusivo.</p><p>Ahora solo queda hacer un <a href="Notas--IA--Comprobante_APIs_35.html">pequeño archivo .py</a> para poder probar que las claves están bien guardadas. Despues crearemos el <a href="Notas--IA--IA_+_Git_36.html">.gitignore</a> para decirle a Git que archivos NO debe subir al repositorio. Y solo falta acabar creando los archivos para usar <a href="Notas--IA--OpenAI_&_S-GTP_33.html">OpenAI</a> y <a href="Notas--IA--Claude_&_Anthropic_34.html">Anthropic</a>.</p><p></p><p>Con todo comprobado y realmente funcionando solo queda probar el mini programita que junta todo lo anterior, pero de forma algo más profesional. <a href="Notas--IA--Uso_Dual_V1_40.html">Juntar ambas IAs</a> en el mismo código.</p></div>
+  <div class='page'>
+    <p><strong>
+        <h1>IA</h1>
+      </strong></p>
+    <p>En este apartado he ido creando poco a poco un mecanismo basado en inteligencia artificial para poder trabajar de
+      la forma más rápida, eficiente y fácil posible. Para poder usar este sector de los apuntes primero tendremos que
+      crear un entorno virtual con python con los siguientes comandos.</p>
+    <p></p>
+    <p>Antes de empezar, a continuación está la estructura recomendada para llevar a cabo el proyecto</p>
+    <p><a href="file:///home/nico/ai">~/ai/</a><small></small></p>
+    <p><small>├── </small><a href="file:///home/nico/ai/venv">venv/</a><small></small></p>
+    <p><small>├── .env</small><small></small></p>
+    <p><small>├── .gitignore</small><small></small></p>
+    <p><small>├── </small><a href="Notas--IA--Comprobante_APIs_35.html">test_apis.py</a></p>
+    <p></p>
+    <p></p>
+    <p>Comenzamos creando una carpeta aparte con el entorno.</p>
+    <p><small>└─$</small><small> </small><small>mkdir</small><small> ~/ai &amp;&amp; </small><small>cd</small><small>
+        ~/ai</small></p>
+    <p><small>└─$</small><small> python3 </small><small>-m</small><small> venv venv</small></p>
+    <p><small>└─$</small><small> </small><small>source</small><small> venv/bin/activate</small></p>
+    <p></p>
+    <p>Con estas lineas de comando ya lo tendríamos hecho y estaremos ya dentro para empezar a trabajar.</p>
+    <p></p>
+    <p>❗Comando para entrar en el entorno directamente desde nuestro [~]:</p>
+    <p><small>└─$</small><small> cd ~/ai &amp;&amp; </small><small>source</small><small>
+        venv/bin/activate</small><small></small></p>
+    <p><small></small><sub>.</sub></p>
+    <p><sub>Disclaimer: Puedes cambiar la ruta a tu gusto, pero te dejo la mía por motivos del
+        tutorial.</sub><small></small></p>
+    <p><small></small></p>
+    <p><em>Instalar | Actualizar todo del tirón:</em></p>
+    <p><small>└─$</small><small> pip install --upgrade \</small><small></small></p>
+    <p><small>openai \</small><small></small></p>
+    <p><small>anthropic \</small><small></small></p>
+    <p><small>shell-gpt \</small><small></small></p>
+    <p><small>ipython \</small><small></small></p>
+    <p><small>python-dotenv</small></p>
+    <p></p>
+    <p>Empezaremos creando el archivo con nuestras <a href="Notas--IA--APIs_39.html">APIs</a></p>
+    <p>Guardaremos el contenido del archivo y le daremos estos permisos:</p>
+    <p><small>└─$</small><small> </small><small>chmod 600</small><small> </small><small>.env</small></p>
+    <p></p>
+    <p>De esta forma dejamos el archivo completamente privado a nuestro usuario, código y Github, totalmente para
+      nuestro uso exclusivo.</p>
+    <p>Ahora solo queda hacer un <a href="Notas--IA--Comprobante_APIs_35.html">pequeño archivo .py</a> para poder probar
+      que las claves están bien guardadas. Despues crearemos el <a href="Notas--IA--IA_+_Git_36.html">.gitignore</a>
+      para decirle a Git que archivos NO debe subir al repositorio. Y solo falta acabar creando los archivos para usar
+      <a href="Notas--IA--OpenAI_&_S-GTP_33.html">OpenAI</a> y <a
+        href="Notas--IA--Claude_&_Anthropic_34.html">Anthropic</a>.</p>
+    <p></p>
+    <p>Con todo comprobado y realmente funcionando solo queda probar el mini programita que junta todo lo anterior, pero
+      de forma algo más profesional. <a href="Notas--IA--Uso_Dual_V1_40.html">Juntar ambas IAs</a> en el mismo código.
+    </p>
+  </div>
 </body>
+
 </html>
