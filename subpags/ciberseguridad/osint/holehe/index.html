@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+
+  <meta name="keywords" content="holehe, osint, correo, email, reconocimiento, investigación, cuentas, usuarios">
+
+  <meta name="description"
+    content="Holehe es una herramienta OSINT que permite comprobar automáticamente en qué servicios está registrado un correo electrónico.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Holehe</title>
+
+  <link rel="stylesheet" href="/res/css/styles.css" type="text/css">
+  <script src="/res/js/page.js"></script>
+</head>
+
+<body>
+
+  <div data-cat="osint" class="page">
+    <hr>
+
+    <div id="breadcrumb"></div>
+
+    <h1>Holehe</h1>
+
+    <div class="node-tags">
+      <span class="tag">osint</span>
+      <span class="tag">correo</span>
+      <span class="tag">cuentas</span>
+      <span class="tag">reconocimiento</span>
+      <span class="tag">usuarios</span>
+
+    </div>
+    <br>
+
+    <div class="box box--info">
+
+      <p>
+        <strong>Holehe</strong> es una herramienta de
+        <span class="cat">
+          <a href="../index.html">OSINT</a>
+        </span>
+        diseñada para verificar si una dirección de correo
+        electrónico está registrada en distintos servicios
+        online.
+      </p>
+
+    </div>
+
+    <p>
+      Su objetivo principal es automatizar tareas de
+      reconocimiento e investigación relacionadas con
+      correos electrónicos y perfiles digitales.
+    </p>
+
+    <br>
+    <hr>
+
+    <h2>Casos de uso</h2>
+
+    <ul>
+
+      <li>
+        <strong>Comprobación de registros</strong>
+
+        <ul>
+          <li>
+            Verificar si un correo electrónico
+            existe en plataformas conocidas.
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <strong>Investigación OSINT</strong>
+
+        <ul>
+          <li>
+            Obtener información sobre la presencia
+            digital de un objetivo.
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <strong>Auditorías de seguridad</strong>
+
+        <ul>
+          <li>
+            Detectar exposición de cuentas
+            asociadas a un correo.
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <strong>Gestión de identidad digital</strong>
+
+        <ul>
+          <li>
+            Revisar servicios donde una dirección
+            de correo está siendo utilizada.
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+
+    <br>
+    <hr>
+
+    <h2>Instalación</h2>
+
+    <pre>
+
+      sudo apt update && sudo apt upgrade -y
+
+      sudo apt install python3 python3-pip git -y
+
+      git clone https://github.com/megadose/holehe.git
+
+      cd holehe/
+
+      sudo python3 setup.py install
+
+      holehe correo@ejemplo.com
+    </pre>
+
+    <br>
+    <hr>
+
+    <h2>
+      Ejemplo de uso
+    </h2>
+
+    <pre>
+      holehe usuario@dominio.com
+    </pre>
+
+    <p>
+      Holehe realizará comprobaciones automáticas en
+      múltiples servicios compatibles y mostrará cuáles
+      tienen una cuenta asociada al correo indicado.
+    </p>
+
+    <br>
+    <hr>
+
+    <h2>Recursos relacionados</h2>
+
+    <ul>
+
+      <li>
+        <span class="cat">
+          <a href="./arq/index.html">
+            Arquitectura
+          </a></span>
+      </li>
+
+    </ul>
+
+  </div>
+</body>
+
+</html>

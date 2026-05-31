@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Nico">
+  <meta name="keywords" content="legion, pentesting, nmap, escaneo de red, enumeración, seguridad">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Legion: framework de pentesting para automatización de escaneo y enumeración de redes">
+
+  <title>Legion</title>
+  <link rel="stylesheet" href="../../../../res/styles.css" type="text/css">
+</head>
+
+<body>
+  <div class="page">
+    <hr>
+    <h1>Legion</h1>
+
+    <div class="box box--info">
+      <p>
+        Es un framework de pentesting que centraliza el escaneo de redes y la enumeración de servicios,
+        automatizando herramientas y mostrando resultados de manera organizada.
+      </p>
+    </div>
+
+    <p><strong>Objetivo:</strong></p>
+    <ul>
+      <li>Descubrir hosts activos en una red.</li>
+      <li>Identificar puertos abiertos y servicios en cada host.</li>
+      <li>Recopilar información detallada de servicios (versiones, banners, scripts).</li>
+      <li>Facilitar el análisis de vulnerabilidades de manera educativa y controlada.</li>
+    </ul>
+
+    <p>
+      <em><sub>/* Esta herramienta no hace nada nuevo, solo automatiza y organiza herramientas existentes */</sub></em>
+    </p>
+    <hr>
+
+    <h2>Herramientas usadas por Legion</h2>
+
+    <h3>Reconocimiento / Escaneo de red</h3>
+    <ul>
+      <li><a href="../nmap/index.html">Nmap</a> – Escaneo de puertos y detección de servicios.</li>
+      <li>Masscan – Escaneo de puertos extremadamente rápido.</li>
+      <li>Hping3 – Análisis y manipulación de paquetes.</li>
+    </ul>
+
+    <h3>Reconocimiento inicial</h3>
+    <ul>
+      <li>Dnsenum – Recolección de información DNS.</li>
+      <li>Onesixtyone – Enumeración SNMP.</li>
+      <li>WhatWeb – Identificación de tecnologías web.</li>
+      <li>Sublist3r – Enumeración de subdominios.</li>
+      <li>Amass – Reconocimiento avanzado de dominios.</li>
+      <li>TheHarvester – Recolección de información pública.</li>
+      <li>Fierce – Enumeración DNS.</li>
+    </ul>
+
+    <h3>Enumeración Web / Análisis</h3>
+    <ul>
+      <li>Dirb – Descubrimiento de directorios ocultos.</li>
+      <li>Gobuster – Enumeración de rutas web.</li>
+      <li>Wfuzz – Fuzzing de parámetros.</li>
+      <li>Nikto – Escaneo de vulnerabilidades web.</li>
+      <li>Uniscan – Análisis de aplicaciones web.</li>
+    </ul>
+
+    <h3>Enumeración de servicios</h3>
+    <ul>
+      <li>Enum4linux – Información SMB/Windows.</li>
+      <li>Smbclient – Acceso a recursos SMB.</li>
+      <li>Netcat – Conexiones y pruebas de servicios.</li>
+      <li>smtp-user-enum – Enumeración SMTP.</li>
+      <li>CrackMapExec – Validación de credenciales en red.</li>
+      <li>Amap – Identificación de servicios desconocidos.</li>
+    </ul>
+
+    <h3>Ataques de credenciales</h3>
+    <ul>
+      <li>Hydra – Fuerza bruta contra servicios.</li>
+      <li>Medusa – Alternativa a Hydra.</li>
+      <li>Ncrack – Ataques a servicios de red.</li>
+      <li>Patator – Fuerza bruta modular.</li>
+      <li>Crowbar – Ataques a RDP y SSH.</li>
+      <li>CeWL – Generación de diccionarios.</li>
+      <li>Wpscan – Auditoría WordPress.</li>
+      <li>Joomscan – Auditoría Joomla.</li>
+      <li>EyeWitness – Captura visual de servicios.</li>
+    </ul>
+
+    <h3>Ataques en red</h3>
+    <ul>
+      <li>Responder – Suplantación LLMNR/NBT-NS.</li>
+    </ul>
+
+    <h3>Análisis de configuraciones</h3>
+    <ul>
+      <li>Sslscan – Análisis SSL/TLS.</li>
+      <li>SSLyze – Auditoría SSL/TLS avanzada.</li>
+      <li>OpenVAS – Escaneo de vulnerabilidades.</li>
+    </ul>
+
+    <h3>Apoyo a explotación</h3>
+    <ul>
+      <li>Searchsploit – Búsqueda de exploits.</li>
+      <li>Metasploit Framework – Plataforma de explotación.</li>
+      <li>MSFvenom – Generación de payloads.</li>
+      <li>Impacket – Protocolos SMB/RPC.</li>
+    </ul>
+
+    <hr>
+
+    <div class="box box--media">
+      <img src="../../../../images/19-1.png" alt="Legion screenshot 1">
+      <img src="../../../../images/19-2.png" alt="Legion screenshot 2">
+    </div>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="keywords" content="hydra, laboratorio, docker, pentesting, ssh">
+  <meta name="description" content="Laboratorio práctico de Hydra en entornos locales y controlados">
+
+  <title>Laboratorio - Hydra</title>
+
+  <link rel="stylesheet" href="/res/css/styles.css" type="text/css">
+  <script src="/res/js/page.js"></script>
+</head>
+
+<body>
+
+  <div class="page" data-cat="fuerza-bruta">
+    <hr>
+
+    <div id="breadcrumb"></div>
+
+    <h1>Laboratorio - Hydra</h1>
+
+    <div class="box">
+      <h3>Preparación del entorno</h3>
+
+      <ul>
+        <li>Máquina local o virtual (muy recomendable usar VM).</li>
+        <li>Red aislada o entorno de pruebas.</li>
+      </ul>
+    </div>
+
+    <br>
+    <div class="box">
+      <h3>Contenedores Docker vulnerables</h3>
+
+      <ul>
+        <li>DVWA</li>
+        <li>Metasploitable</li>
+        <li>Otros entornos de prueba</li>
+      </ul>
+    </div>
+
+    <br>
+    <div class="box">
+      <h3>Usuarios con contraseñas débiles</h3>
+
+      <p><small>Ejemplos:</small></p>
+
+      <ul>
+        <li>admin123</li>
+        <li>12345678</li>
+        <li>paquito06</li>
+        <li>manolopiedra</li>
+      </ul>
+    </div>
+
+    <br>
+    <div class="box">
+      <h3>Wordlists y ejecución en localhost</h3>
+
+      <p>
+        Crear archivos <strong>wordlist.txt</strong> y <strong>usuarios.txt</strong>
+        con credenciales de prueba.
+      </p>
+
+      <p>Ejemplo para <strong>wordlist.txt</strong>:</p>
+
+      <ul>
+        <li>123456</li>
+        <li>password</li>
+        <li>qwerty</li>
+        <li>admin123</li>
+        <li>letmein</li>
+      </ul>
+
+      <p>Ejemplo para <strong>usuarios.txt</strong>:</p>
+
+      <ul>
+        <li>admin</li>
+        <li>usuario1</li>
+        <li>pepe</li>
+        <li>maria</li>
+        <li>test</li>
+      </ul>
+    </div>
+
+    <br>
+    <div class="box">
+      <h3>Ejecución de Hydra</h3>
+
+      <p>
+        Prueba de autenticación contra un servicio SSH en un entorno local y controlado.
+      </p>
+
+      <pre>
+└─$ hydra -L usuarios.txt -P wordlist.txt ssh://192.168.1.100
+      </pre>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

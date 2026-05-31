@@ -1,0 +1,654 @@
+/*******************************************************************************
+ * FUENTE
+ ******************************************************************************/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,700);
+
+/*******************************************************************************
+ * VARIABLES (TEMA + CATEGORÍAS)
+ ******************************************************************************/
+:root {
+    /***************
+     * BASE DARK THEME
+     ***************/
+    --bg: #14181b;
+    --panel: #1c2226;
+    --panel-2: #232b30;
+    --panel-3: #2f3940;
+    --border: #2b353b;
+    --text: #ffffff;
+    --muted: #b5b5b5;
+
+    /***************
+     * CATEGORÍAS ACTIVAS
+     ***************/
+    --cat-ciberseguridad: #3d3d3d;
+    --cat-osint: #a0a0a0;
+    --cat-phishing: #3aa0ff;
+    --cat-fuerza-bruta: #ff0000;
+    --cat-escaneo: #b26cff;
+
+    /***************
+     * RESERVA FUTURA
+     ***************/
+    --cat-ia: #3d3d3d;
+    --cat-forense: #38bdf8;
+    --cat-redes: #34d399;
+    --cat-explotacion: #fb7185;
+    --cat-malware: #a855f7;
+    --cat-reversing: #f97316;
+    --cat-web: #22c55e;
+    --cat-default: #9aa0a6;
+
+    /***************
+     * EMOJIS
+     ***************/
+    --icon-osint: "🔍";
+    --icon-fuerza-bruta: "🔨";
+    --icon-phishing: "🎣";
+
+
+
+}
+
+/*******************************************************************************
+ * GENERAL
+ ******************************************************************************/
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 13px;
+    font-family: "Open Sans", sans-serif !important;
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    white-space: normal;
+}
+
+p {
+    margin: 0.5em 0;
+}
+
+ul,
+ol {
+    margin: 0.5em 0;
+    padding-left: 20px;
+}
+
+li {
+    margin: 0.25em 0;
+}
+
+button {
+    border: none;
+    padding: 0 5px;
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+button:hover {
+    color: var(--cat-phishing);
+}
+
+/*******************************************************************************
+ * LAYOUT
+ ******************************************************************************/
+.two-panels {
+    background: var(--bg);
+}
+
+div.two-panels {
+    height: 100vh;
+    display: flex;
+    position: absolute;
+    inset: 0;
+}
+
+div.tree-panel {
+    flex: 19vw;
+    margin-left: 1vw;
+    height: 100%;
+    overflow: auto;
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    transition: background 0.2s ease;
+}
+
+div.tree-panel:hover {
+    background: var(--panel-2);
+}
+
+div.page-panel {
+    flex: 80vw;
+    background: var(--bg);
+}
+
+div.page-panel iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.index-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.index-controls {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.index-controls button {
+    margin: 0 3px;
+}
+
+/*******************************************************************************
+ * TREE (ÍNDICE)
+ ******************************************************************************/
+div.tree {
+    font-size: 12px;
+    color: var(--muted);
+
+    /* FIX REAL FLASH: invisible hasta JS listo */
+    opacity: 0;
+}
+
+/* visible SOLO cuando JS termina init */
+div.tree.ready {
+    opacity: 1;
+    transition: opacity 0.15s ease;
+}
+
+div.tree a,
+div.tree a:visited {
+    color: var(--text);
+    text-decoration: none;
+}
+
+div.tree ul {
+    list-style: none;
+    padding-left: 18px;
+    line-height: 1.3;
+}
+
+div.tree li {
+    white-space: nowrap;
+    transition: background 0.15s ease;
+}
+
+.tree li:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+/*******************************************************************************
+ * FOOTER DEL ÍNDICE
+ ******************************************************************************/
+
+.tree-footer {
+    margin-top: 15px;
+    padding: 10px;
+    border-top: 1px solid var(--border);
+}
+
+.tree-footer-title {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tree-footer-box {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+/*******************************************************************************
+ * SLIDE PANEL (ANIMACIÓN LATERAL)
+ ******************************************************************************/
+
+div.tree-panel {
+    flex: 0 0 19vw;
+    min-width: 260px;
+    height: 100%;
+
+    overflow: auto;
+
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+
+    transition:
+        flex 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+        min-width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+        background 0.2s ease,
+        border-right 0.2s ease;
+
+    position: relative;
+    z-index: 2;
+}
+
+/* estado oculto */
+div.tree-panel.hidden {
+    flex: 0 0 0 !important;
+    min-width: 0 !important;
+    width: 0 !important;
+
+    overflow: hidden;
+    border-right: none;
+}
+
+/*******************************************************************************
+ * PAGE PANEL (ESTIRADO)
+ ******************************************************************************/
+
+div.page-panel {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: var(--bg);
+
+    transition: flex 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* cuando el panel está oculto */
+body.tree-hidden div.page-panel {
+    flex: 1 1 100% !important;
+}
+
+/*******************************************************************************
+ * BOTÓN TOGGLE PANEL
+ ******************************************************************************/
+
+#tree_panel_toggle_btn {
+    position: absolute;
+    top: 0;
+
+    background: var(--panel-3);
+    border-right: 1px solid var(--border);
+
+    color: var(--text);
+
+    width: 20px;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    z-index: 100;
+
+    transition: background 0.2s ease;
+}
+
+#tree_panel_toggle_btn:hover {
+    background: var(--panel-2);
+}
+
+/*******************************************************************************
+ * ANIMACIÓN ÍNDICE
+ ******************************************************************************/
+
+/* estado base: cerrado hasta que JS lo active */
+.subtree {
+    overflow: hidden;
+
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+
+    pointer-events: none;
+
+    will-change: max-height, opacity, transform;
+
+    transition:
+        max-height 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+        opacity 0.22s ease,
+        transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* abierto */
+.subtree:not(.hide) {
+    max-height: 2000px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* cerrado (override explícito) */
+.hide {
+    max-height: 0 !important;
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* IMPORTANTE: evitar transición en primera carga */
+.tree.no-anim .subtree {
+    transition: none !important;
+}
+
+/*******************************************************************************
+ * BUSCADOR
+ ******************************************************************************/
+.index-search {
+    padding: 8px;
+    position: relative;
+    margin: 10px;
+}
+
+.index-search input {
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 28px;
+}
+
+#index_search,
+#tree_search {
+    width: 100%;
+    box-sizing: border-box;
+
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+
+    color: var(--text);
+
+    padding: 8px;
+    border-radius: 6px;
+
+    outline: none;
+}
+
+#tree_search:focus {
+    border-color: var(--cat-phishing);
+}
+
+#tree_search_clear {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    padding: 0;
+
+    width: 30px;
+    height: 30px;
+
+    border: none;
+    background: transparent;
+
+    color: var(--muted);
+
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#tree_search_clear:hover {
+    color: var(--text);
+}
+
+/*******************************************************************************
+ * PAGE
+ ******************************************************************************/
+div.page {
+    padding: 20px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+div.page-panel {
+    flex: 1;
+    min-width: 0;
+    background: var(--bg);
+    transition: margin-left 0.35s ease;
+}
+
+.page-panel iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+/*******************************************************************************
+ * TÍTULOS (BASE + CATEGORÍA)
+ ******************************************************************************/
+div.page h1,
+div.page h2,
+div.page h3,
+div.page h4,
+div.page h5,
+div.page h6 {
+    margin: 0.5em 0;
+    font-weight: bold;
+    /* el color se toma directamente de data-cat */
+}
+
+/*******************************************************************************
+ * CAJAS
+ ******************************************************************************/
+.box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.box--info {
+    border-left: 3px solid var(--cat-osint);
+}
+
+/*******************************************************************************
+ * CODE
+ ******************************************************************************/
+pre,
+code {
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    background: #0f1316;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+pre {
+    padding: 10px;
+    overflow: auto;
+    margin: 1em 0;
+    white-space: pre-wrap;
+    tab-size: 4;
+    line-height: 1.4;
+}
+
+/*******************************************************************************
+ * TAGS
+ ******************************************************************************/
+
+.node-tags {
+
+    margin-top: 2px;
+    margin-left: 18px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.tag {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--panel-3);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition:
+        transform .15s ease,
+        opacity .15s ease;
+}
+
+.tag:hover {
+    transform: translateY(-1px);
+    opacity: .85;
+}
+
+.tag-match {
+    background: var(--cat-phishing);
+    color: white;
+    border-color: var(--cat-phishing);
+}
+
+/*******************************************************************************
+ * CATEGORÍAS (ETIQUETAS)
+ ******************************************************************************/
+.cat {
+    display: inline-block;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* SOLO UNA REGLA DINÁMICA */
+.cat[data-cat] {
+    color: var(--active);
+}
+
+/*******************************************************************************
+ * MIGUILLAS DE PAN (Breadcrumb.. o algo así raro jajaja)
+ ******************************************************************************/
+#auto-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .4rem;
+    margin-bottom: 1rem;
+    padding: .75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: .5rem;
+    background: rgba(255, 255, 255, .03);
+    font-size: .85rem;
+}
+
+#auto-breadcrumb a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--accent-color);
+    transition: .15s;
+}
+
+#auto-breadcrumb a:hover {
+    opacity: .8;
+    text-decoration: underline;
+}
+
+#auto-breadcrumb .separator {
+    opacity: .5;
+}
+
+#auto-breadcrumb .current {
+    opacity: .7;
+}
+
+/*******************************************************************************
+ * CATEGORÍAS (SISTEMA MODERNO CON VARIABLES)
+ ******************************************************************************/
+
+/* ==============================
+   BASE DEFAULT
+============================== */
+[data-cat] {
+    --active: var(--cat-default);
+}
+
+/* Aplicación automática SOLO a elementos relevantes */
+[data-cat] h1,
+[data-cat] h2,
+[data-cat] h3,
+[data-cat] h4,
+[data-cat] h5,
+[data-cat] h6,
+[data-cat] li::marker {
+    color: var(--active);
+}
+
+/*******************************************************************************
+ * MAPEO DE CATEGORÍAS → VARIABLES
+ ******************************************************************************/
+/* Ciberseguridad */
+[data-cat="ciberseguridad"] {
+    --active: var(--cat-ciberseguridad);
+}
+
+/* OSINT */
+[data-cat="osint"] {
+    --active: var(--cat-osint);
+}
+
+/* Phishing */
+[data-cat="phishing"] {
+    --active: var(--cat-phishing);
+}
+
+/* Fuerza bruta */
+[data-cat="fuerza-bruta"] {
+    --active: var(--cat-fuerza-bruta);
+}
+
+/* Escaneo */
+[data-cat="escaneo"] {
+    --active: var(--cat-escaneo);
+}
+
+/* IA */
+[data-cat="ia"] {
+    --active: var(--cat-ia);
+}
+
+/* Forense */
+[data-cat="forense"] {
+    --active: var(--cat-forense);
+}
+
+/* Redes */
+[data-cat="redes"] {
+    --active: var(--cat-redes);
+}
+
+/* Explotación */
+[data-cat="explotacion"] {
+    --active: var(--cat-explotacion);
+}
+
+/* Malware */
+[data-cat="malware"] {
+    --active: var(--cat-malware);
+}
+
+/* Reversing */
+[data-cat="reversing"] {
+    --active: var(--cat-reversing);
+}
+
+/* Web */
+[data-cat="web"] {
+    --active: var(--cat-web);
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Inicialización</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="../../../../../res/styles.css" type="text/css" />
+</head>
+
+<body>
+  <div class='page'>
+    <p><strong>
+        <h1>Inicialización - MailHog</h1>
+      </strong>
+    <p> <em><strong><span style="color:#000000;">&lt;&gt; Bash </span></strong></em><em></em></p>
+    <p><em> </em>Se usa con <small>└─$</small><small> </small>docker start mailhog</p>
+    <p> Se para con <small>└─$</small><small> </small>docker stop mailhog</p>
+    <p> </p>
+    <p> Comando usado para crear este flujo: </p>
+    <p><em> </em><em><small>└─$</small></em><em><small> </small></em><em>docker run -d \</em><em></em></p>
+    <p><em> --restart unless-stopped \</em><em></em></p>
+    <p><em> --name mailhog \</em><em></em></p>
+    <p><em> -p 1025:1025 \</em><em></em></p>
+    <p><em> -p 8025:8025 \</em><em></em></p>
+    <p><em> mailhog/mailhog </em><em></em></p>
+    <p><em></em><em></em></p>
+    <p><em></em>Con este flujo se genera este container:<em></em></p>
+    <p><em></em>| Situación | ¿Se reinicia solo? |</p>
+    <p>| ------------------------------------------------------ | ------------------ |</p>
+    <p>| Reinicias la VM | ✅ Sí |</p>
+    <p>| Reinicias Docker | ✅ Sí |</p>
+    <p>| Reinicias el sistema | ✅ Sí |</p>
+    <p>| El contenedor crashea | ✅ Sí |</p>
+    <p>| Lo vuelves a iniciar manualmente (`docker start`) | ✅ Sí |</p>
+    <p>| Lo paras manualmente (`docker stop`) | ❌ No |</p>
+    <p>| ------------------------------------------------------ | ------------------ |<em></em></p>
+    <p><em> </em><em></em></p>
+    <p><em> </em><em></em></p>
+    <p><em> </em><span style="text-decoration:line-through;">Comando usado por terminal para abrir un contenedor nuevo
+        con mailhog:</span><em><span style="text-decoration:line-through;"> </span></em><em></em></p>
+    <p><em> </em><em><small>└─$</small></em><em><small> </small></em><em>sudo systemctl start docker &amp;&amp; sudo
+        systemctl enable docker &amp;&amp; docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog</em></p>
+    <p> </p>
+    <p> </p>
+    <p> </p>
+  </div>
+</body>
+
+</html>

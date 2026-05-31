@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nico">
+    <meta name="keywords" content="Ciberseguridad, OSINT, IA, Phishing, Fuerza Bruta, Escaneo de Redes">
+    <meta name="description"
+        content="Notas completas de Ciberseguridad e Inteligencia Artificial, con técnicas OSINT, herramientas y laboratorios prácticos">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Notas</title>
+    <link rel="stylesheet" href="res/css/styles.css" type="text/css">
+</head>
+
+<body>
+
+    <div class="two-panels">
+
+        <div class="tree-panel">
+            <div class="tree">
+
+                <!-- Índice Ini -->
+                <div class="index-title">
+                    <h1>Índice</h1>
+                </div>
+
+                <!-- Botones de control -->
+                <div class="index-controls">
+                    <button onclick="expandAllSubtrees()">Abrir</button>
+                    <button onclick="collapseAllSubtrees()">Cerrar</button>
+                </div>
+
+                <!-- Buscador -->
+                <div class="index-search">
+                    <input type="text" id="tree_search" placeholder="Buscar..." oninput="filterTree(this.value)">
+                    <button id="tree_search_clear" onclick="clearTreeSearch()">✘</button>
+                </div>
+
+                <!-- Arbol de contenido -->
+                <ul id="tree_root" class="outermost"></ul>
+
+                <!-- ===================== FOOTER ===================== -->
+                <div class="tree-footer">
+                    <div class="tree-footer-title">Autor</div>
+
+                    <div class="tree-footer-box">
+                        <div><strong>Nombre:</strong> Nico</div>
+                        <div><strong>Contacto:</strong> nicoletobondia06@gmail.com</div>
+                        <div><strong>Proyecto:</strong> Notas</div>
+                    </div>
+                </div>
+                <!-- Índice Fin -->
+
+            </div>
+        </div>
+
+        <div class="page-panel">
+            <iframe id="page_frame"></iframe>
+        </div>
+
+    </div>
+
+    <script src="res/js/script.js"></script>
+</body>
+</html>

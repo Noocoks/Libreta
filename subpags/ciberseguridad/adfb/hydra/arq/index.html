@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="keywords" content="hydra, arquitectura, pentesting">
+  <meta name="description" content="Arquitectura modular de Hydra y funcionamiento interno">
+
+  <title>Arquitectura - Hydra</title>
+
+  <link rel="stylesheet" href="/res/css/styles.css" type="text/css">
+  <script src="/res/js/page.js"></script>
+</head>
+
+<body>
+
+  <div class="page" data-cat="fuerza-bruta">
+    <hr>
+
+    <div id="breadcrumb"></div>
+
+    <h1>⚙️ Arquitectura - Hydra</h1>
+
+    <p>
+      <em><small>Diseñada para ser rápida y modular.</small></em>
+    </p>
+
+    <div class="steps">
+
+      <div class="step">
+        <h3>Motor principal</h3>
+        <ul>
+          <li>Coordina los intentos de autenticación.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>Módulos por protocolo</h3>
+        <ul>
+          <li>Cada servicio (SSH, FTP, HTTP…) tiene su propio módulo.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>Multi-threading</h3>
+        <ul>
+          <li>Ejecuta múltiples intentos en paralelo para acelerar el proceso.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>Entrada de datos</h3>
+        <ul>
+          <li>Lista de usuarios</li>
+          <li>Lista de contraseñas (wordlists)</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>Análisis de respuestas</h3>
+        <ul>
+          <li>Detecta si un login fue exitoso o fallido según la respuesta del servicio.</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>

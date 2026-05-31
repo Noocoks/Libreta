@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Nico">
+  <meta name="keywords"
+    content="holehe, osint, enumeración de correos, account enumeration, reconocimiento de cuentas, seguridad informática">
+  <meta name="description"
+    content="Arquitectura y funcionamiento interno de Holehe para enumeración de correos y detección de cuentas registradas en OSINT">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Arquitectura - Holehe</title>
+  <link rel="stylesheet" href="../../../../../res/styles.css" type="text/css">
+</head>
+
+<body>
+
+  <div class="page" data-cat="osint">
+    <hr>
+
+    <h1>⚙️ Arquitectura - Holehe</h1>
+
+    <ol>
+
+      <li>
+        <strong>Prueba de registro (account enumeration)</strong> →
+        Envía solicitudes a formularios de registro o recuperación de contraseña de cada servicio.
+      </li>
+
+      <li>
+        <strong>Observa la respuesta del servidor</strong>
+
+        <ul>
+          <li>Detecta patrones como:</li>
+          <li>“Este email ya está registrado”</li>
+          <li>“No existe ninguna cuenta con este correo”</li>
+          <li>Diferencias en tiempos de respuesta</li>
+          <li>Cambios en mensajes de error</li>
+        </ul>
+
+      </li>
+
+      <li>
+        <strong>Clasificación del resultado</strong>
+
+        <ul>
+          <li>✅ <strong>Found</strong> → el email probablemente está registrado.</li>
+          <li>❌ <strong>Not found</strong> → no parece registrado.</li>
+          <li>⚠️ <strong>Rate limited / uncertain</strong> → el servicio bloqueó o no hay señal clara.</li>
+        </ul>
+
+      </li>
+
+    </ol>
+
+  </div>
+  <hr>
+
+</body>
+
+</html>

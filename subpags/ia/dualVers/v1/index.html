@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Nico">
+  <meta name="keywords" content="ia, openai, claude, anthropic, python, api">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Uso dual de OpenAI y Claude desde Python">
+
+  <title>Uso Dual V1</title>
+
+  <link rel="stylesheet" href="../../../res/styles.css" type="text/css">
+</head>
+
+<body>
+  <div class="page">
+    <hr>
+
+    <h1>Uso Dual (GPT + Claude) - IA</h1>
+
+    <p>
+      <em>
+        <strong>
+          V1 (Base) ->
+          <a href="Notas--IA--Uso_Dual_V2_41.html">V2</a>
+        </strong>
+      </em>
+    </p>
+    <hr>
+
+    <h2>Código</h2>
+
+    <pre>
+      <code>
+import os
+
+from dotenv import load_dotenv
+from openai import OpenAI
+from anthropic import Anthropic
+
+
+load_dotenv()
+
+
+openai_client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY")
+)
+
+anthropic_client = Anthropic(
+    api_key=os.getenv("ANTHROPIC_API_KEY")
+)
+
+
+def ask_openai(prompt):
+
+    response = client.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
+
+    return response.choices[0].message.content
+
+
+def ask_claude(prompt):
+
+    message = anthropic_client.messages.create(
+        model="claude-sonnet-4-0",
+        max_tokens=100,
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
+
+    return message.content[0].text
+
+
+model = input(
+    "Elige IA (openai / claude): "
+).strip().lower()
+
+prompt = input(
+    "Escribe tu pregunta: "
+)
+
+
+if model == "openai":
+
+    print("\nRespuesta OpenAI:\n")
+    print(ask_openai(prompt))
+
+
+elif model == "claude":
+
+    print("\nRespuesta Claude:\n")
+    print(ask_claude(prompt))
+
+
+else:
+
+    print(
+        "Modelo no válido. Usa 'openai' o 'claude'."
+    )
+      </code>
+    </pre>
+
+  </div>
+</body>
+
+</html>
