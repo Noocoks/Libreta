@@ -42,10 +42,29 @@
     /***************
      * EMOJIS
      ***************/
-    --icon-osint: "🔍";
-    --icon-fuerza-bruta: "🔨";
+    /*Categorías*/
+    --icon-ciberseguridad: "🛡️";
+    --icon-ia: "🧠";
+
+    /*Subcategorías CS*/
+    --icon-fuerza-bruta: "💀";
+    --icon-escaneo: "📡";
+    --icon-osint: "🔎";
     --icon-phishing: "🎣";
 
+    /*Herramientas CS*/
+    --icon-hydra: "🐉";
+    --icon-medusa: "🪼";
+    --icon-nmap: "🗺️";
+    --icon-legion: "🛰️";
+    --icon-holehe: "🕵️";
+    --icon-exiftool: "📷";
+    --icon-gophish: "🪝";
+    --icon-mailhog: "📨";
+
+    /*Subcategorías IA*/
+    --icon-openai: "🤖";
+    --icon-anthropic: "🧩";
 
 
 }
