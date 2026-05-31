@@ -13,11 +13,11 @@
               "name": "Hydra",
               "path": "subpags/ciberseguridad/adfb/hydra/index.html",
               "tags": [
+                "pentesting",
+                "credenciales",
+                "diccionario",
                 "ssh",
-                "ftp",
-                "fuerza-bruta",
-                "contraseñas",
-                "autenticación"
+                "ftp"
               ],
               "children": [
                 {
@@ -197,7 +197,6 @@
             "razonamiento"
           ]
         }
-        
       ]
     }
   ]

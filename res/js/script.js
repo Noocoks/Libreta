@@ -28,13 +28,15 @@ function navigate(file_path, push = true) {
 
             try {
 
+                var breadcrumbData = findNodePath(
+                    treeData.sections,
+                    file_path
+                );
+
                 iframe.contentWindow.postMessage({
                     type: "breadcrumb",
                     path: file_path,
-                    breadcrumb: findNodePath(
-                        treeData.sections,
-                        file_path
-                    )
+                    breadcrumb: breadcrumbData
                 }, "*");
 
             } catch (e) {
@@ -309,6 +311,16 @@ function searchByTag(tag) {
 
     if (!input) return;
 
+    /* toggle */
+    if (input.value === tag) {
+
+        input.value = "";
+
+        filterTree("");
+
+        return;
+    }
+
     input.value = tag;
 
     filterTree(tag);
@@ -371,6 +383,8 @@ function filterTree(search) {
     if (search === "") {
         initTreeState();
     }
+
+    syncFrameTags(search);
 }
 
 function filterTreeNode(li, search) {
@@ -504,16 +518,26 @@ function findNodePath(
     targetPath,
     currentPath
 ) {
+
     currentPath = currentPath || [];
 
+    targetPath = targetPath.replace(/^\/+/, "");
+
     for (var i = 0; i < nodes.length; i++) {
+
         var node = nodes[i];
+
+        var nodePath =
+            (node.path || "")
+                .replace(/^\/+/, "");
+
         var newPath =
             currentPath.concat(node);
 
-        if (node.path === targetPath) {
+        if (nodePath === targetPath) {
             return newPath;
         }
+
         if (node.children) {
 
             var result = findNodePath(
@@ -521,6 +545,7 @@ function findNodePath(
                 targetPath,
                 newPath
             );
+
             if (result) {
                 return result;
             }
@@ -528,6 +553,43 @@ function findNodePath(
     }
 
     return null;
+}
+
+/* ==============================
+   IFRAME -> PARENT NAVIGATION
+============================== */
+
+window.addEventListener("message", function (event) {
+
+    if (!event.data) return;
+
+    if (
+        event.data.type === "navigate" &&
+        event.data.path
+    ) {
+        navigate(
+            event.data.path,
+            true
+        );
+    }
+
+});
+
+/* ==============================
+   TAGS SYNC
+============================== */
+
+function syncFrameTags(tag) {
+
+    try {
+
+        getIframe().contentWindow.postMessage({
+            type: "highlight-tag",
+            tag: tag || ""
+        }, "*");
+
+    } catch (e) { }
+
 }
 
 /* ==============================
@@ -547,6 +609,21 @@ window.onload = function () {
 
         if (ev.key === "Escape") {
             toggle_tree_panel();
+        }
+
+        if (ev.key === "!") {
+
+            var input =
+                document.getElementById(
+                    "tree_search"
+                );
+
+            if (!input) return;
+
+            ev.preventDefault();
+
+            input.focus();
+            input.select();
         }
 
     };
