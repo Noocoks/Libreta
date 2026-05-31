@@ -57,6 +57,11 @@ function navigate(file_path, push = true) {
 }
 
 function changeFrame(file_path) {
+
+    file_path = file_path
+        .replace(/^\/Libreta\//, "")
+        .replace(/^\/+/, "");
+
     navigate(file_path, true);
 }
 
