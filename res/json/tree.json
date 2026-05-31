@@ -3,14 +3,17 @@
   "sections": [
     {
       "name": "Ciberseguridad",
+      "cat": "ciberseguridad",
       "path": "subpags/ciberseguridad/index.html",
       "children": [
         {
           "name": "Ataques de fuerza bruta",
+          "cat": "fuerza-bruta",
           "path": "subpags/ciberseguridad/adfb/index.html",
           "children": [
             {
               "name": "Hydra",
+              "cat": "hydra",
               "path": "subpags/ciberseguridad/adfb/hydra/index.html",
               "tags": [
                 "pentesting",
@@ -32,6 +35,7 @@
             },
             {
               "name": "Medusa",
+              "cat": "medusa",
               "path": "subpags/ciberseguridad/adfb/medusa/index.html",
               "tags": [
                 "ssh",
@@ -55,10 +59,12 @@
         },
         {
           "name": "Escaneo de redes y puertos",
+          "cat": "escaneo",
           "path": "subpags/ciberseguridad/efrp/index.html",
           "children": [
             {
               "name": "Legion",
+              "cat": "legion",
               "path": "subpags/ciberseguridad/efrp/legion/index.html",
               "tags": [
                 "enumeración",
@@ -70,6 +76,7 @@
             },
             {
               "name": "N/Zenmap",
+              "cat": "nmap",
               "path": "subpags/ciberseguridad/efrp/nmap/index.html",
               "tags": [
                 "nmap",
@@ -83,10 +90,12 @@
         },
         {
           "name": "OSINT",
+          "cat": "osint",
           "path": "subpags/ciberseguridad/osint/index.html",
           "children": [
             {
               "name": "Holehe",
+              "cat": "holehe",
               "path": "subpags/ciberseguridad/osint/holehe/index.html",
               "tags": [
                 "osint",
@@ -104,6 +113,7 @@
             },
             {
               "name": "ExifTool",
+              "cat": "exiftool",
               "path": "subpags/ciberseguridad/osint/exiftool/index.html",
               "tags": [
                 "metadatos",
@@ -123,10 +133,12 @@
         },
         {
           "name": "Phishing",
+          "cat": "phishing",
           "path": "subpags/ciberseguridad/phishing/index.html",
           "children": [
             {
               "name": "Gophish",
+              "cat": "gophish",
               "path": "subpags/ciberseguridad/phishing/gophish/index.html",
               "tags": [
                 "phishing",
@@ -152,6 +164,7 @@
             },
             {
               "name": "Mailhog",
+              "cat": "mailhog",
               "path": "subpags/ciberseguridad/phishing/mailhog/index.html",
               "tags": [
                 "smtp",
@@ -173,10 +186,12 @@
     },
     {
       "name": "IA",
+      "cat": "ia",
       "path": "subpags/ia/index.html",
       "children": [
         {
           "name": "OpenAI",
+          "cat": "openai",
           "path": "subpags/ia/openai/index.html",
           "tags": [
             "ia",
@@ -188,6 +203,7 @@
         },
         {
           "name": "Anthropic",
+          "cat": "anthropic",
           "path": "subpags/ia/anthropic/index.html",
           "tags": [
             "claude",

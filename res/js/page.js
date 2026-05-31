@@ -154,8 +154,6 @@ document.addEventListener("keydown", function (ev) {
     input.select();
 });
 
-
-
 /* ==============================
    TAGS INTERACTIVAS
    Selección, deselección y
@@ -244,3 +242,36 @@ document.addEventListener("click", function (ev) {
 
     window.parent.searchByTag(tag);
 });
+
+/* ==============================
+   
+============================== */
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        var h1 =
+            document.querySelector("h1");
+
+        if (!h1) return;
+
+        var cat =
+            document.body.dataset.cat;
+
+        if (!cat) return;
+
+        var icon =
+            getComputedStyle(
+                document.body
+            )
+            .getPropertyValue("--icon")
+            .trim();
+
+        if (!icon) return;
+
+        icon = icon.replaceAll('"', "");
+
+        h1.textContent =
+            icon + " " + h1.textContent;
+    }
+);

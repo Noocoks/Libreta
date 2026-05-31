@@ -189,6 +189,10 @@ function createTreeNode(item) {
 
     var li = document.createElement("li");
 
+    if (item.cat) {
+    li.dataset.cat = item.cat;
+}
+
     if (item.children && item.children.length) {
 
         var btn = document.createElement("button");
