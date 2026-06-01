@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -20,52 +20,92 @@
 </head>
 
 <body>
-  <div class="page" data-cat="exiftool">
+
+  <div class="page" data-cat="osint exiftool">
     <hr>
 
     <h1>ExifTool</h1>
 
+    <div class="node-tags">
+      <span class="tag">osint</span>
+      <span class="tag">metadatos</span>
+      <span class="tag">forense</span>
+      <span class="tag">gps</span>
+      <span class="tag">imágenes</span>
+    </div>
+
+    <br>
+
     <div class="box box--info">
       <p>
-        Es una herramienta <a href="../index.html">OSINT</a> de línea de comandos muy conocida para
-        leer, escribir y modificar metadatos en archivos multimedia y documentos.
+        <strong>ExifTool</strong> es una herramienta de
+        <span class="cat">
+          <a href="../index.html">OSINT</a>
+        </span>
+        utilizada para leer, escribir y modificar metadatos en archivos multimedia y documentos.
       </p>
     </div>
 
-    <p>Los objetivos principales de esta herramienta son:</p>
+    <p>
+      Es una de las herramientas más utilizadas para análisis forense,
+      investigación digital y auditorías relacionadas con información oculta en archivos.
+    </p>
 
-    <ul>
-      <li><em><strong>V</strong></em><em>er</em> información oculta (fecha, cámara, GPS, etc.)</li>
-      <li><em><strong>M</strong></em><em>odificar</em> datos de archivos</li>
-      <li><em><strong>E</strong></em><em>liminar</em> información privada</li>
-      <li><em><strong>A</strong></em><em>utomatizar</em> organización de archivos</li>
-      <li><em><strong>A</strong></em><em>poyar</em> análisis forense y verificación digital</li>
-    </ul>
+    <br>
     <hr>
 
-    <p>
-      <em>
-        <span class="section-title">Método de instalación:</span>
-      </em>
-    </p>
+    <h2>Casos de uso</h2>
 
-    <p><small>└─$ sudo apt update && sudo apt upgrade -y</small></p>
-    <p><small>└─$ sudo apt install libimage-exiftool-perl</small></p>
-    <p><small>└─$ exiftool -ver</small></p>
-    <p><small>└─$ exiftool img.jpg</small></p>
+    <div class="box">
+      <ul>
+        <li>Ver información oculta (fecha, cámara, GPS, etc.).</li>
+        <li>Modificar metadatos de archivos.</li>
+        <li>Eliminar información privada antes de compartir documentos o imágenes.</li>
+        <li>Automatizar la organización de archivos.</li>
+        <li>Apoyar análisis forense y verificación digital.</li>
+      </ul>
+    </div>
+
+    <br>
     <hr>
 
-    <p>
-      <em>
-        <span class="section-title">Vista:</span>
-      </em>
-    </p>
+    <h2>Instalación</h2>
 
-    <p>
-      <a href="./cmds/index.html">Comandos</a>
-    </p>
+    <div class="box">
+      <pre>
+
+  sudo apt update && sudo apt upgrade -y
+
+  sudo apt install libimage-exiftool-perl
+
+  exiftool -ver
+
+  exiftool imagen.jpg
+      </pre>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Recursos relacionados</h2>
+
+    <div class="box">
+      <ul>
+        <li>
+          <span class="cat">
+            <a href="./cmds/index.html">
+              Comandos
+            </a>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <br>
+    <hr>
 
   </div>
+
 </body>
 
 </html>

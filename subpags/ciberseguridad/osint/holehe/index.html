@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html>
 
 <head>
@@ -6,10 +7,10 @@
 
   <meta name="author" content="Nico">
 
-  <meta name="keywords" content="holehe, osint, correo, email, reconocimiento, investigación, cuentas, usuarios">
-
   <meta name="description"
     content="Holehe es una herramienta OSINT que permite comprobar automáticamente en qué servicios está registrado un correo electrónico.">
+
+  <meta name="keywords" content="holehe, osint, correo, email, reconocimiento, investigación, cuentas, usuarios">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -21,11 +22,10 @@
 
 <body>
 
-  <div class="page" data-cat="holehe">
+  <div class="page" data-cat="osint holehe">
     <hr>
 
-    <div id="breadcrumb"></div>
-
+    ```
     <h1>Holehe</h1>
 
     <div class="node-tags">
@@ -34,12 +34,11 @@
       <span class="tag">cuentas</span>
       <span class="tag">reconocimiento</span>
       <span class="tag">usuarios</span>
-
     </div>
+
     <br>
 
     <div class="box box--info">
-
       <p>
         <strong>Holehe</strong> es una herramienta de
         <span class="cat">
@@ -49,7 +48,6 @@
         electrónico está registrada en distintos servicios
         online.
       </p>
-
     </div>
 
     <p>
@@ -63,108 +61,115 @@
 
     <h2>Casos de uso</h2>
 
-    <ul>
+    <div class="box">
+      <ul>
 
-      <li>
-        <strong>Comprobación de registros</strong>
+        <li>
+          <strong>Comprobación de registros</strong>
 
-        <ul>
-          <li>
-            Verificar si un correo electrónico
-            existe en plataformas conocidas.
-          </li>
-        </ul>
-      </li>
+          <ul>
+            <li>
+              Verificar si un correo electrónico existe en plataformas conocidas.
+            </li>
+          </ul>
+        </li>
 
-      <li>
-        <strong>Investigación OSINT</strong>
+        <li>
+          <strong>Investigación OSINT</strong>
 
-        <ul>
-          <li>
-            Obtener información sobre la presencia
-            digital de un objetivo.
-          </li>
-        </ul>
-      </li>
+          <ul>
+            <li>
+              Obtener información sobre la presencia digital de un objetivo.
+            </li>
+          </ul>
+        </li>
 
-      <li>
-        <strong>Auditorías de seguridad</strong>
+        <li>
+          <strong>Auditorías de seguridad</strong>
 
-        <ul>
-          <li>
-            Detectar exposición de cuentas
-            asociadas a un correo.
-          </li>
-        </ul>
-      </li>
+          <ul>
+            <li>
+              Detectar exposición de cuentas asociadas a un correo.
+            </li>
+          </ul>
+        </li>
 
-      <li>
-        <strong>Gestión de identidad digital</strong>
+        <li>
+          <strong>Gestión de identidad digital</strong>
 
-        <ul>
-          <li>
-            Revisar servicios donde una dirección
-            de correo está siendo utilizada.
-          </li>
-        </ul>
-      </li>
+          <ul>
+            <li>
+              Revisar servicios donde una dirección de correo está siendo utilizada.
+            </li>
+          </ul>
+        </li>
 
-    </ul>
+      </ul>
+    </div>
 
     <br>
     <hr>
 
     <h2>Instalación</h2>
 
-    <pre>
+    <div class="box">
+      <pre>
 
-      sudo apt update && sudo apt upgrade -y
+  └─$ sudo apt update && sudo apt upgrade -y
 
-      sudo apt install python3 python3-pip git -y
+  └─$ sudo apt install python3 python3-pip git -y
 
-      git clone https://github.com/megadose/holehe.git
+  └─$ git clone https://github.com/megadose/holehe.git
 
-      cd holehe/
+  └─$ cd holehe/
 
-      sudo python3 setup.py install
+  └─$ sudo python3 setup.py install
 
-      holehe correo@ejemplo.com
-    </pre>
+  └─$ holehe [correo@ejemplo.com](mailto:correo@ejemplo.com)
+      </pre>
+    </div>
 
     <br>
     <hr>
 
-    <h2>
-      Ejemplo de uso
-    </h2>
+    <h2>Ejemplo de uso</h2>
 
-    <pre>
-      holehe usuario@dominio.com
-    </pre>
+    <div class="box">
+      <pre>
 
-    <p>
-      Holehe realizará comprobaciones automáticas en
-      múltiples servicios compatibles y mostrará cuáles
-      tienen una cuenta asociada al correo indicado.
-    </p>
+  └─$ holehe [usuario@dominio.com]
+      </pre>
+
+      <p>
+        Holehe realizará comprobaciones automáticas en múltiples servicios compatibles y mostrará cuáles tienen una
+        cuenta asociada al correo indicado.
+      </p>
+    </div>
 
     <br>
     <hr>
 
     <h2>Recursos relacionados</h2>
 
-    <ul>
+    <div class="box">
+      <ul>
 
-      <li>
-        <span class="cat">
-          <a href="./arq/index.html">
-            Arquitectura
-          </a></span>
-      </li>
+        <li>
+          <span class="cat">
+            <a href="./arq/index.html">
+              Arquitectura
+            </a>
+          </span>
+        </li>
 
-    </ul>
+      </ul>
+    </div>
+
+    <br>
+    <hr>
 
   </div>
+
 </body>
 
 </html>

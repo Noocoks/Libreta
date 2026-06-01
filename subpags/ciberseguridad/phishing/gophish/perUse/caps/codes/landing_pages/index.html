@@ -2,166 +2,247 @@
 <html>
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>HTML Landing Page</title>
-  <meta name="generator" content="CherryTree">
-  <link rel="stylesheet" href="../../../../../../../../res/styles.css" type="text/css" />
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+
+  <meta name="keywords" content="gophish, landing-page, credential-capture, html-form, post-request, phishing">
+
+  <meta name="description"
+    content="Código fuente y documentación de una Landing Page utilizada en simulaciones de Gophish para captura de credenciales en laboratorio.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Landing Page - Código</title>
+
+  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+  <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
-  <div class='page'>
-    <p>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;es&quot;&gt;&lt;head&gt;</p>
-    <p>&lt;meta charset=&quot;UTF-8&quot;/&gt;</p>
-    <p>&lt;title&gt;Corporate Access Portal&lt;/title&gt;</p>
-    <p></p>
-    <p>&lt;style&gt;</p>
-    <p> body {</p>
-    <p> margin: 0;</p>
-    <p> font-family: &quot;Segoe UI&quot;, Arial, sans-serif;</p>
-    <p> background: linear-gradient(135deg, #0b1220, #111827);</p>
-    <p> color: #e5e7eb;</p>
-    <p> display: flex;</p>
-    <p> justify-content: center;</p>
-    <p> align-items: center;</p>
-    <p> height: 100vh;</p>
-    <p> }</p>
-    <p></p>
-    <p> .card {</p>
-    <p> width: 380px;</p>
-    <p> background: rgba(17, 24, 39, 0.95);</p>
-    <p> padding: 35px;</p>
-    <p> border-radius: 14px;</p>
-    <p> box-shadow: 0 20px 40px rgba(0,0,0,0.6);</p>
-    <p> text-align: center;</p>
-    <p> }</p>
-    <p></p>
-    <p> .logo {</p>
-    <p> font-size: 18px;</p>
-    <p> font-weight: 600;</p>
-    <p> color: #60a5fa;</p>
-    <p> margin-bottom: 10px;</p>
-    <p> letter-spacing: 1px;</p>
-    <p> }</p>
-    <p></p>
-    <p> h2 {</p>
-    <p> margin: 10px 0;</p>
-    <p> font-size: 20px;</p>
-    <p> }</p>
-    <p></p>
-    <p> .subtitle {</p>
-    <p> font-size: 13px;</p>
-    <p> color: #9ca3af;</p>
-    <p> margin-bottom: 25px;</p>
-    <p> }</p>
-    <p></p>
-    <p> input {</p>
-    <p> width: 100%;</p>
-    <p> padding: 12px;</p>
-    <p> margin: 10px 0;</p>
-    <p> border-radius: 8px;</p>
-    <p> border: 1px solid #374151;</p>
-    <p> background: #111827;</p>
-    <p> color: white;</p>
-    <p> outline: none;</p>
-    <p> transition: 0.2s;</p>
-    <p> }</p>
-    <p></p>
-    <p> input:focus {</p>
-    <p> border-color: #3b82f6;</p>
-    <p> }</p>
-    <p></p>
-    <p> button {</p>
-    <p> width: 100%;</p>
-    <p> padding: 12px;</p>
-    <p> margin-top: 10px;</p>
-    <p> background: #2563eb;</p>
-    <p> border: none;</p>
-    <p> border-radius: 8px;</p>
-    <p> color: white;</p>
-    <p> font-weight: 600;</p>
-    <p> cursor: pointer;</p>
-    <p> transition: 0.2s;</p>
-    <p> }</p>
-    <p></p>
-    <p> button:hover {</p>
-    <p> background: #1d4ed8;</p>
-    <p> }</p>
-    <p></p>
-    <p> .footer {</p>
-    <p> margin-top: 18px;</p>
-    <p> font-size: 11px;</p>
-    <p> color: #6b7280;</p>
-    <p> }</p>
-    <p></p>
-    <p> .status {</p>
-    <p> font-size: 12px;</p>
-    <p> color: #94a3b8;</p>
-    <p> margin-bottom: 15px;</p>
-    <p> }</p>
-    <p></p>
-    <p> .spinner {</p>
-    <p> display: none;</p>
-    <p> margin: 15px auto;</p>
-    <p> width: 38px;</p>
-    <p> height: 38px;</p>
-    <p> border: 4px solid #334155;</p>
-    <p> border-top: 4px solid #60a5fa;</p>
-    <p> border-radius: 50%;</p>
-    <p> animation: spin 1s linear infinite;</p>
-    <p> }</p>
-    <p></p>
-    <p> @keyframes spin {</p>
-    <p> 100% { transform: rotate(360deg); }</p>
-    <p> }</p>
-    <p></p>
-    <p>&lt;/style&gt;</p>
-    <p>&lt;/head&gt;</p>
-    <p></p>
-    <p>&lt;body&gt;</p>
-    <p></p>
-    <p>&lt;div class=&quot;card&quot;&gt;</p>
-    <p></p>
-    <p> &lt;div class=&quot;logo&quot;&gt;Secure Corporate Portal&lt;/div&gt;</p>
-    <p></p>
-    <p> &lt;h2&gt;Acceso autenticado&lt;/h2&gt;</p>
-    <p></p>
-    <p> &lt;div class=&quot;status&quot;&gt;</p>
-    <p> Verificación de seguridad requerida antes de continuar</p>
-    <p> &lt;/div&gt;</p>
-    <p></p>
-    <p> &lt;form id=&quot;loginForm&quot; method=&quot;POST&quot; action=&quot;&quot;&gt;</p>
-    <p></p>
-    <p> &lt;input type=&quot;text&quot; name=&quot;username&quot; placeholder=&quot;Usuario corporativo&quot;
-      required=&quot;&quot;/&gt;</p>
-    <p></p>
-    <p> &lt;input type=&quot;password&quot; name=&quot;password&quot; placeholder=&quot;Contraseña&quot;
-      required=&quot;&quot;/&gt;</p>
-    <p></p>
-    <p> &lt;button type=&quot;submit&quot;&gt;Iniciar sesión&lt;/button&gt;</p>
-    <p></p>
-    <p> &lt;/form&gt;</p>
-    <p></p>
-    <p> &lt;div class=&quot;spinner&quot; id=&quot;spinner&quot;&gt;&lt;/div&gt;</p>
-    <p></p>
-    <p> &lt;div class=&quot;footer&quot;&gt;</p>
-    <p> Sistema de autenticación segura · Acceso restringido</p>
-    <p> &lt;/div&gt;</p>
-    <p></p>
-    <p>&lt;/div&gt;</p>
-    <p></p>
-    <p>&lt;script&gt;</p>
-    <p>document.getElementById(&quot;loginForm&quot;).addEventListener(&quot;submit&quot;, function() {</p>
-    <p> </p>
-    <p> // deja que GoPhish capture el POST</p>
-    <p> setTimeout(() =&gt; {</p>
-    <p> document.getElementById(&quot;loginForm&quot;).style.display = &quot;none&quot;;</p>
-    <p> document.getElementById(&quot;spinner&quot;).style.display = &quot;block&quot;;</p>
-    <p> }, 150);</p>
-    <p></p>
-    <p>});</p>
-    <p>&lt;/script&gt;</p>
-    <p>&lt;/body&gt;</p>
-    <p>&lt;/html&gt;</p>
+  <div class='page' data-cat="phishing code">
+    <h1>Landing Page - Código</h1>
+
+    <div class="box box--info">
+      <p>
+        Landing page utilizada durante las simulaciones
+        de Gophish para capturar credenciales y registrar
+        interacciones de usuarios en laboratorio.
+      </p>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Resumen</h2>
+
+    <div class="box">
+      <ul>
+        <li>Interfaz corporativa simulada.</li>
+        <li>Formulario de autenticación.</li>
+        <li>Captura de credenciales mediante POST.</li>
+        <li>Indicador visual de carga tras el envío.</li>
+      </ul>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Notas</h2>
+
+    <div class="box">
+      <h3>Formulario</h3>
+
+      <p>
+        Los campos <strong>username</strong> y
+        <strong>password</strong> son procesados
+        por Gophish cuando se habilita la captura
+        de datos en la Landing Page.
+      </p>
+    </div>
+
+    <br>
+
+    <div class="box">
+      <h3>Captura de credenciales</h3>
+
+      <p>
+        El formulario utiliza el método POST para
+        enviar la información introducida por el usuario.
+      </p>
+    </div>
+
+    <br>
+
+    <div class="box">
+      <h3>Spinner</h3>
+
+      <p>
+        Tras enviar el formulario se oculta la interfaz
+        y se muestra una animación de carga para simular
+        un proceso de validación.
+      </p>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Código fuente</h2>
+
+    <div class="box">
+
+      <!-- Lading Page code -->
+      <pre>
+
+  &lt;!DOCTYPE html&gt;
+  &lt;html lang=&quot;es&quot;&gt;
+    &lt;head&gt;
+      &lt;meta charset=&quot;UTF-8&quot;/&gt;
+      &lt;title&gt;Corporate Access Portal&lt;/title&gt;
+      &lt;style&gt;
+          body {
+          margin: 0;
+          font-family: &quot;Segoe UI&quot;, Arial, sans-serif;
+          background: linear-gradient(135deg, #0b1220, #111827);
+          color: #e5e7eb;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          }
+
+          .card {
+          width: 380px;
+          background: rgba(17, 24, 39, 0.95);
+          padding: 35px;
+          border-radius: 14px;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+          text-align: center;
+          }
+
+          .logo {
+          font-size: 18px;
+          font-weight: 600;
+          color: #60a5fa;
+          margin-bottom: 10px;
+          letter-spacing: 1px;
+          }
+
+          h2 {
+          margin: 10px 0;
+          font-size: 20px;
+          }
+
+          .subtitle {
+          font-size: 13px;
+          color: #9ca3af;
+          margin-bottom: 25px;
+          }
+
+          input {
+          width: 100%;
+          padding: 12px;
+          margin: 10px 0;
+          border-radius: 8px;
+          border: 1px solid #374151;
+          background: #111827;
+          color: white;
+          outline: none;
+          transition: 0.2s;
+          }
+
+          input:focus {
+          border-color: #3b82f6;
+          }
+
+          button {
+          width: 100%;
+          padding: 12px;
+          margin-top: 10px;
+          background: #2563eb;
+          border: none;
+          border-radius: 8px;
+          color: white;
+          font-weight: 600;
+          cursor: pointer;
+          transition: 0.2s;
+          }
+
+          button:hover {
+          background: #1d4ed8;
+          }
+
+          .footer {
+          margin-top: 18px;
+          font-size: 11px;
+          color: #6b7280;
+          }
+
+          .status {
+          font-size: 12px;
+          color: #94a3b8;
+          margin-bottom: 15px;
+          }
+
+          .spinner {
+          display: none;
+          margin: 15px auto;
+          width: 38px;
+          height: 38px;
+          border: 4px solid #334155;
+          border-top: 4px solid #60a5fa;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          }
+
+          @keyframes spin {
+          100% { transform: rotate(360deg); }
+          }
+
+      &lt;/style&gt;
+    &lt;/head&gt;
+        
+    &lt;body&gt;
+      &lt;div class=&quot;card&quot;&gt;
+      &lt;div class=&quot;logo&quot;&gt;Secure Corporate Portal&lt;/div&gt;
+        
+      &lt;h2&gt;Acceso autenticado&lt;/h2&gt;
+        
+      &lt;div class=&quot;status&quot;&gt;
+        &lt;p&gt;Verificación de seguridad requerida antes de continuar&lt;/p&gt;
+      &lt;/div&gt;
+        
+      &lt;form id=&quot;loginForm&quot; method=&quot;POST&quot; action=&quot;&quot;&gt;
+        &lt;input type=&quot;text&quot; name=&quot;username&quot; placeholder=&quot;Usuario corporativo&quot;equired=&quot;&quot;/&gt;
+        &lt;input type=&quot;password&quot; name=&quot;password&quot; placeholder=&quot;Contraseña&quot;equired=&quot;&quot;/&gt;
+        &lt;button type=&quot;submit&quot;&gt;Iniciar sesión&lt;/button&gt;
+      &lt;/form&gt;
+
+      &lt;div class=&quot;spinner&quot; id=&quot;spinner&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;footer&quot;&gt;
+          &lt;p&gt;Sistema de autenticación segura · Acceso restringido&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;script&gt;
+        document.getElementById(&quot;loginForm&quot;).addEventListener(&quot;submit&quot;, function() {
+         
+          // deja que GoPhish capture el POST
+          setTimeout(() =&gt; {
+          document.getElementById(&quot;loginForm&quot;).style.display = &quot;none&quot;;
+          document.getElementById(&quot;spinner&quot;).style.display = &quot;block&quot;;
+          }, 150);
+        });
+      &lt;/script&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+      </pre>
+    </div>
+
+    <br>
+    <hr>
+
+
   </div>
 </body>
 

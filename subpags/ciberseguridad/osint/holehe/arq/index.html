@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html>
 
 <head>
@@ -22,46 +23,58 @@
 
 <body>
 
-  <div class="page" data-cat="holehe">
+  <div class="page" data-cat="osint holehe arq">
     <hr>
 
-    <h1>⚙️ Arquitectura - Holehe</h1>
+    <h1>Arquitectura - Holehe</h1>
 
-    <ol>
+    <p>
+      <em><small>Basada en técnicas de account enumeration y análisis de respuestas.</small></em>
+    </p>
 
-      <li>
-        <strong>Prueba de registro (account enumeration)</strong> →
-        Envía solicitudes a formularios de registro o recuperación de contraseña de cada servicio.
-      </li>
+    <br>
 
-      <li>
-        <strong>Observa la respuesta del servidor</strong>
+    <div class="box">
+      <h3>Prueba de registro (Account Enumeration)</h3>
 
-        <ul>
-          <li>Detecta patrones como:</li>
-          <li>“Este email ya está registrado”</li>
-          <li>“No existe ninguna cuenta con este correo”</li>
-          <li>Diferencias en tiempos de respuesta</li>
-          <li>Cambios en mensajes de error</li>
-        </ul>
+      <ul>
+        <li>
+          Envía solicitudes a formularios de registro o recuperación de contraseña de cada servicio.
+        </li>
+      </ul>
+    </div>
 
-      </li>
+    <br>
 
-      <li>
-        <strong>Clasificación del resultado</strong>
+    <div class="box">
+      <h3>Observación de respuestas</h3>
 
-        <ul>
-          <li>✅ <strong>Found</strong> → el email probablemente está registrado.</li>
-          <li>❌ <strong>Not found</strong> → no parece registrado.</li>
-          <li>⚠️ <strong>Rate limited / uncertain</strong> → el servicio bloqueó o no hay señal clara.</li>
-        </ul>
+      <ul>
+        <li>Detecta patrones en las respuestas del servidor.</li>
+        <li>Mensajes como "Este email ya está registrado".</li>
+        <li>Mensajes como "No existe ninguna cuenta con este correo".</li>
+        <li>Diferencias en tiempos de respuesta.</li>
+        <li>Cambios en mensajes de error.</li>
+      </ul>
+    </div>
 
-      </li>
+    <br>
 
-    </ol>
+    <div class="box">
+      <h3>Clasificación del resultado</h3>
+
+      <ul>
+        <li>✅ <strong>Found</strong> → el email probablemente está registrado.</li>
+        <li>❌ <strong>Not found</strong> → no parece registrado.</li>
+        <li>⚠️ <strong>Rate limited / uncertain</strong> → el servicio bloqueó la consulta o no existe una señal clara.
+        </li>
+      </ul>
+    </div>
+
+    <br>
+    <hr>
 
   </div>
-  <hr>
 
 </body>
 

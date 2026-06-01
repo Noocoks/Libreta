@@ -25,10 +25,12 @@
               "children": [
                 {
                   "name": "Arquitectura",
+                  "cat": "arq",
                   "path": "subpags/ciberseguridad/adfb/hydra/arq/index.html"
                 },
                 {
                   "name": "Laboratorio",
+                  "cat": "lab",
                   "path": "subpags/ciberseguridad/adfb/hydra/lab/index.html"
                 }
               ]
@@ -47,10 +49,12 @@
               "children": [
                 {
                   "name": "Arquitectura",
+                  "cat": "arq",
                   "path": "subpags/ciberseguridad/adfb/medusa/arq/index.html"
                 },
                 {
                   "name": "Laboratorio",
+                  "cat": "lab",
                   "path": "subpags/ciberseguridad/adfb/medusa/lab/index.html"
                 }
               ]
@@ -107,6 +111,7 @@
               "children": [
                 {
                   "name": "Arquitectura",
+                  "cat": "arq",
                   "path": "subpags/ciberseguridad/osint/holehe/arq/index.html"
                 }
               ]
@@ -125,6 +130,7 @@
               "children": [
                 {
                   "name": "Comandos Útiles",
+                  "cat": "cmds",
                   "path": "subpags/ciberseguridad/osint/exiftool/cmds/index.html"
                 }
               ]
@@ -150,15 +156,37 @@
               "children": [
                 {
                   "name": "Arquitectura",
+                  "cat": "arq",
                   "path": "subpags/ciberseguridad/phishing/gophish/arq/index.html"
                 },
                 {
                   "name": "Laboratorio",
+                  "cat": "lab",
                   "path": "subpags/ciberseguridad/phishing/gophish/lab/index.html"
                 },
                 {
                   "name": "Uso Personal",
-                  "path": "subpags/ciberseguridad/phishing/gophish/perUse/index.html"
+                  "cat": "peruse",
+                  "path": "subpags/ciberseguridad/phishing/gophish/perUse/index.html",
+                  "children": [
+                    {
+                      "name": "Ejemplo Practico",
+                      "cat": "ejem",
+                      "path": "subpags/ciberseguridad/phishing/gophish/perUse/caps/index.html",
+                      "children": [
+                        {
+                          "name": "Mail Template",
+                          "cat": "code",
+                          "path": "subpags/ciberseguridad/phishing/gophish/perUse/caps/codes/mail_templates/index.html"
+                        },
+                        {
+                          "name": "Landing Page",
+                          "cat": "code",
+                          "path": "subpags/ciberseguridad/phishing/gophish/perUse/caps/codes/landing_pages/index.html"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -176,6 +204,7 @@
               "children": [
                 {
                   "name": "Inicialización",
+                  "cat": "ini",
                   "path": "subpags/ciberseguridad/phishing/mailhog/ini/index.html"
                 }
               ]
@@ -195,9 +224,9 @@
           "path": "subpags/ia/openai/index.html",
           "tags": [
             "ia",
-            "gpt",
             "llm",
             "api",
+            "multiuso",
             "chatbot"
           ]
         },
@@ -206,10 +235,10 @@
           "cat": "anthropic",
           "path": "subpags/ia/anthropic/index.html",
           "tags": [
-            "claude",
             "ia",
             "llm",
             "api",
+            "code",
             "razonamiento"
           ]
         }

@@ -2,44 +2,130 @@
 <html>
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+
+  <meta name="keywords"
+    content="mailhog, phishing, smtp, correo, testing, desarrollo, email">
+
+  <meta name="description"
+    content="MailHog es un servidor SMTP de pruebas utilizado para capturar y visualizar correos electrónicos sin enviarlos a internet.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>MailHog</title>
-  <meta name="generator" content="CherryTree">
-  
-    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+
+  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
   <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
-  <div class='page' data-cat="mailhog">
-    <p>───────────────────────────────────────────────────────────────────────────────</p>
-    <p><strong>
-        <h1>MailHog</h1>
-      </strong></p>
-    <p>┌─────────────────────────────────────────────────────────────────────────────┐</p>
-    <p>│ <strong>Es una herramienta para desarrollo (</strong><strong><a
-          href="../index.html">phishing</a></strong><strong>) que simula un servidor de correo
-        electrónico</strong>. │</p>
-    <p>└─────────────────────────────────────────────────────────────────────────────┘</p>
-    <p></p>
-    <p>Su <strong>función principal </strong>es <strong>capturar</strong> los <strong>emails</strong> que envía tu
-      aplicación <strong>SIN</strong> enviarlos realmente a internet.
-    <ul>
-      <li><em><strong>S</strong></em><em>imula</em> tu app configurada como servidor.</li>
-      <li><em><strong>S</strong></em><em>MTP</em> usado cuando la app “envía un email”, MailHog lo recibe.</li>
-      <li><em><strong>I</strong></em><em>nterfazWeb</em> de MailHog usada para visualizar los correos.
-        <small>(Generalmente </small><a href="http://localhost:8025)">http://localhost:8025)</a><small>.</small></li>
-    </ul>
+
+  <div class="page" data-cat="phishing mailhog">
+    <hr>
+
+    <h1>MailHog</h1>
+
+    <div class="node-tags">
+      <span class="tag">phishing</span>
+      <span class="tag">smtp</span>
+      <span class="tag">correo</span>
+      <span class="tag">testing</span>
+      <span class="tag">desarrollo</span>
+    </div>
+
+    <br>
+
+    <div class="box box--info">
+      <p>
+        <strong>MailHog</strong> es una herramienta utilizada en
+        <span class="cat">
+          <a href="../index.html">Phishing</a>
+        </span>
+        y desarrollo para simular un servidor de correo electrónico.
+      </p>
+    </div>
+
+    <p>
+      Su función principal es capturar correos enviados por aplicaciones sin
+      que estos sean enviados realmente a internet.
     </p>
-    <p></p>
-    <p><em><strong><sub>/*Ideal para desarrollo porque evita enviar correos reales mientras pruebas notificaciones,
-            registros, etc.*/</sub></strong></em></p>
-    <p></p>
-    <p>───────────────────────────────────────────────────────────────────────────────</p>
-    <p></p>
-    <p><em><span style="color:#1a5fb4;text-decoration:underline;">Vista:</span></em></p>
-    <p><a href="./ini/index.html">Ini</a><small>.</small></p>
+
+    <br>
+    <hr>
+
+    <h2>Funcionamiento</h2>
+
+    <div class="box">
+      <ul>
+        <li>Simula un servidor SMTP para aplicaciones.</li>
+        <li>Recibe todos los correos enviados durante pruebas.</li>
+        <li>Permite visualizar mensajes desde una interfaz web.</li>
+        <li>Evita el envío accidental de correos reales.</li>
+      </ul>
+    </div>
+
+    <br>
+
+    <h3>Interfaz web</h3>
+
+    <div class="box">
+      <p>
+        Normalmente se encuentra disponible en:
+      </p>
+
+      <pre>
+
+  http://localhost:8025
+      </pre>
+    </div>
+
+    <p>
+      Desde esta interfaz pueden revisarse mensajes, cabeceras, adjuntos y
+      contenido HTML de los correos capturados.
+    </p>
+
+    <br>
+    <hr>
+
+    <h2>Casos de uso</h2>
+
+    <div class="box">
+      <ul>
+        <li>Pruebas de campañas de phishing en laboratorio.</li>
+        <li>Verificación de correos automáticos.</li>
+        <li>Pruebas de registro y recuperación de cuentas.</li>
+        <li>Desarrollo de aplicaciones con funcionalidades de correo.</li>
+      </ul>
+    </div>
+
+    <p>
+      <em><sub>/* Ideal para pruebas porque evita enviar correos reales mientras se desarrolla o audita una aplicación. */</sub></em>
+    </p>
+
+    <br>
+    <hr>
+
+    <h2>Recursos relacionados</h2>
+
+    <div class="box">
+      <ul>
+        <li>
+          <span class="cat">
+            <a href="./ini/index.html">
+              Instalación
+            </a>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <br>
+    <hr>
+
   </div>
+
 </body>
 
 </html>

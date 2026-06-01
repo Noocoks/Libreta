@@ -2,87 +2,110 @@
 <html>
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Laboratorio</title>
-  <meta name="generator" content="CherryTree">
-    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+
+  <meta name="keywords" content="gophish, laboratorio, phishing, campañas, smtp, entrenamiento">
+
+  <meta name="description"
+    content="Laboratorio práctico de Gophish para simulación de campañas de phishing en entornos controlados.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Laboratorio - Gophish</title>
+
+  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
   <script src="/Libreta/res/js/page.js"></script>
 </head>
 
-
 <body>
-  <div class="page" data-cat="gophish">
+
+  <div class="page" data-cat="phishing gophish lab">
+    <hr>
+
     <h1>Laboratorio - Gophish</h1>
 
-    <ol>
-      <li>
-        <strong>
-          <span style="color:#1a5fb4;">1.</span> Preparación del entorno
-        </strong>
+    <div class="node-tags">
+      <span class="tag">smtp</span>
+      <span class="tag">landing-page</span>
+      <span class="tag">email-template</span>
+      <span class="tag">tracking</span>
+      <span class="tag">reporting</span>
+    </div>
 
-        <ul>
-          <li>Máquina local o virtual <small>(se recomienda usar una VM)</small>.</li>
-          <li>Red aislada o entorno de pruebas.</li>
-        </ul>
-      </li>
+    <br>
 
+    <div class="box box--info">
+      <p>
+        Disclaimer: Entorno controlado para realizar simulaciones de phishing y estudiar
+        el comportamiento de los usuarios sin afectar sistemas reales.
+      </p>
+    </div>
 
-      <li>
-        <strong>
-          <span style="color:#1a5fb4;">2.</span> Configurar el sistema
-        </strong>
+    <br>
+    <hr>
 
-        <ul>
-          <li>Definir dominio o IP de laboratorio.</li>
-          <li>Configurar un método de envío de correos <small>(SMTP de pruebas)</small>.</li>
-        </ul>
-      </li>
+    <h2>Preparación del entorno</h2>
 
+    <div class="box">
+      <ul>
+        <li>Máquina local o virtual.</li>
+        <li>Red aislada o entorno de pruebas.</li>
+      </ul>
+    </div>
 
-      <li>
-        <strong>
-          <span style="color:#1a5fb4;">3.</span> Crear una campaña
-        </strong>
+    <br>
 
-        <ul>
-          <li>Diseñar el email <small>(plantilla)</small>.</li>
-          <li>Crear una landing page simulada.</li>
-          <li>
-            Definir un grupo de usuarios
-            <small>(en laboratorio pueden ser cuentas de prueba)</small>.
-          </li>
-        </ul>
-      </li>
+    <div class="box">
+      <h3>Configuración inicial</h3>
 
+      <ul>
+        <li>Definir dominio o IP de laboratorio.</li>
+        <li>Configurar un servidor SMTP de pruebas.</li>
+      </ul>
+    </div>
 
-      <li>
-        <strong>
-          <span style="color:#1a5fb4;">4.</span> Ejecutar la simulación
-        </strong>
+    <br>
 
-        <ul>
-          <li>Enviar los correos.</li>
-          <li>Monitorizar la actividad en tiempo real.</li>
-        </ul>
-      </li>
+    <div class="box">
+      <h3>Creación de campaña</h3>
 
+      <ul>
+        <li>Diseñar la plantilla de correo.</li>
+        <li>Crear una landing page simulada.</li>
+        <li>Definir grupos de usuarios de prueba.</li>
+      </ul>
+    </div>
 
-      <li>
-        <strong>
-          <span style="color:#1a5fb4;">5.</span> Analizar resultados
-        </strong>
+    <br>
 
-        <ul>
-          <li>Tasa de apertura.</li>
-          <li>Tasa de clics.</li>
-          <li>Interacciones registradas.</li>
-        </ul>
-      </li>
-    </ol>
+    <div class="box">
+      <h3>Ejecución</h3>
+
+      <ul>
+        <li>Enviar la campaña.</li>
+        <li>Monitorizar la actividad en tiempo real.</li>
+      </ul>
+    </div>
+
+    <br>
+
+    <div class="box">
+      <h3>Análisis</h3>
+
+      <ul>
+        <li>Tasa de apertura.</li>
+        <li>Tasa de clics.</li>
+        <li>Interacciones registradas.</li>
+      </ul>
+    </div>
+
+    <br>
+    <hr>
 
   </div>
-</body>
-```
 
+</body>
 
 </html>

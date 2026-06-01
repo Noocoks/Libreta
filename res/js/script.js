@@ -189,9 +189,10 @@ function createTreeNode(item) {
 
     var li = document.createElement("li");
 
+    /* categoría para iconos */
     if (item.cat) {
-    li.dataset.cat = item.cat;
-}
+        li.dataset.cat = item.cat;
+    }
 
     if (item.children && item.children.length) {
 
@@ -209,7 +210,6 @@ function createTreeNode(item) {
     var link = document.createElement("a");
 
     link.href = "#";
-
     link.textContent = item.name;
 
     link.onclick = function (e) {
@@ -262,7 +262,6 @@ function createTreeNode(item) {
         }
 
         li.appendChild(ul);
-
     }
 
     return li;
@@ -654,3 +653,6 @@ window.onload = function () {
         panels.insertBefore(btn, panels.children[1]);
     }
 };
+
+
+console.log("script.js cargado");

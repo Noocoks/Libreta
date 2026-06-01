@@ -1,81 +1,184 @@
 <!doctype html>
-<html>
+<html lang="es">
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Caps</title>
-  <meta name="generator" content="CherryTree">
-  <link rel="stylesheet" href="../../../../../../res/styles.css" type="text/css" />
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="keywords"
+    content="gophish, campaign, smtp-profile, landing-page, mail-template, credential-capture">
+
+  <meta name="description"
+    content="Capturas y configuración de una campaña local de Gophish junto a MailHog.">
+
+  <title>Uso Personal - Caps - Gophish</title>
+
+  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+  <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
-  <div class='page'>
-    <p>
-      <strong>
-        <h1>Uso Personal - Caps - Gophish</h1>
-      </strong>
-    </p>
 
-    <p>
-      Cada imágen es la config de la prueba inicial que hice por primera vez de forma local
-      junto a la herramienta <a href="../../../mailhog/index.html">MailHog</a>.
-    </p>
+  <div class="page" data-cat="phishing gophish ejem">
+    <hr>
+
+    <h1>Uso Personal - Ejemplo practico - Gophish</h1>
+    
+    <div class="box box--info">
+      <p>
+        Disclaimer: Capturas correspondientes a la primera configuración
+        local realizada con
+        <span class="cat">
+          <a href="../../index.html">
+            Gophish
+          </a>
+        </span> junto a
+        <span class="cat">
+          <a href="../../../mailhog/index.html">
+            MailHog
+          </a>
+        </span>
+        en un entorno de laboratorio.
+      </p>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Índice</h2>
+
+    <div class="box">
+      <ul>
+        <li>Campaña</li>
+        <li>Grupos</li>
+        <li>Página de phishing</li>
+        <li>Landing Page</li>
+        <li>Perfil de envío</li>
+      </ul>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Configuración</h2>
+
+    <div class="box box--media">
+      <h3>Campaña</h3>
+
+      <p>
+        Una vez completados los apartados anteriores,
+        únicamente será necesario rellenar los campos
+        restantes prestando especial atención a la URL
+        utilizada durante la simulación.
+      </p>
+
+      <img src="/Libreta/images/14-1.png"
+        alt="Configuración de campaña en Gophish">
+    </div>
+
     <br>
 
-    <p> Índice.
-    <ol>
-      <li><a href="./index.html#Gophish / Uso / 1. Campaña">Campaña</a>. (Final)</li>
-      <li><a href="./index.html#Gophish / Uso / 2. Grupos">Grupos</a>.</li>
-      <li><a href="./index.html#Gophish / Uso / 3. Página">Página del Phishing</a>.</li>
-      <li><a href="./index.html#Gophish / Uso / 4. Landing Page">Landing Page</a>.</li>
-      <li><a href="./index.html#Gophish / Uso / 5. Perfiles de envio">Perfil de envío</a>.</li>
-    </ol>
-    </p>
+    <div class="box box--media">
+      <h3>Grupos</h3>
+
+      <p>
+        Apartado destinado a la definición de los
+        destinatarios mediante nombre, apellidos
+        y correo electrónico.
+      </p>
+
+      <img src="/Libreta/images/14-2.png"
+        alt="Configuración de grupos">
+    </div>
+
     <br>
 
-    <p><a name="Gophish / Uso / 1. Campaña"></a>1. Campaña.</p>
-    <p> Una vez vuelvas aquí desde abajo del todo, solo tienes que rellenar todos los huecos que falten sin equivocarte
-      en la URL, porque es la zona que más problemas te va a dar a la hora de configurar, como en este caso recomiendo
-      usar el puesto 8080:8080.</p>
-    <p><img src="../../../../../../images/14-1.png" alt="images/14-1.png" /></p>
-    <br><br>
+    <div class="box box--media">
+      <h3>Página de phishing</h3>
 
-    <p><a name="Gophish / Uso / 2. Grupos"></a>2. Grupos.</p>
-    <p> Aquí añades a la gente que quieras enviar el correo; añadiendo nombre, apellido y correo.</p>
-    <p><img src="../../../../../../images/14-2.png" alt="images/14-2.png" /></p>
-    <br><br>
+      <p>
+        Plantilla de correo que recibirá el usuario
+        objetivo durante la simulación.
+      </p>
 
-    <p>
-      <a name="Gophish / Uso / 3. Página"></a>3. Página del Phishing.
-      <a href="./codes/mail_templates/index.html">Código</a>
-    </p>
-    <p>En este paso vas a hacer la página que va a ver la persona a la que le mandemos el ataque.</p>
-    <p><img src="../../../../../../images/14-3.png" alt="images/14-3.png" /></p>
-    <br><br>
+      <p>
+        <span class="cat">
+          <a href="./codes/mail_templates/index.html">
+            Código fuente
+          </a>
+        </span>
+      </p>
 
-    <p>
-      <a name="Gophish / Uso / 4. Landing Page"></a>4. Landing Page.
-      <a href="./codes/landing_pages/index.html">Código</a>
-    </p>
-    <p>En este paso vas a hacer la página que va a ver la persona a la que le mandemos el ataque.</p>
-    <p>Teniendo en cuenta que vas a dejar activadas las siguientes opciones:</p>
-    <p>&quot;☑ Capture Submited Data&quot;</p>
-    <p>&quot;☑ Capture Passwords&quot;</p>
-    <p><img src="../../../../../../images/14-4.png" alt="images/14-4.png" /></p>
-    <br><br>
+      <img src="/Libreta/images/14-3.png"
+        alt="Plantilla de correo">
+    </div>
 
-    <p><a name="Gophish / Uso / 5. Perfiles de envio"></a>5. Perfil de envío.</p>
-    <p>
-      Por último configuramos la forma en la que enviaremos los correos, en mi caso puse un nombre según mi
-      herramienta. Y de correo simplemente puedes inventarte uno y acabar añadiendo el puerto local que al iniciar
-      nuestra herramienta de pentesting hemos declarado para que escuche.
-    </p>
-    <p><img src="../../../../../../images/14-5.png" alt="images/14-5.png" /></p>
     <br>
 
-    <p>Ahora solo queda que vuelvas al punto 1 y acabes de rellenar la información faltante.</p>
-    <p><a href="./index.html#Gophish / Uso /  1. Campaña">(Volver arriba)</a></p>
+    <div class="box box--media">
+      <h3>Landing Page</h3>
+
+      <p>
+        Página mostrada al usuario tras acceder al enlace
+        contenido en el correo.
+      </p>
+
+      <p>
+        Se utilizaron las opciones:
+      </p>
+
+      <ul>
+        <li>Capture Submitted Data</li>
+        <li>Capture Passwords</li>
+      </ul>
+
+      <p>
+        <span class="cat">
+          <a href="./codes/landing_pages/index.html">
+            Código fuente
+          </a>
+        </span>
+      </p>
+
+      <img src="/Libreta/images/14-4.png"
+        alt="Landing Page">
+    </div>
+
+    <br>
+
+    <div class="box box--media">
+      <h3>Perfil de envío</h3>
+
+      <p>
+        Configuración SMTP utilizada para el envío
+        de correos mediante MailHog en entorno local.
+      </p>
+
+      <img src="/Libreta/images/14-5.png"
+        alt="Perfil SMTP">
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div class="box">
+      <h3>Resultado</h3>
+
+      <p>
+        Tras completar todos los apartados anteriores,
+        únicamente será necesario volver al apartado
+        de campaña y finalizar la configuración.
+      </p>
+    </div>
+
+    <br>
+    <hr>
+
   </div>
+
 </body>
 
 </html>

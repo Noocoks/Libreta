@@ -18,10 +18,8 @@
 
 <body>
 
-  <div class="page" data-cat="hydra">
+  <div class="page" data-cat="fuerza-bruta hydra arq">
     <hr>
-
-    <div id="breadcrumb"></div>
 
     <h1>Arquitectura - Hydra</h1>
 
@@ -29,44 +27,55 @@
       <em><small>Diseñada para ser rápida y modular.</small></em>
     </p>
 
-    <div class="steps">
+    <br>
 
-      <div class="step">
-        <h3>Motor principal</h3>
-        <ul>
-          <li>Coordina los intentos de autenticación.</li>
-        </ul>
-      </div>
+    <div class="box">
+      <h3>Motor principal</h3>
 
-      <div class="step">
-        <h3>Módulos por protocolo</h3>
-        <ul>
-          <li>Cada servicio (SSH, FTP, HTTP…) tiene su propio módulo.</li>
-        </ul>
-      </div>
+      <ul>
+        <li>Coordina los intentos de autenticación.</li>
+      </ul>
+    </div>
 
-      <div class="step">
-        <h3>Multi-threading</h3>
-        <ul>
-          <li>Ejecuta múltiples intentos en paralelo para acelerar el proceso.</li>
-        </ul>
-      </div>
+    <br>
 
-      <div class="step">
-        <h3>Entrada de datos</h3>
-        <ul>
-          <li>Lista de usuarios</li>
-          <li>Lista de contraseñas (wordlists)</li>
-        </ul>
-      </div>
+    <div class="box">
+      <h3>Módulos por protocolo</h3>
 
-      <div class="step">
-        <h3>Análisis de respuestas</h3>
-        <ul>
-          <li>Detecta si un login fue exitoso o fallido según la respuesta del servicio.</li>
-        </ul>
-      </div>
+      <ul>
+        <li>Cada servicio (SSH, FTP, HTTP…) tiene su propio módulo.</li>
+      </ul>
+    </div>
 
+    <br>
+
+    <div class="box">
+      <h3>Multi-threading</h3>
+
+      <ul>
+        <li>Ejecuta múltiples intentos en paralelo para acelerar el proceso.</li>
+      </ul>
+    </div>
+
+    <br>
+
+    <div class="box">
+      <h3>Entrada de datos</h3>
+
+      <ul>
+        <li>Lista de usuarios.</li>
+        <li>Lista de contraseñas (wordlists).</li>
+      </ul>
+    </div>
+
+    <br>
+
+    <div class="box">
+      <h3>Análisis de respuestas</h3>
+
+      <ul>
+        <li>Detecta si un login fue exitoso o fallido según la respuesta del servicio.</li>
+      </ul>
     </div>
 
   </div>

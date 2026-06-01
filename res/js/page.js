@@ -131,27 +131,37 @@ document.addEventListener("click", function (e) {
 });
 
 /* ==============================
-   BUSCA DESDE EL FRAME CON !
+   ATAJOS DE TECLADO DESDE FRAME A "X"
 ============================== */
 document.addEventListener("keydown", function (ev) {
 
-    if (ev.key !== "!") {
+    /* abrir buscador */
+    if (ev.key === "!") {
+
+        ev.preventDefault();
+
+        var input =
+            window.parent.document.getElementById(
+                "tree_search"
+            );
+
+        if (!input) {
+            return;
+        }
+
+        input.focus();
+        input.select();
+
         return;
     }
 
-    ev.preventDefault();
+    /* mostrar/ocultar índice */
+    if (ev.key === "Escape") {
 
-    var input =
-        window.parent.document.getElementById(
-            "tree_search"
-        );
+        ev.preventDefault();
 
-    if (!input) {
-        return;
+        window.parent.toggle_tree_panel();
     }
-
-    input.focus();
-    input.select();
 });
 
 /* ==============================
@@ -218,7 +228,12 @@ document.addEventListener("click", function (ev) {
     }
 
     var tag =
-        ev.target.textContent;
+        ev.target.textContent.trim();
+
+    console.log(
+        "[" + tag + "]",
+        tag.length
+    );
 
     /* si ya está seleccionada, desactivar */
     if (
@@ -244,7 +259,7 @@ document.addEventListener("click", function (ev) {
 });
 
 /* ==============================
-   
+   CARGA DE ICONOS A LA IZQ DEL H1
 ============================== */
 document.addEventListener(
     "DOMContentLoaded",
@@ -264,8 +279,8 @@ document.addEventListener(
             getComputedStyle(
                 document.body
             )
-            .getPropertyValue("--icon")
-            .trim();
+                .getPropertyValue("--icon")
+                .trim();
 
         if (!icon) return;
 
@@ -275,3 +290,6 @@ document.addEventListener(
             icon + " " + h1.textContent;
     }
 );
+
+
+console.log("page.js cargado");

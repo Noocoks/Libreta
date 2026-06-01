@@ -2,51 +2,132 @@
 <html>
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Inicialización</title>
-  <meta name="generator" content="CherryTree">
-  
-    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+
+  <meta name="keywords"
+    content="mailhog, docker, smtp, correo, inicializacion, contenedor">
+
+  <meta name="description"
+    content="Inicialización y despliegue de MailHog mediante Docker para pruebas de correo electrónico.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Inicialización - MailHog</title>
+
+  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
   <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
-  <div class='page' data-cat="mailhog">
-    <p><strong>
-        <h1>Inicialización - MailHog</h1>
-      </strong>
-    <p> <em><strong><span style="color:#000000;">&lt;&gt; Bash </span></strong></em><em></em></p>
-    <p><em> </em>Se usa con <small>└─$</small><small> </small>docker start mailhog</p>
-    <p> Se para con <small>└─$</small><small> </small>docker stop mailhog</p>
-    <p> </p>
-    <p> Comando usado para crear este flujo: </p>
-    <p><em> </em><em><small>└─$</small></em><em><small> </small></em><em>docker run -d \</em><em></em></p>
-    <p><em> --restart unless-stopped \</em><em></em></p>
-    <p><em> --name mailhog \</em><em></em></p>
-    <p><em> -p 1025:1025 \</em><em></em></p>
-    <p><em> -p 8025:8025 \</em><em></em></p>
-    <p><em> mailhog/mailhog </em><em></em></p>
-    <p><em></em><em></em></p>
-    <p><em></em>Con este flujo se genera este container:<em></em></p>
-    <p><em></em>| Situación | ¿Se reinicia solo? |</p>
-    <p>| ------------------------------------------------------ | ------------------ |</p>
-    <p>| Reinicias la VM | ✅ Sí |</p>
-    <p>| Reinicias Docker | ✅ Sí |</p>
-    <p>| Reinicias el sistema | ✅ Sí |</p>
-    <p>| El contenedor crashea | ✅ Sí |</p>
-    <p>| Lo vuelves a iniciar manualmente (`docker start`) | ✅ Sí |</p>
-    <p>| Lo paras manualmente (`docker stop`) | ❌ No |</p>
-    <p>| ------------------------------------------------------ | ------------------ |<em></em></p>
-    <p><em> </em><em></em></p>
-    <p><em> </em><em></em></p>
-    <p><em> </em><span style="text-decoration:line-through;">Comando usado por terminal para abrir un contenedor nuevo
-        con mailhog:</span><em><span style="text-decoration:line-through;"> </span></em><em></em></p>
-    <p><em> </em><em><small>└─$</small></em><em><small> </small></em><em>sudo systemctl start docker &amp;&amp; sudo
-        systemctl enable docker &amp;&amp; docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog</em></p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
+
+  <div class="page" data-cat="phishing mailhog ini">
+    <hr>
+
+    <h1>Inicialización - MailHog</h1>
+
+    <div class="node-tags">
+      <span class="tag">mailhog</span>
+      <span class="tag">docker</span>
+      <span class="tag">smtp</span>
+      <span class="tag">correo</span>
+      <span class="tag">contenedor</span>
+    </div>
+
+    <br>
+
+    <div class="box box--info">
+      <p>
+        Despliegue y gestión de MailHog mediante Docker para entornos de pruebas y desarrollo.
+      </p>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Gestión básica</h2>
+
+    <div class="box">
+
+      <h3>Iniciar contenedor</h3>
+
+      <pre>
+
+  └─$ docker start mailhog
+      </pre>
+
+      <h3>Detener contenedor</h3>
+
+      <pre>
+
+  └─$ docker stop mailhog
+      </pre>
+
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Creación del contenedor</h2>
+
+    <div class="box">
+
+      <pre>
+
+  └─$ docker run -d \
+  --restart unless-stopped \
+  --name mailhog \
+  -p 1025:1025 \
+  -p 8025:8025 \
+  mailhog/mailhog
+      </pre>
+
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Comportamiento del reinicio automático</h2>
+
+    <div class="box">
+
+      <ul>
+        <li>Reinicias la VM → ✅ Sí</li>
+        <li>Reinicias Docker → ✅ Sí</li>
+        <li>Reinicias el sistema → ✅ Sí</li>
+        <li>El contenedor falla (crash) → ✅ Sí</li>
+        <li>Lo vuelves a iniciar manualmente → ✅ Sí</li>
+        <li>Lo detienes manualmente con <code>docker stop</code> → ❌ No</li>
+      </ul>
+
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Comando antiguo</h2>
+
+    <div class="box">
+
+      <p>
+        Método utilizado anteriormente para crear un contenedor temporal:
+      </p>
+
+      <pre>
+
+  └─$ sudo systemctl start docker && \
+  sudo systemctl enable docker && \
+  docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
+      </pre>
+
+    </div>
+
+    <br>
+    <hr>
+
   </div>
+
 </body>
 
 </html>

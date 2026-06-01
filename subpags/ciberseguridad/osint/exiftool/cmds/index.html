@@ -13,67 +13,104 @@
   <meta name="description" content="Comandos útiles de ExifTool para análisis y manipulación de metadatos">
 
   <title>Comandos Útiles - ExifTool</title>
-  
+
   <link rel="stylesheet" href="/Libreta/res/css/styles.css">
   <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
-  <div class="page" data-cat="exiftool">
+  <div class="page" data-cat="osint exiftool cmds">
     <hr>
 
     <h1>Comandos Útiles - ExifTool</h1>
 
-    <div class="box box--section">
-      <h2><span style="color:#5e5c64;">1.</span> Ver metadatos</h2>
-      <ul>
-        <li><small>Ver todos los metadatos de un archivo:</small> <em>exiftool archivo.jpg</em></li>
-        <li><small>Ver EXIF y GPS:</small> <em>exiftool -exif:all -gps:all archivo.jpg</em></li>
-        <li><small>Ver múltiples archivos:</small> <em>exiftool *.jpg</em></li>
-        <li><small>Buscar en subcarpetas:</small> <em>exiftool -r /ruta/a/carpeta</em></li>
-      </ul>
+    <div class="box">
+      <h3>Ver metadatos</h3>
+
+      <p>
+        Consultar la información almacenada dentro de archivos e imágenes.
+      </p>
+
+      <pre>
+
+  └─$ exiftool archivo.jpg
+  └─$ exiftool -exif:all -gps:all archivo.jpg
+  └─$ exiftool *.jpg
+  └─$ exiftool -r /ruta/a/carpeta
+  </pre>
     </div>
+
     <br>
 
-    <div class="box box--section">
-      <h2><span style="color:#5e5c64;">2.</span> Extraer información útil</h2>
-      <ul>
-        <li><small>Fecha de la foto:</small> <em>exiftool -DateTimeOriginal archivo.jpg</em></li>
-        <li><small>Coordenadas GPS:</small> <em>exiftool -gpslatitude -gpslongitude archivo.jpg</em></li>
-        <li><small>Modelo de cámara:</small> <em>exiftool -camera:all archivo.jpg</em></li>
-      </ul>
+    <div class="box">
+      <h3>Extraer información útil</h3>
+
+      <p>
+        Obtener datos específicos como fechas, ubicación GPS o dispositivo utilizado.
+      </p>
+
+      <pre>
+
+  └─$ exiftool -DateTimeOriginal archivo.jpg
+  └─$ exiftool -gpslatitude -gpslongitude archivo.jpg
+  └─$ exiftool -camera:all archivo.jpg
+  </pre>
     </div>
+
     <br>
 
-    <div class="box box--section">
-      <h2><span style="color:#5e5c64;">3.</span> Editar metadatos</h2>
-      <ul>
-        <li><small>Cambiar autor:</small> <em>exiftool -Artist="TuNombre" archivo.jpg</em></li>
-        <li><small>Cambiar fecha:</small> <em>exiftool -DateTimeOriginal="2026:05:16 10:00:00" archivo.jpg</em></li>
-        <li><small>Borrar metadatos:</small> <em>exiftool -all= archivo.jpg</em></li>
-        <li><small>Copiar metadatos:</small> <em>exiftool -TagsFromFile fuente.jpg destino.jpg</em></li>
-      </ul>
+    <div class="box">
+      <h3>Editar metadatos</h3>
+
+      <p>
+        Modificar, copiar o eliminar información asociada a un archivo.
+      </p>
+
+      <pre>
+
+  └─$ exiftool -Artist="TuNombre" archivo.jpg
+  └─$ exiftool -DateTimeOriginal="2026:05:16 10:00:00" archivo.jpg
+  └─$ exiftool -all= archivo.jpg
+  └─$ exiftool -TagsFromFile fuente.jpg destino.jpg
+  </pre>
     </div>
+
     <br>
 
-    <div class="box box--section">
-      <h2><span style="color:#5e5c64;">4.</span> Múltiples archivos</h2>
-      <ul>
-        <li><small>Borrar metadatos en carpeta:</small> <em>exiftool -all= *.jpg</em></li>
-        <li><small>Cambiar autor masivo:</small> <em>exiftool -Artist="TuNombre" *.jpg</em></li>
-        <li><small>Exportar CSV:</small> <em>exiftool -csv *.jpg > metadatos.csv</em></li>
-      </ul>
+    <div class="box">
+      <h3>Múltiples archivos</h3>
+
+      <p>
+        Aplicar acciones de forma masiva sobre varios archivos simultáneamente.
+      </p>
+
+      <pre>
+
+  └─$ exiftool -all= *.jpg
+  └─$ exiftool -Artist="TuNombre" *.jpg
+  └─$ exiftool -csv *.jpg > metadatos.csv
+      </pre>
     </div>
+
     <br>
 
-    <div class="box box--section">
-      <h2><span style="color:#5e5c64;">5.</span> Trucos avanzados</h2>
-      <ul>
-        <li><small>Filtrar solo imágenes con GPS:</small> <em>exiftool -if '$gpslatitude' -gps:all *.jpg</em></li>
-        <li><small>PDF:</small> <em>exiftool archivo.pdf</em></li>
-        <li><small>Video:</small> <em>exiftool video.mp4</em></li>
-      </ul>
+    <div class="box">
+      <h3>Trucos avanzados</h3>
+
+      <p>
+        Funciones útiles para filtrado, análisis forense y otros formatos.
+      </p>
+
+      <pre>
+
+  └─$ exiftool -if '$gpslatitude' -gps:all *.jpg
+  └─$ exiftool archivo.pdf
+  └─$ exiftool video.mp4
+  </pre>
     </div>
+
+    <br>
+    <hr>
 
   </div>
 </body>

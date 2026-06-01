@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html>
 
 <head>
@@ -15,16 +16,14 @@
 
   <title>Hydra</title>
 
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css" type="text/css">
+  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
   <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
 
-  <div class="page" data-cat="hydra">
+  <div class="page" data-cat="fuerza-bruta hydra">
     <hr>
-
-    <div id="breadcrumb"></div>
 
     <h1>Hydra</h1>
 
@@ -35,95 +34,89 @@
       <span class="tag">ssh</span>
       <span class="tag">ftp</span>
     </div>
+
     <br>
 
     <div class="box box--info">
       <p>
-        <strong>Hydra</strong> es una herramienta de
-        auditoría de seguridad utilizada en
+        <strong>Hydra</strong> es una herramienta de auditoría de seguridad utilizada en
         <span class="cat">
           <a href="../index.html">Ataques de fuerza bruta</a>
         </span>
-        para evaluar la fortaleza de sistemas de
-        autenticación mediante pruebas automatizadas
+        para evaluar la fortaleza de sistemas de autenticación mediante pruebas automatizadas
         de credenciales.
       </p>
     </div>
+
     <p>
-      Su uso legítimo se limita a auditorías autorizadas
-      y entornos de laboratorio controlados.
+      Su uso legítimo se limita a auditorías autorizadas y entornos de laboratorio controlados.
     </p>
 
     <br>
     <hr>
 
     <h2>Casos de uso</h2>
-    <ul>
 
-      <li>
-        <strong>Detectar</strong>
-        credenciales débiles.
-      </li>
+    <div class="box">
+      <ul>
+        <li>Detectar credenciales débiles.</li>
+        <li>Evaluar la robustez de mecanismos de autenticación.</li>
+        <li>Ayudar a mejorar la seguridad antes de una intrusión real.</li>
+      </ul>
+    </div>
 
-      <li>
-        <strong>Evaluar</strong>
-        la robustez de mecanismos de autenticación.
-      </li>
+    <h3>Servicios compatibles</h3>
 
-      <li>
-        <strong>Ayudar</strong>
-        a mejorar la seguridad antes de una intrusión real.
-      </li>
-
-    </ul>
-
-    <br>
-    <hr>
-
-    <h2>Servicios compatibles</h2>
-    <ul>
-      <li><strong>SSH</strong></li>
-      <li><strong>FTP</strong></li>
-      <li><strong>HTTP</strong></li>
-      <li><strong>Otros</strong></li>
-
-    </ul>
+    <div class="box">
+      <ul>
+        <li>SSH</li>
+        <li>FTP</li>
+        <li>HTTP</li>
+        <li>Otros protocolos soportados.</li>
+      </ul>
+    </div>
 
     <br>
     <hr>
 
     <h2>Instalación</h2>
-    <pre>
 
-      sudo apt update
+    <div class="box">
+      <pre>
 
-      sudo apt install hydra
+  └─$ sudo apt update
 
-      hydra -h
-    </pre>
+  └─$ sudo apt install hydra
+
+  └─$ hydra -h 
+      </pre>
+    </div>
 
     <br>
     <hr>
 
     <h2>Recursos relacionados</h2>
-    <ul>
-      <li>
-        <span class="cat">
-          <a href="./arq/index.html">
-            Arquitectura
-          </a>
-        </span>
-      </li>
 
-      <li>
-        <span class="cat">
-          <a href="./lab/index.html">
-            Laboratorio
-          </a>
-        </span>
-      </li>
+    <div class="box">
+      <ul>
+        <li>
+          <span class="cat">
+            <a href="./arq/index.html">
+              Arquitectura
+            </a>
+          </span>
+        </li>
 
-    </ul>
+        <li>
+          <span class="cat">
+            <a href="./lab/index.html">
+              Laboratorio
+            </a>
+          </span>
+        </li>
+      </ul>
+    </div>
+
 
     <br>
     <hr>

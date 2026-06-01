@@ -18,12 +18,20 @@
 
 <body>
 
-  <div class="page" data-cat="hydra">
+  <div class="page" data-cat="fuerza-bruta hydra lab">
     <hr>
 
-    <div id="breadcrumb"></div>
-
     <h1>Laboratorio - Hydra</h1>
+
+    <div class="node-tags">
+      <span class="tag">pentesting</span>
+      <span class="tag">laboratorio</span>
+      <span class="tag">docker</span>
+      <span class="tag">ssh</span>
+      <span class="tag">wordlist</span>
+    </div>
+
+    <br>
 
     <div class="box">
       <h3>Preparación del entorno</h3>
@@ -35,6 +43,7 @@
     </div>
 
     <br>
+
     <div class="box">
       <h3>Contenedores Docker vulnerables</h3>
 
@@ -46,6 +55,7 @@
     </div>
 
     <br>
+
     <div class="box">
       <h3>Usuarios con contraseñas débiles</h3>
 
@@ -60,11 +70,13 @@
     </div>
 
     <br>
+
     <div class="box">
       <h3>Wordlists y ejecución en localhost</h3>
 
       <p>
-        Crear archivos <strong>wordlist.txt</strong> y <strong>usuarios.txt</strong>
+        Crear archivos <strong>wordlist.txt</strong> y
+        <strong>usuarios.txt</strong>
         con credenciales de prueba.
       </p>
 
@@ -90,17 +102,23 @@
     </div>
 
     <br>
+
     <div class="box">
       <h3>Ejecución de Hydra</h3>
 
       <p>
-        Prueba de autenticación contra un servicio SSH en un entorno local y controlado.
+        Prueba de autenticación contra un servicio SSH
+        en un entorno local y controlado.
       </p>
 
       <pre>
-└─$ hydra -L usuarios.txt -P wordlist.txt ssh://192.168.1.100
+
+  └─$ hydra -L usuarios.txt -P wordlist.txt ssh://192.168.1.100
       </pre>
     </div>
+
+    <br>
+    <hr>
 
   </div>
 

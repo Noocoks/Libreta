@@ -68,10 +68,14 @@
     --icon-openai: "🤖";
     --icon-anthropic: "🧩";
 
-
     /* Básicos */
     --icon-arq: "⚙️";
     --icon-lab: "🧪";
+    --icon-cmds: "📜";
+    --icon-ini: "🚀";
+    --icon-peruse: "👤";
+    --icon-ejem: "☝🏻";
+    --icon-code: "🗿";
 
 
 
@@ -81,10 +85,6 @@
  * GENERAL
  ******************************************************************************/
 body {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     font-size: 13px;
     font-family: "Open Sans", sans-serif !important;
     margin: 0;
@@ -216,7 +216,7 @@ div.tree li {
     border-radius: 4px;
 }
 
-.tree li[data-cat] > a::before {
+#tree_root li[data-cat] > a::before {
     content: var(--icon);
     margin-right: .35rem;
 }
@@ -466,6 +466,11 @@ div.page-panel {
     transition: opacity 0.2s ease;
 }
 
+.page a,
+.page a:visited {
+    color: inherit;
+    text-decoration: none;
+}
 
 /*******************************************************************************
  * TÍTULOS (BASE + CATEGORÍA)
@@ -644,83 +649,105 @@ pre {
  * MAPEO DE CATEGORÍAS → VARIABLES
  ******************************************************************************/
 /* Categorías */
-[data-cat="ciberseguridad"] {
+[data-cat~="ciberseguridad"] {
     --active: var(--cat-ciberseguridad);
     --icon: var(--icon-ciberseguridad);
 }
 
-[data-cat="ia"] {
+[data-cat~="ia"] {
     --active: var(--cat-ia);
     --icon: var(--icon-ia);
 }
 
 /* Subcat CS */
-[data-cat="fuerza-bruta"] {
+[data-cat~="fuerza-bruta"] {
     --active: var(--cat-fuerza-bruta);
     --icon: var(--icon-fuerza-bruta);
 }
 
-[data-cat="escaneo"] {
+[data-cat~="escaneo"] {
     --active: var(--cat-escaneo);
     --icon: var(--icon-escaneo);
 }
 
-[data-cat="osint"] {
+[data-cat~="osint"] {
     --active: var(--cat-osint);
     --icon: var(--icon-osint);
 }
 
-[data-cat="phishing"] {
+[data-cat~="phishing"] {
     --active: var(--cat-phishing);
     --icon: var(--icon-phishing);
 }
 
 /* Subcat IA */
-[data-cat="openai"] {
+[data-cat~="openai"] {
     --icon: var(--icon-openai);
 }
 
-[data-cat="anthropic"] {
+[data-cat~="anthropic"] {
     --icon: var(--icon-anthropic);
 }
 
 /* Herramientas CS */
-[data-cat="hydra"] {
-    --active: var(--cat-fuerza-bruta);
+[data-cat~="hydra"] {
     --icon: var(--icon-hydra);
 }
 
-[data-cat="medusa"] {
-    --active: var(--cat-fuerza-bruta);
+[data-cat~="medusa"] {
     --icon: var(--icon-medusa);
 }
 
-[data-cat="nmap"] {
-    --active: var(--cat-escaneo);
+[data-cat~="nmap"] {
     --icon: var(--icon-nmap);
 }
 
-[data-cat="legion"] {
-    --active: var(--cat-escaneo);
+[data-cat~="legion"] {
     --icon: var(--icon-legion);
 }
 
-[data-cat="holehe"] {
-    --active: var(--cat-osint);
+[data-cat~="holehe"] {
     --icon: var(--icon-holehe);
 }
 
-[data-cat="exiftool"] {
-    --active: var(--cat-osint);
+[data-cat~="exiftool"] {
     --icon: var(--icon-exiftool);
 }
 
-[data-cat="gophish"] {
-    --active: var(--cat-phishing);
+[data-cat~="gophish"] {
     --icon: var(--icon-gophish);
 }
 
-[data-cat="mailhog"] {
-    --active: var(--cat-phishing);
+[data-cat~="mailhog"] {
     --icon: var(--icon-mailhog);
 }
+
+/* Escenarios multiples */
+[data-cat~="arq"] {
+    --icon: var(--icon-arq);
+}
+
+[data-cat~="lab"] {
+    --icon: var(--icon-lab);
+}
+
+[data-cat~="cmds"] {
+    --icon: var(--icon-cmds);
+}
+
+[data-cat~="ini"] {
+    --icon: var(--icon-ini);
+}
+
+[data-cat~="peruse"] {
+    --icon: var(--icon-peruse);
+}
+
+[data-cat~="ejem"] {
+    --icon: var(--icon-ejem);
+}
+
+[data-cat~="code"] {
+    --icon: var(--icon-code);
+}
+

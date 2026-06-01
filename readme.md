@@ -17,7 +17,6 @@ Repositorio de documentación y apuntes sobre ciberseguridad, pentesting y herra
 
 ```text
 .
-
 ├── index.html
 ├── res
 │   ├── css

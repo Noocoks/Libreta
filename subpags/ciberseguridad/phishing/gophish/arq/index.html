@@ -2,79 +2,107 @@
 <html>
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Arquitectura</title>
-  <meta name="generator" content="CherryTree">
-  
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+
+  <meta name="keywords" content="gophish, arquitectura, phishing, smtp, landing pages, tracking">
+
+  <meta name="description"
+    content="Arquitectura interna de Gophish y componentes utilizados para gestionar campañas de phishing controladas.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Arquitectura - Gophish</title>
+
   <link rel="stylesheet" href="/Libreta/res/css/styles.css">
   <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
-  <div class="page" data-cat="gophish">
+
+  <div class="page" data-cat="phishing gophish arq">
+    <hr>
+
     <h1>Arquitectura - Gophish</h1>
 
-    <ol>
-      <li>
-        <strong>
-          <span style="color:#1a5fb4;">1.</span> Servidor web
-        </strong>
-        <small>(Control Panel)</small>
+    <div class="box box--info">
+      <p>
+        <strong>Gophish</strong> se estructura en varios componentes encargados de
+        <strong>gestionar</strong> campañas, <strong>enviar</strong> correos, <strong>alojar</strong>
+        páginas de captura y <strong>registrar</strong> la interacción de los usuarios.
+      </p>
+    </div>
 
-        <p>
-          Cuenta con una interfaz web donde diseñar campañas,
-          correos, landing pages y perfiles objetivo.
-        </p>
-      </li>
+    <br>
+    <hr>
 
+    <h2>Componentes</h2>
 
-      <li>
-        <strong>
-          <span style="color:#1a5fb4;">2.</span> Motor de envío de correos SMTP
-        </strong>
+    <div class="box">
+      <h3>Servidor web</h3>
 
-        <p>
-          Permite el envío de correos simulados utilizando:
-        </p>
+      <p>
+        Proporciona la interfaz de administración utilizada para crear y
+        gestionar campañas de phishing.
+      </p>
 
-        <ul>
-          <li>Servidores propios.</li>
-          <li>Servicios externos <small>(entornos de laboratorio)</small>.</li>
-        </ul>
-      </li>
+      <ul>
+        <li>Plantillas de correo.</li>
+        <li>Landing pages.</li>
+        <li>Perfiles objetivo.</li>
+        <li>Estadísticas de campañas.</li>
+      </ul>
+    </div>
 
+    <br>
 
-      <li>
-        <strong>
-          <span style="color:#1a5fb4;">3.</span> Landing Pages
-        </strong>
-        <small>(páginas falsas de ataque)</small>
+    <div class="box">
+      <h3>Motor SMTP</h3>
 
-        <p>
-          Simulan formularios de login u otras interacciones
-          para medir el comportamiento de los usuarios.
-        </p>
-      </li>
+      <p>
+        Encargado del envío de correos electrónicos simulados.
+      </p>
 
+      <ul>
+        <li>Servidores SMTP propios.</li>
+        <li>Servicios externos de laboratorio.</li>
+      </ul>
+    </div>
 
-      <li>
-        <strong>
-          <span style="color:#1a5fb4;">4.</span> Tracking y Logging
-        </strong>
+    <br>
 
-        <p>
-          Registra información como:
-        </p>
+    <div class="box">
+      <h3>Landing Pages</h3>
 
-        <ul>
-          <li>Aperturas de correos.</li>
-          <li>Clics en enlaces.</li>
-          <li>Envío de datos <small>(credenciales o formularios)</small>.</li>
-        </ul>
-      </li>
-    </ol>
+      <p>
+        Páginas web diseñadas para simular formularios de autenticación
+        u otros escenarios de ingeniería social.
+      </p>
+    </div>
+
+    <br>
+
+    <div class="box">
+      <h3>Tracking y Logging</h3>
+
+      <p>
+        Sistema encargado de recopilar métricas e interacciones.
+      </p>
+
+      <ul>
+        <li>Aperturas de correos.</li>
+        <li>Clics en enlaces.</li>
+        <li>Envío de formularios.</li>
+        <li>Captura de indicadores de compromiso.</li>
+      </ul>
+    </div>
+
+    <br>
+    <hr>
 
   </div>
+
 </body>
 
 </html>
