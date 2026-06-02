@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+
+  <meta name="keywords"
+    content="openai, anthropic, claude, gpt, python, llm, historial, sesiones, router, cli, terminal, multi-modelo">
+
+  <meta name="description"
+    content="Cliente avanzado para OpenAI y Anthropic con historial persistente, selección automática de modelo, sesiones múltiples y modo interactivo">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Uso Dual V2 (GPT + Claude)</title>
+
+  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+  <script src="/Libreta/res/js/page.js"></script>
+</head>
+
+<body>
+
+  <div class="page" data-cat="ia openai anthropic cli">
+
+    <div id="breadcrumb"></div>
+
+    <h1>Uso Dual V2 (GPT + Claude)</h1>
+
+    <div class="box box--info">
+      <p>
+        Evolución de la versión anterior incorporando
+        almacenamiento de conversaciones,
+        selección automática de proveedor,
+        sesiones independientes y una interfaz
+        interactiva desde terminal.
+      </p>
+    </div>
+
+    <hr>
+
+    <h2>Índice</h2>
+
+    <div class="box">
+      <ul>
+        <li><a href="#objetivo">Objetivo</a></li>
+        <li><a href="#mejoras">Mejoras respecto a V1</a></li>
+        <li><a href="#arquitectura">Arquitectura</a></li>
+        <li><a href="#funcionalidades">Funcionalidades</a></li>
+        <li><a href="#dependencias">Dependencias</a></li>
+        <li><a href="#codigo">Código fuente</a></li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <h2 id="objetivo">Objetivo</h2>
+
+    <div class="box">
+      <p>
+        Crear un cliente local capaz de trabajar con
+        OpenAI y Anthropic desde una única herramienta,
+        manteniendo historial entre ejecuciones y
+        permitiendo alternar modelos dinámicamente.
+      </p>
+    </div>
+
+    <hr>
+
+    <h2 id="mejoras">Mejoras respecto a V1</h2>
+
+    <div class="box">
+      <ul>
+        <li>Historial persistente en JSON.</li>
+        <li>Múltiples sesiones independientes.</li>
+        <li>Selección automática del proveedor.</li>
+        <li>Animación tipo streaming.</li>
+        <li>Modo conversación continua.</li>
+        <li>Comandos internos de gestión.</li>
+        <li>Soporte mediante argumentos CLI.</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <h2 id="arquitectura">Arquitectura</h2>
+
+    <div class="box">
+      <ol>
+        <li>Carga de variables de entorno.</li>
+        <li>Inicialización de clientes OpenAI y Anthropic.</li>
+        <li>Gestión de sesiones persistentes.</li>
+        <li>Router automático de selección.</li>
+        <li>Funciones específicas por proveedor.</li>
+        <li>Chat interactivo o consulta puntual.</li>
+        <li>Guardado automático del historial.</li>
+      </ol>
+    </div>
+
+    <hr>
+
+    <h2 id="funcionalidades">Funcionalidades</h2>
+
+    <div class="box">
+
+      <h3>Historial persistente</h3>
+
+      <p>
+        Guarda conversaciones en formato JSON dentro de:
+      </p>
+
+      <pre><code>~/.ai_cli_sessions/</code></pre>
+
+    </div>
+
+    <br>
+
+    <div class="box">
+
+      <h3>Router automático</h3>
+
+      <p>
+        Detecta palabras clave relacionadas con programación,
+        terminal o desarrollo y selecciona Claude automáticamente.
+        El resto de consultas se envían a OpenAI.
+      </p>
+
+    </div>
+
+    <br>
+
+    <div class="box">
+
+      <h3>Comandos internos</h3>
+
+      <pre>
+
+  └─$ /exit
+  └─$ /clear
+  └─$ /model openai
+  └─$ /model claude
+  └─$ /model auto
+      </pre>
+
+    </div>
+
+    <br>
+
+    <div class="box">
+
+      <h3>Modo sesión</h3>
+      <pre>
+
+  └─$ python ai.py openai   / sesion de trabajo
+  └─$ python ai.py claude   / sesion de programar
+  └─$ python ai.py auto     / sesion en laboratorio
+        </pre>
+
+    </div>
+
+    <hr>
+
+    <h2 id="dependencias">Dependencias</h2>
+
+    <div class="box">
+      <ul>
+        <li>openai</li>
+        <li>anthropic</li>
+        <li>python-dotenv</li>
+        <li>colorama</li>
+        <li>argparse</li>
+        <li>json</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <h2 id="codigo">Código fuente</h2>
+
+    <div class="box">
+      <pre>
+
+  #!/usr/bin/env python3
+
+  import os
+  import json
+  import sys
+  import argparse
+  import time
+
+  from dotenv import load_dotenv
+  from openai import OpenAI
+  from anthropic import Anthropic
+  from colorama import Fore, Style, init
+
+  #---------------------
+  # INIT
+  #---------------------
+
+  init(autoreset=True)
+  load_dotenv()
+
+  #---------------------
+  # CLIENTES
+  #---------------------
+
+  openai_client = OpenAI(
+      api_key=os.getenv("OPENAI_API_KEY")
+  )
+
+  anthropic_client = Anthropic(
+      api_key=os.getenv("ANTHROPIC_API_KEY")
+  )
+
+  #---------------------
+  # CONFIG
+  #---------------------
+
+  BASE_HISTORY_DIR = os.path.expanduser(
+      "~/.ai_cli_sessions"
+  )
+
+  os.makedirs(
+      BASE_HISTORY_DIR,
+      exist_ok=True
+  )
+
+  #---------------------
+  # HELPERS
+  #---------------------
+
+  def stream_print(text, delay=0.01):
+      """Simulando streaming tipo ChatGPT"""
+
+      for char in text:
+          print(
+              char,
+              end="",
+              flush=True
+          )
+
+          time.sleep(delay)
+
+      print()
+
+
+  def get_history_path(session_name):
+
+      return os.path.join(
+          BASE_HISTORY_DIR,
+          f"{session_name}.json"
+      )
+
+
+  def load_history(session_name):
+
+      path = get_history_path(session_name)
+
+      if not os.path.exists(path):
+          return []
+
+      with open(path, "r") as f:
+          return json.load(f)
+
+
+  def save_history(session_name, history):
+
+      path = get_history_path(session_name)
+
+      with open(path, "w") as f:
+          json.dump(
+              history,
+              f,
+              indent=2
+          )
+
+
+  def clear_history(session_name):
+
+      path = get_history_path(session_name)
+
+      if os.path.exists(path):
+
+          os.remove(path)
+
+          print(
+              Fore.YELLOW +
+              f"[+] Historial eliminado: {session_name}"
+          )
+
+  #---------------------
+  # ROUTER AUTO
+  #---------------------
+
+  def auto_select_model(prompt):
+
+      coding_keywords = [
+          "python", "html", "html5", "css", "css3",
+          "java", "bash", "script", "docker", "linux",
+          "bug", "error", "code", "código", "codigo",
+          "programa", "terminal", "kali"
+      ]
+
+      for word in coding_keywords:
+
+          if word in prompt.lower():
+              return "claude"
+
+      return "openai"
+
+  #---------------------
+  # OPENAI
+  #---------------------
+
+  def ask_openai(history):
+
+      response = openai_client.chat.completions.create(
+          model="gpt-4.1-mini",
+          messages=history
+      )
+
+      return response.choices[0].message.content
+
+  #---------------------
+  # CLAUDE
+  #---------------------
+
+  def ask_claude(history):
+
+      response = anthropic_client.messages.create(
+          model="claude-sonnet-4-0",
+          max_tokens=200,
+          messages=history
+      )
+
+      return response.content[0].text
+
+  #---------------------
+  # MAIN ASK
+  #---------------------
+
+  def ask_model(model, history):
+
+      if model == "openai":
+          return ask_openai(history)
+
+      elif model == "claude":
+          return ask_claude(history)
+
+      else:
+          raise ValueError("Modelo inválido")
+
+  #---------------------
+  # SINGLE PROMPT MODE
+  #---------------------
+
+  def single_prompt_mode(model, prompt, session):
+
+      history = load_history(session)
+
+      if model == "auto":
+
+          selected_model = auto_select_model(prompt)
+
+          print(
+              Fore.CYAN +
+              f"[AUTO] usando: {selected_model}"
+          )
+
+          model = selected_model
+
+      history.append({
+          "role": "user",
+          "content": prompt
+      })
+
+      reply = ask_model(model, history)
+
+      history.append({
+          "role": "assistant",
+          "content": reply
+      })
+
+      save_history(session, history)
+
+      print(Fore.GREEN + f"\n[{model}]")
+
+      stream_print(reply)
+
+  #---------------------
+  # CHAT LOOP
+  #---------------------
+
+  def interactive_chat(model, session):
+
+      history = load_history(session)
+
+      print(Fore.CYAN + f"\n[+] Modelo: {model}")
+      print(Fore.CYAN + f"[+] Sesión: {session}")
+
+      print(Fore.YELLOW + "\nComandos:")
+      print("/exit")
+      print("/clear")
+      print("/model openai")
+      print("/model claude")
+      print("/model auto\n")
+
+      while True:
+
+          user_input = input(
+              Fore.BLUE +
+              "\nTú > " +
+              Style.RESET_ALL
+          )
+
+          if user_input == "/exit":
+              break
+
+          if user_input == "/clear":
+
+              history = []
+
+              save_history(
+                  session,
+                  history
+              )
+
+              print(
+                  Fore.YELLOW +
+                  "[+] Historial limpiado"
+              )
+
+              continue
+
+          if user_input.startswith("/model"):
+
+              try:
+
+                  new_model = user_input.split()[1]
+
+                  if new_model in [
+                      "openai",
+                      "claude",
+                      "auto"
+                  ]:
+
+                      model = new_model
+
+                      print(
+                          Fore.CYAN +
+                          f"[+] Modelo cambiado a: {model}"
+                      )
+
+                  else:
+
+                      print(
+                          Fore.RED +
+                          "Modelo inválido"
+                      )
+
+              except:
+
+                  print(
+                      Fore.RED +
+                      "Uso: /model openai"
+                  )
+
+              continue
+
+          selected_model = model
+
+          if model == "auto":
+
+              selected_model = auto_select_model(
+                  user_input
+              )
+
+              print(
+                  Fore.MAGENTA +
+                  f"[AUTO] -> {selected_model}"
+              )
+
+          history.append({
+              "role": "user",
+              "content": user_input
+          })
+
+          try:
+
+              reply = ask_model(
+                  selected_model,
+                  history
+              )
+
+          except Exception as e:
+
+              print(
+                  Fore.RED +
+                  f"\n[ERROR] {e}"
+              )
+
+              continue
+
+          print(
+              Fore.GREEN +
+              f"\n{selected_model}> "
+          )
+
+          stream_print(reply)
+
+          history.append({
+              "role": "assistant",
+              "content": reply
+          })
+
+          save_history(
+              session,
+              history
+          )
+
+  #---------------------
+  # ARGPARSE
+  #---------------------
+
+  parser = argparse.ArgumentParser()
+
+  parser.add_argument(
+      "model",
+      help="openai | claude | auto"
+  )
+
+  parser.add_argument(
+      "prompt",
+      nargs="*"
+  )
+
+  parser.add_argument(
+      "--session",
+      default="default"
+  )
+
+  parser.add_argument(
+      "--clear",
+      action="store_true"
+  )
+
+  args = parser.parse_args()
+
+  #---------------------
+  # VALIDACIÓN
+  #---------------------
+
+  if args.model not in [
+      "openai",
+      "claude",
+      "auto"
+  ]:
+
+      print(
+          Fore.RED +
+          "Modelo inválido"
+      )
+
+      sys.exit()
+
+  #---------------------
+  # CLEAR
+  #---------------------
+
+  if args.clear:
+
+      clear_history(args.session)
+
+      sys.exit()
+
+  #---------------------
+  # SINGLE PROMPT
+  #---------------------
+
+  if args.prompt:
+
+      prompt = " ".join(args.prompt)
+
+      single_prompt_mode(
+          args.model,
+          prompt,
+          args.session
+      )
+
+  else:
+
+      interactive_chat(
+          args.model,
+          args.session
+      )
+    </pre>
+    </div>
+
+    <hr>
+
+    <h2>Recursos relacionados</h2>
+
+    <div class="box">
+      <ul>
+        <li>
+          <span class="cat">
+            <a href="../v1/index.html">Uso Dual V1</a>
+          </span>
+        </li>
+
+        <li>
+          <span class="cat">
+            <a href="../../openai/index.html">OpenAI &amp; S-GPT</a>
+          </span>
+        </li>
+
+        <li>
+          <span class="cat">
+            <a href="../../anthropic/index.html">Claude &amp; Anthropic</a>
+          </span>
+        </li>
+
+        <li>
+          <span class="cat">
+            <a href="../../apis/index.html">APIs</a>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <hr>
+
+  </div>
+
+</body>
+
+</html>

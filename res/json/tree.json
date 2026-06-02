@@ -219,27 +219,101 @@
       "path": "subpags/ia/index.html",
       "children": [
         {
-          "name": "OpenAI",
-          "cat": "openai",
-          "path": "subpags/ia/openai/index.html",
-          "tags": [
-            "ia",
-            "llm",
-            "api",
-            "multiuso",
-            "chatbot"
-          ]
-        },
-        {
-          "name": "Anthropic",
-          "cat": "anthropic",
-          "path": "subpags/ia/anthropic/index.html",
-          "tags": [
-            "ia",
-            "llm",
-            "api",
-            "code",
-            "razonamiento"
+          "name": "Proyecto IA local",
+          "cat": "local",
+          "path": "subpags/ia/proyecto_local/index.html",
+          "children": [
+            {
+              "name": "OpenAI",
+              "cat": "openai",
+              "path": "subpags/ia/proyecto_local/openai/index.html",
+              "tags": [
+                "shell-gpt",
+                "llm",
+                "api",
+                "python-sdk",
+                "chatbot"
+              ],
+              "children": [
+                {
+                  "name": "Comprobante - OpenAI",
+                  "cat": "cmds",
+                  "path": "subpags/ia/proyecto_local/openai/comprobante/index.html"
+                }
+              ]
+            },
+            {
+              "name": "Anthropic",
+              "cat": "anthropic",
+              "path": "subpags/ia/proyecto_local/anthropic/index.html",
+              "tags": [
+                "claude-code",
+                "llm",
+                "api",
+                "python-sdk",
+                "razonamiento"
+              ],
+              "children": [
+                {
+                  "name": "Comprobante - Anthropic",
+                  "cat": "cmds",
+                  "path": "subpags/ia/proyecto_local/anthropic/comprobante/index.html"
+                }
+              ]
+            },
+            {
+              "name": "Integración con Git",
+              "cat": "github",
+              "path": "subpags/ia/proyecto_local/git/index.html",
+              "tags": [
+                "control",
+                "repositorio",
+                "cambios",
+                "exclusion",
+                "versiones"
+              ]
+            },
+            {
+              "name": "APIs",
+              "cat": "cmds",
+              "path": "subpags/ia/proyecto_local/apis/index.html",
+              "tags": [
+                "http/s",
+                "clave",
+                "autenticacion",
+                "variables",
+                "integracion"
+              ]
+            },
+            {
+              "name": "Versiones duales",
+              "cat": "dualvers",
+              "path": "subpags/ia/proyecto_local/dualvers/index.html",
+              "tags": [
+                "python3",
+                "api",
+                "script",
+                "router",
+                "elección"
+              ],
+              "children": [
+                {
+                  "name": "V1",
+                  "cat": "dualvers",
+                  "path": "subpags/ia/proyecto_local/dualvers/v1/index.html"
+                },
+                {
+                  "name": "V2",
+                  "cat": "dualvers",
+                  "path": "subpags/ia/proyecto_local/dualvers/v2/index.html"
+                },
+                {
+                  "name": "V3 (Mantenimiento)",
+                  "cat": "dualvers",
+                  "path": "subpags/ia/proyecto_local/dualvers/v3/index.html"
+                }
+              ]
+            }
           ]
         }
       ]

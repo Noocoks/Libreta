@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+
+  <meta name="keywords" content="api, openai, anthropic, claude, chatgpt, variables entorno, python, ia">
+
+  <meta name="description" content="Configuración de claves API para OpenAI y Anthropic mediante variables de entorno.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>APIs</title>
+
+  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+  <script src="/Libreta/res/js/page.js"></script>
+</head>
+
+<body>
+
+  <div class="page" data-cat="ia apis">
+
+    <hr>
+
+    <h1>APIs</h1>
+
+    <div class="box box--info">
+      <p>
+        Antes de utilizar los modelos de
+        <strong>OpenAI</strong> y <strong>Anthropic</strong>,
+        es necesario obtener las claves API de cada proveedor
+        y almacenarlas de forma segura.
+      </p>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Obtención de claves</h2>
+
+    <p>
+      Accede a los paneles de administración de:
+    </p>
+
+    <ul>
+
+      <li>
+        <a href="https://openai.com/">
+          OpenAI
+        </a>
+      </li>
+
+      <li>
+        <a href="https://www.anthropic.com/">
+          Anthropic
+        </a>
+      </li>
+
+    </ul>
+
+    <p>
+      Desde cada plataforma podrás generar una clave API
+      asociada a tu cuenta.
+    </p>
+
+    <br>
+    <hr>
+
+    <h2>Crear archivo .env</h2>
+
+    <div class="box">
+      <pre>
+
+  └─$ nano .env
+      </pre>
+    </div>
+
+    <p>
+      Dentro del archivo guarda las claves:
+    </p>
+
+    <div class="box">
+      <pre>
+
+  OPENAI_API_KEY=xxxx
+  ANTHROPIC_API_KEY=xxxx
+      </pre>
+    </div>
+
+    <p>
+      Sustituye <strong>xxxx</strong> por las claves
+      generadas en cada plataforma.
+    </p>
+
+    <br>
+    <hr>
+
+    <h2>Recomendaciones</h2>
+
+    <ul>
+      <li>No compartir el archivo <strong>.env</strong>.</li>
+      <li>No subir las claves a GitHub.</li>
+      <li>Utilizar siempre variables de entorno.</li>
+      <li>Proteger el archivo mediante permisos restrictivos.</li>
+    </ul>
+
+    <div class="box">
+      <pre>
+
+  └─$ chmod 600 .env
+      </pre>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Recursos relacionados</h2>
+
+    <div class="box">
+      <ul>
+
+        <li>
+          <span class="cat">
+            <a href="../../index.html">
+              IA
+            </a>
+          </span>
+        </li>
+
+        <li>
+          <span class="cat">
+            <a href="../git/index.html">
+              IA + Git
+            </a>
+          </span>
+        </li>
+
+        <li>
+          <span class="cat">
+            <a href="./comprobante/index.html">
+              Comprobación APIs
+            </a>
+          </span>
+        </li>
+
+      </ul>
+    </div>
+
+    <br>
+    <hr>
+
+  </div>
+
+</body>
+
+</html>

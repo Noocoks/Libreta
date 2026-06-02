@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Nico">
+
+  <meta name="keywords" content="git, github, gitignore, api, openai, anthropic, entorno virtual, seguridad">
+
+  <meta name="description"
+    content="Configuración de Git para proyectos de IA evitando la exposición de claves API y archivos sensibles.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>IA + Git</title>
+
+  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+  <script src="/Libreta/res/js/page.js"></script>
+</head>
+
+<body>
+
+  <div class="page" data-cat="ia github">
+    <hr>
+
+    <h1>IA + Git</h1>
+
+    <div class="box box--info">
+      <p>
+        Configuración recomendada para utilizar
+        <strong>Git</strong> junto a proyectos de
+        <strong>Inteligencia Artificial</strong> sin exponer
+        claves privadas ni archivos sensibles.
+      </p>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>¿Por qué usar .gitignore?</h2>
+
+    <p>
+      El archivo <strong>.gitignore</strong> permite indicar a Git
+      qué archivos o directorios no deben subirse al repositorio.
+    </p>
+
+    <p>
+      Esto es especialmente importante cuando trabajamos con:
+    </p>
+
+    <ul>
+      <li>Claves API.</li>
+      <li>Entornos virtuales.</li>
+      <li>Archivos temporales.</li>
+      <li>Cachés de Python.</li>
+    </ul>
+
+    <br>
+    <hr>
+
+    <h2>Problema habitual</h2>
+
+    <p>
+      El archivo <strong>.env</strong> suele contener datos sensibles:
+    </p>
+
+    <ul>
+      <li>OPENAI_API_KEY</li>
+      <li>ANTHROPIC_API_KEY</li>
+      <li>Tokens privados</li>
+      <li>Credenciales de acceso</li>
+    </ul>
+
+    <p>
+      Si estos archivos llegan a GitHub podrían quedar expuestos.
+    </p>
+
+    <p>
+      Existen bots que monitorizan repositorios públicos buscando
+      claves filtradas.
+    </p>
+
+    <br>
+    <hr>
+
+    <h2>Contenido recomendado</h2>
+
+    <div class="box">
+      <pre>
+
+  .env
+  venv/
+  __pycache__/
+  *.pyc
+      </pre>
+    </div>
+
+    <p>
+      Con esta configuración Git ignorará:
+    </p>
+
+    <ul>
+      <li>Variables de entorno.</li>
+      <li>Entornos virtuales.</li>
+      <li>Cachés de Python.</li>
+      <li>Archivos compilados.</li>
+    </ul>
+
+    <br>
+    <hr>
+
+    <h2>Inicialización correcta</h2>
+
+    <h3>1. Inicializar repositorio</h3>
+
+    <div class="box">
+      <pre>
+
+ └─$ git init
+      </pre>
+    </div>
+
+    <h3>2. Crear .gitignore</h3>
+
+    <div class="box">
+      <pre>
+
+ └─$ nano .gitignore
+      </pre>
+    </div>
+
+    <h3>3. Añadir contenido</h3>
+
+    <div class="box">
+      <pre>
+
+  .env
+  venv/
+  __pycache__/
+  *.pyc
+      </pre>
+    </div>
+
+    <h3>4. Verificar</h3>
+
+    <div class="box">
+      <pre>
+
+ └─$ git status
+      </pre>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>Error común</h2>
+
+    <p>
+      Si el archivo <strong>.env</strong> fue añadido al repositorio
+      antes de crear el <strong>.gitignore</strong>, Git seguirá
+      rastreándolo.
+    </p>
+
+    <p>
+      Para eliminarlo del control de versiones:
+    </p>
+
+    <div class="box">
+      <pre>
+
+ └─$ git rm --cached .env
+
+ └─$ git commit -m "remove env"
+      </pre>
+    </div>
+
+    <br>
+    <hr>
+
+    <h2>No subir nunca</h2>
+
+    <ul>
+      <li>.env</li>
+      <li>API Keys</li>
+      <li>Tokens</li>
+      <li>Cookies</li>
+      <li>Claves SSH</li>
+      <li>venv/</li>
+    </ul>
+
+    <p>
+      <em>
+        En proyectos Python modernos, el uso de
+        <strong>.gitignore</strong> es una práctica esencial.
+      </em>
+    </p>
+
+    <br>
+    <hr>
+
+  </div>
+
+</body>
+
+</html>

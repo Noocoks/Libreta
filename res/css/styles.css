@@ -65,10 +65,13 @@
     --icon-mailhog: "📨";
 
     /* Subcategorías IA */
+    --icon-local: "🏡";
     --icon-openai: "🤖";
     --icon-anthropic: "🧩";
+    --icon-dualvers: "↔️";
 
     /* Básicos */
+    --icon-github: "🐈‍⬛";
     --icon-arq: "⚙️";
     --icon-lab: "🧪";
     --icon-cmds: "📜";
@@ -78,12 +81,22 @@
     --icon-code: "🗿";
 
 
+    --icon-local: "🏡";
+    --icon-dualvers: "↔️";
+    --icon-github: "🐈‍⬛";
 
 }
 
 /*******************************************************************************
  * GENERAL
  ******************************************************************************/
+* {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 body {
     font-size: 13px;
     font-family: "Open Sans", sans-serif !important;
@@ -216,7 +229,7 @@ div.tree li {
     border-radius: 4px;
 }
 
-#tree_root li[data-cat] > a::before {
+#tree_root li[data-cat]>a::before {
     content: var(--icon);
     margin-right: .35rem;
 }
@@ -515,6 +528,10 @@ code {
 }
 
 pre {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
     padding: 10px;
     overflow: auto;
     margin: 1em 0;
@@ -751,3 +768,14 @@ pre {
     --icon: var(--icon-code);
 }
 
+[data-cat~="local"] {
+    --icon: var(--icon-local);
+}
+
+[data-cat~="dualvers"] {
+    --icon: var(--icon-dualvers);
+}
+
+[data-cat~="github"] {
+    --icon: var(--icon-github);
+}
