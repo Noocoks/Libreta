@@ -275,7 +275,7 @@
             },
             {
               "name": "APIs",
-              "cat": "cmds",
+              "cat": "api",
               "path": "subpags/ia/proyecto_local/apis/index.html",
               "tags": [
                 "http/s",

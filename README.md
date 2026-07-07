@@ -75,11 +75,13 @@ Repositorio de documentación técnica sobre ciberseguridad, pentesting, automat
 .
 ├── index.html
 ├── README.md
+├── R_ÍNDICE-HERRAMIENTAS.md
+├── R_HISTORIAL.md
+├── images
 ├── res
 │   ├── css
 │   ├── js
-│   ├── json
-│   └── images
+│   └── json
 └── subpags
     ├── ciberseguridad
     │   ├── adfb
@@ -89,13 +91,13 @@ Repositorio de documentación técnica sobre ciberseguridad, pentesting, automat
     │   └── index.html
     │
     └── ia
-        ├── apis
-        ├── openai
-        ├── anthropic
-        ├── ia_git
-        ├── uso_dual_v1
-        ├── uso_dual_v2
-        └── index.html
+        └── proyecto_local
+            ├── anthropic
+            ├── apis
+            ├── dualvers
+            ├── git
+            ├── openai
+            └── index.html
 ```
 
 ## Objetivo

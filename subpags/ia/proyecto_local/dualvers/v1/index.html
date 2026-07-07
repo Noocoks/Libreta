@@ -1,12 +1,10 @@
 <!doctype html>
-
 <html>
 
 <head>
     <meta charset="UTF-8">
 
-    ```
-    <meta name="author" content="Nico">
+    <meta name="author" content="Nooko">
 
     <meta name="keywords" content="openai, anthropic, claude, gpt, python, llm, api, integración, multi-modelo">
 
@@ -19,13 +17,13 @@
 
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
-    ```
 
 </head>
 
 <body>
 
-    <div class="page" data-cat="ia openai anthropic python api dual">
+    <div class="page" data-cat="ia dualvers">
+        <hr>
 
         <h1>Uso Dual V1 (GPT + Claude)</h1>
 
@@ -36,7 +34,6 @@
                 de OpenAI y Anthropic mediante variables de entorno.
             </p>
         </div>
-
         <br>
         <hr>
 
@@ -50,8 +47,6 @@
                 <li>Unificar el flujo de consultas.</li>
             </ul>
         </div>
-
-
         <br>
         <hr>
 
@@ -67,109 +62,116 @@
                 <li>Muestra la respuesta por terminal.</li>
             </ol>
         </div>
-
-
         <br>
         <hr>
 
         <h2>Código</h2>
 
-        <div class="box box--section">
+        <div class="code-card">
+            <details>
+                <summary>
 
-            <pre>
+                    <div class="code-header">
+                        <div>
+                            <strong>📄 uso_dual_v1.py</strong><br>
+                            <span>Python · 74 líneas</span>
+                        </div>
 
-    import os
+                        <span class="arrow"></span>
+                    </div>
 
-    from dotenv import load_dotenv
-    from openai import OpenAI
-    from anthropic import Anthropic
+                </summary>
+
+                <div class="code-body">
+                    <pre>
+import os
+
+from dotenv import load_dotenv
+from openai import OpenAI
+from anthropic import Anthropic
+
+load_dotenv()
+
+openai_client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY")
+)
+
+anthropic_client = Anthropic(
+    api_key=os.getenv("ANTHROPIC_API_KEY")
+)
 
 
-    load_dotenv()
+def ask_openai(prompt):
 
-
-    openai_client = OpenAI(
-        api_key=os.getenv("OPENAI_API_KEY")
+    response = openai_client.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
     )
 
-    anthropic_client = Anthropic(
-        api_key=os.getenv("ANTHROPIC_API_KEY")
+    return response.choices[0].message.content
+
+
+def ask_claude(prompt):
+
+    message = anthropic_client.messages.create(
+        model="claude-sonnet-4-0",
+        max_tokens=100,
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
     )
 
-
-    def ask_openai(prompt):
-
-        response = openai_client.chat.completions.create(
-            model="gpt-4.1-mini",
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ]
-        )
-
-        return response.choices[0].message.content
+    return message.content[0].text
 
 
-    def ask_claude(prompt):
+model = input(
+    "Elige IA (openai / claude): "
+).strip().lower()
 
-        message = anthropic_client.messages.create(
-            model="claude-sonnet-4-0",
-            max_tokens=100,
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ]
-        )
-
-        return message.content[0].text
+prompt = input(
+    "Escribe tu pregunta: "
+)
 
 
-    model = input(
-        "Elige IA (openai / claude): "
-    ).strip().lower()
+if model == "openai":
 
-    prompt = input(
-        "Escribe tu pregunta: "
-    )
+    print("\nRespuesta OpenAI:\n")
+    print(ask_openai(prompt))
 
 
-    if model == "openai":
+    elif model == "claude":
 
-        print("\nRespuesta OpenAI:\n")
-        print(ask_openai(prompt))
+        print("\nRespuesta Claude:\n")
+        print(ask_claude(prompt))
 
+    else:
 
-        elif model == "claude":
-
-            print("\nRespuesta Claude:\n")
-            print(ask_claude(prompt))
-
-        else:
-
-            print(
-                "Modelo no válido. Usa 'openai' o 'claude'."
-            )
-            </pre>
+        print(
+            "Modelo no válido. Usa 'openai' o 'claude'."
+        )</pre>
+                </div>
+            </details>
 
         </div>
-
-        <br>
         <hr>
 
         <h2>Dependencias</h2>
 
         <div class="box">
-          <ul>
-            <li>openai</li>
-            <li>anthropic</li>
-            <li>python-dotenv</li>
-        </ul>  
+            <ul>
+                <li>openai</li>
+                <li>anthropic</li>
+                <li>python-dotenv</li>
+            </ul>
         </div>
-        
         <br>
         <hr>
 
