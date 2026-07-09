@@ -2,182 +2,164 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <meta name="author" content="Nooko">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="keywords"
-    content="gophish, campaign, smtp-profile, landing-page, mail-template, credential-capture">
+    <meta name="keywords" content="gophish, campaign, smtp-profile, landing-page, mail-template, credential-capture">
 
-  <meta name="description"
-    content="Capturas y configuración de una campaña local de Gophish junto a MailHog.">
+    <meta name="description" content="Capturas y configuración de una campaña local de Gophish junto a MailHog.">
 
-  <title>Uso Personal - Caps - Gophish</title>
+    <title>Uso Personal - Caps - Gophish</title>
 
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
+    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+    <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
 
-  <div class="page" data-cat="phishing gophish ejem">
-    <hr>
+    <div class="page" data-cat="phishing gophish ejem">
+        <hr>
 
-    <h1>Uso Personal - Ejemplo practico - Gophish</h1>
-    
-    <div class="box box--info">
-      <p>
-        Disclaimer: Capturas correspondientes a la primera configuración
-        local realizada con
-        <span class="cat">
-          <a href="../../index.html">
-            Gophish
-          </a>
-        </span> junto a
-        <span class="cat">
-          <a href="../../../mailhog/index.html">
-            MailHog
-          </a>
-        </span>
-        en un entorno de laboratorio.
-      </p>
+        <h1>Uso Personal - Ejemplo practico - Gophish</h1>
+
+        <div class="box box--info">
+            <p>
+                Disclaimer: Capturas correspondientes a la primera configuración
+                local realizada con
+                <span class="cat">
+                    <a href="../../index.html">
+                        Gophish
+                    </a>
+                </span> junto a
+                <span class="cat">
+                    <a href="../../../mailhog/index.html">
+                        MailHog
+                    </a>
+                </span>
+                en un entorno de laboratorio.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Índice</h2>
+
+        <div class="box">
+            <ul>
+                <li><a href="#grupos">Grupos</a></li>
+                <li><a href="#mt">Mail Template</a></li>
+                <li><a href="#lp">Landing Page</a></li>
+                <li><a href="#pde">Perfil de envío</a></li>
+                <li><a href="#campaña">Campaña</a></li>
+            </ul>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Configuración</h2>
+        <div class="box box--media">
+            <h3 id="grupos">Grupos</h3>
+
+            <p>
+                Apartado destinado a la definición de los
+                destinatarios mediante nombre, apellidos
+                y correo electrónico.
+            </p>
+
+            <img src="/Libreta/images/14-2.png" alt="Configuración de grupos">
+        </div>
+        <br>
+
+        <div class="box box--media">
+            <h3 id="mt">Mail Template</h3>
+
+            <p>
+                Plantilla de correo que recibirá el usuario
+                objetivo durante la simulación.
+            </p>
+
+            <p>
+                <span class="cat">
+                    <a href="./codes/mail_templates/index.html">
+                        Código fuente
+                    </a>
+                </span>
+            </p>
+
+            <img src="/Libreta/images/14-3.png" alt="Plantilla de correo">
+        </div>
+        <br>
+
+        <div class="box box--media">
+            <h3 id="lp">Landing Page</h3>
+
+            <p>
+                Página mostrada al usuario tras acceder al enlace
+                contenido en el correo.
+            </p>
+
+            <p>
+                Se utilizaron las opciones:
+            </p>
+
+            <ul>
+                <li>Capture Submitted Data</li>
+                <li>Capture Passwords</li>
+            </ul>
+
+            <p>
+                <span class="cat">
+                    <a href="./codes/landing_pages/index.html">
+                        Código fuente
+                    </a>
+                </span>
+            </p>
+
+            <img src="/Libreta/images/14-4.png" alt="Landing Page">
+        </div>
+        <br>
+
+        <div class="box box--media">
+            <h3 id="pde">Perfil de envío</h3>
+
+            <p>
+                Configuración SMTP utilizada para el envío
+                de correos mediante MailHog en entorno local.
+            </p>
+
+            <img src="/Libreta/images/14-5.png" alt="Perfil SMTP">
+        </div>
+        <br>
+        <hr>
+
+        <div class="box">
+            <h3 id="resultado">Resultado</h3>
+
+            <p>
+                Por finalizar únicamente será necesario
+                rellenar el apartado de campaña y
+                finalizar la configuración.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <div class="box box--media">
+            <h3 id="campaña">Campaña</h3>
+
+            <p>
+                Una vez completados los apartados anteriores,
+                únicamente será necesario rellenar los campos
+                restantes prestando especial atención a la URL
+                utilizada durante la simulación.
+            </p>
+
+            <img src="/Libreta/images/14-1.png" alt="Configuración de campaña en Gophish">
+        </div>
+
     </div>
-
-    <br>
-    <hr>
-
-    <h2>Índice</h2>
-
-    <div class="box">
-      <ul>
-        <li>Campaña</li>
-        <li>Grupos</li>
-        <li>Página de phishing</li>
-        <li>Landing Page</li>
-        <li>Perfil de envío</li>
-      </ul>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Configuración</h2>
-
-    <div class="box box--media">
-      <h3>Campaña</h3>
-
-      <p>
-        Una vez completados los apartados anteriores,
-        únicamente será necesario rellenar los campos
-        restantes prestando especial atención a la URL
-        utilizada durante la simulación.
-      </p>
-
-      <img src="/Libreta/images/14-1.png"
-        alt="Configuración de campaña en Gophish">
-    </div>
-
-    <br>
-
-    <div class="box box--media">
-      <h3>Grupos</h3>
-
-      <p>
-        Apartado destinado a la definición de los
-        destinatarios mediante nombre, apellidos
-        y correo electrónico.
-      </p>
-
-      <img src="/Libreta/images/14-2.png"
-        alt="Configuración de grupos">
-    </div>
-
-    <br>
-
-    <div class="box box--media">
-      <h3>Página de phishing</h3>
-
-      <p>
-        Plantilla de correo que recibirá el usuario
-        objetivo durante la simulación.
-      </p>
-
-      <p>
-        <span class="cat">
-          <a href="./codes/mail_templates/index.html">
-            Código fuente
-          </a>
-        </span>
-      </p>
-
-      <img src="/Libreta/images/14-3.png"
-        alt="Plantilla de correo">
-    </div>
-
-    <br>
-
-    <div class="box box--media">
-      <h3>Landing Page</h3>
-
-      <p>
-        Página mostrada al usuario tras acceder al enlace
-        contenido en el correo.
-      </p>
-
-      <p>
-        Se utilizaron las opciones:
-      </p>
-
-      <ul>
-        <li>Capture Submitted Data</li>
-        <li>Capture Passwords</li>
-      </ul>
-
-      <p>
-        <span class="cat">
-          <a href="./codes/landing_pages/index.html">
-            Código fuente
-          </a>
-        </span>
-      </p>
-
-      <img src="/Libreta/images/14-4.png"
-        alt="Landing Page">
-    </div>
-
-    <br>
-
-    <div class="box box--media">
-      <h3>Perfil de envío</h3>
-
-      <p>
-        Configuración SMTP utilizada para el envío
-        de correos mediante MailHog en entorno local.
-      </p>
-
-      <img src="/Libreta/images/14-5.png"
-        alt="Perfil SMTP">
-    </div>
-
-    <br>
-    <hr>
-    <br>
-
-    <div class="box">
-      <h3>Resultado</h3>
-
-      <p>
-        Tras completar todos los apartados anteriores,
-        únicamente será necesario volver al apartado
-        de campaña y finalizar la configuración.
-      </p>
-    </div>
-
-    <br>
-    <hr>
-
-  </div>
 
 </body>
 

@@ -2,139 +2,150 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <meta name="author" content="Nooko">
+    <meta name="author" content="Nooko">
 
-  <meta name="keywords" content="gophish, email template, phishing email, plantilla html, smtp, campaña">
+    <meta name="keywords" content="gophish, email template, phishing email, plantilla html, smtp, campaña">
 
-  <meta name="description"
-    content="Plantilla de correo utilizada en Gophish para campañas de simulación y formación en ingeniería social.">
+    <meta name="description"
+        content="Plantilla de correo utilizada en Gophish para campañas de simulación y formación en ingeniería social.">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Código - Email Template</title>
+    <title>Código - Email Template</title>
 
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
+    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+    <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
 
-  <div class="page" data-cat="phishing gophish email-template code">
-    <hr>
+    <div class="page" data-cat="phishing gophish email-template code">
+        <hr>
 
-    <h1>Código - Email Template</h1>
+        <h1>Código - Email Template</h1>
 
-    <div class="box box--info">
-      <p>
-        Plantilla HTML utilizada por
-        <span class="cat">
-          <a href="../../../../index.html">Gophish</a>
-        </span>
-        para generar correos electrónicos de simulación.
-      </p>
-    </div>
+        <div class="box box--info">
+            <p>
+                Plantilla HTML utilizada por
+                <span class="cat">
+                    <a href="../../../../index.html">Gophish</a>
+                </span>
+                para generar correos electrónicos de simulación.
+            </p>
+        </div>
 
-    <p>
-      Este código corresponde al contenido del correo enviado
-      durante la campaña y puede contener variables dinámicas,
-      enlaces de seguimiento y elementos visuales personalizados.
-    </p>
+        <p>
+            Este código corresponde al contenido del correo enviado
+            durante la campaña y puede contener variables dinámicas,
+            enlaces de seguimiento y elementos visuales personalizados.
+        </p>
+        <br>
+        <hr>
 
-    <br>
-    <hr>
+        <h2>Función dentro de Gophish</h2>
 
-    <h2>Función dentro de Gophish</h2>
+        <div class="box">
+            <ul>
+                <li>Definir el aspecto visual del correo.</li>
+                <li>Personalizar mensajes para cada destinatario.</li>
+                <li>Insertar enlaces de seguimiento.</li>
+                <li>Simular comunicaciones corporativas.</li>
+                <li>Evaluar interacción de usuarios.</li>
+            </ul>
+        </div>
+        <br>
+        <hr>
 
-    <div class="box">
-      <ul>
-        <li>Definir el aspecto visual del correo.</li>
-        <li>Personalizar mensajes para cada destinatario.</li>
-        <li>Insertar enlaces de seguimiento.</li>
-        <li>Simular comunicaciones corporativas.</li>
-        <li>Evaluar interacción de usuarios.</li>
-      </ul>
-    </div>
+        <h2>Notas</h2>
 
-    <br>
-    <hr>
+        <div class="box">
+            <ul>
+                <li>Compatible con el sistema de plantillas de Gophish.</li>
+                <li>Puede incluir variables dinámicas.</li>
+                <li>Se utiliza junto a una Landing Page.</li>
+                <li>Forma parte de una campaña de simulación controlada.</li>
+            </ul>
+        </div>
+        <br>
+        <hr>
 
-    <h2>Notas</h2>
+        <h2>Código fuente</h2>
 
-    <div class="box">
-      <ul>
-        <li>Compatible con el sistema de plantillas de Gophish.</li>
-        <li>Puede incluir variables dinámicas.</li>
-        <li>Se utiliza junto a una Landing Page.</li>
-        <li>Forma parte de una campaña de simulación controlada.</li>
-      </ul>
-    </div>
+        <!-- Mail Template code -->
+        <div class="code-card">
+            <details>
+                <summary>
+                    <div class="code-header">
+                        <div>
+                            <strong>📄 Mail_Template1.html</strong><br>
+                            <span>HTML · 43 líneas</span>
+                        </div>
 
-    <br>
-    <hr>
+                        <span class="arrow"></span>
+                    </div>
+                </summary>
 
-    <h2>Código utilizado</h2>
+                <div class="code-body">
+                    <p>
+                        A continuación se muestra la plantilla HTML empleada
+                        para usarla como correo falso durante la simulación:
+                    </p>
 
-    <div class="box">
-      <p>
-        A continuación se muestra la plantilla HTML empleada
-        durante la simulación:
-      </p>
-
-      <!-- Mail Template code -->
-      <pre>
-
-  &lt;div style=&quot;font-family: Arial, sans-serif; background-color:#0f172a; padding:20px; color:#e2e8f0;&quot;&gt;
+                    <!-- Código -->
+                    <pre>
+&lt;div style=&quot;font-family: Arial, sans-serif; background-color:#0f172a; padding:20px; color:#e2e8f0;&quot;&gt;
 
     &lt;div style=&quot;max-width:600px; margin:0 auto; background-color:#111827; padding:30px; border-radius:12px;&quot;&gt;
 
-      &lt;h2 style=&quot;color:#60a5fa; margin-top:0;&quot;&gt;Security Operations Center&lt;/h2&gt;
+        &lt;h2 style=&quot;color:#60a5fa; margin-top:0;&quot;&gt;Security Operations Center&lt;/h2&gt;
 
-      &lt;p&gt;Hola,&lt;/p&gt;
-      &lt;p&gt;
-        Hemos detectado actividad inusual en su cuenta dentro del sistema corporativo.
-        Como medida preventiva, es necesario completar una verificación de identidad.
-      &lt;/p&gt;
-
-      &lt;div style=&quot;background-color:#1f2937; padding:15px; border-radius:8px; margin:20px 0;&quot;&gt;
-        &lt;p style=&quot;margin:0; font-size:14px;&quot;&gt;
-          ⚠️ Acción requerida: verificación de seguridad pendiente
+        &lt;p&gt;Hola,&lt;/p&gt;
+        &lt;p&gt;
+            Hemos detectado actividad inusual en su cuenta dentro del sistema corporativo.
+            Como medida preventiva, es necesario completar una verificación de identidad.
         &lt;/p&gt;
-      &lt;/div&gt;
 
-      &lt;p&gt;
-        Para continuar con el acceso seguro, por favor utilice el siguiente enlace
-      &lt;/p&gt;
+        &lt;div style=&quot;background-color:#1f2937; padding:15px; border-radius:8px; margin:20px 0;&quot;&gt;
+            &lt;p style=&quot;margin:0; font-size:14px;&quot;&gt;
+            ⚠️ Acción requerida: verificación de seguridad pendiente
+            &lt;/p&gt;
+        &lt;/div&gt;
 
-      &lt;p style=&quot;text-align:center; margin:30px 0;&quot;&gt;
-        &lt;a href=&quot;{{.URL}}&quot; style=&quot;background-color:#2563eb; color:white; padding:12px 20px; text-decoration:none; border-radius:6px; display:inline-block;&quot;&gt;
-          Verificar identidad
-        &lt;/a&gt; 
-      &lt;/p&gt;
+        &lt;p&gt;
+            Para continuar con el acceso seguro, por favor utilice el siguiente enlace
+        &lt;/p&gt;
 
-      &lt;p style=&quot;font-size:12px; color:#9ca3af;&quot;&gt;
-        Si no reconoce esta actividad, puede ignorar este mensaje o contactar con el equipo de seguridad.
-      &lt;/p&gt;
+        &lt;p style=&quot;text-align:center; margin:30px 0;&quot;&gt;
+            &lt;a href=&quot;{{.URL}}&quot; style=&quot;background-color:#2563eb; color:white; padding:12px 20px; text-decoration:none; border-radius:6px; display:inline-block;&quot;&gt;
+                Verificar identidad
+            &lt;/a&gt; 
+        &lt;/p&gt;
 
-      &lt;hr style=&quot;border:0; border-top:1px solid #374151; margin:20px 0;&quot;&gt;
+        &lt;p style=&quot;font-size:12px; color:#9ca3af;&quot;&gt;
+            Si no reconoce esta actividad, puede ignorar este mensaje o contactar con el equipo de seguridad.
+        &lt;/p&gt;
 
-      &lt;p style=&quot;font-size:11px; color:#6b7280;&quot;&gt;
-        Corporate Security Notification System
-        &lt;br&gt;
-        Este es un mensaje automático, por favor no responda.
-      &lt;/p&gt;
+        &lt;hr style=&quot;border:0; border-top:1px solid #374151; margin:20px 0;&quot;&gt;
+
+        &lt;p style=&quot;font-size:11px; color:#6b7280;&quot;&gt;
+            Corporate Security Notification System
+            &lt;br&gt;
+            Este es un mensaje automático, por favor no responda.
+        &lt;/p&gt;
 
     &lt;/div&gt;
 
-  &lt;/div&gt;
-      </pre>
+&lt;/div&gt;
+</pre>
+                </div>
+            </details>
+
+        </div>
+        <hr>
+
     </div>
-
-    <br>
-    <hr>
-
-  </div>
 
 </body>
 

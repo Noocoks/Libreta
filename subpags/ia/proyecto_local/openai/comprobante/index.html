@@ -2,153 +2,160 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <meta name="author" content="Nooko">
+    <meta name="author" content="Nooko">
 
-  <meta name="keywords"
-    content="openai, chatgpt, api, python, ia, llm, sdk, comprobacion">
+    <meta name="keywords" content="openai, chatgpt, api, python, ia, llm, sdk, comprobacion">
 
-  <meta name="description"
-    content="Comprobación básica de conectividad con la API de OpenAI mediante Python.">
+    <meta name="description" content="Comprobación básica de conectividad con la API de OpenAI mediante Python.">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Comprobante OpenAI</title>
+    <title>Comprobante OpenAI</title>
 
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
+    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+    <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
 
-  <div class="page" data-cat="ia openai cmds">
+    <div class="page" data-cat="ia cmds">
+        <hr>
 
-    <hr>
+        <h1>Comprobante OpenAI</h1>
 
-    <h1>Comprobante OpenAI</h1>
+        <div class="node-tags">
+            <span class="tag">openai</span>
+            <span class="tag">chatgpt</span>
+            <span class="tag">api</span>
+            <span class="tag">python</span>
+            <span class="tag">sdk</span>
+        </div>
+        <br>
 
-    <div class="node-tags">
-      <span class="tag">openai</span>
-      <span class="tag">chatgpt</span>
-      <span class="tag">api</span>
-      <span class="tag">python</span>
-      <span class="tag">sdk</span>
+        <div class="box box--info">
+            <p>
+                Script básico para verificar que la
+                <strong>API de OpenAI</strong> está correctamente
+                configurada y accesible desde Python.
+            </p>
+        </div>
+
+        <p>
+            El objetivo es validar la carga de variables de entorno,
+            la autenticación y la comunicación con el modelo.
+        </p>
+        <br>
+        <hr>
+
+        <h2>Dependencias</h2>
+
+        <div class="box">
+            <pre>
+└─$ pip install openai python-dotenv
+</pre>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Código</h2>
+
+        <div class="code-card">
+            <details>
+                <summary>
+                    <div class="code-header">
+                        <div>
+                            <strong>📄 openai_tester.py</strong><br>
+                            <span>Python · 22 líneas</span>
+                        </div>
+
+                        <span class="arrow"></span>
+                    </div>
+                </summary>
+
+                <div class="code-body">
+                    <pre>
+import os
+
+from dotenv import load_dotenv
+from openai import OpenAI
+
+load_dotenv()
+
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY")
+)
+
+response = client.chat.completions.create(
+    model="gpt-4.1-mini",
+    messages=[
+        {
+            "role": "user",
+            "content": "Hola"
+        }
+    ]
+)
+
+print(response.choices[0].message.content)
+</pre>
+                </div>
+            </details>
+
+        </div>
+        <br>
+        <hr>
+
+        <h2>Resultado esperado</h2>
+
+        <div class="box">
+            <ul>
+                <li>La clave API es cargada correctamente.</li>
+                <li>La petición llega a OpenAI.</li>
+                <li>El modelo devuelve una respuesta válida.</li>
+                <li>La respuesta aparece por terminal.</li>
+            </ul>
+        </div>
+
+        <br>
+        <hr>
+
+        <h2>Recursos relacionados</h2>
+
+        <div class="box">
+            <ul>
+
+                <li>
+                    <span class="cat">
+                        <a href="../../index.html">
+                            IA
+                        </a>
+                    </span>
+                </li>
+
+                <li>
+                    <span class="cat">
+                        <a href="../apis/index.html">
+                            APIs
+                        </a>
+                    </span>
+                </li>
+
+                <li>
+                    <span class="cat">
+                        <a href="../index.html">
+                            OpenAI & S-GPT
+                        </a>
+                    </span>
+                </li>
+
+            </ul>
+        </div>
+
+        <br>
+        <hr>
+
     </div>
-
-    <br>
-
-    <div class="box box--info">
-      <p>
-        Script básico para verificar que la
-        <strong>API de OpenAI</strong> está correctamente
-        configurada y accesible desde Python.
-      </p>
-    </div>
-
-    <p>
-      El objetivo es validar la carga de variables de entorno,
-      la autenticación y la comunicación con el modelo.
-    </p>
-
-    <br>
-    <hr>
-
-    <h2>Dependencias</h2>
-
-    <div class="box">
-      <pre>
-
- └─$ pip install openai python-dotenv
-      </pre>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Código</h2>
-
-    <div class="box">
-      <pre>
-
-  import os
-
-  from dotenv import load_dotenv
-  from openai import OpenAI
-
-  load_dotenv()
-
-  client = OpenAI(
-      api_key=os.getenv("OPENAI_API_KEY")
-  )
-
-  response = client.chat.completions.create(
-      model="gpt-4.1-mini",
-      messages=[
-          {
-              "role": "user",
-              "content": "Hola"
-          }
-      ]
-  )
-
-  print(response.choices[0].message.content)
-      </pre>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Resultado esperado</h2>
-
-    <div class="box">
-      <ul>
-        <li>La clave API es cargada correctamente.</li>
-        <li>La petición llega a OpenAI.</li>
-        <li>El modelo devuelve una respuesta válida.</li>
-        <li>La respuesta aparece por terminal.</li>
-      </ul>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Recursos relacionados</h2>
-
-    <div class="box">
-      <ul>
-
-        <li>
-          <span class="cat">
-            <a href="../../index.html">
-              IA
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span class="cat">
-            <a href="../apis/index.html">
-              APIs
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span class="cat">
-            <a href="../index.html">
-              OpenAI & S-GPT
-            </a>
-          </span>
-        </li>
-
-      </ul>
-    </div>
-
-    <br>
-    <hr>
-
-  </div>
 
 </body>
 

@@ -32,15 +32,14 @@
       </p>
 
       <pre>
-
-  └─$ exiftool archivo.jpg
-  └─$ exiftool -exif:all -gps:all archivo.jpg
-  └─$ exiftool *.jpg
-  └─$ exiftool -r /ruta/a/carpeta
-  </pre>
+└─$ exiftool archivo.jpg
+└─$ exiftool -exif:all -gps:all archivo.jpg
+└─$ exiftool *.jpg
+└─$ exiftool -r /ruta/a/carpeta
+</pre>
     </div>
-
     <br>
+    <hr>
 
     <div class="box">
       <h3>Extraer información útil</h3>
@@ -50,14 +49,13 @@
       </p>
 
       <pre>
-
-  └─$ exiftool -DateTimeOriginal archivo.jpg
-  └─$ exiftool -gpslatitude -gpslongitude archivo.jpg
-  └─$ exiftool -camera:all archivo.jpg
-  </pre>
+└─$ exiftool -DateTimeOriginal archivo.jpg
+└─$ exiftool -gpslatitude -gpslongitude archivo.jpg
+└─$ exiftool -camera:all archivo.jpg
+</pre>
     </div>
-
     <br>
+    <hr>
 
     <div class="box">
       <h3>Editar metadatos</h3>
@@ -67,15 +65,14 @@
       </p>
 
       <pre>
-
-  └─$ exiftool -Artist="TuNombre" archivo.jpg
-  └─$ exiftool -DateTimeOriginal="2026:05:16 10:00:00" archivo.jpg
-  └─$ exiftool -all= archivo.jpg
-  └─$ exiftool -TagsFromFile fuente.jpg destino.jpg
-  </pre>
+└─$ exiftool -Artist="TuNombre" archivo.jpg
+└─$ exiftool -DateTimeOriginal="2026:05:16 10:00:00" archivo.jpg
+└─$ exiftool -all= archivo.jpg
+└─$ exiftool -TagsFromFile fuente.jpg destino.jpg
+</pre>
     </div>
-
     <br>
+    <hr>
 
     <div class="box">
       <h3>Múltiples archivos</h3>
@@ -85,14 +82,13 @@
       </p>
 
       <pre>
-
-  └─$ exiftool -all= *.jpg
-  └─$ exiftool -Artist="TuNombre" *.jpg
-  └─$ exiftool -csv *.jpg > metadatos.csv
-      </pre>
+└─$ exiftool -all= *.jpg
+└─$ exiftool -Artist="TuNombre" *.jpg
+└─$ exiftool -csv *.jpg > metadatos.csv
+</pre>
     </div>
-
     <br>
+    <hr>
 
     <div class="box">
       <h3>Trucos avanzados</h3>
@@ -102,15 +98,11 @@
       </p>
 
       <pre>
-
-  └─$ exiftool -if '$gpslatitude' -gps:all *.jpg
-  └─$ exiftool archivo.pdf
-  └─$ exiftool video.mp4
-  </pre>
+└─$ exiftool -if '$gpslatitude' -gps:all *.jpg
+└─$ exiftool archivo.pdf
+└─$ exiftool video.mp4
+</pre>
     </div>
-
-    <br>
-    <hr>
 
   </div>
 </body>

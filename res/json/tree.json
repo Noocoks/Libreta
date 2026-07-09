@@ -98,25 +98,6 @@
           "path": "subpags/ciberseguridad/osint/index.html",
           "children": [
             {
-              "name": "Holehe",
-              "cat": "holehe",
-              "path": "subpags/ciberseguridad/osint/holehe/index.html",
-              "tags": [
-                "osint",
-                "correo",
-                "cuentas",
-                "reconocimiento",
-                "usuarios"
-              ],
-              "children": [
-                {
-                  "name": "Arquitectura",
-                  "cat": "arq",
-                  "path": "subpags/ciberseguridad/osint/holehe/arq/index.html"
-                }
-              ]
-            },
-            {
               "name": "ExifTool",
               "cat": "exiftool",
               "path": "subpags/ciberseguridad/osint/exiftool/index.html",
@@ -132,6 +113,25 @@
                   "name": "Comandos Útiles",
                   "cat": "cmds",
                   "path": "subpags/ciberseguridad/osint/exiftool/cmds/index.html"
+                }
+              ]
+            },
+            {
+              "name": "Holehe",
+              "cat": "holehe",
+              "path": "subpags/ciberseguridad/osint/holehe/index.html",
+              "tags": [
+                "osint",
+                "correo",
+                "cuentas",
+                "reconocimiento",
+                "usuarios"
+              ],
+              "children": [
+                {
+                  "name": "Arquitectura",
+                  "cat": "arq",
+                  "path": "subpags/ciberseguridad/osint/holehe/arq/index.html"
                 }
               ]
             }
