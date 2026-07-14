@@ -27,6 +27,14 @@
 
     <h1>Hydra</h1>
 
+    <p>
+      <em>
+        <small>
+          Herramienta de auditoría de autenticación para entornos autorizados.
+        </small>
+      </em>
+    </p>
+
     <div class="node-tags">
       <span class="tag">pentesting</span>
       <span class="tag">credenciales</span>
@@ -38,18 +46,13 @@
 
     <div class="box box--info">
       <p>
-        <strong>Hydra</strong> es una herramienta de auditoría de seguridad utilizada en
-        <span class="cat">
-          <a href="../index.html">Ataques de fuerza bruta</a>
-        </span>
-        para evaluar la fortaleza de sistemas de autenticación mediante pruebas automatizadas
-        de credenciales.
+        <strong>Hydra</strong> es una herramienta <strong>Open Source</strong> de auditoría de autenticación que permite
+        evaluar la fortaleza de usuarios y contraseñas mediante pruebas automatizadas sobre múltiples servicios de red.
+        <br>
+        Su objetivo es detectar credenciales débiles y comprobar la eficacia de las políticas de seguridad en entornos
+        autorizados, sin explotar vulnerabilidades del sistema ni modificar su configuración.
       </p>
     </div>
-
-    <p>
-      Su uso legítimo se limita a auditorías autorizadas y entornos de laboratorio controlados.
-    </p>
     <br>
     <hr>
 
@@ -57,20 +60,11 @@
 
     <div class="box">
       <ul>
-        <li>Detectar credenciales débiles.</li>
-        <li>Evaluar la robustez de mecanismos de autenticación.</li>
-        <li>Ayudar a mejorar la seguridad antes de una intrusión real.</li>
-      </ul>
-    </div>
-
-    <h3>Servicios compatibles</h3>
-
-    <div class="box">
-      <ul>
-        <li>SSH</li>
-        <li>FTP</li>
-        <li>HTTP</li>
-        <li>Otros protocolos soportados.</li>
+        <li>Auditorías de seguridad sobre servicios de autenticación.</li>
+        <li>Detección de contraseñas débiles o reutilizadas.</li>
+        <li>Verificación de políticas de bloqueo y limitación de intentos.</li>
+        <li>Formación y laboratorios de ciberseguridad.</li>
+        <li>Pentesting autorizado.</li>
       </ul>
     </div>
     <br>
@@ -78,13 +72,35 @@
 
     <h2>Instalación</h2>
 
+    <p>
+      En distribuciones basadas en Debian, Ubuntu o Kali Linux puede instalarse directamente desde los repositorios
+      oficiales.
+    </p>
+
     <div class="box">
       <pre>
 └─$ sudo apt update
 └─$ sudo apt install hydra
-└─$ hydra -h 
 </pre>
     </div>
+
+    <br>
+
+    <h2>Comprobación</h2>
+
+    <div class="box">
+      <pre>
+└─$ which hydra
+└─$ hydra -h
+└─$ hydra -U
+</pre>
+    </div>
+
+    <p>
+      Si la instalación es correcta, el sistema localizará el ejecutable y mostrará la ayuda integrada junto con la
+      lista de módulos disponibles.
+    </p>
+
     <br>
     <hr>
 
@@ -92,6 +108,7 @@
 
     <div class="box">
       <ul>
+
         <li>
           <span class="cat">
             <a href="./arq/index.html">
@@ -107,11 +124,9 @@
             </a>
           </span>
         </li>
+
       </ul>
     </div>
-    <br>
-    <hr>
-
   </div>
 
 </body>

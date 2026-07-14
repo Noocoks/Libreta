@@ -24,58 +24,322 @@
     <h1>Arquitectura - Hydra</h1>
 
     <p>
-      <em><small>Diseñada para ser rápida y modular.</small></em>
+      <em>
+        <small>
+          Diseñada para ser rápida, modular y altamente paralelizable.
+        </small>
+      </em>
     </p>
 
     <br>
 
     <div class="box">
+
       <h3>Motor principal</h3>
 
-      <ul>
-        <li>Coordina los intentos de autenticación.</li>
-      </ul>
+      <p>
+        El núcleo de Hydra coordina toda la ejecución de la herramienta. Se encarga de cargar la configuración,
+        interpretar los parámetros introducidos por el usuario, inicializar los módulos necesarios y gestionar el
+        ciclo completo de la auditoría.
+      </p>
+
     </div>
 
     <br>
 
     <div class="box">
+
       <h3>Módulos por protocolo</h3>
 
-      <ul>
-        <li>Cada servicio (SSH, FTP, HTTP…) tiene su propio módulo.</li>
-      </ul>
+      <p>
+        Hydra utiliza una arquitectura modular donde cada protocolo dispone de un módulo independiente encargado de
+        comunicarse con el servicio correspondiente.
+      </p>
+      <br>
+      <hr>
+
+      <h4>Servicios compatibles</h4>
+
+      <details class="accordion">
+
+        <summary>Ver protocolos compatibles</summary>
+
+        <div class="accordion-content">
+
+          <div class="box">
+            <h3>SSH (Secure Shell)</h3>
+
+            <p>
+              Protocolo utilizado para la administración remota segura de servidores y sistemas Linux/Unix mediante
+              conexiones cifradas.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>FTP (File Transfer Protocol)</h3>
+
+            <p>
+              Servicio destinado a la transferencia de archivos entre equipos a través de una red. En su versión clásica
+              no cifra la información transmitida.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>HTTP Basic / HTTP Form</h3>
+
+            <p>
+              Mecanismos de autenticación utilizados por aplicaciones y paneles web para controlar el acceso mediante
+              usuario y contraseña.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>HTTPS</h3>
+
+            <p>
+              Versión segura de HTTP que cifra las comunicaciones mediante TLS.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>SMTP</h3>
+
+            <p>
+              Protocolo encargado del envío de correo electrónico.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>POP3</h3>
+
+            <p>
+              Protocolo utilizado para descargar mensajes de correo desde un servidor.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>IMAP</h3>
+
+            <p>
+              Permite mantener el correo sincronizado entre varios dispositivos.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>SMB</h3>
+
+            <p>
+              Protocolo utilizado principalmente para compartir archivos y recursos en sistemas Windows.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>MySQL</h3>
+
+            <p>
+              Sistema gestor de bases de datos relacional muy utilizado por aplicaciones web.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>PostgreSQL</h3>
+
+            <p>
+              Base de datos relacional de código abierto orientada a aplicaciones empresariales.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>RDP</h3>
+
+            <p>
+              Protocolo de Microsoft para el acceso remoto mediante escritorio.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>VNC</h3>
+
+            <p>
+              Sistema de escritorio remoto multiplataforma.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>LDAP</h3>
+
+            <p>
+              Protocolo utilizado para consultar y administrar servicios de directorio como Active Directory.
+            </p>
+
+          </div>
+          <br>
+
+          <div class="box">
+            <h3>Telnet</h3>
+
+            <p>
+              Antiguo protocolo de administración remota sin cifrado, actualmente reemplazado por SSH.
+            </p>
+
+          </div>
+          <br>
+
+        </div>
+      </details>
+      <br>
+      <hr>
+      <br>
+
+      <p>
+        Esta separación facilita añadir nuevos protocolos sin modificar el funcionamiento del núcleo principal.
+      </p>
+
     </div>
 
     <br>
 
     <div class="box">
-      <h3>Multi-threading</h3>
+
+      <h3>Gestión multihilo</h3>
+
+      <p>
+        Hydra distribuye el trabajo entre múltiples hilos de ejecución, permitiendo realizar numerosos intentos de
+        autenticación de forma simultánea.
+      </p>
 
       <ul>
-        <li>Ejecuta múltiples intentos en paralelo para acelerar el proceso.</li>
+        <li>Mayor velocidad de ejecución.</li>
+        <li>Aprovechamiento de procesadores multinúcleo.</li>
+        <li>Configuración del número de hilos según el entorno.</li>
       </ul>
+
     </div>
 
     <br>
 
     <div class="box">
+
       <h3>Entrada de datos</h3>
+
+      <p>
+        Antes de comenzar la auditoría, Hydra carga toda la información necesaria para generar las combinaciones de
+        autenticación.
+      </p>
 
       <ul>
         <li>Lista de usuarios.</li>
         <li>Lista de contraseñas (wordlists).</li>
+        <li>Credenciales individuales.</li>
+        <li>Parámetros específicos del protocolo seleccionado.</li>
       </ul>
+
     </div>
 
     <br>
 
     <div class="box">
+
+      <h3>Proceso de autenticación</h3>
+
+      <p>
+        Cada hilo envía las credenciales al servicio remoto utilizando el módulo correspondiente. El proceso se repite
+        automáticamente hasta completar todas las combinaciones generadas.
+      </p>
+
+    </div>
+
+    <br>
+
+    <div class="box">
+
       <h3>Análisis de respuestas</h3>
 
+      <p>
+        Hydra analiza la respuesta devuelta por el servicio para determinar el resultado de cada intento.
+      </p>
+
       <ul>
-        <li>Detecta si un login fue exitoso o fallido según la respuesta del servicio.</li>
+        <li>Autenticación correcta.</li>
+        <li>Credenciales incorrectas.</li>
+        <li>Cuenta bloqueada.</li>
+        <li>Error de comunicación.</li>
+        <li>Servicio no disponible.</li>
       </ul>
+
+    </div>
+
+    <br>
+
+    <div class="box">
+
+      <h3>Salida de resultados</h3>
+
+      <p>
+        Una vez finalizada la auditoría, Hydra presenta un resumen con las credenciales válidas encontradas,
+        estadísticas de ejecución y mensajes de error producidos durante el proceso.
+      </p>
+
+    </div>
+
+    <br>
+
+    <div class="box box--info">
+
+      <h3>Flujo simplificado</h3>
+
+      <pre>
+Usuario
+   │
+   ▼
+Configuración
+   │
+   ▼
+Motor principal
+   │
+   ▼
+Gestor de hilos
+   │
+   ▼
+Módulo del protocolo
+   │
+   ▼
+Servicio remoto
+   │
+   ▼
+Respuesta
+   │
+   ▼
+Análisis
+   │
+   ▼
+Resultados
+</pre>
+
     </div>
 
   </div>

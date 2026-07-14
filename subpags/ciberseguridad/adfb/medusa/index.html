@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="author" content="Nooko">
+
+    <meta name="keywords"
+        content="medusa, autenticación, auditoría, fuerza bruta, ssh, ftp, http basic, instalación, kali linux">
+
+    <meta name="description"
+        content="Introducción a Medusa, casos de uso, protocolos compatibles, instalación y comprobación de la herramienta.">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medusa</title>
+
+    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+    <script src="/Libreta/res/js/page.js"></script>
+</head>
+
+<body>
+
+    <div class="page" data-cat="fuerza-bruta medusa">
+        <hr>
+
+        <h1>Medusa</h1>
+
+        <p>
+            <em>
+                <small>
+                    Herramienta de auditoría de autenticación para entornos autorizados.
+                </small>
+            </em>
+        </p>
+
+        <br>
+
+        <div class="box box--info">
+
+            <p>
+                <strong>Medusa</strong> es una herramienta <strong>Open Source</strong> de auditoría de autenticación
+                que permite evaluar la seguridad de distintos servicios de red mediante intentos automatizados de inicio
+                de sesión.
+                <br>
+                Está orientada a comprobar la fortaleza de las credenciales y la eficacia de las políticas de
+                autenticación en entornos autorizados, sin explotar vulnerabilidades ni modificar la configuración del
+                sistema, limitándose únicamente a interactuar con los mecanismos de autenticación disponibles.
+            </p>
+
+        </div>
+
+        <br>
+
+        <hr>
+
+        <h2>Casos de uso más frecuentes</h2>
+
+        <div class="box">
+
+            <h3>Auditorías de seguridad</h3>
+
+            <p>
+                Permite comprobar la existencia de credenciales débiles y verificar que las políticas de autenticación
+                implantadas
+                protegen correctamente los servicios corporativos.
+            </p>
+
+        </div>
+
+        <br>
+
+        <div class="box">
+
+            <h3>Laboratorios y formación</h3>
+
+            <p>
+                Es ampliamente utilizada en universidades, centros de formación y laboratorios de ciberseguridad para
+                enseñar el
+                funcionamiento de los mecanismos de autenticación y la importancia de aplicar buenas prácticas de
+                seguridad.
+            </p>
+
+        </div>
+
+        <br>
+
+        <div class="box">
+
+            <h3>Validación de políticas de seguridad</h3>
+
+            <p>
+                Permite verificar que mecanismos como el bloqueo de cuentas, la autenticación multifactor (MFA) o la
+                limitación de
+                intentos funcionan correctamente frente a intentos repetidos de autenticación.
+            </p>
+
+        </div>
+
+        <br>
+
+        <hr>
+
+        <h2>Servicios compatibles</h2>
+
+        <div class="box">
+
+            <h3>SSH (Secure Shell)</h3>
+
+            <p>
+                Protocolo ampliamente utilizado para la administración remota segura de servidores Linux y sistemas
+                Unix.
+            </p>
+
+        </div>
+
+        <br>
+
+        <div class="box">
+
+            <h3>FTP (File Transfer Protocol)</h3>
+
+            <p>
+                Servicio destinado a la transferencia de archivos entre equipos conectados mediante una red.
+            </p>
+
+        </div>
+
+        <br>
+
+        <div class="box">
+
+            <h3>HTTP Basic Authentication</h3>
+
+            <p>
+                Mecanismo de autenticación utilizado por aplicaciones y paneles web que requieren usuario y contraseña
+                para permitir
+                el acceso.
+            </p>
+
+        </div>
+
+        <br>
+
+        <hr>
+
+        <h2>Instalación</h2>
+
+        <div class="box">
+
+            <h3>Actualizar los repositorios</h3>
+
+            <pre>
+sudo apt update
+</pre>
+
+        </div>
+
+        <br>
+
+        <div class="box">
+
+            <h3>Instalar Medusa</h3>
+
+            <pre>
+sudo apt install medusa
+</pre>
+
+            <p>
+                Una vez finalizada la instalación, el sistema descargará automáticamente todas las dependencias
+                necesarias.
+            </p>
+
+        </div>
+
+        <br>
+
+        <hr>
+
+        <h2>Comprobación de la instalación</h2>
+
+        <div class="box">
+
+            <h3>Comprobar que el ejecutable existe</h3>
+
+            <pre>
+which medusa
+</pre>
+
+            <p>Salida esperada:</p>
+
+            <pre>
+/usr/bin/medusa
+</pre>
+
+        </div>
+
+        <br>
+
+        <div class="box">
+
+            <h3>Comprobar la versión instalada</h3>
+
+            <pre>
+medusa -V
+</pre>
+
+            <p>o</p>
+
+            <pre>
+medusa --version
+</pre>
+
+        </div>
+
+        <br>
+
+        <div class="box">
+
+            <h3>Mostrar la ayuda integrada</h3>
+
+            <pre>
+medusa -h
+</pre>
+
+            <p>
+                Si la instalación es correcta, Medusa mostrará la ayuda integrada junto con las opciones disponibles de
+                la
+                herramienta.
+            </p>
+
+        </div>
+
+        <br>
+
+        <hr>
+
+        <h2>Recursos relacionados</h2>
+
+        <div class="box">
+
+            <ul>
+
+                <li>
+                    <span class="cat">
+                        <a href="./arq/index.html">
+                            Arquitectura
+                        </a>
+                    </span>
+                </li>
+
+                <li>
+                    <span class="cat">
+                        <a href="./cmds/index.html">
+                            Comandos
+                        </a>
+                    </span>
+                </li>
+
+                <li>
+                    <span class="cat">
+                        <a href="./lab/index.html">
+                            Laboratorio
+                        </a>
+                    </span>
+                </li>
+
+                <li>
+                    <span class="cat">
+                        <a href="../../adfb/index.html">
+                            Ataques de Fuerza Bruta
+                        </a>
+                    </span>
+                </li>
+
+                <li>
+                    <span class="cat">
+                        <a href="../hydra/index.html">
+                            Hydra
+                        </a>
+                    </span>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <br>
+
+        <hr>
+
+    </div>
+
+</body>
+
+</html>

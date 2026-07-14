@@ -510,7 +510,11 @@ div.page h6 {
 }
 
 .box--info {
-    border-left: 3px solid var(--cat-osint);
+    border-left: 3px solid var(--active);
+}
+
+.box--info>p>strong {
+    color: var(--active);
 }
 
 
@@ -635,6 +639,61 @@ pre {
 
 
 /*******************************************************************************
+ * Desplegables genérico modo acordeón
+ ******************************************************************************/
+.accordion {
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel);
+    overflow: hidden;
+}
+
+.accordion summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 14px 18px;
+    font-weight: 600;
+    user-select: none;
+}
+
+.accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion summary::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: .6rem;
+    transition: transform .25s ease;
+}
+
+.accordion[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.accordion-content {
+    padding: 0 18px;
+    animation: accordionOpen .25s ease;
+}
+
+.accordion-content>div {
+    background: var(--bg);
+}
+
+@keyframes accordionOpen {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*******************************************************************************
  * Desplegables de código
  ******************************************************************************/
 /* ---------- Tarjeta ---------- */
@@ -715,64 +774,64 @@ details[open] .arrow {
 /*******************************************************************************
  * Tablas
  ******************************************************************************/
-.box table{
-    width:100%;
-    border-collapse:collapse;
-    margin:12px 0;
-    overflow:hidden;
-    border:1px solid var(--border);
-    border-radius:10px;
-    background:var(--panel-2);
-    font-size:.95rem;
+.box table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--panel-2);
+    font-size: .95rem;
 }
 
-.box table thead{
-    background:var(--panel);
+.box table thead {
+    background: var(--panel);
 }
 
-.box table th{
-    padding:14px 16px;
-    text-align:left;
-    font-weight:700;
-    color:var(--text);
-    border-bottom:2px solid var(--border);
+.box table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--text);
+    border-bottom: 2px solid var(--border);
 }
 
-.box table td{
-    padding:12px 16px;
-    color:var(--text);
-    border-bottom:1px solid var(--border);
+.box table td {
+    padding: 12px 16px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
 }
 
-.box table tbody tr:last-child td{
-    border-bottom:none;
+.box table tbody tr:last-child td {
+    border-bottom: none;
 }
 
-.box table tbody tr:nth-child(even){
-    background:rgba(255,255,255,.025);
+.box table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, .025);
 }
 
-.box table tbody tr:hover{
-    background:rgba(255,255,255,.06);
-    transition:.18s ease;
+.box table tbody tr:hover {
+    background: rgba(255, 255, 255, .06);
+    transition: .18s ease;
 }
 
 /* Primera columna destacada */
-.box table td:first-child{
-    font-weight:600;
-    color:var(--text);
-    white-space:nowrap;
+.box table td:first-child {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
 }
 
 /* Centrar columnas de comparación */
 .box table th:not(:first-child),
-.box table td:not(:first-child){
-    text-align:center;
+.box table td:not(:first-child) {
+    text-align: center;
 }
 
 /* Responsive */
-.table-responsive{
-    overflow-x:auto;
+.table-responsive {
+    overflow-x: auto;
 }
 
 

@@ -30,53 +30,103 @@
       <span class="tag">ssh</span>
       <span class="tag">wordlist</span>
     </div>
+
+    <br>
+
+    <div class="box box--info">
+
+      <p>
+        El objetivo de este laboratorio es comprender el funcionamiento de Hydra dentro de un
+        entorno completamente controlado, observando cómo se realizan las pruebas de autenticación
+        y cómo responden los servicios frente a intentos repetidos de inicio de sesión.
+      </p>
+
+    </div>
+
     <br>
 
     <div class="box">
-      <h3>Preparación del entorno</h3>
+
+      <h3>1. Preparación del entorno</h3>
+
+      <p>
+        Antes de comenzar es recomendable preparar un entorno aislado para evitar interferir con
+        otros equipos de la red.
+      </p>
 
       <ul>
-        <li>Máquina local o virtual (muy recomendable usar VM).</li>
-        <li>Red aislada o entorno de pruebas.</li>
+        <li>Máquina virtual (VirtualBox, VMware, etc.).</li>
+        <li>Red interna o laboratorio aislado.</li>
+        <li>Kali Linux o distribución similar.</li>
+        <li>Servicio SSH instalado y funcionando.</li>
       </ul>
+
     </div>
+
     <br>
 
     <div class="box">
-      <h3>Contenedores Docker vulnerables</h3>
+
+      <h3>2. Máquinas vulnerables</h3>
+
+      <p>
+        Para realizar las pruebas es recomendable utilizar máquinas preparadas para laboratorio
+        o contenedores Docker con servicios vulnerables.
+      </p>
 
       <ul>
         <li>DVWA</li>
         <li>Metasploitable</li>
-        <li>Otros entornos de prueba</li>
+        <li>OWASP Broken Web Apps</li>
+        <li>Contenedores Docker de prácticas</li>
       </ul>
+
     </div>
+
     <br>
 
     <div class="box">
-      <h3>Usuarios con contraseñas débiles</h3>
+
+      <h3>3. Crear usuarios de prueba</h3>
+
+      <p>
+        Configura varias cuentas con contraseñas sencillas para comprobar cómo Hydra identifica
+        credenciales débiles.
+      </p>
 
       <p><small>Ejemplos:</small></p>
 
       <ul>
-        <li>admin123</li>
-        <li>12345678</li>
-        <li>paquito06</li>
-        <li>manolopiedra</li>
+        <li>admin / admin123</li>
+        <li>usuario / 12345678</li>
+        <li>paquito / paquito06</li>
+        <li>manolo / manolopiedra</li>
       </ul>
+
     </div>
+
     <br>
 
     <div class="box">
-      <h3>Wordlists y ejecución en localhost</h3>
+
+      <h3>4. Crear las listas de prueba</h3>
 
       <p>
-        Crear archivos <strong>wordlist.txt</strong> y
-        <strong>usuarios.txt</strong>
-        con credenciales de prueba.
+        Hydra utiliza listas de usuarios y contraseñas para generar automáticamente todas las
+        combinaciones posibles.
       </p>
 
-      <p>Ejemplo para <strong>wordlist.txt</strong>:</p>
+      <p><strong>usuarios.txt</strong></p>
+
+      <ul>
+        <li>admin</li>
+        <li>usuario1</li>
+        <li>pepe</li>
+        <li>maria</li>
+        <li>test</li>
+      </ul>
+
+      <p><strong>wordlist.txt</strong></p>
 
       <ul>
         <li>123456</li>
@@ -86,32 +136,80 @@
         <li>letmein</li>
       </ul>
 
-      <p>Ejemplo para <strong>usuarios.txt</strong>:</p>
-
-      <ul>
-        <li>admin</li>
-        <li>usuario1</li>
-        <li>pepe</li>
-        <li>maria</li>
-        <li>test</li>
-      </ul>
     </div>
+
     <br>
 
     <div class="box">
-      <h3>Ejecución de Hydra</h3>
+
+      <h3>5. Ejecutar la auditoría</h3>
 
       <p>
-        Prueba de autenticación contra un servicio SSH
-        en un entorno local y controlado.
+        Una vez preparado el laboratorio puede ejecutarse Hydra contra el servicio SSH del equipo
+        de pruebas.
       </p>
 
       <pre>
 └─$ hydra -L usuarios.txt -P wordlist.txt ssh://192.168.1.100
 </pre>
+
     </div>
+
     <br>
-    <hr>
+
+    <div class="box">
+
+      <h3>6. Observar los resultados</h3>
+
+      <p>
+        Durante la ejecución conviene prestar atención a varios aspectos:
+      </p>
+
+      <ul>
+        <li>Número de intentos realizados.</li>
+        <li>Velocidad de ejecución.</li>
+        <li>Mensajes del servidor SSH.</li>
+        <li>Credenciales válidas encontradas.</li>
+        <li>Posibles bloqueos de cuentas.</li>
+        <li>Registros generados en el sistema.</li>
+      </ul>
+
+    </div>
+
+    <br>
+
+    <div class="box">
+
+      <h3>7. Medidas defensivas</h3>
+
+      <p>
+        Tras finalizar la práctica resulta recomendable repetir el laboratorio aplicando medidas
+        de protección para comprobar cómo disminuye la eficacia de la auditoría.
+      </p>
+
+      <ul>
+        <li>Contraseñas robustas.</li>
+        <li>Autenticación multifactor (MFA).</li>
+        <li>Bloqueo temporal tras varios intentos.</li>
+        <li>Fail2Ban.</li>
+        <li>Monitorización de logs.</li>
+      </ul>
+
+    </div>
+
+    <br>
+
+    <div class="box box--info">
+
+      <h3>Conclusión / Resumen del mini proyecto</h3>
+
+      <p>
+        Este laboratorio permite comprender que la principal debilidad no suele encontrarse en la
+        herramienta utilizada, sino en la calidad de las credenciales y en las políticas de
+        autenticación implementadas por el sistema.
+      </p>
+
+    </div>
 
   </div>
 

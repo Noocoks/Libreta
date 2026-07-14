@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="author" content="Nico">
+
+    <meta name="keywords" content="medusa, laboratorio, defensa, ssh, monitorización, logs, autenticación, hardening">
+
+    <meta name="description"
+        content="Laboratorio didáctico para analizar registros de autenticación y evaluar medidas defensivas frente a intentos repetidos de acceso.">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Laboratorio - Medusa</title>
+
+    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+    <script src="/Libreta/res/js/page.js"></script>
+</head>
+
+<body>
+
+    <div class="page" data-cat="fuerza-bruta lab">
+
+        <hr>
+
+        <h1>Laboratorio - Medusa</h1>
+
+        <p>
+            <em>
+                <small>
+                    Observación del comportamiento de un sistema de autenticación y evaluación de mecanismos de defensa.
+                </small>
+            </em>
+        </p>
+
+        <br>
+
+        <div class="box box--info">
+
+            <p>
+                Este laboratorio tiene como finalidad comprender cómo un sistema registra intentos repetidos de
+                autenticación y cómo distintas medidas de seguridad ayudan a detectar y mitigar este tipo de actividad.
+            </p>
+
+            <p>
+                Todas las actividades deben realizarse exclusivamente sobre equipos propios o entornos de laboratorio
+                autorizados.
+            </p>
+
+        </div>
+        <br>
+        <hr>
+
+        <h2>Objetivos</h2>
+        <div class="box">
+            <ul>
+                <li>Comprender el funcionamiento de los registros de autenticación.</li>
+                <li>Identificar eventos relacionados con intentos fallidos de acceso.</li>
+                <li>Analizar la utilidad de los registros del sistema para la detección temprana.</li>
+                <li>Evaluar el efecto de diferentes medidas defensivas.</li>
+                <li>Documentar las evidencias obtenidas durante la práctica.</li>
+            </ul>
+
+        </div>
+        <br>
+        <hr>
+
+        <h2>Entorno del laboratorio</h2>
+        <div class="box">
+            <ul>
+                <li>Máquina virtual Linux.</li>
+                <li>Servicio SSH habilitado únicamente para prácticas.</li>
+                <li>Usuario de pruebas independiente.</li>
+                <li>Sistema de registros activo.</li>
+                <li>Herramienta de visualización de logs.</li>
+                <li>Firewall configurado.</li>
+                <li>Instantánea de recuperación de la máquina virtual.</li>
+            </ul>
+
+        </div>
+        <br>
+        <hr>
+
+        <h2>Proyectos</h2>
+        <div class="box">
+            <h3>Proyecto 1 — Identificación de eventos</h3>
+
+            <p>
+                Revisa los registros del sistema relacionados con la autenticación y localiza:
+            </p>
+
+            <ul>
+                <li>Intentos de acceso fallidos.</li>
+                <li>Intentos de acceso correctos.</li>
+                <li>Direcciones IP registradas.</li>
+                <li>Usuarios implicados.</li>
+                <li>Marcas temporales.</li>
+            </ul>
+
+            <p>
+                El objetivo consiste en aprender a interpretar la información almacenada por el sistema sin modificar su
+                funcionamiento.
+            </p>
+
+        </div>
+        <br>
+
+        <div class="box">
+            <h3>Proyecto 2 — Análisis de registros</h3>
+
+            <p>
+                Analiza los eventos registrados e identifica patrones que puedan indicar actividad anómala.
+            </p>
+
+            <ul>
+                <li>Intentos repetitivos.</li>
+                <li>Varias autenticaciones consecutivas.</li>
+                <li>Cambios de comportamiento entre distintos usuarios.</li>
+                <li>Frecuencia de eventos.</li>
+                <li>Mensajes generados por el servicio.</li>
+            </ul>
+
+        </div>
+        <br>
+
+        <div class="box">
+            <h3>Proyecto 3 — Políticas de seguridad</h3>
+
+            <p>
+                Compara el comportamiento del sistema antes y después de aplicar medidas de endurecimiento como:
+            </p>
+
+            <ul>
+                <li>Contraseñas robustas.</li>
+                <li>Bloqueo temporal tras varios intentos fallidos.</li>
+                <li>Restricciones de acceso.</li>
+                <li>Monitorización continua.</li>
+                <li>Alertas de autenticación.</li>
+            </ul>
+
+            <p>
+                Documenta qué diferencias aparecen en los registros y cómo cambia la información disponible para el
+                administrador.
+            </p>
+
+        </div>
+        <br>
+
+        <div class="box">
+            <h3>Proyecto 4 — Monitorización</h2>
+
+                <p>
+                    Utiliza las herramientas disponibles para observar el comportamiento del sistema en tiempo real.
+                </p>
+
+                <ul>
+                    <li>Visualización continua de logs.</li>
+                    <li>Eventos del servicio SSH.</li>
+                    <li>Registros del sistema.</li>
+                    <li>Mensajes de auditoría.</li>
+                </ul>
+
+                <p>
+                    El propósito es comprender cómo un administrador puede detectar actividad sospechosa de forma
+                    temprana.
+                </p>
+
+        </div>
+        <br>
+
+        <div class="box">
+            <h3>Proyecto 5 — Informe técnico</h3>
+
+            <p>
+                Elabora un informe con los resultados obtenidos durante la práctica.
+            </p>
+
+            <ul>
+                <li>Descripción del entorno.</li>
+                <li>Eventos observados.</li>
+                <li>Capturas de los registros.</li>
+                <li>Medidas defensivas aplicadas.</li>
+                <li>Conclusiones.</li>
+                <li>Recomendaciones de mejora.</li>
+            </ul>
+
+        </div>
+        <br>
+        <hr>
+
+        <h2>Resultados esperados</h2>
+        <div class="box">
+            <ul>
+                <li>Comprender la importancia de los registros de autenticación.</li>
+                <li>Reconocer patrones de actividad repetitiva.</li>
+                <li>Valorar la utilidad de las políticas de seguridad.</li>
+                <li>Entender la necesidad de una monitorización continua.</li>
+                <li>Relacionar la fortaleza de las credenciales con la seguridad del sistema.</li>
+            </ul>
+
+        </div>
+        <br>
+        <hr>
+
+        <h2>Buenas prácticas</h2>
+        <div class="box">
+            <ul>
+                <li>Trabajar únicamente en entornos autorizados.</li>
+                <li>Conservar los registros originales.</li>
+                <li>No modificar evidencias durante el análisis.</li>
+                <li>Documentar todas las observaciones.</li>
+                <li>Aplicar siempre el principio de mínima intrusión.</li>
+
+            </ul>
+
+        </div>
+        <hr>
+        <br>
+
+        <h2>Recursos relacionados</h2>
+        <div class="box">
+            <ul>
+                <li>
+                    <span class="cat">
+                        <a href="../arq/index.html">
+                            Arquitectura
+                        </a>
+                    </span>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
