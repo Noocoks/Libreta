@@ -2,72 +2,239 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Nico">
-    <meta name="keywords" content="Ciberseguridad, OSINT, IA, Phishing, Fuerza Bruta, Escaneo de Redes">
+    <meta charset="utf-8">
+
+    <meta name="author" content="Nooko">
     <meta name="description"
-        content="Notas completas de Ciberseguridad e Inteligencia Artificial, con técnicas OSINT, herramientas y laboratorios prácticos">
+        content="Libreta personal de documentación sobre ciberseguridad, inteligencia artificial, herramientas y laboratorios.">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Notas - Noocoks</title>
+    <title>Libreta</title>
 
-    <link rel="stylesheet" href="/Libreta/res/css/styles.css" type="text/css">
-    <script src="/Libreta/res/js/script.js"></script>
+    <link rel="stylesheet" href="res/css/styles.css" type="text/css">
 </head>
 
 <body>
+    <main class="home">
 
-    <div class="two-panels">
+        <header class="home-header">
+            <div>
+                <h1>Libreta</h1>
 
-        <div class="tree-panel">
-            <div class="tree">
+                <p>
+                    Documentación personal sobre
+                    <strong>ciberseguridad</strong>,
+                    <strong>inteligencia artificial</strong>
+                    y tecnología.
+                </p>
+            </div>
 
-                <!-- Índice Ini -->
-                <div class="index-title">
-                    <h1>Índice</h1>
-                </div>
-
-                <!-- Botones de control -->
-                <div class="index-controls">
-                    <button onclick="expandAllSubtrees()">Abrir</button>
-                    <button onclick="collapseAllSubtrees()">Cerrar</button>
-                </div>
-
-                <!-- Buscador -->
-                <div class="index-search">
-                    <input type="text" id="tree_search" placeholder="Buscar... {!}" oninput="filterTree(this.value)">
-                    <button id="tree_search_clear" onclick="clearTreeSearch()">✘</button>
-                </div>
-
-                <!-- Arbol de contenido -->
-                <ul id="tree_root" class="outermost"></ul>
-
-                <!-- ===================== FOOTER ===================== -->
-                <div class="tree-footer">
-
-                    <!-- Footer título -->
-                    <div class="tree-footer-title">Autor</div>
+            <a class="home-github" href="https://github.com/Noocoks/Libreta" target="_blank" rel="noopener noreferrer">
+                GitHub
+            </a>
+        </header>
 
 
-                    <!-- Footer content -->
-                    <div class="tree-footer-box">
-                        <div><strong>Nombre:</strong> Nooko</div>
-                        <div><strong>Contacto:</strong> nicoletobondia06@gmail.com</div>
-                        <div><strong>Proyecto:</strong> Notas</div>
-                        <div><strong>Github Link:</strong><a href="https://github.com/Noocoks" target="_blank"
-                                rel="noopener noreferrer"> Noocoks</a></div>
+        <section class="home-intro">
+            <h2>Mi base de conocimiento</h2>
+
+            <p>
+                Libreta es un espacio donde recopilo lo que voy
+                aprendiendo durante mis investigaciones y prácticas.
+            </p>
+
+            <p>
+                Aquí documento herramientas, técnicas, configuraciones,
+                procedimientos y laboratorios para poder consultarlos
+                posteriormente.
+            </p>
+
+            <a class="home-button" href="wiki.html">
+                Entrar en la Wiki →
+            </a>
+        </section>
+
+
+        <section class="home-content">
+            <h2>Contenido</h2>
+
+            <div class="home-grid">
+
+                <!-- CIBERSEGURIDAD -->
+                <a class="home-card" href="wiki.html#subpags/ciberseguridad/index.html">
+
+                    <div class="home-card-icon">
+                        🛡️
                     </div>
-                </div>
-                <!-- Índice Fin -->
+
+                    <h3>Ciberseguridad</h3>
+
+                    <p>
+                        Herramientas, técnicas y procedimientos
+                        relacionados con seguridad informática.
+                    </p>
+
+                    <div class="home-tags">
+                        <span class="tag">
+                            OSINT
+                        </span>
+
+                        <span class="tag">
+                            Phishing
+                        </span>
+
+                        <span class="tag">
+                            Escaneo
+                        </span>
+
+                        <span class="tag">
+                            Pentesting
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <!-- INTELIGENCIA ARTIFICIAL -->
+                <a class="home-card" href="wiki.html#subpags/ia/index.html">
+
+                    <div class="home-card-icon">
+                        🧠
+                    </div>
+
+                    <h3>Inteligencia Artificial</h3>
+
+                    <p>
+                        Apuntes sobre modelos, APIs, herramientas
+                        y experimentos relacionados con IA.
+                    </p>
+
+                    <div class="home-tags">
+                        <span class="tag">
+                            OpenAI
+                        </span>
+
+                        <span class="tag">
+                            Anthropic
+                        </span>
+
+                        <span class="tag">
+                            APIs
+                        </span>
+
+                        <span class="tag">
+                            Git
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <!-- LABORATORIOS -->
+                <a class="home-card" href="wiki.html">
+
+                    <div class="home-card-icon">
+                        🧪
+                    </div>
+
+                    <h3>Laboratorios</h3>
+
+                    <p>
+                        Pruebas y procedimientos realizados en
+                        entornos controlados para aprender y experimentar.
+                    </p>
+
+                    <div class="home-tags">
+                        <span class="tag">
+                            Práctica
+                        </span>
+
+                        <span class="tag">
+                            Linux
+                        </span>
+
+                        <span class="tag">
+                            Redes
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <!-- HERRAMIENTAS -->
+                <a class="home-card" href="wiki.html">
+
+                    <div class="home-card-icon">
+                        🔧
+                    </div>
+
+                    <h3>Herramientas</h3>
+
+                    <p>
+                        Índice de herramientas utilizadas durante
+                        las investigaciones y laboratorios.
+                    </p>
+
+                    <div class="home-tags">
+                        <span class="tag">
+                            Nmap
+                        </span>
+
+                        <span class="tag">
+                            Hydra
+                        </span>
+
+                        <span class="tag">
+                            OSINT
+                        </span>
+                    </div>
+
+                </a>
 
             </div>
-        </div>
 
-        <div class="page-panel">
-            <iframe id="page_frame"></iframe>
-        </div>
+        </section>
 
-    </div>
+
+        <section class="home-wiki">
+            <div>
+                <h2>Explora la documentación</h2>
+
+                <p>
+                    Accede al índice completo y navega por las
+                    diferentes categorías de Libreta.
+                </p>
+
+            </div>
+
+            <a class="home-button" href="wiki.html">
+                Abrir Wiki →
+            </a>
+        </section>
+
+
+        <footer class="home-footer">
+            <span>
+                Libreta · Documentación técnica personal
+            </span>
+
+            <span>
+                <a href="wiki.html">
+                    Wiki · 
+                </a>
+
+
+                <a href="https://github.com/Noocoks/Libreta" target="_blank" rel="noopener noreferrer">
+
+                    GitHub
+
+                </a>
+            </span>
+        </footer>
+
+    </main>
+
 </body>
 
 </html>
