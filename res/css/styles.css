@@ -23,8 +23,7 @@
      * CATEGORÍAS ACTIVAS
      ***************/
     --car-maintenance: #ffde21;
-    --cat-ciberseguridad: #3d3d3d;
-    --cat-ia: #3d3d3d;
+    --cat-main: #3d3d3d;
 
     --cat-fuerza-bruta: #ff0000;
     --cat-escaneo: #b26cff;
@@ -49,6 +48,7 @@
     --icon-maintenance: "🚧";
     --icon-ciberseguridad: "🛡️";
     --icon-ia: "🧠";
+    --icon-android: "📲";
 
     /* Subcategorías CS */
     --icon-fuerza-bruta: "💀";
@@ -66,10 +66,15 @@
     --icon-gophish: "🪝";
     --icon-mailhog: "📨";
 
+    /* Subcategorías Android */
+    --icon-adb: "🧰";
+    --icon-magisk: "🎭";
+    --icon-so: "💿";
+    --icon-stores: "🛍️";
+    
     /* Subcategorías IA */
     --icon-local: "🏡";
-    --icon-openai: "🤖";
-    --icon-anthropic: "🧩";
+    --icon-companias: "🤖";
     --icon-api: "🔑";
     --icon-dualvers: "↔️";
 
@@ -82,7 +87,7 @@
     --icon-peruse: "👤";
     --icon-ejem: "☝🏻";
     --icon-code: "🗿";
-    --icon-github: "🐈‍⬛";
+    --icon-herramientas: "🛠️";
 
 }
 
@@ -867,13 +872,18 @@ details[open] .arrow {
  ******************************************************************************/
 /* Categorías */
 [data-cat~="ciberseguridad"] {
-    --active: var(--cat-ciberseguridad);
+    --active: var(--cat-main);
     --icon: var(--icon-ciberseguridad);
 }
 
 [data-cat~="ia"] {
-    --active: var(--cat-ia);
+    --active: var(--cat-main);
     --icon: var(--icon-ia);
+}
+
+[data-cat~="android"] {
+    --active: var(--cat-main);
+    --icon: var(--icon-android);
 }
 
 /* Subcat CS */
@@ -901,13 +911,26 @@ details[open] .arrow {
     --icon: var(--icon-api);
 }
 
-/* Subcat IA */
-[data-cat~="openai"] {
-    --icon: var(--icon-openai);
+/* Subcat Android */
+[data-cat~="adb"] {
+    --icon: var(--icon-adb);
 }
 
-[data-cat~="anthropic"] {
-    --icon: var(--icon-anthropic);
+[data-cat~="so"] {
+    --icon: var(--icon-so);
+}
+
+[data-cat~="magisk"] {
+    --icon: var(--icon-magisk);
+}
+
+[data-cat~="stores"] {
+    --icon: var(--icon-stores);
+}
+
+/* Subcat IA */
+[data-cat~="companias"] {
+    --icon: var(--icon-companias);
 }
 
 [data-cat~="local"] {
@@ -983,6 +1006,12 @@ details[open] .arrow {
 [data-cat~="github"] {
     --icon: var(--icon-github);
 }
+
+[data-cat~="herramientas"] {
+    --icon: var(--icon-herramientas);
+}
+
+
 
 /* =========================================================
    PÁGINA PRINCIPAL
@@ -1231,7 +1260,7 @@ details[open] .arrow {
 
 /*******************************************************************************
  * RESPONSIVE — CAPA FINAL
- * Adaptación responsive sin modificar la lógica existente.
+ * Adaptación responsive.
  ******************************************************************************/
 
 /* ============================================================================
@@ -1312,6 +1341,7 @@ iframe {
    TABLET
    ============================================================================ */
 @media (max-width: 900px) {
+
     /*
      * El contenedor ocupa exactamente el viewport.
      */
@@ -1577,6 +1607,7 @@ iframe {
    MÓVIL
    ============================================================================ */
 @media (max-width: 600px) {
+
     /* ------------------------------------------------------------------------
        WIKI
        ------------------------------------------------------------------------ */

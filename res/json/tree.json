@@ -214,6 +214,45 @@
       ]
     },
     {
+      "name": "Android",
+      "cat": "android",
+      "path": "subpags/android/index.html",
+      "children": [
+        {
+          "name": "Herramientas ADB",
+          "cat": "adb",
+          "path": "subpags/android/herramientas_adb/index.html"
+        },
+        {
+          "name": "S.O's",
+          "cat": "so",
+          "path": "subpags/android/so/index.html",
+          "children": [
+            {
+              "name": "Lineage OS",
+              "cat": "so",
+              "path": "subpags/android/so/lineage/index.html"
+            },
+            {
+              "name": "S.O's",
+              "cat": "so",
+              "path": "subpags/android/so/crdroid/index.html"
+            }
+          ]
+        },
+        {
+          "name": "Magisk",
+          "cat": "magisk",
+          "path": "subpags/android/magisk/index.html"
+        },
+        {
+          "name": "Stores sin Google Services",
+          "cat": "stores",
+          "path": "subpags/android/stores_sin_gs/index.html"
+        }
+      ]
+    },
+    {
       "name": "IA",
       "cat": "ia",
       "path": "subpags/ia/index.html",
@@ -225,7 +264,7 @@
           "children": [
             {
               "name": "OpenAI",
-              "cat": "openai",
+              "cat": "companias",
               "path": "subpags/ia/proyecto_local/openai/index.html",
               "tags": [
                 "shell-gpt",
@@ -244,7 +283,7 @@
             },
             {
               "name": "Anthropic",
-              "cat": "anthropic",
+              "cat": "companias",
               "path": "subpags/ia/proyecto_local/anthropic/index.html",
               "tags": [
                 "claude-code",
