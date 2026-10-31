@@ -1,13 +1,147 @@
 <!doctype html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="author" content="Nooko"><meta name="keywords" content="exiftool, osint, metadatos, análisis forense, imágenes, privacidad"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="ExifTool: lectura, análisis y gestión de metadatos en imágenes, documentos y archivos multimedia."><title>ExifTool</title><link rel="stylesheet" href="/Libreta/res/css/styles.css"><script src="/Libreta/res/js/page.js"></script></head>
-<body><div class="page" data-cat="osint exiftool"><hr><h1>ExifTool</h1><div class="node-tags"><span class="tag">metadatos</span><span class="tag">imágenes</span><span class="tag">forense</span><span class="tag">osint</span><span class="tag">privacidad</span></div>
-<div class="box box--info"><p><strong>ExifTool</strong> es una utilidad de línea de comandos que permite leer, escribir y modificar metadatos de numerosos formatos de imagen, audio, vídeo y documentos. Los metadatos son datos descriptivos incrustados en un archivo, distintos del contenido visual o textual que normalmente vemos.</p><p>En OSINT y análisis forense puede ayudar a examinar fechas, modelo de cámara, software utilizado o coordenadas GPS, siempre que esos campos estén presentes y sean fiables.</p></div>
-<h2>¿Qué información puede contener?</h2><div class="box"><ul><li><strong>Datos técnicos:</strong> formato, dimensiones, orientación, códec o perfil de color.</li><li><strong>Fechas:</strong> fecha de captura, modificación o creación, que pueden diferir entre sí.</li><li><strong>Dispositivo y software:</strong> fabricante, modelo de cámara o aplicación que procesó el archivo.</li><li><strong>Ubicación:</strong> coordenadas GPS, si el dispositivo o aplicación las guardó.</li><li><strong>Autoría:</strong> autor, copyright, descripción y otros campos añadidos por el usuario.</li></ul></div>
-<h2>Casos de uso</h2><ul><li>Inspeccionar metadatos antes de incorporar una imagen a una investigación.</li><li>Comprobar si un archivo contiene información de ubicación o datos personales.</li><li>Comparar metadatos de varios archivos como parte de un análisis, sin asumir que prueban por sí solos su origen.</li><li>Eliminar o normalizar metadatos antes de publicar archivos, tras conservar una copia original.</li><li>Exportar campos a CSV para organizar conjuntos de evidencias.</li></ul>
-<h2>Instalación y primera comprobación</h2><p>En Debian, Ubuntu y Kali, el paquete habitual se encuentra en los repositorios:</p><pre>sudo apt update
-sudo apt install libimage-exiftool-perl
-exiftool -ver
-exiftool imagen.jpg</pre>
-<p>El último comando muestra los metadatos que ExifTool puede leer del archivo indicado. Si un campo no aparece, puede que no exista, no sea compatible o haya sido eliminado.</p>
-<h2>Precauciones al editar</h2><div class="box box--info"><p>Las operaciones de escritura pueden alterar el archivo. Trabaja sobre una copia y conserva el original cuando tenga valor probatorio. Eliminar metadatos no garantiza anonimato: el propio contenido puede revelar información y algunos formatos conservan datos en estructuras distintas.</p></div>
-<h2>Recursos relacionados</h2><div class="box"><ul><li><span class="cat"><a href="./cmds/index.html">Comandos y ejemplos de ExifTool</a></span></li></ul></div><hr></div></body></html>
+  <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="author" content="Nooko">
+      <meta name="keywords" content="exiftool, osint, metadatos, análisis forense, imágenes, privacidad">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="ExifTool: lectura, análisis y gestión de metadatos en imágenes, documentos y archivos multimedia.">
+      <title>
+        ExifTool
+      </title>
+      <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+      <script src="/Libreta/res/js/page.js">
+      </script>
+    </head>
+    <body>
+      <div class="page" data-cat="osint exiftool">
+        <hr>
+        <h1>
+          ExifTool
+        </h1>
+        <div class="node-tags">
+          <span class="tag">
+            metadatos
+          </span>
+          <span class="tag">
+            imágenes
+          </span>
+          <span class="tag">
+            forense
+          </span>
+          <span class="tag">
+            osint
+          </span>
+          <span class="tag">
+            privacidad
+          </span>
+        </div>
+        <div class="box box--info">
+          <p>
+            <strong>
+              ExifTool
+            </strong>
+            es una utilidad de línea de comandos que permite leer, escribir y modificar metadatos de numerosos formatos de imagen, audio, vídeo y documentos. Los metadatos son datos descriptivos incrustados en un archivo, distintos del contenido visual o textual que normalmente vemos.
+          </p>
+          <p>
+            En OSINT y análisis forense puede ayudar a examinar fechas, modelo de cámara, software utilizado o coordenadas GPS, siempre que esos campos estén presentes y sean fiables.
+          </p>
+        </div>
+        <h2>
+          ¿Qué información puede contener?
+        </h2>
+        <div class="box">
+          <ul>
+            <li>
+              <strong>
+                Datos técnicos:
+              </strong>
+              formato, dimensiones, orientación, códec o perfil de color.
+            </li>
+            <li>
+              <strong>
+                Fechas:
+              </strong>
+              fecha de captura, modificación o creación, que pueden diferir entre sí.
+            </li>
+            <li>
+              <strong>
+                Dispositivo y software:
+              </strong>
+              fabricante, modelo de cámara o aplicación que procesó el archivo.
+            </li>
+            <li>
+              <strong>
+                Ubicación:
+              </strong>
+              coordenadas GPS, si el dispositivo o aplicación las guardó.
+            </li>
+            <li>
+              <strong>
+                Autoría:
+              </strong>
+              autor, copyright, descripción y otros campos añadidos por el usuario.
+            </li>
+          </ul>
+        </div>
+        <h2>
+          Casos de uso
+        </h2>
+        <ul>
+          <li>
+            Inspeccionar metadatos antes de incorporar una imagen a una investigación.
+          </li>
+          <li>
+            Comprobar si un archivo contiene información de ubicación o datos personales.
+          </li>
+          <li>
+            Comparar metadatos de varios archivos como parte de un análisis, sin asumir que prueban por sí solos su origen.
+          </li>
+          <li>
+            Eliminar o normalizar metadatos antes de publicar archivos, tras conservar una copia original.
+          </li>
+          <li>
+            Exportar campos a CSV para organizar conjuntos de evidencias.
+          </li>
+        </ul>
+        <h2>
+          Instalación y primera comprobación
+        </h2>
+        <p>
+          En Debian, Ubuntu y Kali, el paquete habitual se encuentra en los repositorios:
+        </p>
+        <pre>
+          sudo apt update
+          sudo apt install libimage-exiftool-perl
+          exiftool -ver
+          exiftool imagen.jpg
+        </pre>
+        <p>
+          El último comando muestra los metadatos que ExifTool puede leer del archivo indicado. Si un campo no aparece, puede que no exista, no sea compatible o haya sido eliminado.
+        </p>
+        <h2>
+          Precauciones al editar
+        </h2>
+        <div class="box box--info">
+          <p>
+            Las operaciones de escritura pueden alterar el archivo. Trabaja sobre una copia y conserva el original cuando tenga valor probatorio. Eliminar metadatos no garantiza anonimato: el propio contenido puede revelar información y algunos formatos conservan datos en estructuras distintas.
+          </p>
+        </div>
+        <h2>
+          Recursos relacionados
+        </h2>
+        <div class="box">
+          <ul>
+            <li>
+              <span class="cat">
+                <a href="./cmds/index.html">
+                  Comandos y ejemplos de ExifTool
+                </a>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <hr>
+      </div>
+    </body>
+  </html>
