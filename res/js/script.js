@@ -515,6 +515,8 @@ function showAllChildren(li) {
         buttons[k].textContent = "-";
         buttons[k].dataset.open = "true";
         buttons[k].setAttribute("aria-expanded", "true");
+        var link = buttons[k].parentElement.querySelector("a");
+        if (link) buttons[k].setAttribute("aria-label", "Contraer " + link.textContent);
     }
 }
 
