@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -147,16 +147,14 @@ if model == "openai":
     print(ask_openai(prompt))
 
 
-    elif model == "claude":
+elif model == "claude":
 
-        print("\nRespuesta Claude:\n")
-        print(ask_claude(prompt))
+    print("\nRespuesta Claude:\n")
+    print(ask_claude(prompt))
 
-    else:
+else:
 
-        print(
-            "Modelo no válido. Usa 'openai' o 'claude'."
-        )</pre>
+    print("Modelo no válido. Usa 'openai' o 'claude'.")</pre>
                 </div>
             </details>
 
@@ -177,7 +175,7 @@ if model == "openai":
 
         <h2>Recursos relacionados</h2>
 
-        <ul class="box">
+        <div class="box">
             <ul>
 
                 <li>
@@ -229,7 +227,7 @@ if model == "openai":
                 </li>
 
             </ul>
-        </ul>
+        </div>
 
     </div>
 
