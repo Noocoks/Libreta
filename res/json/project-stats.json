@@ -1,20 +1,20 @@
 {
-    "generated_at": "2026-10-31T16:40:26+00:00",
+    "generated_at": "2026-10-31T16:41:15+00:00",
     "total_files": 67,
-    "total_lines": 10110,
+    "total_lines": 10117,
     "counting": "non-empty lines",
     "languages": [
         {
             "key": "html",
             "label": "HTML",
             "files": 49,
-            "lines": 5634
+            "lines": 5633
         },
         {
             "key": "css",
             "label": "CSS",
             "files": 6,
-            "lines": 2472
+            "lines": 2466
         },
         {
             "key": "javascript",
@@ -32,7 +32,7 @@
             "key": "json",
             "label": "JSON",
             "files": 1,
-            "lines": 424
+            "lines": 438
         },
         {
             "key": "markdown",
