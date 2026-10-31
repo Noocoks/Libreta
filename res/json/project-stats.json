@@ -1,7 +1,7 @@
 {
-    "generated_at": "2026-10-31T15:08:36+00:00",
+    "generated_at": "2026-10-31T15:17:35+00:00",
     "total_files": 67,
-    "total_lines": 9988,
+    "total_lines": 10007,
     "counting": "non-empty lines",
     "languages": [
         {
@@ -35,16 +35,16 @@
             "lines": 424
         },
         {
+            "key": "markdown",
+            "label": "Markdown",
+            "files": 1,
+            "lines": 133
+        },
+        {
             "key": "python",
             "label": "Python",
             "files": 3,
             "lines": 118
-        },
-        {
-            "key": "markdown",
-            "label": "Markdown",
-            "files": 1,
-            "lines": 114
         }
     ]
 }
