@@ -1,117 +1,124 @@
 <!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Nooko">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="Legion, pentesting, reconocimiento, Nmap, enumeración, auditoría de redes">
-        <meta name="description" content="Documentación de Legion: framework semiautomatizado, flujo de reconocimiento, dependencias, interpretación y estado del proyecto.">
-        <title>Legion</title>
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="keywords" content="Legion, pentesting, reconocimiento, Nmap, enumeración, auditoría de redes">
+<meta name="description" content="Documentación de Legion: framework semiautomatizado, flujo de reconocimiento, dependencias, interpretación y estado del proyecto.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legion</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body>
+    <div class="page" data-cat="escaneo legion">
+        <hr>
+        <h1>Legion</h1>
 
-        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-        <script src="/Libreta/res/js/page.js"></script>
-    </head>
+        <div class="node-tags">
+            <span class="tag">enumeración</span>
+            <span class="tag">reconocimiento</span>
+            <span class="tag">nmap</span>
+            <span class="tag">framework</span>
+            <span class="tag">interfaz-gráfica</span>
+        </div>
+        <br>
 
-    <body>
-        <div class="page" data-cat="escaneo legion">
-            <hr>
-            <h1>Legion</h1>
-
-            <div class="node-tags">
-                <span class="tag">enumeración</span>
-                <span class="tag">reconocimiento</span>
-                <span class="tag">nmap</span>
-                <span class="tag">framework</span>
-                <span class="tag">interfaz-gráfica</span>
-            </div>
-
-            <div class="box box--info">
-                <p>
-                    <strong>Legion</strong> es un framework gráfico y semiautomatizado de pruebas de penetración
-                    de red, derivado de Sparta. Organiza tareas de descubrimiento, escaneo y enumeración,
-                    apoyándose en Nmap y en herramientas auxiliares.
-                </p>
-                <p>
-                    Su valor principal es coordinar y presentar resultados en un flujo de trabajo. No sustituye
-                    la validación del auditor: las herramientas integradas pueden producir indicios, falsos
-                    positivos o resultados incompletos.
-                </p>
-            </div>
-
-            <h2>Qué aporta frente a ejecutar herramientas por separado</h2>
-            <ul>
-                <li>Centraliza objetivos, hosts, puertos y resultados en una interfaz.</li>
-                <li>Permite organizar escaneos por etapas y lanzar tareas auxiliares según los servicios detectados.</li>
-                <li>Facilita revisar el contexto de un host sin cambiar continuamente entre terminales.</li>
-                <li>Puede guardar el estado del proyecto para continuar el análisis.</li>
-            </ul>
-
-            <h2>Flujo de trabajo recomendado</h2>
-            <ol>
-                <li><strong>Alcance:</strong> introduce solo IP, dominios o rangos aprobados por escrito.</li>
-                <li><strong>Descubrimiento:</strong> identifica hosts activos y comprueba que pertenecen al entorno autorizado.</li>
-                <li><strong>Escaneo:</strong> realiza un análisis inicial proporcionado y después amplía solo donde sea necesario.</li>
-                <li><strong>Enumeración:</strong> revisa servicios, versiones y resultados de scripts asociados.</li>
-                <li><strong>Validación:</strong> comprueba manualmente los hallazgos importantes con la herramienta original.</li>
-                <li><strong>Informe:</strong> registra evidencias, incertidumbres, impacto y recomendaciones.</li>
-            </ol>
-
-            <h2>Relación con otras herramientas</h2>
-            <div class="box">
-                <h3>Nmap</h3>
-                <p>Realiza el descubrimiento y escaneo de puertos que sirve de base para buena parte de la enumeración.</p>
-                <h3>Herramientas auxiliares</h3>
-                <p>
-                    Según la versión y la configuración, Legion puede integrar herramientas para reconocimiento web,
-                    SMB, detección TLS y otras tareas. La presencia de una herramienta en una lista de integraciones
-                    no garantiza que esté instalada o habilitada en tu sistema.
-                </p>
-            </div>
-
-            <h2>Instalación y estado del proyecto</h2>
+        <div class="box box--info">
             <p>
-                Comprueba primero si tu distribución mantiene un paquete:
+                <strong>Legion</strong> es un framework gráfico y semiautomatizado de pruebas de penetración
+                de red, derivado de Sparta. Organiza tareas de descubrimiento, escaneo y enumeración,
+                apoyándose en Nmap y en herramientas auxiliares.
             </p>
-            <pre>apt show legion
+            <p>
+                Su valor principal es coordinar y presentar resultados en un flujo de trabajo. No sustituye
+                la validación del auditor: las herramientas integradas pueden producir indicios, falsos
+                positivos o resultados incompletos.
+            </p>
+        </div>
+        <br>
+
+        <h2>Qué aporta frente a ejecutar herramientas por separado</h2>
+        <ul>
+            <li>Centraliza objetivos, hosts, puertos y resultados en una interfaz.</li>
+            <li>Permite organizar escaneos por etapas y lanzar tareas auxiliares según los servicios detectados.</li>
+            <li>Facilita revisar el contexto de un host sin cambiar continuamente entre terminales.</li>
+            <li>Puede guardar el estado del proyecto para continuar el análisis.</li>
+        </ul>
+        <br>
+
+        <h2>Flujo de trabajo recomendado</h2>
+        <ol>
+            <li><strong>Alcance:</strong> introduce solo IP, dominios o rangos aprobados por escrito.</li>
+            <li><strong>Descubrimiento:</strong> identifica hosts activos y comprueba que pertenecen al entorno autorizado.</li>
+            <li><strong>Escaneo:</strong> realiza un análisis inicial proporcionado y después amplía solo donde sea necesario.</li>
+            <li><strong>Enumeración:</strong> revisa servicios, versiones y resultados de scripts asociados.</li>
+            <li><strong>Validación:</strong> comprueba manualmente los hallazgos importantes con la herramienta original.</li>
+            <li><strong>Informe:</strong> registra evidencias, incertidumbres, impacto y recomendaciones.</li>
+        </ol>
+        <br>
+
+        <h2>Relación con otras herramientas</h2>
+        <div class="box">
+            <h3>Nmap</h3>
+            <p>Realiza el descubrimiento y escaneo de puertos que sirve de base para buena parte de la enumeración.</p>
+            <h3>Herramientas auxiliares</h3>
+            <p>
+                Según la versión y la configuración, Legion puede integrar herramientas para reconocimiento web,
+                SMB, detección TLS y otras tareas. La presencia de una herramienta en una lista de integraciones
+                no garantiza que esté instalada o habilitada en tu sistema.
+            </p>
+        </div>
+        <br>
+
+        <h2>Instalación y estado del proyecto</h2>
+        <p>
+            Comprueba primero si tu distribución mantiene un paquete:
+        </p>
+        <pre>apt show legion
 sudo apt install legion
 legion --help</pre>
+        <p>
+            Si el paquete no está disponible, consulta las instrucciones de instalación del repositorio
+            de mantenimiento actual. El repositorio antiguo de Abacus-Group-RTO está archivado y su aviso
+            remite a una nueva ubicación; no conviene seguir tutoriales antiguos sin verificar que siguen vigentes.
+        </p>
+        <br>
+        <p>
+            <a href="https://github.com/Hackman238/legion" target="_blank" rel="noopener noreferrer">Repositorio de Legion indicado como nueva ubicación del proyecto</a>
+            · <a href="https://gitlab.com/kalilinux/packages/legion" target="_blank" rel="noopener noreferrer">Paquete de Legion en Kali</a>
+        </p>
+        <br>
+
+        <h2>Limitaciones</h2>
+        <ul>
+            <li>El resultado depende de las versiones y dependencias instaladas en el sistema.</li>
+            <li>Una automatización puede ejecutar comprobaciones que no sean adecuadas para todos los objetivos.</li>
+            <li>Los hallazgos automáticos necesitan validación y contexto.</li>
+            <li>La interfaz no reemplaza la comprensión de Nmap y de las herramientas que invoca.</li>
+            <li>Algunos módulos pueden generar tráfico intenso o interactuar con servicios de forma intrusiva.</li>
+        </ul>
+        <br>
+
+        <h2>Buenas prácticas</h2>
+        <ul>
+            <li>Empieza con perfiles de escaneo conservadores.</li>
+            <li>Desactiva acciones que no formen parte del alcance aprobado.</li>
+            <li>Revisa los comandos que ejecuta la herramienta cuando sea posible.</li>
+            <li>Conserva el proyecto y las salidas originales.</li>
+            <li>Documenta qué hallazgos fueron confirmados y cuáles son solo indicios.</li>
+        </ul>
+        <br>
+
+        <div class="box box--info">
             <p>
-                Si el paquete no está disponible, consulta las instrucciones de instalación del repositorio
-                de mantenimiento actual. El repositorio antiguo de Abacus-Group-RTO está archivado y su aviso
-                remite a una nueva ubicación; no conviene seguir tutoriales antiguos sin verificar que siguen vigentes.
+                <strong>Idea clave:</strong> Legion organiza el trabajo; Nmap y las herramientas auxiliares
+                realizan las comprobaciones concretas. Aprende a interpretar la salida de cada una para
+                no depender únicamente del resumen gráfico.
             </p>
-            <p>
-                <a href="https://github.com/Hackman238/legion" target="_blank" rel="noopener noreferrer">Repositorio de Legion indicado como nueva ubicación del proyecto</a>
-                · <a href="https://gitlab.com/kalilinux/packages/legion" target="_blank" rel="noopener noreferrer">Paquete de Legion en Kali</a>
-            </p>
-
-            <h2>Limitaciones</h2>
-            <ul>
-                <li>El resultado depende de las versiones y dependencias instaladas en el sistema.</li>
-                <li>Una automatización puede ejecutar comprobaciones que no sean adecuadas para todos los objetivos.</li>
-                <li>Los hallazgos automáticos necesitan validación y contexto.</li>
-                <li>La interfaz no reemplaza la comprensión de Nmap y de las herramientas que invoca.</li>
-                <li>Algunos módulos pueden generar tráfico intenso o interactuar con servicios de forma intrusiva.</li>
-            </ul>
-
-            <h2>Buenas prácticas</h2>
-            <ul>
-                <li>Empieza con perfiles de escaneo conservadores.</li>
-                <li>Desactiva acciones que no formen parte del alcance aprobado.</li>
-                <li>Revisa los comandos que ejecuta la herramienta cuando sea posible.</li>
-                <li>Conserva el proyecto y las salidas originales.</li>
-                <li>Documenta qué hallazgos fueron confirmados y cuáles son solo indicios.</li>
-            </ul>
-
-            <div class="box box--info">
-                <p>
-                    <strong>Idea clave:</strong> Legion organiza el trabajo; Nmap y las herramientas auxiliares
-                    realizan las comprobaciones concretas. Aprende a interpretar la salida de cada una para
-                    no depender únicamente del resumen gráfico.
-                </p>
-            </div>
-            <hr>
         </div>
-
-    </body>
+        <br>
+        <hr>
+    </div>
+</body>
 </html>
