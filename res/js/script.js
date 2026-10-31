@@ -178,11 +178,13 @@ function toggleSubTree(element) {
         element.textContent = "-";
         element.dataset.open = "true";
         element.setAttribute("aria-expanded", "true");
+        element.setAttribute("aria-label", "Contraer " + element.parentElement.querySelector("a").textContent);
     } else {
         next.classList.add("hide");
         element.textContent = "+";
         element.dataset.open = "false";
         element.setAttribute("aria-expanded", "false");
+        element.setAttribute("aria-label", "Expandir " + element.parentElement.querySelector("a").textContent);
     }
 }
 
