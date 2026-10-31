@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -15,60 +15,40 @@
 </head>
 
 <body>
-    <!-- Contenedor principal con categoría -->
-    <div class="page" data-cat="">
+    <main class="page" data-cat="">
         <hr>
 
-        <!-- Auto Breadcrumbs -->
-
-        <!-- Título -->
         <h1>Título</h1>
 
-        <!-- ========================= -->
         <!-- CONTENIDO -->
-        <!-- ========================= -->
 
-        <!-- Desplegables modo acordeón -->
-        <details class="accordion">
+        <!-- Bloque informativo -->
+        <div class="box box--info">
+            <p>Descripción breve del contenido.</p>
+        </div>
 
-            <summary>Ver protocolos compatibles</summary>
+        <!-- Contenido principal -->
 
-            <div class="accordion-content">
-
-                <div class="box">
-                </div>
-        </details>
-        
         <!-- Código plegable -->
         <div class="code-card">
             <details>
                 <summary>
                     <div class="code-header">
                         <div>
-                            <strong>📄 algo.algo</strong><br>
-                            <span>"lenguaje" · x líneas</span>
+                            <strong>📄 archivo.ext</strong><br>
+                            <span>Lenguaje · número de líneas</span>
                         </div>
-
                         <span class="arrow"></span>
                     </div>
                 </summary>
-
                 <div class="code-body">
-                    <pre>
-
-                    </pre>
+                    <pre><code><!-- Código aquí --></code></pre>
                 </div>
             </details>
-
         </div>
 
-
-
         <hr>
-
-    </div>
-
-
+    </main>
 </body>
 
 </html>
