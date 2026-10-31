@@ -116,10 +116,10 @@
               "cat": "exiftool",
               "path": "subpags/ciberseguridad/osint/exiftool/index.html",
               "tags": [
-                "osint",
                 "metadatos",
-                "forense",
                 "imágenes",
+                "forense",
+                "osint",
                 "exif"
               ],
               "children": [
@@ -378,11 +378,11 @@
               "cat": "dualvers",
               "path": "subpags/ia/proyecto_local/dualvers/index.html",
               "tags": [
-                "python",
-                "openai",
-                "anthropic",
-                "multi-modelo",
-                "evolución"
+                "python3",
+                "api",
+                "script",
+                "router",
+                "elección"
               ],
               "children": [
                 {
