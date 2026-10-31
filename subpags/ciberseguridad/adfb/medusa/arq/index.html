@@ -1,33 +1,32 @@
 <!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Nooko">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="Medusa, arquitectura, módulos, hilos, autenticación, protocolos">
-        <meta name="description" content="Arquitectura y componentes de Medusa: núcleo, módulos independientes, concurrencia, entradas y clasificación de respuestas.">
-        <title>Arquitectura - Medusa</title>
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="keywords" content="Medusa, arquitectura, módulos, hilos, autenticación, protocolos">
+<meta name="description" content="Arquitectura y componentes de Medusa: núcleo, módulos independientes, concurrencia, entradas y clasificación de respuestas.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arquitectura - Medusa</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body>
+    <div class="page" data-cat="fuerza-bruta medusa arq">
+        <hr>
+        <h1>Arquitectura - Medusa</h1>
 
-        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-        <script src="/Libreta/res/js/page.js"></script>
-    </head>
+        <div class="box box--info">
+            <p>
+                Medusa separa el programa principal de los módulos de protocolo. El núcleo coordina las entradas
+                y la ejecución; los módulos implementan la comunicación con cada servicio. Este diseño permite
+                ampliar la compatibilidad sin reescribir el motor principal.
+            </p>
+        </div>
+        <br>
 
-    <body>
-        <div class="page" data-cat="fuerza-bruta medusa arq">
-            <hr>
-            <h1>Arquitectura - Medusa</h1>
-
-            <div class="box box--info">
-                <p>
-                    Medusa separa el programa principal de los módulos de protocolo. El núcleo coordina las entradas
-                    y la ejecución; los módulos implementan la comunicación con cada servicio. Este diseño permite
-                    ampliar la compatibilidad sin reescribir el motor principal.
-                </p>
-            </div>
-
-            <h2>Diagrama conceptual</h2>
-            <div class="box">
-                <pre>Configuración y alcance
+        <h2>Diagrama conceptual</h2>
+        <div class="box">
+            <pre>Configuración y alcance
           |
           v
 Núcleo de Medusa
@@ -47,97 +46,105 @@ Servicio de autenticación
           |
           v
 Clasificación y salida</pre>
-            </div>
-
-            <h2>Componentes principales</h2>
-            <div class="box">
-                <h3>Núcleo</h3>
-                <p>Interpreta opciones, prepara el trabajo y coordina los módulos.</p>
-            </div>
-            <div class="box">
-                <h3>Gestor de entradas</h3>
-                <p>
-                    Gestiona objetivos, usuarios y contraseñas. Estos datos pueden proceder de valores individuales
-                    o de archivos. El formato y la combinación de entradas deben revisarse antes de ejecutar una prueba.
-                </p>
-            </div>
-            <div class="box">
-                <h3>Gestor de hilos</h3>
-                <p>
-                    Distribuye tareas concurrentes. La concurrencia efectiva está condicionada por los parámetros,
-                    el módulo, la red y los límites del servicio remoto.
-                </p>
-            </div>
-            <div class="box">
-                <h3>Módulos independientes</h3>
-                <p>
-                    Los módulos se distribuyen como componentes separados y contienen la lógica específica
-                    del protocolo. Algunos requieren bibliotecas de desarrollo adicionales para compilarse.
-                </p>
-            </div>
-            <div class="box">
-                <h3>Gestión de resultados</h3>
-                <p>
-                    Recoge respuestas, errores y estados de autenticación. Una respuesta ambigua o un timeout
-                    debe registrarse como incertidumbre, no como una credencial necesariamente incorrecta.
-                </p>
-            </div>
-
-            <h2>Comprobar los módulos disponibles</h2>
-            <pre>medusa -d
-medusa -M ssh -q</pre>
-            <p>
-                El primer comando enumera los módulos instalados. El segundo consulta las opciones del módulo SSH.
-                Si no aparece, comprueba el paquete y sus dependencias antes de asumir que el protocolo está soportado.
-            </p>
-
-            <h2>Dependencias y compilación</h2>
-            <p>
-                La documentación de Medusa indica que ciertos módulos dependen de bibliotecas externas, como
-                OpenSSL, LibSSH2 o bibliotecas específicas de bases de datos y servicios. Por ello, dos instalaciones
-                con versiones similares pueden ofrecer conjuntos de módulos distintos.
-            </p>
-
-            <h2>Comparación conceptual con Hydra</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aspecto</th>
-                        <th>Medusa</th>
-                        <th>Hydra</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Diseño</td>
-                        <td>Núcleo y módulos independientes</td>
-                        <td>Núcleo y módulos por servicio</td>
-                    </tr>
-                    <tr>
-                        <td>Concurrencia</td>
-                        <td>Basada en hilos</td>
-                        <td>Basada en tareas paralelas</td>
-                    </tr>
-                    <tr>
-                        <td>Compatibilidad</td>
-                        <td>Depende de módulos y dependencias instaladas</td>
-                        <td>Depende de módulos y bibliotecas compiladas</td>
-                    </tr>
-                    <tr>
-                        <td>Elección</td>
-                        <td>Depende del servicio y del flujo de auditoría</td>
-                        <td>Depende del servicio y del flujo de auditoría</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2>Fuentes</h2>
-            <ul>
-                <li><a href="https://jmk-foofus.github.io/medusa/medusa.html" target="_blank" rel="noopener noreferrer">Documentación técnica de Medusa</a></li>
-                <li><a href="https://github.com/jmk-foofus/medusa" target="_blank" rel="noopener noreferrer">Repositorio del proyecto</a></li>
-            </ul>
-            <hr>
         </div>
+        <br>
 
-    </body>
+        <h2>Componentes principales</h2>
+        <div class="box">
+            <h3>Núcleo</h3>
+            <p>Interpreta opciones, prepara el trabajo y coordina los módulos.</p>
+        </div>
+        <br>
+        <div class="box">
+            <h3>Gestor de entradas</h3>
+            <p>
+                Gestiona objetivos, usuarios y contraseñas. Estos datos pueden proceder de valores individuales
+                o de archivos. El formato y la combinación de entradas deben revisarse antes de ejecutar una prueba.
+            </p>
+        </div>
+        <br>
+        <div class="box">
+            <h3>Gestor de hilos</h3>
+            <p>
+                Distribuye tareas concurrentes. La concurrencia efectiva está condicionada por los parámetros,
+                el módulo, la red y los límites del servicio remoto.
+            </p>
+        </div>
+        <br>
+        <div class="box">
+            <h3>Módulos independientes</h3>
+            <p>
+                Los módulos se distribuyen como componentes separados y contienen la lógica específica
+                del protocolo. Algunos requieren bibliotecas de desarrollo adicionales para compilarse.
+            </p>
+        </div>
+        <br>
+        <div class="box">
+            <h3>Gestión de resultados</h3>
+            <p>
+                Recoge respuestas, errores y estados de autenticación. Una respuesta ambigua o un timeout
+                debe registrarse como incertidumbre, no como una credencial necesariamente incorrecta.
+            </p>
+        </div>
+        <br>
+
+        <h2>Comprobar los módulos disponibles</h2>
+        <pre>medusa -d
+medusa -M ssh -q</pre>
+        <p>
+            El primer comando enumera los módulos instalados. El segundo consulta las opciones del módulo SSH.
+            Si no aparece, comprueba el paquete y sus dependencias antes de asumir que el protocolo está soportado.
+        </p>
+        <br>
+
+        <h2>Dependencias y compilación</h2>
+        <p>
+            La documentación de Medusa indica que ciertos módulos dependen de bibliotecas externas, como
+            OpenSSL, LibSSH2 o bibliotecas específicas de bases de datos y servicios. Por ello, dos instalaciones
+            con versiones similares pueden ofrecer conjuntos de módulos distintos.
+        </p>
+        <br>
+
+        <h2>Comparación conceptual con Hydra</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspecto</th>
+                    <th>Medusa</th>
+                    <th>Hydra</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Diseño</td>
+                    <td>Núcleo y módulos independientes</td>
+                    <td>Núcleo y módulos por servicio</td>
+                </tr>
+                <tr>
+                    <td>Concurrencia</td>
+                    <td>Basada en hilos</td>
+                    <td>Basada en tareas paralelas</td>
+                </tr>
+                <tr>
+                    <td>Compatibilidad</td>
+                    <td>Depende de módulos y dependencias instaladas</td>
+                    <td>Depende de módulos y bibliotecas compiladas</td>
+                </tr>
+                <tr>
+                    <td>Elección</td>
+                    <td>Depende del servicio y del flujo de auditoría</td>
+                    <td>Depende del servicio y del flujo de auditoría</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Fuentes</h2>
+        <ul>
+            <li><a href="https://jmk-foofus.github.io/medusa/medusa.html" target="_blank" rel="noopener noreferrer">Documentación técnica de Medusa</a></li>
+            <li><a href="https://github.com/jmk-foofus/medusa" target="_blank" rel="noopener noreferrer">Repositorio del proyecto</a></li>
+        </ul>
+        <br>
+        <hr>
+    </div>
+</body>
 </html>
