@@ -11,13 +11,27 @@
     /***************
      * BASE DARK THEME
      ***************/
-    --bg: #14181b;
-    --panel: #1c2226;
-    --panel-2: #232b30;
-    --panel-3: #2f3940;
-    --border: #2b353b;
-    --text: #ffffff;
-    --muted: #b5b5b5;
+    /* Identidad visual industrial / crimson */
+    --bg: #0d1117;
+    --panel: #121820;
+    --panel-2: #19222b;
+    --panel-3: #222d37;
+    --border: #2b3742;
+    --text: #edf0f2;
+    --muted: #9aa5af;
+
+    --accent: #790018;
+    --accent-bright: #a21d3b;
+    --accent-light: #d14a68;
+    --accent-glow: rgba(162, 29, 59, .22);
+    --surface-glass: rgba(18, 24, 32, .88);
+    --shadow-deep: 0 18px 48px rgba(0, 0, 0, .28);
+    --ease-out: cubic-bezier(.22, 1, .36, 1);
+    --ease-standard: cubic-bezier(.2, .75, .25, 1);
+
+    --border-color: var(--border);
+    --accent-color: var(--accent-light);
+    --box-bg: var(--panel);
 
     /***************
      * CATEGORÍAS ACTIVAS
