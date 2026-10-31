@@ -166,8 +166,11 @@ document.addEventListener("click", function (e) {
         return;
     }
 
-    /* Solo interceptar páginas declaradas en el índice. */
-    if (!allowedPath) return;
+    /* Bloquear páginas internas que no estén declaradas en el índice. */
+    if (!allowedPath) {
+        e.preventDefault();
+        return;
+    }
 
     e.preventDefault();
     window.parent.changeFrame(allowedPath);
