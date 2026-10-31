@@ -46,13 +46,13 @@
 │   │   └── theme.css
 │   ├── js/              # Lógica e interfaz
 │   └── json/            # Índice y estadísticas
+├── subpags/
+│   ├── ciberseguridad/
+│   ├── android/
+│   └── ia/
 ├── scripts/             # Automatizaciones del proyecto
 └── .github/
     └── workflows/       # GitHub Actions
-└── subpags/
-    ├── ciberseguridad/
-    ├── android/
-    └── ia/
 ```
 
 ## `04 / ABOUT`
