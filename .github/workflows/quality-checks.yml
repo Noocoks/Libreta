@@ -1,0 +1,63 @@
+name: Quality checks
+
+on:
+  push:
+    branches:
+      - master
+      - "fix/**"
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Validate every JSON file
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for path in Path('.').rglob('*.json'):
+              if '.git' in path.parts or 'node_modules' in path.parts:
+                  continue
+              json.loads(path.read_text(encoding='utf-8'))
+              print(f'OK {path}')
+          PY
+
+      - name: Validate tree routes, local links and Python syntax
+        run: python scripts/validate_project.py
+
+      - name: Validate CSS resources and HTML fragments
+        run: python scripts/validate_assets.py
+
+      - name: Validate JavaScript syntax
+        shell: bash
+        run: |
+          while IFS= read -r -d '' file; do
+            echo "Checking $file"
+            node --check "$file"
+          done < <(find . -type f -name '*.js' -not -path './.git/*' -not -path './node_modules/*' -print0)

@@ -2,6 +2,7 @@ var right_arrow_heavy = '&#129090;';
 var left_arrow_heavy = '&#129088;';
 
 var treeData = null;
+var activeNavigationPath = null;
 
 /* ==============================
    ROUTER / IFRAME NAVIGATION
@@ -116,6 +117,8 @@ function navigate(file_path, push = true) {
         console.warn("Navegación bloqueada: ruta no permitida.", file_path);
         return false;
     }
+
+    activeNavigationPath = allowedPath;
 
     iframe.style.opacity = 0;
 
@@ -413,31 +416,39 @@ function loadTree() {
 
     fetch("res/json/tree.json")
         .then(function (response) {
+            if (!response.ok) {
+                throw new Error("No se pudo cargar tree.json (" + response.status + ")");
+            }
+
             return response.json();
         })
 
         .then(function (data) {
+            if (!data || !Array.isArray(data.sections)) {
+                throw new Error("tree.json no contiene una lista válida de secciones");
+            }
 
             treeData = data;
-
             buildTree(data);
 
-            var page =
-                window.location.hash.replace("#", "");
+            var page = window.location.hash.replace(/^#/, "");
 
             if (page) {
                 navigate(page, false);
             }
-
         })
 
         .catch(function (error) {
+            console.error("Error cargando tree.json:", error);
 
-            console.error(
-                "Error cargando index.json",
-                error
-            );
-
+            var root = document.getElementById("tree_root");
+            if (root) {
+                root.innerHTML = "";
+                var message = document.createElement("li");
+                message.className = "tree-load-error";
+                message.textContent = "No se pudo cargar el índice. Recarga la página o inténtalo más tarde.";
+                root.appendChild(message);
+            }
         });
 }
 
@@ -768,7 +779,18 @@ function syncFrameTags(tag) {
 /* ==============================
    INIT
 ============================== */
-window.onload = function () {
+/* ==============================
+   BROWSER HISTORY NAVIGATION
+============================== */
+window.addEventListener("hashchange", function () {
+    var path = window.location.hash.replace(/^#/, "");
+
+    if (path && path !== activeNavigationPath) {
+        navigate(path, false);
+    }
+});
+
+window.addEventListener("load", function () {
 
     loadTree();
 
@@ -810,7 +832,7 @@ window.onload = function () {
 
         panels.insertBefore(btn, panels.children[1]);
     }
-};
+});
 
 
 console.log("script.js cargado");

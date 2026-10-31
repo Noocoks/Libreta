@@ -147,29 +147,35 @@ hashes o comandos largos rompan el layout */
      */
     #tree_panel_toggle_btn {
         position: fixed;
-
         top: 50%;
-        left: 0;
+        left: min(82vw, 320px);
 
         width: 30px;
         height: 52px;
-
         transform: translateY(-50%);
 
         border: 1px solid var(--border);
-        border-left: 0;
         border-radius: 0 8px 8px 0;
 
         background: var(--panel-3);
         box-shadow: 4px 0 15px rgba(0, 0, 0, .18);
-
         z-index: 300;
-
         font-size: 15px;
 
+        /*
+         * El control queda en el borde exterior del drawer abierto,
+         * sin invadir el árbol. Al cerrar el panel vuelve al lateral.
+         */
         transition:
+            left 0.3s cubic-bezier(.25, .8, .25, 1),
             background .2s ease,
             width .2s ease;
+    }
+
+    body.tree-hidden #tree_panel_toggle_btn {
+        left: 0;
+        border-left: 0;
+        border-radius: 0 8px 8px 0;
     }
 
     #tree_panel_toggle_btn:hover {
