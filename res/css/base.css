@@ -1,0 +1,896 @@
+/*******************************************************************************
+ * GENERAL
+ ******************************************************************************/
+* {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    font-size: 13px;
+    font-family: "Open Sans", sans-serif !important;
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    white-space: normal;
+}
+
+p {
+    margin: 0.5em 0;
+}
+
+ul,
+ol {
+    margin: 0.5em 0;
+    padding-left: 20px;
+}
+
+li {
+    margin: 0.25em 0;
+}
+
+button {
+    border: none;
+    padding: 0 5px;
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+button:hover {
+    color: var(--cat-phishing);
+}
+
+
+/*******************************************************************************
+ * LAYOUT
+ ******************************************************************************/
+.two-panels {
+    background: var(--bg);
+}
+
+div.two-panels {
+    height: 100vh;
+    display: flex;
+    position: absolute;
+    inset: 0;
+}
+
+div.tree-panel:hover {
+    background: var(--panel-2);
+}
+
+.index-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.index-controls {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.index-controls button {
+    margin: 0 3px;
+}
+
+
+/*******************************************************************************
+ * TREE (ÍNDICE)
+ ******************************************************************************/
+div.tree {
+    font-size: 12px;
+    color: var(--muted);
+
+    /* FIX REAL FLASH: invisible hasta JS listo */
+    opacity: 0;
+}
+
+/* visible SOLO cuando JS termina init */
+div.tree.ready {
+    opacity: 1;
+    transition: opacity 0.15s ease;
+}
+
+div.tree a,
+div.tree a:visited {
+    color: var(--text);
+    text-decoration: none;
+}
+
+div.tree ul {
+    list-style: none;
+    padding-left: 18px;
+    line-height: 1.3;
+}
+
+div.tree li {
+    white-space: nowrap;
+    transition: background 0.15s ease;
+}
+
+.tree li:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+#tree_root li[data-cat]>a::before {
+    content: var(--icon);
+    margin-right: .35rem;
+}
+
+/*******************************************************************************
+ * FOOTER DEL ÍNDICE
+ ******************************************************************************/
+.tree-footer {
+    margin-top: 15px;
+    padding: 10px;
+    border-top: 1px solid var(--border);
+}
+
+.tree-footer-title {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tree-footer-box {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+
+/*******************************************************************************
+ * SLIDE PANEL (ANIMACIÓN LATERAL)
+ ******************************************************************************/
+div.tree-panel {
+    flex: 0 0 19vw;
+    margin-left: 1vw;
+    min-width: 260px;
+    height: 100%;
+
+    overflow: auto;
+
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+
+    transition:
+        flex 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+        min-width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+        background 0.2s ease,
+        border-right 0.2s ease;
+
+    position: relative;
+    z-index: 2;
+}
+
+/* estado oculto */
+div.tree-panel.hidden {
+    flex: 0 0 0 !important;
+    min-width: 0 !important;
+    width: 0 !important;
+
+    overflow: hidden;
+    border-right: none;
+}
+
+
+/*******************************************************************************
+ * PAGE PANEL (ESTIRADO)
+ ******************************************************************************/
+
+/* cuando el panel está oculto */
+body.tree-hidden div.page-panel {
+    flex: 1 1 100% !important;
+}
+
+
+/*******************************************************************************
+ * BOTÓN TOGGLE PANEL
+ ******************************************************************************/
+
+#tree_panel_toggle_btn {
+    position: absolute;
+    top: 0;
+
+    background: var(--panel-3);
+    border-right: 1px solid var(--border);
+
+    color: var(--text);
+
+    width: 20px;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    z-index: 100;
+
+    transition: background 0.2s ease;
+}
+
+#tree_panel_toggle_btn:hover {
+    background: var(--panel-2);
+}
+
+
+/*******************************************************************************
+ * ANIMACIÓN ÍNDICE
+ ******************************************************************************/
+
+/* estado base: cerrado hasta que JS lo active */
+.subtree {
+    overflow: hidden;
+
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+
+    pointer-events: none;
+
+    will-change: max-height, opacity, transform;
+
+    transition:
+        max-height 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+        opacity 0.22s ease,
+        transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* abierto */
+.subtree:not(.hide) {
+    max-height: 2000px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* cerrado (override explícito) */
+.hide {
+    max-height: 0 !important;
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* IMPORTANTE: evitar transición en primera carga */
+.tree.no-anim .subtree {
+    transition: none !important;
+}
+
+
+/*******************************************************************************
+ * BUSCADOR
+ ******************************************************************************/
+.index-search {
+    padding: 8px;
+    position: relative;
+    margin: 10px;
+}
+
+.index-search input {
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 28px;
+}
+
+#index_search,
+#tree_search {
+    width: 100%;
+    box-sizing: border-box;
+
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+
+    color: var(--text);
+
+    padding: 8px;
+    border-radius: 6px;
+
+    outline: none;
+}
+
+#tree_search:focus {
+    border-color: var(--cat-phishing);
+}
+
+#tree_search_clear {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    padding: 0;
+
+    width: 30px;
+    height: 30px;
+
+    border: none;
+    background: transparent;
+
+    color: var(--muted);
+
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#tree_search_clear:hover {
+    color: var(--text);
+}
+
+
+/*******************************************************************************
+ * PAGE
+ ******************************************************************************/
+div.page {
+    padding: 20px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+div.page-panel {
+    flex: 1;
+    min-width: 0;
+    background: var(--bg);
+    transition: margin-left 0.35s ease;
+}
+
+.page-panel iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.page a,
+.page a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+/*******************************************************************************
+ * TÍTULOS (BASE + CATEGORÍA)
+ ******************************************************************************/
+div.page h1,
+div.page h2,
+div.page h3,
+div.page h4,
+div.page h5,
+div.page h6 {
+    margin: 0.5em 0;
+    font-weight: bold;
+    /* el color se toma directamente de data-cat */
+}
+
+
+/*******************************************************************************
+ * CAJAS
+ ******************************************************************************/
+.box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.box--info {
+    border-left: 3px solid var(--active);
+}
+
+.box--info>p>strong {
+    color: var(--active);
+}
+
+
+/*******************************************************************************
+ * CODE
+ ******************************************************************************/
+pre,
+code {
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    background: #0f1316;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+pre {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    padding: 10px;
+    overflow: auto;
+    margin: 1em 0;
+    white-space: pre-wrap;
+    tab-size: 4;
+    line-height: 1.4;
+}
+
+
+/*******************************************************************************
+ * TAGS
+ ******************************************************************************/
+
+.node-tags {
+
+    margin-top: 2px;
+    margin-left: 18px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.tag {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--panel-3);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition:
+        transform .15s ease,
+        opacity .15s ease;
+}
+
+.tag:hover {
+    transform: translateY(-1px);
+    opacity: .85;
+}
+
+.tag-match {
+    background: var(--cat-phishing);
+    color: white;
+    border-color: var(--cat-phishing);
+}
+
+
+/*******************************************************************************
+ * CATEGORÍAS (ETIQUETAS)
+ ******************************************************************************/
+.cat {
+    display: inline-block;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* SOLO UNA REGLA DINÁMICA */
+.cat[data-cat] {
+    color: var(--active);
+}
+
+
+/*******************************************************************************
+ * MIGUILLAS DE PAN (Breadcrumb.. o algo así raro jajaja)
+ ******************************************************************************/
+#auto-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .4rem;
+    margin-bottom: 1rem;
+    padding: .75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: .5rem;
+    background: rgba(255, 255, 255, .03);
+    font-size: .85rem;
+}
+
+#auto-breadcrumb a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--accent-color);
+    transition: .15s;
+}
+
+#auto-breadcrumb a:hover {
+    opacity: .8;
+    text-decoration: underline;
+}
+
+#auto-breadcrumb .separator {
+    opacity: .5;
+}
+
+#auto-breadcrumb .current {
+    opacity: .7;
+}
+
+
+/*******************************************************************************
+ * Desplegables genérico modo acordeón
+ ******************************************************************************/
+.accordion {
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel);
+    overflow: hidden;
+}
+
+.accordion summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 14px 18px;
+    font-weight: 600;
+    user-select: none;
+}
+
+.accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion summary::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: .6rem;
+    transition: transform .25s ease;
+}
+
+.accordion[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.accordion-content {
+    padding: 0 18px;
+    animation: accordionOpen .25s ease;
+}
+
+.accordion-content>div {
+    background: var(--bg);
+}
+
+@keyframes accordionOpen {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*******************************************************************************
+ * Desplegables de código
+ ******************************************************************************/
+/* ---------- Tarjeta ---------- */
+.code-card {
+    margin: 25px 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--box-bg);
+}
+
+/* ---------- Quitar marcador ---------- */
+.code-card summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.code-card summary::-webkit-details-marker {
+    display: none;
+}
+
+/* ---------- Cabecera ---------- */
+.code-header {
+    background: var(--panel);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    transition: .25s;
+}
+
+.code-header:hover {
+    background: var(--panel-2);
+}
+
+.code-header span {
+    opacity: .7;
+    font-size: .9rem;
+}
+
+/* ---------- Flecha ---------- */
+.arrow {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: .25s;
+}
+
+/* ---------- Animación ---------- */
+details[open] .arrow {
+    transform: rotate(225deg);
+}
+
+/* ---------- Contenido ---------- */
+.code-body {
+    background-color: var(--panel);
+    border-top: 1px solid var(--border);
+    padding: 18px;
+    animation: showCode .25s ease;
+}
+
+/* ---------- Animación ---------- */
+@keyframes showCode {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/*******************************************************************************
+ * Tablas
+ ******************************************************************************/
+.box table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--panel-2);
+    font-size: .95rem;
+}
+
+.box table thead {
+    background: var(--panel);
+}
+
+.box table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--text);
+    border-bottom: 2px solid var(--border);
+}
+
+.box table td {
+    padding: 12px 16px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+}
+
+.box table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.box table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, .025);
+}
+
+.box table tbody tr:hover {
+    background: rgba(255, 255, 255, .06);
+    transition: .18s ease;
+}
+
+/* Primera columna destacada */
+.box table td:first-child {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+/* Centrar columnas de comparación */
+.box table th:not(:first-child),
+.box table td:not(:first-child) {
+    text-align: center;
+}
+
+/* Responsive */
+.table-responsive {
+    overflow-x: auto;
+}
+
+
+/*******************************************************************************
+ * CATEGORÍAS
+ ******************************************************************************/
+
+/* ==============================
+   BASE DEFAULT
+============================== */
+[data-cat] {
+    --active: var(--cat-default);
+    --icon: "";
+}
+
+[data-cat] h1::before {
+    content: var(--icon);
+    margin-right: .4rem;
+}
+
+[data-cat] h1,
+[data-cat] h2,
+[data-cat] h3,
+[data-cat] h4,
+[data-cat] h5,
+[data-cat] h6,
+[data-cat] li::marker {
+    color: var(--active);
+}
+
+/*******************************************************************************
+ * MAPEO DE CATEGORÍAS → VARIABLES
+ ******************************************************************************/
+/* Categorías */
+[data-cat~="ciberseguridad"] {
+    --active: var(--cat-main);
+    --icon: var(--icon-ciberseguridad);
+}
+
+[data-cat~="ia"] {
+    --active: var(--cat-main);
+    --icon: var(--icon-ia);
+}
+
+[data-cat~="android"] {
+    --active: var(--cat-main);
+    --icon: var(--icon-android);
+}
+
+/* Subcat CS */
+[data-cat~="fuerza-bruta"] {
+    --active: var(--cat-fuerza-bruta);
+    --icon: var(--icon-fuerza-bruta);
+}
+
+[data-cat~="escaneo"] {
+    --active: var(--cat-escaneo);
+    --icon: var(--icon-escaneo);
+}
+
+[data-cat~="osint"] {
+    --active: var(--cat-osint);
+    --icon: var(--icon-osint);
+}
+
+[data-cat~="phishing"] {
+    --active: var(--cat-phishing);
+    --icon: var(--icon-phishing);
+}
+
+[data-cat~="api"] {
+    --icon: var(--icon-api);
+}
+
+/* Subcat Android */
+[data-cat~="adb"] {
+    --icon: var(--icon-adb);
+}
+
+[data-cat~="so"] {
+    --icon: var(--icon-so);
+}
+
+[data-cat~="magisk"] {
+    --icon: var(--icon-magisk);
+}
+
+[data-cat~="stores"] {
+    --icon: var(--icon-stores);
+}
+
+/* Subcat IA */
+[data-cat~="companias"] {
+    --icon: var(--icon-companias);
+}
+
+[data-cat~="local"] {
+    --icon: var(--icon-local);
+}
+
+[data-cat~="dualvers"] {
+    --icon: var(--icon-dualvers);
+}
+
+/* Herramientas CS */
+[data-cat~="hydra"] {
+    --icon: var(--icon-hydra);
+}
+
+[data-cat~="medusa"] {
+    --icon: var(--icon-medusa);
+}
+
+[data-cat~="nmap"] {
+    --icon: var(--icon-nmap);
+}
+
+[data-cat~="legion"] {
+    --icon: var(--icon-legion);
+}
+
+[data-cat~="holehe"] {
+    --icon: var(--icon-holehe);
+}
+
+[data-cat~="exiftool"] {
+    --icon: var(--icon-exiftool);
+}
+
+[data-cat~="gophish"] {
+    --icon: var(--icon-gophish);
+}
+
+[data-cat~="mailhog"] {
+    --icon: var(--icon-mailhog);
+}
+
+/* Escenarios multiples */
+[data-cat~="arq"] {
+    --icon: var(--icon-arq);
+}
+
+[data-cat~="lab"] {
+    --icon: var(--icon-lab);
+}
+
+[data-cat~="cmds"] {
+    --icon: var(--icon-cmds);
+}
+
+[data-cat~="ini"] {
+    --icon: var(--icon-ini);
+}
+
+[data-cat~="peruse"] {
+    --icon: var(--icon-peruse);
+}
+
+[data-cat~="ejem"] {
+    --icon: var(--icon-ejem);
+}
+
+[data-cat~="code"] {
+    --icon: var(--icon-code);
+}
+
+[data-cat~="github"] {
+    --icon: var(--icon-github);
+}
+
+[data-cat~="herramientas"] {
+    --icon: var(--icon-herramientas);
+}
+
+
