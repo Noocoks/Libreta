@@ -413,31 +413,39 @@ function loadTree() {
 
     fetch("res/json/tree.json")
         .then(function (response) {
+            if (!response.ok) {
+                throw new Error("No se pudo cargar tree.json (" + response.status + ")");
+            }
+
             return response.json();
         })
 
         .then(function (data) {
+            if (!data || !Array.isArray(data.sections)) {
+                throw new Error("tree.json no contiene una lista válida de secciones");
+            }
 
             treeData = data;
-
             buildTree(data);
 
-            var page =
-                window.location.hash.replace("#", "");
+            var page = window.location.hash.replace(/^#/, "");
 
             if (page) {
                 navigate(page, false);
             }
-
         })
 
         .catch(function (error) {
+            console.error("Error cargando tree.json:", error);
 
-            console.error(
-                "Error cargando index.json",
-                error
-            );
-
+            var root = document.getElementById("tree_root");
+            if (root) {
+                root.innerHTML = "";
+                var message = document.createElement("li");
+                message.className = "tree-load-error";
+                message.textContent = "No se pudo cargar el índice. Recarga la página o inténtalo más tarde.";
+                root.appendChild(message);
+            }
         });
 }
 
@@ -768,7 +776,7 @@ function syncFrameTags(tag) {
 /* ==============================
    INIT
 ============================== */
-window.onload = function () {
+window.addEventListener("load", function () {
 
     loadTree();
 
@@ -810,7 +818,7 @@ window.onload = function () {
 
         panels.insertBefore(btn, panels.children[1]);
     }
-};
+});
 
 
 console.log("script.js cargado");
