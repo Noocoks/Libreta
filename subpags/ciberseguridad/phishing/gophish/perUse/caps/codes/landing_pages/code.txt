@@ -118,8 +118,8 @@
         &lt;/div&gt;
         
          &lt;form id=&quot;loginForm&quot; method=&quot;POST&quot; action=&quot;&quot;&gt;
-            &lt;input type=&quot;text&quot; name=&quot;username&quot; placeholder=&quot;Usuario corporativo&quot;equired=&quot;&quot;/&gt;
-            &lt;input type=&quot;password&quot; name=&quot;password&quot; placeholder=&quot;Contraseña&quot;equired=&quot;&quot;/&gt;
+            &lt;input type=&quot;text&quot; name=&quot;username&quot; placeholder=&quot;Usuario corporativo&quot; required=&quot;required&quot;/&gt;
+            &lt;input type=&quot;password&quot; name=&quot;password&quot; placeholder=&quot;Contraseña&quot; required=&quot;required&quot;/&gt;
             &lt;button type=&quot;submit&quot;&gt;Iniciar sesión&lt;/button&gt;
         &lt;/form&gt;
 
