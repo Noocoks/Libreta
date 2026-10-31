@@ -10,17 +10,116 @@ function getIframe() {
     return document.getElementById("page_frame");
 }
 
+function getAllowedPath(file_path) {
+
+    if (
+        typeof file_path !== "string" ||
+        !file_path.trim() ||
+        /[\\\\\u0000-\u001f]/.test(file_path) ||
+        /%2f|%5c/i.test(file_path)
+    ) {
+        return null;
+    }
+
+    var rawPath = file_path.trim();
+
+    if (
+        rawPath.startsWith("//") ||
+        /(?:^|\/)\.\.?\//.test(rawPath) ||
+        /(?:^|\/)\.\.?$/.test(rawPath)
+    ) {
+        return null;
+    }
+
+    var target;
+
+    try {
+        target = new URL(rawPath, window.location.href);
+    } catch (e) {
+        return null;
+    }
+
+    if (
+        target.origin !== window.location.origin ||
+        (target.protocol !== "http:" && target.protocol !== "https:") ||
+        target.search ||
+        target.hash
+    ) {
+        return null;
+    }
+
+    var basePath = new URL(".", window.location.href).pathname;
+
+    if (!target.pathname.startsWith(basePath)) {
+        return null;
+    }
+
+    var relativePath;
+
+    try {
+        relativePath = decodeURIComponent(
+            target.pathname.slice(basePath.length)
+        );
+    } catch (e) {
+        return null;
+    }
+
+    if (
+        !relativePath ||
+        relativePath.startsWith("/") ||
+        relativePath.split("/").some(function (part) {
+            return part === "." || part === "..";
+        })
+    ) {
+        return null;
+    }
+
+    function existsInTree(nodes) {
+        for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i];
+
+            if (
+                typeof node.path === "string" &&
+                node.path.replace(/^\/+/, "") === relativePath
+            ) {
+                return true;
+            }
+
+            if (
+                node.children &&
+                existsInTree(node.children)
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    if (
+        !treeData ||
+        !Array.isArray(treeData.sections) ||
+        !existsInTree(treeData.sections)
+    ) {
+        return null;
+    }
+
+    return relativePath;
+}
+
 function navigate(file_path, push = true) {
 
     var iframe = getIframe();
+    var allowedPath = getAllowedPath(file_path);
 
-    if (!iframe || !file_path) return;
+    if (!iframe || !allowedPath) {
+        console.warn("Navegación bloqueada: ruta no permitida.", file_path);
+        return false;
+    }
 
     iframe.style.opacity = 0;
 
     setTimeout(function () {
-
-        iframe.src = file_path;
 
         iframe.onload = function () {
 
@@ -30,14 +129,14 @@ function navigate(file_path, push = true) {
 
                 var breadcrumbData = findNodePath(
                     treeData.sections,
-                    file_path
+                    allowedPath
                 );
 
                 iframe.contentWindow.postMessage({
                     type: "breadcrumb",
-                    path: file_path,
+                    path: allowedPath,
                     breadcrumb: breadcrumbData
-                }, "*");
+                }, window.location.origin);
 
             } catch (e) {
 
@@ -49,19 +148,21 @@ function navigate(file_path, push = true) {
             }
         };
 
+        iframe.src = new URL(
+            allowedPath,
+            window.location.href
+        ).href;
+
     }, 120);
 
     if (push) {
-        window.location.hash = file_path;
+        window.location.hash = allowedPath;
     }
+
+    return true;
 }
 
 function changeFrame(file_path) {
-
-    file_path = file_path
-        .replace(/^\/Libreta\//, "")
-        .replace(/^\/+/, "");
-
     navigate(file_path, true);
 }
 
@@ -579,16 +680,23 @@ function findNodePath(
 
 window.addEventListener("message", function (event) {
 
-    if (!event.data) return;
+    var iframe = getIframe();
+
+    if (
+        !iframe ||
+        event.source !== iframe.contentWindow ||
+        event.origin !== window.location.origin ||
+        !event.data ||
+        typeof event.data !== "object"
+    ) {
+        return;
+    }
 
     if (
         event.data.type === "navigate" &&
-        event.data.path
+        typeof event.data.path === "string"
     ) {
-        navigate(
-            event.data.path,
-            true
-        );
+        navigate(event.data.path, true);
     }
 
 });
@@ -599,15 +707,22 @@ window.addEventListener("message", function (event) {
 
 function syncFrameTags(tag) {
 
+    var iframe = getIframe();
+
+    if (!iframe || !iframe.contentWindow) return;
+
     try {
 
-        getIframe().contentWindow.postMessage({
+        iframe.contentWindow.postMessage({
             type: "highlight-tag",
             tag: tag || ""
-        }, "*");
+        }, window.location.origin);
 
-    } catch (e) { }
+    } catch (e) {
 
+        console.warn("No se pudieron sincronizar las etiquetas.", e);
+
+    }
 }
 
 /* ==============================
