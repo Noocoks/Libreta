@@ -5,13 +5,29 @@
 (function () {
     "use strict";
 
-    var STATS_URL = "/Libreta/res/json/project-stats.json";
+    // Resuelve la ruta desde la ubicación real de wiki.html (GitHub Pages o dominio propio).
+    var STATS_URL = new URL("res/json/project-stats.json", document.baseURI).href;
 
     function formatNumber(value) {
         return new Intl.NumberFormat("es-ES").format(value);
     }
 
     function renderStats(data) {
+        if (
+            !data ||
+            !Array.isArray(data.languages) ||
+            !Number.isFinite(data.total_lines) ||
+            !data.generated_at ||
+            !Number.isFinite(Date.parse(data.generated_at)) ||
+            data.languages.some(function (language) {
+                return !language ||
+                    typeof language.label !== "string" ||
+                    !Number.isFinite(language.lines);
+            })
+        ) {
+            throw new Error("Formato de estadísticas no válido");
+        }
+
         var loading = document.querySelector(".project-stats-loading");
         var content = document.querySelector(".project-stats-data");
         var error = document.querySelector(".project-stats-error");
