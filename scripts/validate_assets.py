@@ -43,15 +43,14 @@ def local_target(source: Path, raw_url: str) -> tuple[Path, str] | None:
 
     raw_path = unquote(parsed.path)
     if raw_path.startswith("/Libreta/"):
-        relative = raw_path[len("/Libreta/"):]
+        target = (ROOT / raw_path[len("/Libreta/"):]).resolve()
     elif raw_path.startswith("/"):
-        relative = raw_path.lstrip("/")
+        target = (ROOT / raw_path.lstrip("/")).resolve()
     elif raw_path:
-        relative = (source.parent / raw_path).resolve().relative_to(ROOT).as_posix()
+        target = (source.parent / raw_path).resolve()
     else:
-        relative = source.relative_to(ROOT).as_posix()
+        target = source.resolve()
 
-    target = (ROOT / relative).resolve()
     try:
         target.relative_to(ROOT)
     except ValueError:
