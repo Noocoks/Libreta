@@ -48,7 +48,7 @@ os.makedirs(
 #---------------------
 
 def stream_print(text, delay=0.01):
-    """Simulando streaming tipo ChatGPT"""
+    """Imprime progresivamente la respuesta ya recibida; no es streaming de la API."""
 
     for char in text:
         print(
@@ -133,7 +133,7 @@ def auto_select_model(prompt):
 def ask_openai(history):
 
     response = openai_client.chat.completions.create(
-        model="gpt-4.1-mini",
+        model="gpt-6-luna",
         messages=history
     )
 
@@ -146,7 +146,7 @@ def ask_openai(history):
 def ask_claude(history):
 
     response = anthropic_client.messages.create(
-        model="claude-sonnet-4-0",
+        model="claude-sonnet-5",
         max_tokens=200,
         messages=history
     )
