@@ -155,7 +155,6 @@ hashes o comandos largos rompan el layout */
         transform: translateY(-50%);
 
         border: 1px solid var(--border);
-        border-left: 1px solid var(--border);
         border-radius: 0 8px 8px 0;
 
         background: var(--panel-3);
