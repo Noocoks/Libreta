@@ -1,0 +1,93 @@
+/*******************************************************************************
+ * FUENTE
+ ******************************************************************************/
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+
+/*******************************************************************************
+ * VARIABLES (TEMA + CATEGORÍAS)
+ ******************************************************************************/
+:root {
+    /***************
+     * BASE DARK THEME
+     ***************/
+    --bg: #14181b;
+    --panel: #1c2226;
+    --panel-2: #232b30;
+    --panel-3: #2f3940;
+    --border: #2b353b;
+    --text: #ffffff;
+    --muted: #b5b5b5;
+
+    /***************
+     * CATEGORÍAS ACTIVAS
+     ***************/
+    --car-maintenance: #ffde21;
+    --cat-main: #3d3d3d;
+
+    --cat-fuerza-bruta: #ff0000;
+    --cat-escaneo: #b26cff;
+    --cat-osint: #a0a0a0;
+    --cat-phishing: #3aa0ff;
+
+    /***************
+     * RESERVA FUTURA
+     ***************/
+    --cat-forense: #38bdf8;
+    --cat-redes: #34d399;
+    --cat-explotacion: #fb7185;
+    --cat-malware: #a855f7;
+    --cat-reversing: #f97316;
+    --cat-web: #22c55e;
+    --cat-default: #9aa0a6;
+
+    /***************
+     * EMOJIS
+     ***************/
+    /* Categorías */
+    --icon-maintenance: "🚧";
+    --icon-ciberseguridad: "🛡️";
+    --icon-ia: "🧠";
+    --icon-android: "📲";
+
+    /* Subcategorías CS */
+    --icon-fuerza-bruta: "💀";
+    --icon-escaneo: "📡";
+    --icon-osint: "🔎";
+    --icon-phishing: "🎣";
+
+    /* Herramientas CS */
+    --icon-hydra: "🐉";
+    --icon-medusa: "🪼";
+    --icon-nmap: "🗺️";
+    --icon-legion: "🛰️";
+    --icon-holehe: "🕵️";
+    --icon-exiftool: "📷";
+    --icon-gophish: "🪝";
+    --icon-mailhog: "📨";
+
+    /* Subcategorías Android */
+    --icon-adb: "🧰";
+    --icon-magisk: "🎭";
+    --icon-so: "💿";
+    --icon-stores: "🛍️";
+
+    /* Subcategorías IA */
+    --icon-local: "🏡";
+    --icon-companias: "🤖";
+    --icon-api: "🔑";
+    --icon-dualvers: "↔️";
+
+    /* Básicos */
+    --icon-github: "🐈‍⬛";
+    --icon-arq: "⚙️";
+    --icon-lab: "🧪";
+    --icon-cmds: "📜";
+    --icon-ini: "🚀";
+    --icon-peruse: "👤";
+    --icon-ejem: "☝🏻";
+    --icon-code: "🗿";
+    --icon-herramientas: "🛠️";
+
+}
+
