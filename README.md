@@ -37,9 +37,18 @@
 ├── wiki.html           # Página interactiva
 ├── images/             # Recursos gráficos
 ├── res/
-│   ├── css/             # Estilos
-│   ├── js/              # Lógica
-│   └── json/            # Índice de navegación
+│   ├── css/             # Estilos modulares
+│   │   ├── styles.css   # Punto de entrada CSS
+│   │   ├── variables.css
+│   │   ├── base.css
+│   │   ├── responsive.css
+│   │   ├── home.css
+│   │   └── theme.css
+│   ├── js/              # Lógica e interfaz
+│   └── json/            # Índice y estadísticas
+├── scripts/             # Automatizaciones del proyecto
+└── .github/
+    └── workflows/       # GitHub Actions
 └── subpags/
     ├── ciberseguridad/
     ├── android/
@@ -82,6 +91,8 @@ Proyecto personal de documentación técnica: consulta rápida, navegación senc
 - Categorías, iconos y colores centralizados mediante CSS.
 - Panel lateral plegable y navegación contextual.
 - Componentes visuales reutilizables para notas, código y laboratorios.
+- CSS dividido por responsabilidades: variables, estilos base, responsive, portada y tema visual.
+- Tooltip de información en la wiki con estadísticas del código por lenguaje.
 
 ## `03 / DOCUMENTATION`
 
@@ -93,12 +104,17 @@ Proyecto personal de documentación técnica: consulta rápida, navegación senc
 ## `04 / SECURITY & MAINTENANCE`
 
 - Exclusión de secretos, claves API, cachés y entornos virtuales.
+- CSS modularizado en cinco hojas especializadas, manteniendo `styles.css` como punto de entrada y conservando el orden de la cascada.
+- Estadísticas de líneas automatizadas mediante GitHub Actions en cada push a `master`.
+- Script Python que recorre los formatos configurados y actualiza `res/json/project-stats.json`.
+- La wiki obtiene las estadísticas desde JSON; no es necesario editar los recuentos manualmente.
 - Limpieza de estilos y lógica duplicada.
 - Simplificación de navegación y estructuras heredadas.
 
 ## `05 / STATUS`
 
-- **Operativo:** navegación, búsqueda, categorías, etiquetas e índice dinámico.
+- **Operativo:** navegación, búsqueda, categorías, etiquetas, índice dinámico y estadísticas automáticas del proyecto.
+- **Automatización:** workflow `.github/workflows/project-stats.yml`, script `scripts/update_project_stats.py` y datos en `res/json/project-stats.json`.
 - **En desarrollo:** migración del contenido antiguo, mejoras visuales y nuevos laboratorios.
 
 <div align="center">
