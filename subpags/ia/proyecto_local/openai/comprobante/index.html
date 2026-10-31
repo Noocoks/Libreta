@@ -88,7 +88,7 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="gpt-4.1-mini",
+    model="gpt-6-luna",
     messages=[
         {
             "role": "user",
@@ -103,6 +103,18 @@ print(response.choices[0].message.content)
             </details>
 
         </div>
+
+        <p>
+            <small>
+                El ejemplo utiliza <code>gpt-6-luna</code>, un modelo eficiente
+                disponible en la API de OpenAI y compatible con Chat Completions.
+                Los identificadores pueden cambiar con el tiempo; consulta el
+                <a href="https://developers.openai.com/api/docs/models" target="_blank" rel="noopener noreferrer">
+                    catálogo oficial de modelos
+                </a>
+                antes de reutilizar el código.
+            </small>
+        </p>
         <br>
         <hr>
 
