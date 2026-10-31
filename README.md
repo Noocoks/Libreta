@@ -1,129 +1,55 @@
-# CiberNotas del CiberCalvoCabrón
+<div align="center">
 
-Repositorio de documentación técnica sobre ciberseguridad, pentesting, automatización, inteligencia artificial y herramientas de laboratorio.
+# CIBERNOTAS
 
-## Características
+### `// CiberCalvoCabrón · Technical Knowledge Base`
 
-* Interfaz web ligera sin frameworks externos.
-* Navegación mediante árbol jerárquico dinámico.
-* Breadcrumb automático.
-* Sistema de categorías y etiquetas.
-* Buscador con soporte para acentos y caracteres especiales.
-* Índices de navegación internos.
-* Diseño orientado a documentación técnica offline.
-* Organización modular por áreas de conocimiento.
-* Páginas con metadatos SEO internos.
-* Sistema JSON para indexación y clasificación de contenido.
-* Compatibilidad con documentación estática exportada.
+<img src="https://img.shields.io/badge/STATUS-ACTIVE-0D1117?style=for-the-badge&labelColor=790018&color=0D1117" alt="Active project"/>
+<img src="https://img.shields.io/badge/STACK-HTML%20%2F%20CSS%20%2F%20JS-0D1117?style=for-the-badge&labelColor=790018&color=0D1117" alt="HTML CSS JavaScript"/>
 
-## Áreas documentadas
+**Apuntes, herramientas y laboratorios** sobre ciberseguridad, IA y automatización.
 
-### Ciberseguridad
+</div>
 
-* Ataques de fuerza bruta.
-* Escaneo de redes y puertos.
-* OSINT.
-* Phishing.
+---
 
-### Inteligencia Artificial
+## `01 / EXPLORE`
 
-* Configuración de entornos Python.
-* Gestión de APIs.
-* Integración con OpenAI.
-* Integración con Anthropic.
-* Uso de Shell-GPT.
-* Automatización mediante scripts.
-* Integración multi-modelo.
-* Gestión segura de credenciales.
-* Uso conjunto de IA y Git.
+- **Ciberseguridad:** OSINT, escaneo, auditoría de credenciales y phishing.
+- **Inteligencia artificial:** APIs, modelos, Python y automatización.
+- **Laboratorios:** prácticas locales, configuraciones y ejemplos.
 
-## Herramientas documentadas
+## `02 / TOOLKIT`
 
-### Fuerza Bruta
+| Área | Herramientas |
+|---|---|
+| Auditoría | Hydra · Medusa |
+| Escaneo | Nmap · Legion |
+| OSINT | ExifTool · Holehe |
+| Phishing | GoPhish · MailHog |
+| IA y desarrollo | OpenAI · Anthropic · Shell-GPT · Python · Git |
 
-* Hydra
-* Medusa
-
-### Escaneo
-
-* Nmap
-* Legion
-
-### OSINT
-
-* ExifTool
-* Holehe
-
-### Phishing
-
-* Gophish
-* MailHog
-
-### Inteligencia Artificial
-
-* OpenAI
-* Anthropic
-* Shell-GPT
-* Python Dotenv
-* Git
-* GitHub
-* APIs
-
-## Estructura actual
+## `03 / STRUCTURE`
 
 ```text
 .
-├── index.html
-├── README.md
-├── R_ÍNDICE-HERRAMIENTAS.md
-├── R_HISTORIAL.md
-├── images
-├── res
-│   ├── css
-│   ├── js
-│   └── json
-└── subpags
-    ├── ciberseguridad
-    │   ├── adfb
-    │   ├── efrp
-    │   ├── osint
-    │   ├── phishing
-    │   └── index.html
-    │
-    └── ia
-        └── proyecto_local
-            ├── anthropic
-            ├── apis
-            ├── dualvers
-            ├── git
-            ├── openai
-            └── index.html
+├── index.html          # Interfaz principal
+├── images/             # Recursos gráficos
+├── res/
+│   ├── css/             # Estilos
+│   ├── js/              # Lógica
+│   └── json/            # Índice de navegación
+└── subpags/
+    ├── ciberseguridad/
+    └── ia/
 ```
 
-## Objetivo
+## `04 / ABOUT`
 
-Crear una base de conocimiento técnica, organizada y fácilmente navegable que permita centralizar herramientas, laboratorios, procedimientos, configuraciones, scripts y conceptos relacionados con:
+Proyecto personal de documentación técnica: consulta rápida, navegación sencilla y contenido reutilizable. Diseñado para funcionar como una base de conocimiento estática y ligera.
 
-* Ciberseguridad.
-* Pentesting.
-* Automatización.
-* Inteligencia Artificial.
-* Desarrollo de herramientas.
-* Entornos de laboratorio.
+<div align="center">
 
-## Filosofía del proyecto
+<sub><code>LEARN · TEST · DOCUMENT · REPEAT</code></sub>
 
-La documentación está pensada para:
-
-* Consulta rápida.
-* Uso offline.
-* Aprendizaje progresivo.
-* Reutilización de código.
-* Creación de laboratorios reproducibles.
-* Centralización de conocimiento técnico.
-
-## Estado
-
-🚧 Proyecto en desarrollo activo.
-
-Actualmente se encuentra en expansión constante incorporando nuevas herramientas, laboratorios, automatizaciones, integraciones con IA y mejoras en la interfaz de navegación.
+</div>
