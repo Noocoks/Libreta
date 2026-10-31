@@ -36,8 +36,8 @@
 
                 <!-- Buscador -->
                 <div class="index-search">
-                    <input type="text" id="tree_search" placeholder="Buscar... {!}" oninput="filterTree(this.value)">
-                    <button id="tree_search_clear" onclick="clearTreeSearch()">✘</button>
+                    <input type="text" id="tree_search" aria-label="Buscar en el índice" placeholder="Buscar... {!}" oninput="filterTree(this.value)">
+                    <button id="tree_search_clear" type="button" aria-label="Limpiar búsqueda" title="Limpiar búsqueda" onclick="clearTreeSearch()">✘</button>
                 </div>
 
                 <!-- Arbol de contenido -->
@@ -69,7 +69,6 @@
                                 </div>
                                 <div class="project-stats-error" hidden>No se pudieron cargar las estadísticas.</div>
                             </div>
-                            </div>
                         </div>
                     </div>
 
@@ -88,7 +87,7 @@
         </div>
 
         <div class="page-panel">
-            <iframe id="page_frame"></iframe>
+            <iframe id="page_frame" title="Contenido de la documentación"></iframe>
         </div>
 
     </div>
