@@ -1,81 +1,65 @@
 <!doctype html>
-
 <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Nooko">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="osint holehe arquitectura módulos account enumeration">
+        <meta name="description" content="Arquitectura conceptual de Holehe: módulos por servicio, consultas, análisis de respuestas, límites y privacidad.">
+        <title>Arquitectura - Holehe</title>
 
-<head>
-  <meta charset="UTF-8">
+        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+        <script src="/Libreta/res/js/page.js"></script>
+    </head>
 
-  <meta name="author" content="Nooko">
+    <body>
+        <div class="page" data-cat="osint holehe arquitectura módulos account enumeration">
+            <hr>
+            <h1>Arquitectura - Holehe</h1>
 
-  <meta name="keywords"
-    content="holehe, osint, enumeración de correos, account enumeration, reconocimiento de cuentas, seguridad informática">
+            <div class="box box--info">
+                <p>Holehe organiza comprobaciones mediante módulos asociados a servicios concretos. Cada módulo implementa una consulta y conoce las señales que intenta interpretar. El resultado depende de que el proveedor mantenga el comportamiento esperado.</p>
+            </div>
+            <h2>Flujo conceptual</h2>
+            <div class="box">
+                <pre>Dirección autorizada
+        |
+        v
+Selección de módulos
+        |
+        v
+Consulta al servicio
+(registro / recuperación)
+        |
+        v
+Respuesta HTTP y contenido
+        |
+        v
+Análisis de señales
+        |
+        v
+Clasificación:
+existe / no detectado / limitado / incierto</pre>
+            </div>
+            <h2>Componentes</h2>
+            <div class="box"><h3>Entrada</h3><p>Recibe la dirección que se comprobará. Debe ser propia o estar cubierta por autorización expresa.</p></div>
+            <div class="box"><h3>Módulos de servicio</h3><p>Cada módulo implementa una consulta particular. No todos los proveedores usan los mismos endpoints, mensajes ni respuestas.</p></div>
+            <div class="box"><h3>Cliente HTTP y concurrencia</h3><p>Coordina solicitudes y respuestas. Las consultas deben respetar los límites y controles antiabuso de los servicios.</p></div>
+            <div class="box"><h3>Analizador</h3><p>Examina códigos, texto y señales indirectas. Un cambio en la web del proveedor puede invalidar la lógica de un módulo.</p></div>
+            <div class="box"><h3>Clasificador</h3><p>Resume los resultados y debe conservar estados de limitación e incertidumbre; reducirlos a un sí/no puede inducir a error.</p></div>
+            <h2>Estados de salida</h2>
+            <ul>
+                <li><strong>Found:</strong> señal compatible con una cuenta existente.</li>
+                <li><strong>Not found:</strong> no se detectó una señal de registro.</li>
+                <li><strong>Rate limited:</strong> el proveedor limitó la frecuencia de consultas.</li>
+                <li><strong>Uncertain / error:</strong> no existe evidencia suficiente.</li>
+            </ul>
+            <h2>Riesgo de enumeración</h2>
+            <p>La enumeración puede revelar en qué plataformas se utiliza una dirección. Los proveedores reducen este riesgo con respuestas uniformes, límites de frecuencia y controles antiautomatización.</p>
+            <h2>Fuente</h2>
+            <p><a href="https://github.com/megadose/holehe" target="_blank" rel="noopener noreferrer">Código y documentación de Holehe</a></p>
 
-  <meta name="description"
-    content="Arquitectura y funcionamiento interno de Holehe para enumeración de correos y detección de cuentas registradas en OSINT">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Arquitectura - Holehe</title>
-
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
-</head>
-
-<body>
-
-  <div class="page" data-cat="osint holehe arq">
-    <hr>
-
-    <h1>Arquitectura - Holehe</h1>
-
-    <p>
-      <em><small>Basada en técnicas de account enumeration y análisis de respuestas.</small></em>
-    </p>
-
-    <br>
-
-    <div class="box">
-      <h3>Prueba de registro (Account Enumeration)</h3>
-
-      <ul>
-        <li>
-          Envía solicitudes a formularios de registro o recuperación de contraseña de cada servicio.
-        </li>
-      </ul>
-    </div>
-
-    <br>
-
-    <div class="box">
-      <h3>Observación de respuestas</h3>
-
-      <ul>
-        <li>Detecta patrones en las respuestas del servidor.</li>
-        <li>Mensajes como "Este email ya está registrado".</li>
-        <li>Mensajes como "No existe ninguna cuenta con este correo".</li>
-        <li>Diferencias en tiempos de respuesta.</li>
-        <li>Cambios en mensajes de error.</li>
-      </ul>
-    </div>
-
-    <br>
-
-    <div class="box">
-      <h3>Clasificación del resultado</h3>
-
-      <ul>
-        <li>✅ <strong>Found</strong> → el email probablemente está registrado.</li>
-        <li>❌ <strong>Not found</strong> → no parece registrado.</li>
-        <li>⚠️ <strong>Rate limited / uncertain</strong> → el servicio bloqueó la consulta o no existe una señal clara.
-        </li>
-      </ul>
-    </div>
-
-    <br>
-    <hr>
-
-  </div>
-
-</body>
-
+            <hr>
+        </div>
+    </body>
 </html>
