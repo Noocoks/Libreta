@@ -177,10 +177,12 @@ function toggleSubTree(element) {
         next.classList.remove("hide");
         element.textContent = "-";
         element.dataset.open = "true";
+        element.setAttribute("aria-expanded", "true");
     } else {
         next.classList.add("hide");
         element.textContent = "+";
         element.dataset.open = "false";
+        element.setAttribute("aria-expanded", "false");
     }
 }
 
@@ -197,6 +199,7 @@ function expandAllSubtrees() {
         if (btn) {
             btn.textContent = "-";
             btn.dataset.open = "true";
+            btn.setAttribute("aria-expanded", "true");
         }
     }
 }
@@ -214,6 +217,8 @@ function collapseAllSubtrees() {
         if (btn) {
             btn.textContent = "+";
             btn.dataset.open = "false";
+            btn.setAttribute("aria-expanded", "false");
+            btn.setAttribute("aria-expanded", "false");
         }
     }
 }
@@ -264,10 +269,14 @@ function toggle_tree_panel() {
         tree.classList.remove("hidden");
         document.body.classList.remove("tree-hidden");
         btn.innerHTML = left_arrow_heavy;
+        btn.setAttribute("aria-expanded", "true");
+        btn.setAttribute("aria-label", "Ocultar índice");
     } else {
         tree.classList.add("hidden");
         document.body.classList.add("tree-hidden");
         btn.innerHTML = right_arrow_heavy;
+        btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-label", "Mostrar índice");
     }
 }
 
@@ -304,6 +313,9 @@ function createTreeNode(item) {
         };
 
         btn.textContent = "+";
+        btn.type = "button";
+        btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-label", "Expandir " + item.name);
 
         li.appendChild(btn);
     }
@@ -477,10 +489,24 @@ function showAllChildren(li) {
 
     li.style.display = "";
 
-    var children = li.getElementsByTagName("li");
+    var children = li.querySelectorAll("li");
 
     for (var i = 0; i < children.length; i++) {
         children[i].style.display = "";
+    }
+
+    var subtrees = li.querySelectorAll("ul.subtree");
+
+    for (var j = 0; j < subtrees.length; j++) {
+        subtrees[j].classList.remove("hide");
+    }
+
+    var buttons = li.querySelectorAll("button[aria-expanded]");
+
+    for (var k = 0; k < buttons.length; k++) {
+        buttons[k].textContent = "-";
+        buttons[k].dataset.open = "true";
+        buttons[k].setAttribute("aria-expanded", "true");
     }
 }
 
@@ -764,6 +790,9 @@ window.onload = function () {
         btn.onclick = toggle_tree_panel;
         btn.innerHTML = left_arrow_heavy;
         btn.id = "tree_panel_toggle_btn";
+        btn.type = "button";
+        btn.setAttribute("aria-label", "Ocultar índice");
+        btn.setAttribute("aria-expanded", "true");
 
         panels.insertBefore(btn, panels.children[1]);
     }
