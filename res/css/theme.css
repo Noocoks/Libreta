@@ -854,3 +854,21 @@ pre code {
     margin-top: 3px;
     color: #687580;
 }
+
+/* Estados de carga de las estadísticas */
+.project-stats-loading,
+.project-stats-error {
+    color: #aeb8c1;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.project-stats-error {
+    color: #d98b9a;
+}
+
+.project-stats-data[hidden],
+.project-stats-loading[hidden],
+.project-stats-error[hidden] {
+    display: none !important;
+}
