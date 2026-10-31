@@ -34,6 +34,7 @@
 ```text
 .
 ├── index.html          # Interfaz principal
+├── wiki.html           # Página interactiva
 ├── images/             # Recursos gráficos
 ├── res/
 │   ├── css/             # Estilos
@@ -41,6 +42,7 @@
 │   └── json/            # Índice de navegación
 └── subpags/
     ├── ciberseguridad/
+    ├── android/
     └── ia/
 ```
 
