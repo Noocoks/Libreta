@@ -1,136 +1,74 @@
 <!doctype html>
-<html>
-
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="author" content="Nooko">
-
   <meta name="keywords" content="python, dotenv, openai, anthropic, api, comprobación, variables de entorno">
-
-  <meta name="description"
-    content="Script para comprobar que las claves API de OpenAI y Anthropic han sido cargadas correctamente desde el archivo .env.">
-
+  <meta name="description" content="Comprobación segura de la carga de claves API de OpenAI y Anthropic desde un archivo .env.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Comprobación APIs</title>
-
   <link rel="stylesheet" href="/Libreta/res/css/styles.css">
   <script src="/Libreta/res/js/page.js"></script>
 </head>
-
 <body>
-
-  <div class="page" data-cat="ia llave">
+  <main class="page" data-cat="ia api comprobacion">
     <hr>
-
     <h1>Comprobación APIs</h1>
-
     <div class="node-tags">
-      <span class="tag">python</span>
-      <span class="tag">dotenv</span>
-      <span class="tag">variables-entorno</span>
-      <span class="tag">openai</span>
-      <span class="tag">anthropic</span>
-      <span class="tag">api</span>
+      <span class="tag">python</span><span class="tag">dotenv</span>
+      <span class="tag">variables-entorno</span><span class="tag">openai</span>
+      <span class="tag">anthropic</span><span class="tag">api</span>
     </div>
-
-    <br>
 
     <div class="box box--info">
-      <p>
-        Este script permite comprobar que las claves API
-        almacenadas en el archivo <code>.env</code> se están
-        cargando correctamente mediante <strong>python-dotenv</strong>.
-      </p>
+      <p>Este script comprueba que las claves API almacenadas en <code>.env</code> se cargan correctamente. Por seguridad, muestra únicamente si están configuradas; nunca imprime sus valores.</p>
     </div>
-
-    <br>
     <hr>
 
     <h2>Código</h2>
-
-    <div class="box">
-
-      <pre>
+    <div class="code-card">
+      <details>
+        <summary>
+          <div class="code-header">
+            <div><strong>📄 check_apis.py</strong><br><span>Python</span></div>
+            <span class="arrow"></span>
+          </div>
+        </summary>
+        <div class="code-body">
+          <pre><code>import os
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
-print(os.getenv("OPENAI_API_KEY"))
-print(os.getenv("ANTHROPIC_API_KEY"))</pre>
-
+for name in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY"):
+    configured = bool(os.getenv(name))
+    status = "configurada" if configured else "no encontrada"
+    print(f"{name}: {status}")</code></pre>
+        </div>
+      </details>
     </div>
-    <br>
     <hr>
 
     <h2>Resultado esperado</h2>
-
-    <p>
-      Si la configuración es correcta, el script mostrará por
-      pantalla las claves almacenadas en el archivo
-      <code>.env</code>.
-    </p>
-
     <div class="box">
-      <pre>
-sk-ope-xxxxxxxxxxxxxxxxxxxxxxxx
-sk-ant-xxxxxxxxxxxxxxxxxxxxxxxx</pre>
-
+      <pre><code>OPENAI_API_KEY: configurada
+ANTHROPIC_API_KEY: configurada</code></pre>
+      <p>Si aparece <code>no encontrada</code>, revisa la ubicación del archivo <code>.env</code> y el nombre de la variable.</p>
     </div>
-
-    <p>
-      Si aparece <code>None</code>, significa que la variable de
-      entorno no ha sido encontrada o el archivo
-      <code>.env</code> no se ha cargado correctamente.
-    </p>
-    <br>
-    <hr>
 
     <h2>Dependencias</h2>
-
-    <ul>
-      <li>python-dotenv</li>
-    </ul>
-    <br>
-    <hr>
+    <div class="box"><pre><code>pip install python-dotenv</code></pre></div>
 
     <h2>Recursos relacionados</h2>
-
-    <div class="box"</div>
+    <div class="box">
       <ul>
-        <li>
-          <span class="cat">
-            <a href="../index.html">
-              APIs
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span class="cat">
-            <a href="../git/index.html">
-              IA + Git
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span class="cat">
-            <a href="../openai/index.html">
-              OpenAI
-            </a>
-          </span>
-        </li>
-
+        <li><span class="cat"><a href="../index.html">APIs</a></span></li>
+        <li><span class="cat"><a href="../../git/index.html">IA + Git</a></span></li>
+        <li><span class="cat"><a href="../../openai/index.html">OpenAI</a></span></li>
+        <li><span class="cat"><a href="../../anthropic/index.html">Anthropic</a></span></li>
       </ul>
-
     </div>
-    <br>
     <hr>
-
-  </div>
-
+  </main>
 </body>
-
 </html>
