@@ -15,10 +15,80 @@
         <hr>
         <h1>Magisk</h1>
         <div class="box box--info">
-            <p>Sección dedicada a <strong>Magisk</strong>, su instalación, gestión de módulos y personalización de Android.</p>
-            <p>La documentación está pendiente de completar.</p>
+            <p><strong>Magisk</strong> es una solución de código abierto para obtener acceso root y modificar el comportamiento de Android mediante un sistema de módulos. Su enfoque habitual es modificar la imagen de arranque de forma que los cambios se apliquen durante el inicio, en lugar de alterar directamente la partición del sistema.</p>
+            <p>Se utiliza para personalización avanzada, automatización y pruebas que requieren permisos elevados. No es una aplicación de optimización ni resulta necesario para el uso normal de Android.</p>
         </div>
         <hr>
+        <h2>Conceptos principales</h2>
+        <div class="box">
+            <h3>Acceso root</h3>
+            <p>Android limita los permisos de las aplicaciones mediante un modelo de aislamiento. El acceso root permite realizar operaciones administrativas que normalmente están restringidas. Con Magisk, las aplicaciones deben solicitar y recibir autorización explícita para utilizar esos privilegios.</p>
+        </div>
+        <div class="box">
+            <h3>Magisk Manager / aplicación Magisk</h3>
+            <p>Es la interfaz desde la que se consulta el estado de la instalación, se gestionan las solicitudes de superusuario y se administran los módulos. Descarga la aplicación únicamente desde las fuentes oficiales del proyecto.</p>
+        </div>
+        <div class="box">
+            <h3>Módulos</h3>
+            <p>Son paquetes que incorporan modificaciones o funciones adicionales. Pueden cambiar propiedades, añadir componentes o automatizar tareas. Su calidad y mantenimiento dependen de cada desarrollador.</p>
+        </div>
+        <hr>
+        <h2>Usos habituales</h2>
+        <ul>
+            <li>Personalizar funciones del sistema que no están disponibles para aplicaciones normales.</li>
+            <li>Realizar tareas de administración y automatización con permisos elevados.</li>
+            <li>Probar modificaciones y módulos en dispositivos de laboratorio.</li>
+            <li>Investigar el funcionamiento interno de Android y sus mecanismos de permisos.</li>
+        </ul>
+        <hr>
+        <h2>Requisitos previos</h2>
+        <ul>
+            <li>Comprobar que el dispositivo y su versión de Android son compatibles con el método elegido.</li>
+            <li>Disponer de una copia de seguridad completa de los datos importantes.</li>
+            <li>Verificar si el fabricante permite desbloquear el bootloader.</li>
+            <li>Obtener la imagen de arranque original correspondiente exactamente al firmware instalado.</li>
+            <li>Contar con batería suficiente y conocer el procedimiento de recuperación del modelo.</li>
+        </ul>
+        <div class="box box--info">
+            <p><strong>Advertencia:</strong> desbloquear el bootloader suele provocar un borrado de datos. Modificar o instalar una imagen incorrecta puede impedir que el dispositivo arranque. También puede afectar a aplicaciones bancarias, DRM, actualizaciones OTA y mecanismos de integridad del sistema.</p>
+        </div>
+        <hr>
+        <h2>Flujo general de instalación</h2>
+        <ol>
+            <li>Identificar el modelo exacto, la variante regional y la compilación de Android instalada.</li>
+            <li>Consultar la guía oficial de Magisk y las instrucciones específicas del fabricante o de la comunidad del dispositivo.</li>
+            <li>Extraer la imagen de arranque adecuada del firmware instalado. Según el dispositivo, el archivo relevante puede ser <code>boot.img</code>, <code>init_boot.img</code> u otra imagen indicada por la guía.</li>
+            <li>Utilizar la aplicación Magisk para parchear esa imagen siguiendo las instrucciones oficiales.</li>
+            <li>Transferir la imagen parcheada al ordenador y aplicar el método de instalación específico del dispositivo.</li>
+            <li>Reiniciar y comprobar desde la aplicación que Magisk reconoce la instalación.</li>
+        </ol>
+        <p>No existe un único comando de instalación válido para todos los Android: el método cambia según el esquema de particiones, el fabricante y la versión del firmware.</p>
+        <hr>
+        <h2>Gestión de módulos</h2>
+        <ul>
+            <li>Instala módulos solo desde fuentes conocidas y revisa su código, permisos y fecha de mantenimiento.</li>
+            <li>Evita instalar varios módulos a la vez: si aparece un problema, será más fácil identificar su origen.</li>
+            <li>Reinicia cuando el módulo lo requiera y comprueba que el sistema sigue arrancando correctamente.</li>
+            <li>Si un módulo provoca un bucle de arranque, utiliza el método de recuperación documentado para tu versión de Magisk y dispositivo.</li>
+        </ul>
+        <hr>
+        <h2>Comprobaciones y mantenimiento</h2>
+        <div class="box">
+            <ul>
+                <li>La aplicación Magisk debe mostrar el estado de instalación esperado.</li>
+                <li>Las solicitudes de superusuario deben aparecer para las aplicaciones que las necesitan.</li>
+                <li>Revisa periódicamente las actualizaciones de Magisk y de cada módulo.</li>
+                <li>Conserva el firmware original y una copia de las imágenes utilizadas para poder recuperar el dispositivo.</li>
+            </ul>
+        </div>
+        <hr>
+        <h2>Recursos oficiales</h2>
+        <div class="box">
+            <ul>
+                <li><span class="cat"><a href="https://github.com/topjohnwu/Magisk" target="_blank" rel="noopener noreferrer">Repositorio oficial de Magisk</a></span></li>
+                <li><span class="cat"><a href="https://topjohnwu.github.io/Magisk/" target="_blank" rel="noopener noreferrer">Documentación de Magisk</a></span></li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>
