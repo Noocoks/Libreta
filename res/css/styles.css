@@ -1023,9 +1023,7 @@ hashes o comandos largos rompan el layout */
 .page,
 .page a,
 .page code,
-.page pre,
-.home a
-{
+.page pre {
     overflow-wrap: anywhere;
 }
 
@@ -1505,20 +1503,19 @@ hashes o comandos largos rompan el layout */
    TOUCH / ACCESIBILIDAD
    ============================================================================ */
 @media (hover: none) and (pointer: coarse) {
-.tree li:hover,
-.code-header:hover
-{
+    .tree li:hover,
+    .code-header:hover {
         transform: none;
     }
 
     .tree li {
         min-height: 30px;
     }
-button,
-.tag,
-.accordion summary,
-.code-card summary
-{
+
+    button,
+    .tag,
+    .accordion summary,
+    .code-card summary {
         -webkit-tap-highlight-color: transparent;
     }
 }
