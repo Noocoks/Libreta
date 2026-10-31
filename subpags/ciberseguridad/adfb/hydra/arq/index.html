@@ -1,349 +1,134 @@
 <!doctype html>
 <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Nooko">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="Hydra, arquitectura, módulos, concurrencia, autenticación, protocolos">
+        <meta name="description" content="Arquitectura lógica de THC Hydra: motor, módulos, tareas concurrentes, entradas, respuestas y límites.">
+        <title>Arquitectura - Hydra</title>
 
-<head>
-  <meta charset="UTF-8">
+        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+        <script src="/Libreta/res/js/page.js"></script>
+    </head>
 
-  <meta name="author" content="Nooko">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <body>
+        <div class="page" data-cat="fuerza-bruta hydra arq">
+            <hr>
+            <h1>Arquitectura - Hydra</h1>
 
-  <meta name="keywords" content="hydra, arquitectura, pentesting">
-  <meta name="description" content="Arquitectura modular de Hydra y funcionamiento interno">
+            <p><em><small>Cómo se organiza la herramienta y cómo se relacionan sus componentes.</small></em></p>
 
-  <title>Arquitectura - Hydra</title>
+            <div class="box box--info">
+                <p>
+                    Hydra combina un núcleo que coordina la ejecución con módulos especializados en protocolos.
+                    El núcleo gestiona los parámetros, las entradas, las tareas concurrentes y la presentación
+                    de resultados; cada módulo implementa los detalles de comunicación con el servicio evaluado.
+                </p>
+            </div>
 
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
-</head>
+            <h2>Flujo lógico</h2>
+            <div class="box">
+                <pre>Parámetros y alcance autorizado
+          |
+          v
+Validación de opciones y entradas
+          |
+          v
+Motor de coordinación
+          |
+          v
+Planificación de tareas concurrentes
+          |
+          v
+Módulo específico del protocolo
+          |
+          v
+Servicio de autenticación del laboratorio
+          |
+          v
+Interpretación de la respuesta
+          |
+          v
+Resultados, errores y registros</pre>
+                <p>
+                    Es un esquema conceptual: los detalles internos pueden variar entre versiones y módulos.
+                    No todos los protocolos responden de la misma forma ni ofrecen la misma información.
+                </p>
+            </div>
 
-<body>
+            <h2>Componentes</h2>
+            <div class="box">
+                <h3>1. Interfaz de parámetros</h3>
+                <p>
+                    Recibe el host, el servicio, los usuarios, las contraseñas, el puerto y las opciones
+                    generales o específicas del módulo. La sintaxis debe validarse con la ayuda de la versión instalada.
+                </p>
+            </div>
+            <div class="box">
+                <h3>2. Gestor de entradas</h3>
+                <p>
+                    Lee valores individuales o archivos de entrada y organiza las combinaciones que se comprobarán.
+                    El tamaño de las listas determina el volumen potencial de trabajo.
+                </p>
+            </div>
+            <div class="box">
+                <h3>3. Motor de concurrencia</h3>
+                <p>
+                    Distribuye las tareas entre conexiones simultáneas. Los límites de concurrencia, espera y timeout
+                    influyen en la velocidad, la estabilidad y la posibilidad de activar controles defensivos.
+                </p>
+            </div>
+            <div class="box">
+                <h3>4. Módulos de protocolo</h3>
+                <p>
+                    Implementan el diálogo específico de cada servicio. Por eso las opciones de un módulo HTTP
+                    no tienen por qué ser válidas para SSH, FTP, SMTP u otros servicios.
+                </p>
+                <p>
+                    La disponibilidad real depende de la versión y de las bibliotecas presentes durante la compilación.
+                    Consulta <code>hydra -h</code> y <code>hydra -U nombre_modulo</code>.
+                </p>
+            </div>
+            <div class="box">
+                <h3>5. Clasificación y salida</h3>
+                <p>
+                    El módulo interpreta las respuestas y el núcleo presenta los resultados. Una conexión fallida,
+                    una respuesta ambigua o un bloqueo no deben confundirse con una contraseña incorrecta.
+                </p>
+            </div>
 
-  <div class="page" data-cat="fuerza-bruta hydra arq">
-    <hr>
+            <h2>Parámetros que afectan al comportamiento</h2>
+            <ul>
+                <li><code>-t</code>: número de tareas paralelas por objetivo, según el modo de ejecución.</li>
+                <li><code>-w</code>: tiempo máximo de espera por respuesta.</li>
+                <li><code>-W</code>: espera entre conexiones que realiza una tarea.</li>
+                <li><code>-s</code>: puerto del servicio cuando no se utiliza el predeterminado.</li>
+                <li><code>-o</code>: guarda la salida en un archivo.</li>
+                <li><code>-v</code> / <code>-V</code>: aumentan el detalle de salida; revisa la ayuda de tu versión.</li>
+            </ul>
 
-    <h1>Arquitectura - Hydra</h1>
-
-    <p>
-      <em>
-        <small>
-          Diseñada para ser rápida, modular y altamente paralelizable.
-        </small>
-      </em>
-    </p>
-
-    <br>
-
-    <div class="box">
-
-      <h3>Motor principal</h3>
-
-      <p>
-        El núcleo de Hydra coordina toda la ejecución de la herramienta. Se encarga de cargar la configuración,
-        interpretar los parámetros introducidos por el usuario, inicializar los módulos necesarios y gestionar el
-        ciclo completo de la auditoría.
-      </p>
-
-    </div>
-
-    <br>
-
-    <div class="box">
-
-      <h3>Módulos por protocolo</h3>
-
-      <p>
-        Hydra utiliza una arquitectura modular donde cada protocolo dispone de un módulo independiente encargado de
-        comunicarse con el servicio correspondiente.
-      </p>
-      <br>
-      <hr>
-
-      <h4>Servicios compatibles</h4>
-
-      <details class="accordion">
-
-        <summary>Ver protocolos compatibles</summary>
-
-        <div class="accordion-content">
-
-          <div class="box">
-            <h3>SSH (Secure Shell)</h3>
-
+            <h2>Protocolos y módulos</h2>
             <p>
-              Protocolo utilizado para la administración remota segura de servidores y sistemas Linux/Unix mediante
-              conexiones cifradas.
+                La documentación de Hydra incluye módulos para servicios como SSH, FTP, HTTP(S), SMTP, IMAP,
+                POP3, SMB, LDAP, bases de datos y otros. Esta lista no debe interpretarse como garantía de que
+                todos estén habilitados en cualquier instalación.
             </p>
 
-          </div>
-          <br>
+            <h2>Qué no hace el motor</h2>
+            <ul>
+                <li>No determina por sí solo si una aplicación tiene una vulnerabilidad de software.</li>
+                <li>No sustituye la revisión de políticas de contraseñas ni la comprobación manual.</li>
+                <li>No puede inferir con certeza el estado de una cuenta si el servicio oculta o uniformiza respuestas.</li>
+            </ul>
 
-          <div class="box">
-            <h3>FTP (File Transfer Protocol)</h3>
-
-            <p>
-              Servicio destinado a la transferencia de archivos entre equipos a través de una red. En su versión clásica
-              no cifra la información transmitida.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>HTTP Basic / HTTP Form</h3>
-
-            <p>
-              Mecanismos de autenticación utilizados por aplicaciones y paneles web para controlar el acceso mediante
-              usuario y contraseña.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>HTTPS</h3>
-
-            <p>
-              Versión segura de HTTP que cifra las comunicaciones mediante TLS.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>SMTP</h3>
-
-            <p>
-              Protocolo encargado del envío de correo electrónico.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>POP3</h3>
-
-            <p>
-              Protocolo utilizado para descargar mensajes de correo desde un servidor.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>IMAP</h3>
-
-            <p>
-              Permite mantener el correo sincronizado entre varios dispositivos.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>SMB</h3>
-
-            <p>
-              Protocolo utilizado principalmente para compartir archivos y recursos en sistemas Windows.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>MySQL</h3>
-
-            <p>
-              Sistema gestor de bases de datos relacional muy utilizado por aplicaciones web.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>PostgreSQL</h3>
-
-            <p>
-              Base de datos relacional de código abierto orientada a aplicaciones empresariales.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>RDP</h3>
-
-            <p>
-              Protocolo de Microsoft para el acceso remoto mediante escritorio.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>VNC</h3>
-
-            <p>
-              Sistema de escritorio remoto multiplataforma.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>LDAP</h3>
-
-            <p>
-              Protocolo utilizado para consultar y administrar servicios de directorio como Active Directory.
-            </p>
-
-          </div>
-          <br>
-
-          <div class="box">
-            <h3>Telnet</h3>
-
-            <p>
-              Antiguo protocolo de administración remota sin cifrado, actualmente reemplazado por SSH.
-            </p>
-
-          </div>
-          <br>
-
+            <h2>Fuentes</h2>
+            <ul>
+                <li><a href="https://github.com/vanhauser-thc/thc-hydra" target="_blank" rel="noopener noreferrer">Código y documentación de THC Hydra</a></li>
+                <li><a href="https://github.com/vanhauser-thc/thc-hydra/blob/master/hydra.1" target="_blank" rel="noopener noreferrer">Manual de opciones y módulos</a></li>
+            </ul>
+            <hr>
         </div>
-      </details>
-      <br>
-      <hr>
-      <br>
 
-      <p>
-        Esta separación facilita añadir nuevos protocolos sin modificar el funcionamiento del núcleo principal.
-      </p>
-
-    </div>
-
-    <br>
-
-    <div class="box">
-
-      <h3>Gestión multihilo</h3>
-
-      <p>
-        Hydra distribuye el trabajo entre múltiples hilos de ejecución, permitiendo realizar numerosos intentos de
-        autenticación de forma simultánea.
-      </p>
-
-      <ul>
-        <li>Mayor velocidad de ejecución.</li>
-        <li>Aprovechamiento de procesadores multinúcleo.</li>
-        <li>Configuración del número de hilos según el entorno.</li>
-      </ul>
-
-    </div>
-
-    <br>
-
-    <div class="box">
-
-      <h3>Entrada de datos</h3>
-
-      <p>
-        Antes de comenzar la auditoría, Hydra carga toda la información necesaria para generar las combinaciones de
-        autenticación.
-      </p>
-
-      <ul>
-        <li>Lista de usuarios.</li>
-        <li>Lista de contraseñas (wordlists).</li>
-        <li>Credenciales individuales.</li>
-        <li>Parámetros específicos del protocolo seleccionado.</li>
-      </ul>
-
-    </div>
-
-    <br>
-
-    <div class="box">
-
-      <h3>Proceso de autenticación</h3>
-
-      <p>
-        Cada hilo envía las credenciales al servicio remoto utilizando el módulo correspondiente. El proceso se repite
-        automáticamente hasta completar todas las combinaciones generadas.
-      </p>
-
-    </div>
-
-    <br>
-
-    <div class="box">
-
-      <h3>Análisis de respuestas</h3>
-
-      <p>
-        Hydra analiza la respuesta devuelta por el servicio para determinar el resultado de cada intento.
-      </p>
-
-      <ul>
-        <li>Autenticación correcta.</li>
-        <li>Credenciales incorrectas.</li>
-        <li>Cuenta bloqueada.</li>
-        <li>Error de comunicación.</li>
-        <li>Servicio no disponible.</li>
-      </ul>
-
-    </div>
-
-    <br>
-
-    <div class="box">
-
-      <h3>Salida de resultados</h3>
-
-      <p>
-        Una vez finalizada la auditoría, Hydra presenta un resumen con las credenciales válidas encontradas,
-        estadísticas de ejecución y mensajes de error producidos durante el proceso.
-      </p>
-
-    </div>
-
-    <br>
-
-    <div class="box box--info">
-
-      <h3>Flujo simplificado</h3>
-
-      <pre>
-Usuario
-   │
-   ▼
-Configuración
-   │
-   ▼
-Motor principal
-   │
-   ▼
-Gestor de hilos
-   │
-   ▼
-Módulo del protocolo
-   │
-   ▼
-Servicio remoto
-   │
-   ▼
-Respuesta
-   │
-   ▼
-Análisis
-   │
-   ▼
-Resultados
-</pre>
-
-    </div>
-
-  </div>
-
-</body>
-
+    </body>
 </html>
