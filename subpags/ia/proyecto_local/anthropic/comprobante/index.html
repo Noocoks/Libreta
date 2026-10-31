@@ -79,7 +79,7 @@ client = Anthropic(
 )
 
 message = client.messages.create(
-    model="claude-sonnet-4-0",
+    model="claude-sonnet-5",
     max_tokens=100,
     messages=[
         {
@@ -95,6 +95,18 @@ print(message.content[0].text)
             </details>
 
         </div>
+
+        <p>
+            <small>
+                El ejemplo utiliza <code>claude-sonnet-5</code>, un modelo de la
+                familia Claude disponible en la API de Anthropic. Los identificadores
+                y su disponibilidad pueden cambiar; consulta la
+                <a href="https://platform.claude.com/docs/es/about-claude/models/overview" target="_blank" rel="noopener noreferrer">
+                    documentación oficial de modelos
+                </a>
+                antes de reutilizar el código.
+            </small>
+        </p>
         <br>
         <hr>
 
