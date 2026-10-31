@@ -71,7 +71,7 @@
     --icon-magisk: "🎭";
     --icon-so: "💿";
     --icon-stores: "🛍️";
-    
+
     /* Subcategorías IA */
     --icon-local: "🏡";
     --icon-companias: "🤖";
@@ -102,6 +102,9 @@
 }
 
 body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
     font-size: 13px;
     font-family: "Open Sans", sans-serif !important;
     margin: 0;
@@ -153,29 +156,8 @@ div.two-panels {
     inset: 0;
 }
 
-div.tree-panel {
-    flex: 19vw;
-    margin-left: 1vw;
-    height: 100%;
-    overflow: auto;
-    background: var(--panel);
-    border-right: 1px solid var(--border);
-    transition: background 0.2s ease;
-}
-
 div.tree-panel:hover {
     background: var(--panel-2);
-}
-
-div.page-panel {
-    flex: 80vw;
-    background: var(--bg);
-}
-
-div.page-panel iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
 }
 
 .index-title {
@@ -271,6 +253,7 @@ div.tree li {
  ******************************************************************************/
 div.tree-panel {
     flex: 0 0 19vw;
+    margin-left: 1vw;
     min-width: 260px;
     height: 100%;
 
@@ -303,14 +286,6 @@ div.tree-panel.hidden {
 /*******************************************************************************
  * PAGE PANEL (ESTIRADO)
  ******************************************************************************/
-
-div.page-panel {
-    flex: 1 1 auto;
-    min-width: 0;
-    background: var(--bg);
-
-    transition: flex 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
 
 /* cuando el panel está oculto */
 body.tree-hidden div.page-panel {
@@ -1012,252 +987,6 @@ details[open] .arrow {
 }
 
 
-
-/* =========================================================
-   PÁGINA PRINCIPAL
-   ========================================================= */
-.home {
-    width: min(1100px, calc(100% - 40px));
-    margin: 0 auto;
-    padding: 40px 0;
-}
-
-/* CABECERA */
-.home-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 30px;
-
-    padding-bottom: 30px;
-    margin-bottom: 30px;
-
-    border-bottom: 1px solid var(--border);
-}
-
-.home-header h1 {
-    margin: 0 0 8px;
-}
-
-.home-header p {
-    margin: 0;
-    color: var(--muted);
-}
-
-.home-github {
-    color: var(--text);
-    text-decoration: none;
-
-    padding: 8px 12px;
-
-    border: 1px solid var(--border);
-    border-radius: 6px;
-
-    background: var(--panel-2);
-}
-
-.home-github:hover {
-    background: var(--panel-3);
-}
-
-/* INTRODUCCIÓN */
-.home-intro {
-    padding: 35px;
-
-    border: 1px solid var(--border);
-    border-radius: 8px;
-
-    background: var(--panel);
-
-    margin-bottom: 35px;
-}
-
-.home-intro h2 {
-    margin-top: 0;
-}
-
-.home-intro p {
-    max-width: 750px;
-
-    color: var(--muted);
-    line-height: 1.7;
-}
-
-/* BOTÓN */
-.home-button {
-    display: inline-block;
-
-    margin-top: 15px;
-    padding: 9px 14px;
-
-    border-radius: 6px;
-
-    background: var(--panel-2);
-    border: 1px solid var(--border);
-
-    color: var(--text);
-    text-decoration: none;
-}
-
-.home-button:hover {
-    background: var(--panel-3);
-}
-
-/* CONTENIDO */
-.home-content {
-    margin-bottom: 35px;
-}
-
-.home-content>h2 {
-    margin-bottom: 15px;
-}
-
-.home-grid {
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 15px;
-}
-
-/* TARJETAS */
-.home-card {
-    display: block;
-
-    padding: 22px;
-
-    border: 1px solid var(--border);
-    border-radius: 8px;
-
-    background: var(--panel);
-
-    color: var(--text);
-    text-decoration: none;
-
-    transition:
-        background 0.15s ease,
-        transform 0.15s ease;
-}
-
-.home-card:hover {
-    background: var(--panel-2);
-
-    transform: translateY(-2px);
-}
-
-.home-card-icon {
-    font-size: 22px;
-
-    margin-bottom: 12px;
-}
-
-.home-card h3 {
-    margin: 0 0 8px;
-}
-
-.home-card p {
-    margin: 0;
-
-    color: var(--muted);
-
-    line-height: 1.6;
-}
-
-/* TAGS */
-.home-tags {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 5px;
-
-    margin-top: 15px;
-}
-
-/* BLOQUE WIKI */
-.home-wiki {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 20px;
-
-    padding: 25px;
-
-    border: 1px solid var(--border);
-    border-radius: 8px;
-
-    background: var(--panel);
-
-    margin-bottom: 35px;
-}
-
-.home-wiki h2 {
-    margin: 0 0 7px;
-}
-
-.home-wiki p {
-    margin: 0;
-
-    color: var(--muted);
-}
-
-/* FOOTER */
-.home-footer {
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
-    padding-top: 20px;
-
-    border-top: 1px solid var(--border);
-
-    color: var(--muted);
-
-    font-size: 13px;
-}
-
-.home-footer a {
-    color: var(--text);
-    text-decoration: none;
-}
-
-/* RESPONSIVE */
-@media (max-width: 700px) {
-
-    .home {
-        width: min(100% - 25px, 1100px);
-
-        padding: 25px 0;
-    }
-
-    .home-header {
-        align-items: flex-start;
-
-        flex-direction: column;
-    }
-
-    .home-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .home-wiki {
-        align-items: flex-start;
-
-        flex-direction: column;
-    }
-
-    .home-footer {
-        flex-direction: column;
-    }
-
-}
-
-
 /*******************************************************************************
  * RESPONSIVE — CAPA FINAL
  * Adaptación responsive.
@@ -1278,12 +1007,6 @@ html {
     overflow-x: hidden;
 }
 
-body {
-    width: 100%;
-    min-height: 100%;
-    overflow-x: hidden;
-}
-
 img,
 svg,
 video,
@@ -1295,16 +1018,14 @@ canvas {
 iframe {
     max-width: 100%;
 }
-
-/* Evita que URLs, hashes o comandos largos rompan el layout */
+/* Evita que URLs,
+hashes o comandos largos rompan el layout */
 .page,
-.home,
 .page a,
 .page code,
 .page pre,
-.home a,
-.home-card,
-.home-wiki {
+.home a
+{
     overflow-wrap: anywhere;
 }
 
@@ -1326,14 +1047,6 @@ iframe {
 
     div.page {
         padding: 18px;
-    }
-
-    .home {
-        width: min(100% - 32px, 1100px);
-    }
-
-    .home-intro {
-        padding: 28px;
     }
 }
 
@@ -1760,116 +1473,6 @@ iframe {
         max-width: none;
         padding: 20px 0 30px;
     }
-
-    .home-header {
-        align-items: stretch;
-        gap: 16px;
-        padding-bottom: 20px;
-        margin-bottom: 20px;
-    }
-
-    .home-header h1 {
-        font-size: 1.7rem;
-        line-height: 1.2;
-    }
-
-    .home-header p {
-        font-size: .9rem;
-    }
-
-    .home-github {
-        align-self: flex-start;
-        padding: 8px 11px;
-        font-size: .85rem;
-    }
-
-    .home-intro {
-        padding: 20px;
-        margin-bottom: 22px;
-        border-radius: 8px;
-    }
-
-    .home-intro h2 {
-        font-size: 1.3rem;
-    }
-
-    .home-intro p {
-        font-size: .92rem;
-        line-height: 1.65;
-    }
-
-    .home-button {
-        display: block;
-        width: 100%;
-        margin-top: 18px;
-        padding: 11px 14px;
-        text-align: center;
-    }
-
-    .home-content {
-        margin-bottom: 22px;
-    }
-
-    .home-content>h2 {
-        font-size: 1.25rem;
-    }
-
-    .home-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
-    .home-card {
-        padding: 17px;
-        border-radius: 8px;
-    }
-
-    .home-card-icon {
-        font-size: 20px;
-        margin-bottom: 8px;
-    }
-
-    .home-card h3 {
-        font-size: 1.05rem;
-    }
-
-    .home-card p {
-        font-size: .88rem;
-        line-height: 1.55;
-    }
-
-    .home-tags {
-        margin-top: 11px;
-    }
-
-    .home-wiki {
-        align-items: stretch;
-        gap: 15px;
-        padding: 18px;
-        margin-bottom: 22px;
-    }
-
-    .home-wiki h2 {
-        font-size: 1.25rem;
-    }
-
-    .home-wiki p {
-        font-size: .88rem;
-        line-height: 1.55;
-    }
-
-    .home-wiki .home-button {
-        width: 100%;
-        margin-top: 0;
-    }
-
-    .home-footer {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 9px;
-        padding-top: 17px;
-        font-size: .8rem;
-    }
 }
 
 /* ============================================================================
@@ -1893,22 +1496,6 @@ iframe {
         font-size: .72rem;
     }
 
-    .home {
-        width: calc(100% - 18px);
-    }
-
-    .home-intro {
-        padding: 16px;
-    }
-
-    .home-card {
-        padding: 15px;
-    }
-
-    .home-wiki {
-        padding: 15px;
-    }
-
     .tree-footer-box {
         font-size: 11px;
     }
@@ -1918,25 +1505,20 @@ iframe {
    TOUCH / ACCESIBILIDAD
    ============================================================================ */
 @media (hover: none) and (pointer: coarse) {
-
-    .tree li:hover,
-    .home-card:hover,
-    .home-github:hover,
-    .home-button:hover,
-    .code-header:hover {
+.tree li:hover,
+.code-header:hover
+{
         transform: none;
     }
 
     .tree li {
         min-height: 30px;
     }
-
-    button,
-    .tag,
-    .home-button,
-    .home-github,
-    .accordion summary,
-    .code-card summary {
+button,
+.tag,
+.accordion summary,
+.code-card summary
+{
         -webkit-tap-highlight-color: transparent;
     }
 }
