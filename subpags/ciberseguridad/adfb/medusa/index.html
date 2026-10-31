@@ -1,170 +1,66 @@
 <!doctype html>
-<html>
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-
     <meta name="author" content="Nooko">
-
-    <meta name="keywords"
-        content="medusa, autenticación, auditoría, fuerza bruta, ssh, ftp, http basic, instalación, kali linux">
-
-    <meta name="description"
-        content="Introducción a Medusa, casos de uso, protocolos compatibles, instalación y comprobación de la herramienta.">
-
+    <meta name="keywords" content="medusa, autenticación, auditoría, fuerza bruta, ssh, ftp, instalación, kali linux">
+    <meta name="description" content="Introducción a Medusa, casos de uso, protocolos compatibles, instalación y comprobación.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Medusa</title>
-
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
-
 <body>
-
-    <div class="page" data-cat="fuerza-bruta medusa">
+    <main class="page" data-cat="fuerza-bruta medusa">
         <hr>
-
         <h1>Medusa</h1>
-        <p>
-            <em>
-                <small>
-                    Herramienta de auditoría de autenticación para entornos autorizados.
-                </small>
-            </em>
-        </p>
-        <br>
+        <p><em><small>Herramienta de auditoría de autenticación para entornos autorizados.</small></em></p>
 
         <div class="box box--info">
-            <p>
-                <strong>Medusa</strong> es una herramienta <strong>Open Source</strong> de auditoría de autenticación
-                que permite evaluar la seguridad de distintos servicios de red mediante intentos automatizados de inicio
-                de sesión.
-                <br>
-                Está orientada a comprobar la fortaleza de las credenciales y la eficacia de las políticas de
-                autenticación en entornos autorizados, sin explotar vulnerabilidades ni modificar la configuración del
-                sistema, limitándose únicamente a interactuar con los mecanismos de autenticación disponibles.
-            </p>
+            <p><strong>Medusa</strong> es una herramienta <strong>Open Source</strong> que permite evaluar la seguridad de servicios de red mediante pruebas automatizadas de autenticación. Se utiliza para comprobar la fortaleza de las credenciales y las políticas de acceso en sistemas propios o autorizados.</p>
         </div>
-        <br>
         <hr>
 
-        <h2>Casos de uso más frecuentes</h2>
+        <h2>Casos de uso</h2>
         <div class="box">
-
             <h3>Auditorías de seguridad</h3>
-            <p>
-                Permite comprobar la existencia de credenciales débiles y verificar que las políticas de autenticación
-                implantadas
-                protegen correctamente los servicios corporativos.
-            </p>
+            <p>Detectar credenciales débiles y comprobar las políticas de autenticación.</p>
         </div>
-        <br>
-
         <div class="box">
-
             <h3>Laboratorios y formación</h3>
-            <p>
-                Es ampliamente utilizada en universidades, centros de formación y laboratorios de ciberseguridad para
-                enseñar el
-                funcionamiento de los mecanismos de autenticación y la importancia de aplicar buenas prácticas de
-                seguridad.
-            </p>
+            <p>Estudiar los mecanismos de autenticación y las buenas prácticas de seguridad en entornos controlados.</p>
         </div>
-        <br>
-
         <div class="box">
-
-            <h3>Validación de políticas de seguridad</h3>
-            <p>
-                Permite verificar que mecanismos como el bloqueo de cuentas, la autenticación multifactor (MFA) o la
-                limitación de
-                intentos funcionan correctamente frente a intentos repetidos de autenticación.
-            </p>
+            <h3>Validación de políticas</h3>
+            <p>Comprobar medidas como el bloqueo de cuentas, la autenticación multifactor y la limitación de intentos.</p>
         </div>
-        <br>
         <hr>
 
         <h2>Instalación</h2>
-
         <div class="box">
-            <pre>
-└─$ sudo apt update
-└─$ sudo apt install medusa
-</pre>
-
-            <p>
-                Una vez finalizada la instalación, el sistema descargará automáticamente todas las dependencias
-                necesarias.
-            </p>
+            <pre><code>sudo apt update
+sudo apt install medusa</code></pre>
         </div>
-        <br>
-        <hr>
 
-        <h2>Comprobación de la instalación</h2>
-
+        <h2>Comprobación</h2>
         <div class="box">
-            <pre>
-└─$ which medusa
-└─$ medusa -V
-└─$ medusa -h
-</pre>
-
-            <p>Si han funcionado todos, ya tienes la herramienta disponible para su uso.</p>
-
+            <pre><code>which medusa
+medusa -V
+medusa -h</code></pre>
+            <p>Si los comandos responden correctamente, la herramienta está instalada y disponible.</p>
         </div>
-        <br>
         <hr>
 
         <h2>Recursos relacionados</h2>
-
         <div class="box">
             <ul>
-                <li>
-                    <span class="cat">
-                        <a href="./arq/index.html">
-                            Arquitectura
-                        </a>
-                    </span>
-                </li>
-
-                <li>
-                    <span class="cat">
-                        <a href="./cmds/index.html">
-                            Comandos
-                        </a>
-                    </span>
-                </li>
-
-                <li>
-                    <span class="cat">
-                        <a href="./lab/index.html">
-                            Laboratorio
-                        </a>
-                    </span>
-                </li>
-
-                <li>
-                    <span class="cat">
-                        <a href="../../adfb/index.html">
-                            Ataques de Fuerza Bruta
-                        </a>
-                    </span>
-                </li>
-
-                <li>
-                    <span class="cat">
-                        <a href="../hydra/index.html">
-                            Hydra
-                        </a>
-                    </span>
-                </li>
+                <li><span class="cat"><a href="./arq/index.html">Arquitectura</a></span></li>
+                <li><span class="cat"><a href="./lab/index.html">Laboratorio</a></span></li>
+                <li><span class="cat"><a href="../../adfb/index.html">Ataques de fuerza bruta</a></span></li>
+                <li><span class="cat"><a href="../hydra/index.html">Hydra</a></span></li>
             </ul>
         </div>
-        <br>
         <hr>
-    </div>
-
+    </main>
 </body>
-
 </html>
