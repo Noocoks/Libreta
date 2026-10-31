@@ -12,6 +12,7 @@
     <title>Notas - Noocoks</title>
 
     <link rel="stylesheet" href="/Libreta/res/css/styles.css" type="text/css">
+    <script src="/Libreta/res/js/project-stats.js" defer></script>
     <script src="/Libreta/res/js/script.js"></script>
 </head>
 
@@ -56,45 +57,18 @@
 
                             <div class="project-stats-tooltip" id="project-stats-tooltip" role="tooltip">
                                 <div class="project-stats-heading">ESTADÍSTICAS DEL PROYECTO</div>
-
-                                <div class="project-stats-row">
-                                    <span>HTML</span>
-                                    <strong>5.611</strong>
+                                <div class="project-stats-loading">Cargando estadísticas...</div>
+                                <div class="project-stats-data" hidden>
+                                    <div class="project-stats-languages"></div>
+                                    <div class="project-stats-total">
+                                        <span>TOTAL</span>
+                                        <strong class="project-stats-total-value">—</strong>
+                                    </div>
+                                    <div class="project-stats-note">Archivos contabilizados · líneas no vacías · incluye comentarios</div>
+                                    <div class="project-stats-date"></div>
                                 </div>
-                                <div class="project-stats-row">
-                                    <span>CSS</span>
-                                    <strong>2.329</strong>
-                                </div>
-                                <div class="project-stats-row">
-                                    <span>JavaScript</span>
-                                    <strong>669</strong>
-                                </div>
-                                <div class="project-stats-row">
-                                    <span>JSON</span>
-                                    <strong>424</strong>
-                                </div>
-                                <div class="project-stats-row">
-                                    <span>Python</span>
-                                    <strong>35</strong>
-                                </div>
-                                <div class="project-stats-row">
-                                    <span>TXT (código/documentos)</span>
-                                    <strong>492</strong>
-                                </div>
-                                <div class="project-stats-row">
-                                    <span>Markdown</span>
-                                    <strong>98</strong>
-                                </div>
-
-                                <div class="project-stats-total">
-                                    <span>TOTAL</span>
-                                    <strong>9.658 líneas</strong>
-                                </div>
-
-                                <div class="project-stats-note">
-                                    65 archivos · líneas no vacías · incluye comentarios
-                                </div>
-                                <div class="project-stats-date">Recuento: 31/10/2026</div>
+                                <div class="project-stats-error" hidden>No se pudieron cargar las estadísticas.</div>
+                            </div>
                             </div>
                         </div>
                     </div>
