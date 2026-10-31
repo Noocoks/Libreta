@@ -3,7 +3,14 @@
 ============================== */
 window.addEventListener("message", function (e) {
 
-    if (e.data.type !== "breadcrumb") {
+    if (
+        e.source !== window.parent ||
+        e.origin !== window.location.origin ||
+        !e.data ||
+        typeof e.data !== "object" ||
+        e.data.type !== "breadcrumb" ||
+        !Array.isArray(e.data.breadcrumb)
+    ) {
         return;
     }
 
@@ -99,34 +106,62 @@ window.addEventListener("message", function (e) {
 ============================== */
 document.addEventListener("click", function (e) {
 
-    var link = e.target.closest("a");
-
-    if (!link) return;
-
-    var href = link.getAttribute("href");
-
-    if (!href) return;
-
-    /* ignorar anchors externos */
     if (
-        href.startsWith("http://") ||
-        href.startsWith("https://") ||
-        href.startsWith("#")
+        e.defaultPrevented ||
+        e.button !== 0 ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.shiftKey ||
+        e.altKey
     ) {
         return;
     }
 
+    var link = e.target.closest
+        ? e.target.closest("a")
+        : null;
+
+    if (
+        !link ||
+        link.hasAttribute("download") ||
+        (link.target && link.target.toLowerCase() !== "_self")
+    ) {
+        return;
+    }
+
+    var href = link.getAttribute("href");
+
+    if (!href || href.trim().startsWith("#")) return;
+
+    var target;
+
+    try {
+        target = new URL(href, window.location.href);
+    } catch (error) {
+        return;
+    }
+
+    /* Conservar enlaces externos y protocolos como mailto: y tel:. */
+    if (
+        target.origin !== window.location.origin ||
+        (target.protocol !== "http:" && target.protocol !== "https:")
+    ) {
+        return;
+    }
+
+    var allowedPath = null;
+
+    try {
+        allowedPath = window.parent.getAllowedPath(target.pathname);
+    } catch (error) {
+        return;
+    }
+
+    /* Solo interceptar páginas declaradas en el índice. */
+    if (!allowedPath) return;
+
     e.preventDefault();
-
-    var targetPath =
-        new URL(
-            href,
-            window.location.href
-        ).pathname;
-
-    window.parent.changeFrame(
-        targetPath
-    );
+    window.parent.changeFrame(allowedPath);
 
 });
 
@@ -190,7 +225,10 @@ function clearTagSelection() {
 window.addEventListener("message", function (e) {
 
     if (
+        e.source !== window.parent ||
+        e.origin !== window.location.origin ||
         !e.data ||
+        typeof e.data !== "object" ||
         e.data.type !== "highlight-tag"
     ) {
         return;
@@ -257,39 +295,3 @@ document.addEventListener("click", function (ev) {
 
     window.parent.searchByTag(tag);
 });
-
-/* ==============================
-   CARGA DE ICONOS A LA IZQ DEL H1
-============================== */
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        var h1 =
-            document.querySelector("h1");
-
-        if (!h1) return;
-
-        var cat =
-            document.body.dataset.cat;
-
-        if (!cat) return;
-
-        var icon =
-            getComputedStyle(
-                document.body
-            )
-                .getPropertyValue("--icon")
-                .trim();
-
-        if (!icon) return;
-
-        icon = icon.replaceAll('"', "");
-
-        h1.textContent =
-            icon + " " + h1.textContent;
-    }
-);
-
-
-console.log("page.js cargado");
