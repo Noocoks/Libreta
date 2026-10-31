@@ -6,227 +6,121 @@
 
     <meta name="author" content="Nooko">
     <meta name="description"
-        content="Libreta personal de documentación sobre ciberseguridad, inteligencia artificial, herramientas y laboratorios.">
+        content="Libreta: una base de conocimiento personal para aprender, experimentar y documentar tecnología.">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#14181b">
 
-    <title>Libreta</title>
+    <title>Libreta — Conocimiento técnico</title>
 
     <link rel="stylesheet" href="res/css/styles.css" type="text/css">
 </head>
 
 <body>
-    <main class="home">
 
-        <header class="home-header">
-            <div>
-                <h1>Libreta</h1>
+    <main class="home-shell">
 
-                <p>
-                    Documentación personal sobre
-                    <strong>ciberseguridad</strong>,
-                    <strong>inteligencia artificial</strong>
-                    y tecnología.
-                </p>
-            </div>
+        <header class="home-topbar">
+            <a class="home-brand" href="index.html" aria-label="Libreta, página principal">
+                <span class="home-brand-mark">L<span>.</span></span>
+                <span>LIBRETA</span>
+            </a>
 
-            <a class="home-github" href="https://github.com/Noocoks/Libreta" target="_blank" rel="noopener noreferrer">
-                GitHub
+            <a class="home-source" href="https://github.com/Noocoks/Libreta"
+                target="_blank" rel="noopener noreferrer">
+                <span>Repositorio</span>
+                <span aria-hidden="true">↗</span>
             </a>
         </header>
 
 
-        <section class="home-intro">
-            <h2>Mi base de conocimiento</h2>
+        <section class="home-hero">
 
-            <p>
-                Libreta es un espacio donde recopilo lo que voy
-                aprendiendo durante mis investigaciones y prácticas.
-            </p>
+            <div class="home-copy">
+                <span class="home-eyebrow">
+                    <span class="home-eyebrow-line"></span>
+                    BASE DE CONOCIMIENTO PERSONAL
+                </span>
 
-            <p>
-                Aquí documento herramientas, técnicas, configuraciones,
-                procedimientos y laboratorios para poder consultarlos
-                posteriormente.
-            </p>
+                <h1 class="home-title">
+                    Aprender.<br>
+                    Experimentar.<br>
+                    <span>Documentar.</span>
+                </h1>
 
-            <a class="home-button" href="wiki.html">
-                Entrar en la Wiki →
-            </a>
-        </section>
-
-
-        <section class="home-content">
-            <h2>Contenido</h2>
-
-            <div class="home-grid">
-
-                <!-- CIBERSEGURIDAD -->
-                <a class="home-card" href="wiki.html#subpags/ciberseguridad/index.html">
-
-                    <div class="home-card-icon">
-                        🛡️
-                    </div>
-
-                    <h3>Ciberseguridad</h3>
-
-                    <p>
-                        Herramientas, técnicas y procedimientos
-                        relacionados con seguridad informática.
-                    </p>
-
-                    <div class="home-tags">
-                        <span class="tag">
-                            OSINT
-                        </span>
-
-                        <span class="tag">
-                            Phishing
-                        </span>
-
-                        <span class="tag">
-                            Escaneo
-                        </span>
-
-                        <span class="tag">
-                            Pentesting
-                        </span>
-                    </div>
-
-                </a>
-
-
-                <!-- INTELIGENCIA ARTIFICIAL -->
-                <a class="home-card" href="wiki.html#subpags/ia/index.html">
-
-                    <div class="home-card-icon">
-                        🧠
-                    </div>
-
-                    <h3>Inteligencia Artificial</h3>
-
-                    <p>
-                        Apuntes sobre modelos, APIs, herramientas
-                        y experimentos relacionados con IA.
-                    </p>
-
-                    <div class="home-tags">
-                        <span class="tag">
-                            OpenAI
-                        </span>
-
-                        <span class="tag">
-                            Anthropic
-                        </span>
-
-                        <span class="tag">
-                            APIs
-                        </span>
-
-                        <span class="tag">
-                            Git
-                        </span>
-                    </div>
-
-                </a>
-
-
-                <!-- LABORATORIOS -->
-                <a class="home-card" href="wiki.html">
-
-                    <div class="home-card-icon">
-                        🧪
-                    </div>
-
-                    <h3>Laboratorios</h3>
-
-                    <p>
-                        Pruebas y procedimientos realizados en
-                        entornos controlados para aprender y experimentar.
-                    </p>
-
-                    <div class="home-tags">
-                        <span class="tag">
-                            Práctica
-                        </span>
-
-                        <span class="tag">
-                            Linux
-                        </span>
-
-                        <span class="tag">
-                            Redes
-                        </span>
-                    </div>
-
-                </a>
-
-
-                <!-- HERRAMIENTAS -->
-                <a class="home-card" href="wiki.html">
-
-                    <div class="home-card-icon">
-                        🔧
-                    </div>
-
-                    <h3>Herramientas</h3>
-
-                    <p>
-                        Índice de herramientas utilizadas durante
-                        las investigaciones y laboratorios.
-                    </p>
-
-                    <div class="home-tags">
-                        <span class="tag">
-                            Nmap
-                        </span>
-
-                        <span class="tag">
-                            Hydra
-                        </span>
-
-                        <span class="tag">
-                            OSINT
-                        </span>
-                    </div>
-
-                </a>
-
-            </div>
-
-        </section>
-
-
-        <section class="home-wiki">
-            <div>
-                <h2>Explora la documentación</h2>
-
-                <p>
-                    Accede al índice completo y navega por las
-                    diferentes categorías de Libreta.
+                <p class="home-lead">
+                    Un espacio donde el conocimiento técnico se convierte
+                    en documentación útil, práctica y siempre a mano.
                 </p>
 
+                <div class="home-actions">
+                    <a class="home-cta" href="wiki.html">
+                        Explorar Libreta
+                        <span aria-hidden="true">→</span>
+                    </a>
+
+                    <span class="home-action-note">
+                        Entra y encuentra lo que buscas.
+                    </span>
+                </div>
             </div>
 
-            <a class="home-button" href="wiki.html">
-                Abrir Wiki →
-            </a>
+
+            <div class="home-visual" aria-hidden="true">
+
+                <div class="home-visual-orbit home-visual-orbit--outer"></div>
+                <div class="home-visual-orbit home-visual-orbit--inner"></div>
+
+                <div class="home-visual-core">
+                    <span class="home-visual-core-mark">L<span>.</span></span>
+                    <span class="home-visual-core-label">KNOWLEDGE<br>BASE</span>
+                </div>
+
+                <div class="home-visual-card home-visual-card--top">
+                    <span class="home-visual-index">01</span>
+                    <span class="home-visual-icon">⌘</span>
+                    <span class="home-visual-name">CYBERSECURITY</span>
+                    <span class="home-visual-line"></span>
+                </div>
+
+                <div class="home-visual-card home-visual-card--right">
+                    <span class="home-visual-index">02</span>
+                    <span class="home-visual-icon">⌬</span>
+                    <span class="home-visual-name">ARTIFICIAL INTELLIGENCE</span>
+                    <span class="home-visual-line"></span>
+                </div>
+
+                <div class="home-visual-card home-visual-card--bottom">
+                    <span class="home-visual-index">03</span>
+                    <span class="home-visual-icon">▣</span>
+                    <span class="home-visual-name">TECH & LABS</span>
+                    <span class="home-visual-line"></span>
+                </div>
+
+                <span class="home-visual-coordinate home-visual-coordinate--top">
+                    PERSONAL ARCHIVE / 001
+                </span>
+
+                <span class="home-visual-coordinate home-visual-coordinate--bottom">
+                    LEARN · TEST · DOCUMENT
+                </span>
+
+            </div>
+
         </section>
 
 
-        <footer class="home-footer">
-            <span>
-                Libreta · Documentación técnica personal
-            </span>
+        <footer class="home-bottom">
+            <span>Una libreta técnica en constante evolución.</span>
 
-            <span>
-                <a href="wiki.html">
-                    Wiki ·
-                </a>
-
-                <a href="https://github.com/Noocoks/Libreta" target="_blank" rel="noopener noreferrer">
-                    GitHub
-                </a>
+            <span class="home-bottom-categories">
+                <span>Ciberseguridad</span>
+                <i></i>
+                <span>IA</span>
+                <i></i>
+                <span>Android</span>
+                <i></i>
+                <span>Laboratorios</span>
             </span>
         </footer>
 
