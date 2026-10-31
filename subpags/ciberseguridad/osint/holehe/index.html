@@ -1,58 +1,60 @@
 <!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Nooko">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="osint holehe, correo, cuentas, privacidad">
-        <meta name="description" content="Guía de Holehe: enumeración de cuentas asociadas a correos, instalación, interpretación, límites y uso responsable.">
-        <title>Holehe</title>
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="keywords" content="osint holehe, correo, cuentas, privacidad">
+<meta name="description" content="Guía de Holehe: enumeración de cuentas asociadas a correos, instalación, interpretación, límites y uso responsable.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holehe</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body>
+    <div class="page" data-cat="osint holehe">
+        <hr>
+        <h1>Holehe</h1>
 
-        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-        <script src="/Libreta/res/js/page.js"></script>
-    </head>
-
-    <body>
-        <div class="page" data-cat="osint holehe">
-            <hr>
-            <h1>Holehe</h1>
-
-            <div class="node-tags">
-                <span class="tag">OSINT</span><span class="tag">correo</span><span class="tag">cuentas</span><span class="tag">privacidad</span>
-            </div>
-            <div class="box box--info">
-                <p><strong>Holehe</strong> comprueba si una dirección de correo parece estar asociada a cuentas en servicios online compatibles. Automatiza consultas a mecanismos de registro o recuperación y analiza las respuestas.</p>
-                <p>Sus resultados son indicios, no una prueba de identidad ni de control de una cuenta. Los proveedores pueden modificar sus respuestas, limitar consultas o utilizar mensajes ambiguos para proteger a sus usuarios.</p>
-            </div>
-            <h2>Qué hace y qué no hace</h2>
-            <p>Holehe intenta inferir si un servicio reconoce una dirección. No accede a la cuenta, no obtiene contraseñas y no demuestra quién la controla.</p>
-            <h2>Funcionamiento general</h2>
-            <ol>
-                <li>Recibe una dirección de correo autorizada.</li>
-                <li>Selecciona módulos compatibles con los servicios que conoce.</li>
-                <li>Consulta mecanismos públicos de registro o recuperación.</li>
-                <li>Analiza respuestas HTTP, mensajes y otras señales.</li>
-                <li>Clasifica cada resultado, incluyendo estados inciertos o limitados.</li>
-            </ol>
-            <h2>Casos de uso legítimos</h2>
-            <ul>
-                <li>Revisar la exposición de una dirección propia.</li>
-                <li>Auditar direcciones de prueba con autorización.</li>
-                <li>Estudiar el riesgo de enumeración de cuentas.</li>
-                <li>Comprender cómo los servicios protegen la privacidad de sus usuarios.</li>
-            </ul>
-            <h2>Instalación aislada</h2>
-            <p>Utiliza un entorno virtual para no modificar el Python del sistema:</p>
-            <pre>sudo apt update
+        <div class="node-tags">
+            <span class="tag">OSINT</span><span class="tag">correo</span><span class="tag">cuentas</span><span class="tag">privacidad</span>
+        </div>
+        <br>
+        <div class="box box--info">
+            <p><strong>Holehe</strong> comprueba si una dirección de correo parece estar asociada a cuentas en servicios online compatibles. Automatiza consultas a mecanismos de registro o recuperación y analiza las respuestas.</p>
+            <p>Sus resultados son indicios, no una prueba de identidad ni de control de una cuenta. Los proveedores pueden modificar sus respuestas, limitar consultas o utilizar mensajes ambiguos para proteger a sus usuarios.</p>
+        </div>
+        <br>
+        <h2>Qué hace y qué no hace</h2>
+        <p>Holehe intenta inferir si un servicio reconoce una dirección. No accede a la cuenta, no obtiene contraseñas y no demuestra quién la controla.</p>
+        <h2>Funcionamiento general</h2>
+        <ol>
+            <li>Recibe una dirección de correo autorizada.</li>
+            <li>Selecciona módulos compatibles con los servicios que conoce.</li>
+            <li>Consulta mecanismos públicos de registro o recuperación.</li>
+            <li>Analiza respuestas HTTP, mensajes y otras señales.</li>
+            <li>Clasifica cada resultado, incluyendo estados inciertos o limitados.</li>
+        </ol>
+        <br>
+        <h2>Casos de uso legítimos</h2>
+        <ul>
+            <li>Revisar la exposición de una dirección propia.</li>
+            <li>Auditar direcciones de prueba con autorización.</li>
+            <li>Estudiar el riesgo de enumeración de cuentas.</li>
+            <li>Comprender cómo los servicios protegen la privacidad de sus usuarios.</li>
+        </ul>
+        <br>
+        <h2>Instalación aislada</h2>
+        <p>Utiliza un entorno virtual para no modificar el Python del sistema:</p>
+        <pre>sudo apt update
 sudo apt install python3 python3-venv python3-pip
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install holehe
 holehe --help</pre>
-            <p>La disponibilidad del paquete y sus dependencias puede cambiar. Si falla, consulta las instrucciones del repositorio y la versión de Python compatible.</p>
-            <h2>Ejemplo con una dirección propia</h2>
-            <pre>holehe correo-de-prueba@example.com</pre>
+        <p>La disponibilidad del paquete y sus dependencias puede cambiar. Si falla, consulta las instrucciones del repositorio y la versión de Python compatible.</p>
+        <h2>Ejemplo con una dirección propia</h2>
+        <pre>holehe correo-de-prueba@example.com</pre>
             <p>Utiliza solo direcciones que controles o para las que tengas permiso expreso. Evita consultas masivas de direcciones de terceros.</p>
             <h2>Interpretación de resultados</h2>
             <ul>
