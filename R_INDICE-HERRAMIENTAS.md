@@ -1,61 +1,41 @@
-## Índice General
+<div align="center">
 
-### Ciberseguridad
+# KNOWLEDGE INDEX
 
-* Reconocimiento y recopilación de información.
-* Escaneo de redes y servicios.
-* Ataques de fuerza bruta.
-* Ingeniería social.
-* Herramientas y laboratorios.
+<sub><code>// MAPA DE CONTENIDOS</code></sub>
 
-### OSINT
+<img src="https://img.shields.io/badge/INDEX-LIBRETA-0D1117?style=for-the-badge&labelColor=790018" alt="Libreta index"/>
 
-* Investigación sobre objetivos.
-* Enumeración de cuentas.
-* Reconocimiento de correos.
-* Obtención de información pública.
+</div>
 
-### Escaneo de Redes y Puertos
+---
 
-* Descubrimiento de hosts.
-* Enumeración de servicios.
-* Identificación de puertos abiertos.
-* Análisis de infraestructura.
+## `01 / CYBERSECURITY`
 
-### Ataques de Fuerza Bruta
+- **OSINT:** reconocimiento, cuentas, correos e información pública.
+- **Network scanning:** hosts, puertos, servicios e infraestructura.
+- **Credential auditing:** Hydra, Medusa y auditoría de contraseñas.
+- **Phishing:** campañas simuladas, plantillas y laboratorios.
 
-* Auditoría de credenciales.
-* Validación de accesos.
-* Automatización de intentos.
-* Evaluación de contraseñas.
+## `02 / ARTIFICIAL INTELLIGENCE`
 
-### Phishing
+- APIs: OpenAI y Anthropic.
+- Automatización con Python.
+- Integración de modelos.
+- Gestión de credenciales.
 
-* Simulación de campañas.
-* Landing pages.
-* Plantillas de correo.
-* Captura de interacción.
-* Laboratorios controlados.
+## `03 / DEVELOPMENT`
 
-### Inteligencia Artificial
+- Scripts y entornos virtuales.
+- Git y control de versiones.
+- Automatización y gestión de proyectos.
 
-* Configuración de APIs.
-* OpenAI.
-* Anthropic.
-* Automatización con Python.
-* Integración de múltiples modelos.
-* Gestión segura de credenciales.
+## `04 / LABS`
 
-### Desarrollo y Automatización
+- Entornos locales y máquinas virtuales.
+- Pruebas controladas.
+- Escenarios prácticos.
 
-* Scripts.
-* Entornos virtuales.
-* Integración con Git.
-* Gestión de proyectos.
-
-### Laboratorios
-
-* Entornos locales.
-* Máquinas virtuales.
-* Pruebas controladas.
-* Simulación de escenarios.
+<div align="center">
+  <sub><code>FIND IT · STUDY IT · PUT IT TO WORK</code></sub>
+</div>
