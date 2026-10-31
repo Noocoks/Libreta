@@ -1,14 +1,14 @@
 {
-    "generated_at": "2026-10-31T17:50:23+00:00",
+    "generated_at": "2026-10-31T21:00:05+00:00",
     "total_files": 69,
-    "total_lines": 10459,
+    "total_lines": 10407,
     "counting": "non-empty lines",
     "languages": [
         {
             "key": "html",
             "label": "HTML",
             "files": 49,
-            "lines": 5633
+            "lines": 5581
         },
         {
             "key": "css",
