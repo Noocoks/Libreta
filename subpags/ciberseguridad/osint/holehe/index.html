@@ -1,162 +1,83 @@
 <!doctype html>
-
 <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Nooko">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="osint holehe, correo, cuentas, privacidad">
+        <meta name="description" content="Guía de Holehe: enumeración de cuentas asociadas a correos, instalación, interpretación, límites y uso responsable.">
+        <title>Holehe</title>
 
-<head>
-  <meta charset="UTF-8">
+        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+        <script src="/Libreta/res/js/page.js"></script>
+    </head>
 
-  <meta name="author" content="Nooko">
+    <body>
+        <div class="page" data-cat="osint holehe">
+            <hr>
+            <h1>Holehe</h1>
 
-  <meta name="description"
-    content="Holehe es una herramienta OSINT que permite comprobar automáticamente en qué servicios está registrado un correo electrónico.">
+            <div class="node-tags">
+                <span class="tag">OSINT</span><span class="tag">correo</span><span class="tag">cuentas</span><span class="tag">privacidad</span>
+            </div>
+            <div class="box box--info">
+                <p><strong>Holehe</strong> comprueba si una dirección de correo parece estar asociada a cuentas en servicios online compatibles. Automatiza consultas a mecanismos de registro o recuperación y analiza las respuestas.</p>
+                <p>Sus resultados son indicios, no una prueba de identidad ni de control de una cuenta. Los proveedores pueden modificar sus respuestas, limitar consultas o utilizar mensajes ambiguos para proteger a sus usuarios.</p>
+            </div>
+            <h2>Qué hace y qué no hace</h2>
+            <p>Holehe intenta inferir si un servicio reconoce una dirección. No accede a la cuenta, no obtiene contraseñas y no demuestra quién la controla.</p>
+            <h2>Funcionamiento general</h2>
+            <ol>
+                <li>Recibe una dirección de correo autorizada.</li>
+                <li>Selecciona módulos compatibles con los servicios que conoce.</li>
+                <li>Consulta mecanismos públicos de registro o recuperación.</li>
+                <li>Analiza respuestas HTTP, mensajes y otras señales.</li>
+                <li>Clasifica cada resultado, incluyendo estados inciertos o limitados.</li>
+            </ol>
+            <h2>Casos de uso legítimos</h2>
+            <ul>
+                <li>Revisar la exposición de una dirección propia.</li>
+                <li>Auditar direcciones de prueba con autorización.</li>
+                <li>Estudiar el riesgo de enumeración de cuentas.</li>
+                <li>Comprender cómo los servicios protegen la privacidad de sus usuarios.</li>
+            </ul>
+            <h2>Instalación aislada</h2>
+            <p>Utiliza un entorno virtual para no modificar el Python del sistema:</p>
+            <pre>sudo apt update
+sudo apt install python3 python3-venv python3-pip
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install holehe
+holehe --help</pre>
+            <p>La disponibilidad del paquete y sus dependencias puede cambiar. Si falla, consulta las instrucciones del repositorio y la versión de Python compatible.</p>
+            <h2>Ejemplo con una dirección propia</h2>
+            <pre>holehe correo-de-prueba@example.com</pre>
+            <p>Utiliza solo direcciones que controles o para las que tengas permiso expreso. Evita consultas masivas de direcciones de terceros.</p>
+            <h2>Interpretación de resultados</h2>
+            <ul>
+                <li><strong>Found:</strong> existe una señal compatible con una cuenta.</li>
+                <li><strong>Not found:</strong> no se obtuvo señal; no demuestra que nunca haya existido una cuenta.</li>
+                <li><strong>Rate limited:</strong> el servicio limitó la consulta; no es un resultado negativo.</li>
+                <li><strong>Uncertain / error:</strong> la evidencia no permite clasificar el resultado.</li>
+            </ul>
+            <h2>Limitaciones y privacidad</h2>
+            <ul>
+                <li>Los formularios y respuestas de los proveedores cambian.</li>
+                <li>Los controles antiabuso pueden limitar o falsear la señal observable.</li>
+                <li>Una cuenta asociada a un correo no identifica a una persona concreta.</li>
+                <li>Los datos de recuperación parcialmente ocultos también pueden ser información personal.</li>
+            </ul>
+            <div class="box box--info">
+                <p><strong>Uso responsable:</strong> limita las consultas a direcciones propias o autorizadas, no publiques resultados identificables y elimina los datos cuando dejen de ser necesarios.</p>
+            </div>
+            <h2>Recursos</h2>
+            <ul>
+                <li><span class="cat"><a href="./arq/index.html">Arquitectura y clasificación de respuestas</a></span></li>
+                <li><a href="https://github.com/megadose/holehe" target="_blank" rel="noopener noreferrer">Repositorio de Holehe</a></li>
+            </ul>
 
-  <meta name="keywords" content="holehe, osint, correo, email, reconocimiento, investigación, cuentas, usuarios">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Holehe</title>
-
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
-</head>
-
-<body>
-
-  <div class="page" data-cat="osint holehe">
-    <hr>
-
-    <h1>Holehe</h1>
-
-    <div class="node-tags">
-      <span class="tag">osint</span>
-      <span class="tag">correo</span>
-      <span class="tag">cuentas</span>
-      <span class="tag">reconocimiento</span>
-      <span class="tag">usuarios</span>
-    </div>
-
-    <br>
-
-    <div class="box box--info">
-      <p>
-        <strong>Holehe</strong> es una herramienta de
-        <span class="cat">
-          <a href="../index.html">OSINT</a>
-        </span>
-        diseñada para verificar si una dirección de correo
-        electrónico está registrada en distintos servicios
-        online.
-      </p>
-    </div>
-
-    <p>
-      Su objetivo principal es automatizar tareas de
-      reconocimiento e investigación relacionadas con
-      correos electrónicos y perfiles digitales.
-    </p>
-
-    <br>
-    <hr>
-
-    <h2>Casos de uso</h2>
-
-    <div class="box">
-      <ul>
-
-        <li>
-          <strong>Comprobación de registros</strong>
-
-          <ul>
-            <li>
-              Verificar si un correo electrónico existe en plataformas conocidas.
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <strong>Investigación OSINT</strong>
-
-          <ul>
-            <li>
-              Obtener información sobre la presencia digital de un objetivo.
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <strong>Auditorías de seguridad</strong>
-
-          <ul>
-            <li>
-              Detectar exposición de cuentas asociadas a un correo.
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <strong>Gestión de identidad digital</strong>
-
-          <ul>
-            <li>
-              Revisar servicios donde una dirección de correo está siendo utilizada.
-            </li>
-          </ul>
-        </li>
-
-      </ul>
-    </div>
-    <br>
-    <hr>
-
-    <h2>Instalación</h2>
-
-    <div class="box">
-      <pre>
-└─$ sudo apt update && sudo apt upgrade -y
-└─$ sudo apt install python3 python3-pip git -y
-└─$ git clone https://github.com/megadose/holehe.git
-└─$ cd holehe/
-└─$ sudo python3 setup.py install
-└─$ holehe correo@ejemplo.com
-</pre>
-    </div>
-    <br>
-    <hr>
-
-    <h2>Ejemplo de uso</h2>
-
-    <div class="box">
-      <pre>
-└─$ holehe usuario@dominio.com
-</pre>
-
-      <p>
-        Holehe realizará comprobaciones automáticas en múltiples servicios compatibles y mostrará cuáles tienen una
-        cuenta asociada al correo indicado.
-      </p>
-    </div>
-    <br>
-    <hr>
-
-    <h2>Recursos relacionados</h2>
-
-    <div class="box">
-      <ul>
-
-        <li>
-          <span class="cat">
-            <a href="./arq/index.html">
-              Arquitectura
-            </a>
-          </span>
-        </li>
-
-      </ul>
-    </div>
-    <br>
-
-  </div>
-
-</body>
-
+            <hr>
+        </div>
+    </body>
 </html>
