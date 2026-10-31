@@ -169,10 +169,10 @@
               "path": "subpags/ciberseguridad/phishing/gophish/index.html",
               "tags": [
                 "phishing",
-                "correo",
+                "ingenieria-social",
                 "campañas",
-                "plantillas",
-                "seguimiento"
+                "red-team",
+                "concienciacion"
               ],
               "children": [
                 {
@@ -216,11 +216,11 @@
               "cat": "mailhog",
               "path": "subpags/ciberseguridad/phishing/mailhog/index.html",
               "tags": [
+                "phishing",
                 "smtp",
                 "correo",
-                "pruebas",
-                "mail",
-                "depuración"
+                "testing",
+                "desarrollo"
               ],
               "children": [
                 {
@@ -378,11 +378,11 @@
               "cat": "dualvers",
               "path": "subpags/ia/proyecto_local/dualvers/index.html",
               "tags": [
-                "python3",
-                "api",
-                "script",
-                "router",
-                "elección"
+                "python",
+                "openai",
+                "anthropic",
+                "multi-modelo",
+                "evolución"
               ],
               "children": [
                 {
