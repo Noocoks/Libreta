@@ -1,0 +1,51 @@
+{
+    "generated_at": "2026-10-31T00:00:00Z",
+    "commit": "initial",
+    "total_files": 65,
+    "total_lines": 9658,
+    "counting": "non-empty lines",
+    "languages": [
+        {
+            "key": "html",
+            "label": "HTML",
+            "files": 49,
+            "lines": 5611
+        },
+        {
+            "key": "css",
+            "label": "CSS",
+            "files": 6,
+            "lines": 2329
+        },
+        {
+            "key": "javascript",
+            "label": "JavaScript",
+            "files": 2,
+            "lines": 669
+        },
+        {
+            "key": "json",
+            "label": "JSON",
+            "files": 1,
+            "lines": 424
+        },
+        {
+            "key": "python",
+            "label": "Python",
+            "files": 2,
+            "lines": 35
+        },
+        {
+            "key": "txt",
+            "label": "TXT",
+            "files": 4,
+            "lines": 492
+        },
+        {
+            "key": "markdown",
+            "label": "Markdown",
+            "files": 1,
+            "lines": 98
+        }
+    ]
+}
