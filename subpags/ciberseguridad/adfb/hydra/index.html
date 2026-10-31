@@ -1,145 +1,153 @@
 <!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Nooko">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="Hydra, THC Hydra, auditoría de autenticación, SSH, FTP, protocolos, pentesting">
-        <meta name="description" content="Documentación de Hydra: funcionamiento, módulos, opciones, instalación, resultados, limitaciones y prácticas en laboratorio autorizado.">
-        <title>Hydra</title>
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="keywords" content="Hydra, THC Hydra, auditoría de autenticación, SSH, FTP, protocolos, pentesting">
+<meta name="description" content="Documentación de Hydra: funcionamiento, módulos, opciones, instalación, resultados, limitaciones y prácticas en laboratorio autorizado.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hydra</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body>
+    <div class="page" data-cat="fuerza-bruta hydra">
+        <hr>
+        <h1>Hydra</h1>
 
-        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-        <script src="/Libreta/res/js/page.js"></script>
-    </head>
+        <p><em><small>Auditoría automatizada de autenticación en servicios de red.</small></em></p>
 
-    <body>
-        <div class="page" data-cat="fuerza-bruta hydra">
-            <hr>
-            <h1>Hydra</h1>
+        <div class="node-tags">
+            <span class="tag">pentesting</span>
+            <span class="tag">credenciales</span>
+            <span class="tag">protocolos</span>
+            <span class="tag">SSH</span>
+            <span class="tag">FTP</span>
+        </div>
+        <br>
 
-            <p><em><small>Auditoría automatizada de autenticación en servicios de red.</small></em></p>
-
-            <div class="node-tags">
-                <span class="tag">pentesting</span>
-                <span class="tag">credenciales</span>
-                <span class="tag">protocolos</span>
-                <span class="tag">SSH</span>
-                <span class="tag">FTP</span>
-            </div>
-
-            <div class="box box--info">
-                <p>
-                    <strong>THC Hydra</strong> es una herramienta de código abierto para evaluar mecanismos de
-                    autenticación en servicios de red. Automatiza la comprobación de pares usuario/contraseña
-                    mediante módulos específicos para cada protocolo y permite distribuir las pruebas entre
-                    varias tareas concurrentes.
-                </p>
-                <p>
-                    Su función es probar credenciales frente a un servicio; no explota por sí misma una
-                    vulnerabilidad del sistema ni garantiza que un resultado sea válido si el protocolo,
-                    el formulario o la respuesta del servidor se han interpretado incorrectamente.
-                </p>
-            </div>
-
-            <h2>Qué problema permite estudiar</h2>
+        <div class="box box--info">
             <p>
-                Hydra ayuda a comprobar si las credenciales de cuentas de prueba son previsibles y si el servicio
-                aplica controles adecuados ante intentos repetidos. En una auditoría bien delimitada también
-                permite observar registros, alertas, retardos y bloqueos.
+                <strong>THC Hydra</strong> es una herramienta de código abierto para evaluar mecanismos de
+                autenticación en servicios de red. Automatiza la comprobación de pares usuario/contraseña
+                mediante módulos específicos para cada protocolo y permite distribuir las pruebas entre
+                varias tareas concurrentes.
+            </p>
+            <p>
+                Su función es probar credenciales frente a un servicio; no explota por sí misma una
+                vulnerabilidad del sistema ni garantiza que un resultado sea válido si el protocolo,
+                el formulario o la respuesta del servidor se han interpretado incorrectamente.
+            </p>
+        </div>
+        <br>
+
+        <h2>Qué problema permite estudiar</h2>
+        <p>
+            Hydra ayuda a comprobar si las credenciales de cuentas de prueba son previsibles y si el servicio
+            aplica controles adecuados ante intentos repetidos. En una auditoría bien delimitada también
+            permite observar registros, alertas, retardos y bloqueos.
+        </p>
+        <br>
+
+        <h2>Conceptos fundamentales</h2>
+        <div class="box">
+            <h3>Objetivo y servicio</h3>
+            <p>
+                El objetivo identifica el host autorizado. El servicio o módulo determina el protocolo y
+                la lógica de autenticación que se utilizará, por ejemplo SSH, FTP o un formulario HTTP.
             </p>
 
-            <h2>Conceptos fundamentales</h2>
-            <div class="box">
-                <h3>Objetivo y servicio</h3>
-                <p>
-                    El objetivo identifica el host autorizado. El servicio o módulo determina el protocolo y
-                    la lógica de autenticación que se utilizará, por ejemplo SSH, FTP o un formulario HTTP.
-                </p>
+            <h3>Credenciales de entrada</h3>
+            <p>
+                Se pueden proporcionar valores individuales o archivos con usuarios y contraseñas.
+                Las opciones de entrada determinan cómo se combinan. Una lista grande puede producir
+                muchas solicitudes y no debe utilizarse sin calcular antes el alcance.
+            </p>
 
-                <h3>Credenciales de entrada</h3>
-                <p>
-                    Se pueden proporcionar valores individuales o archivos con usuarios y contraseñas.
-                    Las opciones de entrada determinan cómo se combinan. Una lista grande puede producir
-                    muchas solicitudes y no debe utilizarse sin calcular antes el alcance.
-                </p>
+            <h3>Concurrencia</h3>
+            <p>
+                Hydra permite ejecutar varias tareas simultáneas. Aumentar la concurrencia no siempre
+                mejora el resultado: puede saturar el servicio, provocar bloqueos, activar defensas
+                o producir falsos errores por límites de conexión.
+            </p>
 
-                <h3>Concurrencia</h3>
-                <p>
-                    Hydra permite ejecutar varias tareas simultáneas. Aumentar la concurrencia no siempre
-                    mejora el resultado: puede saturar el servicio, provocar bloqueos, activar defensas
-                    o producir falsos errores por límites de conexión.
-                </p>
+            <h3>Módulos</h3>
+            <p>
+                Cada módulo adapta la comunicación al servicio. Sus opciones no son necesariamente
+                intercambiables: consulta la ayuda del módulo concreto antes de interpretar sus parámetros.
+            </p>
+        </div>
+        <br>
 
-                <h3>Módulos</h3>
-                <p>
-                    Cada módulo adapta la comunicación al servicio. Sus opciones no son necesariamente
-                    intercambiables: consulta la ayuda del módulo concreto antes de interpretar sus parámetros.
-                </p>
-            </div>
+        <h2>Casos de uso legítimos</h2>
+        <ol>
+            <li><strong>Auditoría de contraseñas:</strong> evaluar cuentas de laboratorio o cuentas de prueba aprobadas.</li>
+            <li><strong>Validación defensiva:</strong> observar si el servicio limita intentos y genera registros útiles.</li>
+            <li><strong>Formación:</strong> estudiar la relación entre contraseñas débiles, autenticación y monitorización.</li>
+        </ol>
+        <br>
 
-            <h2>Casos de uso legítimos</h2>
-            <ol>
-                <li><strong>Auditoría de contraseñas:</strong> evaluar cuentas de laboratorio o cuentas de prueba aprobadas.</li>
-                <li><strong>Validación defensiva:</strong> observar si el servicio limita intentos y genera registros útiles.</li>
-                <li><strong>Formación:</strong> estudiar la relación entre contraseñas débiles, autenticación y monitorización.</li>
-            </ol>
-
-            <h2>Instalación y comprobación</h2>
-            <p>En distribuciones basadas en Debian, Ubuntu o Kali:</p>
-            <pre>sudo apt update
+        <h2>Instalación y comprobación</h2>
+        <p>En distribuciones basadas en Debian, Ubuntu o Kali:</p>
+        <pre>sudo apt update
 sudo apt install hydra
 
 command -v hydra
 hydra -h
 hydra -U ssh</pre>
+        <p>
+            <code>hydra -h</code> muestra la ayuda general. <code>hydra -U ssh</code> consulta las opciones
+            específicas del módulo SSH disponible en esa compilación. La lista de módulos puede variar
+            según las bibliotecas instaladas al compilar el programa.
+        </p>
+        <br>
+
+        <h2>Cómo interpretar los resultados</h2>
+        <ul>
+            <li><strong>Autenticación aceptada:</strong> el módulo considera que el servicio ha aceptado las credenciales; valida el resultado con los registros del servidor.</li>
+            <li><strong>Credenciales rechazadas:</strong> la respuesta se interpreta como un fallo de autenticación.</li>
+            <li><strong>Error de conexión:</strong> puede deberse a red, firewall, servicio detenido, timeout o límites del servidor.</li>
+            <li><strong>Bloqueo o limitación:</strong> la prueba puede haber activado controles defensivos; detén la ejecución y revisa los registros.</li>
+        </ul>
+        <br>
+
+        <h2>Limitaciones y errores habituales</h2>
+        <ul>
+            <li>Un módulo incorrecto o mal configurado puede interpretar mal las respuestas.</li>
+            <li>Los formularios web pueden cambiar sus campos, tokens, cookies o mecanismos anti-CSRF.</li>
+            <li>Los límites de conexión y los bloqueos alteran los resultados.</li>
+            <li>Un puerto accesible no implica que la autenticación sea vulnerable.</li>
+            <li>El volumen de intentos puede afectar a la disponibilidad del servicio.</li>
+        </ul>
+        <br>
+
+        <h2>Medidas defensivas relacionadas</h2>
+        <ul>
+            <li>Contraseñas largas, únicas y almacenadas mediante algoritmos adecuados.</li>
+            <li>Autenticación multifactor, preferiblemente resistente al phishing.</li>
+            <li>Limitación de intentos, retardos progresivos y detección de patrones distribuidos.</li>
+            <li>Alertas ante fallos repetidos y revisión centralizada de registros.</li>
+            <li>Deshabilitar servicios de administración innecesarios y restringir su acceso por red.</li>
+        </ul>
+        <br>
+
+        <div class="box box--info">
             <p>
-                <code>hydra -h</code> muestra la ayuda general. <code>hydra -U ssh</code> consulta las opciones
-                específicas del módulo SSH disponible en esa compilación. La lista de módulos puede variar
-                según las bibliotecas instaladas al compilar el programa.
+                <strong>Regla de laboratorio:</strong> utiliza únicamente sistemas propios o autorizados,
+                cuentas desechables y objetivos locales. Define un límite de solicitudes, una ventana
+                de ejecución y un procedimiento para detener la prueba.
             </p>
-
-            <h2>Cómo interpretar los resultados</h2>
-            <ul>
-                <li><strong>Autenticación aceptada:</strong> el módulo considera que el servicio ha aceptado las credenciales; valida el resultado con los registros del servidor.</li>
-                <li><strong>Credenciales rechazadas:</strong> la respuesta se interpreta como un fallo de autenticación.</li>
-                <li><strong>Error de conexión:</strong> puede deberse a red, firewall, servicio detenido, timeout o límites del servidor.</li>
-                <li><strong>Bloqueo o limitación:</strong> la prueba puede haber activado controles defensivos; detén la ejecución y revisa los registros.</li>
-            </ul>
-
-            <h2>Limitaciones y errores habituales</h2>
-            <ul>
-                <li>Un módulo incorrecto o mal configurado puede interpretar mal las respuestas.</li>
-                <li>Los formularios web pueden cambiar sus campos, tokens, cookies o mecanismos anti-CSRF.</li>
-                <li>Los límites de conexión y los bloqueos alteran los resultados.</li>
-                <li>Un puerto accesible no implica que la autenticación sea vulnerable.</li>
-                <li>El volumen de intentos puede afectar a la disponibilidad del servicio.</li>
-            </ul>
-
-            <h2>Medidas defensivas relacionadas</h2>
-            <ul>
-                <li>Contraseñas largas, únicas y almacenadas mediante algoritmos adecuados.</li>
-                <li>Autenticación multifactor, preferiblemente resistente al phishing.</li>
-                <li>Limitación de intentos, retardos progresivos y detección de patrones distribuidos.</li>
-                <li>Alertas ante fallos repetidos y revisión centralizada de registros.</li>
-                <li>Deshabilitar servicios de administración innecesarios y restringir su acceso por red.</li>
-            </ul>
-
-            <div class="box box--info">
-                <p>
-                    <strong>Regla de laboratorio:</strong> utiliza únicamente sistemas propios o autorizados,
-                    cuentas desechables y objetivos locales. Define un límite de solicitudes, una ventana
-                    de ejecución y un procedimiento para detener la prueba.
-                </p>
-            </div>
-
-            <h2>Documentación complementaria</h2>
-            <ul>
-                <li><span class="cat"><a href="./arq/index.html">Arquitectura y módulos</a></span></li>
-                <li><span class="cat"><a href="./lab/index.html">Laboratorio local paso a paso</a></span></li>
-                <li><a href="https://github.com/vanhauser-thc/thc-hydra" target="_blank" rel="noopener noreferrer">Repositorio oficial de THC Hydra</a></li>
-            </ul>
-            <hr>
         </div>
+        <br>
 
-    </body>
+        <h2>Documentación complementaria</h2>
+        <ul>
+            <li><span class="cat"><a href="./arq/index.html">Arquitectura y módulos</a></span></li>
+            <li><span class="cat"><a href="./lab/index.html">Laboratorio local paso a paso</a></span></li>
+            <li><a href="https://github.com/vanhauser-thc/thc-hydra" target="_blank" rel="noopener noreferrer">Repositorio oficial de THC Hydra</a></li>
+        </ul>
+        <br>
+        <hr>
+    </div>
+</body>
 </html>
