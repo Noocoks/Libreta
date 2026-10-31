@@ -375,7 +375,7 @@
               "children": [
                 {
                   "name": "Comprobación APIs",
-                  "cat": "api-check",
+                  "cat": "api",
                   "path": "subpags/ia/proyecto_local/apis/comprobante/index.html",
                   "tags": [
                     "api",
