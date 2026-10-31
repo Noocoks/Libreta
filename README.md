@@ -4,161 +4,169 @@
 
 ### `// CiberCalvoCabrón · Technical Knowledge Base`
 
-<img src="https://img.shields.io/badge/STATUS-ACTIVE-0D1117?style=for-the-badge&labelColor=790018&color=0D1117" alt="Active project"/>
-<img src="https://img.shields.io/badge/STACK-HTML%20%2F%20CSS%20%2F%20JS-0D1117?style=for-the-badge&labelColor=790018&color=0D1117" alt="HTML CSS JavaScript"/>
+**Aprender. Experimentar. Documentar.**
 
-**Apuntes, herramientas y laboratorios** sobre ciberseguridad, IA y automatización.
+Una libreta técnica para reunir conocimientos, herramientas, laboratorios y documentación práctica sobre ciberseguridad, Android, inteligencia artificial y desarrollo.
+
+<p>
+  <a href="https://noocoks.github.io/Libreta/">
+    <img src="https://img.shields.io/badge/ABRIR-LIBRETA-0D1117?style=for-the-badge&labelColor=790018" alt="Abrir Libreta"/>
+  </a>
+  <a href="https://noocoks.github.io/Libreta/wiki.html">
+    <img src="https://img.shields.io/badge/EXPLORAR-WIKI-0D1117?style=for-the-badge&labelColor=790018" alt="Explorar wiki"/>
+  </a>
+  <a href="https://github.com/Noocoks/Libreta">
+    <img src="https://img.shields.io/badge/VER-REPOSITORIO-0D1117?style=for-the-badge&labelColor=790018" alt="Ver repositorio"/>
+  </a>
+</p>
+
+<p>
+  <img src="https://img.shields.io/badge/STATUS-ACTIVE-0D1117?style=flat-square&labelColor=790018" alt="Estado activo"/>
+  <img src="https://img.shields.io/badge/STACK-HTML%20·%20CSS%20·%20JS-0D1117?style=flat-square&labelColor=790018" alt="Stack"/>
+  <img src="https://img.shields.io/github/actions/workflow/status/Noocoks/Libreta/project-stats.yml?branch=master&style=flat-square&label=PROJECT%20STATS&labelColor=790018&color=0D1117" alt="Estado de estadísticas automáticas"/>
+</p>
 
 </div>
 
 ---
 
-## `01 / EXPLORE`
+## `01 / OVERVIEW`
 
-- **Ciberseguridad:** OSINT, escaneo, auditoría de credenciales y phishing.
-- **Inteligencia artificial:** APIs, modelos, Python y automatización.
-- **Laboratorios:** prácticas locales, configuraciones y ejemplos.
+Libreta es una **base de conocimiento estática y ligera**, organizada para consultar información técnica, documentar procedimientos y mantener reunidos recursos de aprendizaje en un único lugar.
 
-## `02 / TOOLKIT`
+No pretende ser un manual cerrado: crece con cada nota, práctica, herramienta y laboratorio que se incorpora.
 
-| Área | Herramientas |
+| Área | Contenido |
 |---|---|
-| Auditoría | Hydra · Medusa |
-| Escaneo | Nmap · Legion |
-| OSINT | ExifTool · Holehe |
-| Phishing | GoPhish · MailHog |
-| IA y desarrollo | OpenAI · Anthropic · Shell-GPT · Python · Git |
+| **Ciberseguridad** | OSINT, reconocimiento, auditoría, redes y phishing |
+| **Android** | ADB, Fastboot, Magisk, ROMs y herramientas |
+| **Inteligencia artificial** | APIs, modelos locales, Python e integración |
+| **Desarrollo** | HTML, CSS, JavaScript, Git y automatización |
+| **Laboratorios** | Prácticas locales, configuraciones y escenarios controlados |
 
-## `03 / STRUCTURE`
+## `02 / EXPLORE THE TOOLKIT`
+
+| Área | Herramientas y tecnologías |
+|---|---|
+| Auditoría de credenciales | Hydra · Medusa |
+| Reconocimiento y escaneo | Nmap · Legion |
+| OSINT | ExifTool · Holehe |
+| Laboratorios de phishing | GoPhish · MailHog |
+| IA y desarrollo | OpenAI · Anthropic · Shell-GPT · Python · Git |
+| Android | ADB · Fastboot · Magisk |
+
+*La lista refleja herramientas documentadas en el proyecto; no implica que todas estén integradas en la web.*
+
+## `03 / PROJECT ARCHITECTURE`
+
+La estructura separa contenido, presentación, lógica y automatizaciones para que el proyecto pueda crecer sin convertir sus archivos principales en bloques difíciles de mantener.
 
 ```text
 .
-├── index.html          # Interfaz principal
-├── wiki.html           # Página interactiva
-├── images/             # Recursos gráficos
+├── index.html
+├── wiki.html
+├── images/
 ├── res/
-│   ├── css/             # Estilos modulares
-│   │   ├── styles.css   # Punto de entrada CSS
-│   │   ├── variables.css
-│   │   ├── base.css
-│   │   ├── responsive.css
-│   │   ├── home.css
-│   │   └── theme.css
-│   ├── js/              # Lógica e interfaz
-│   └── json/            # Índice y estadísticas
+│   ├── css/
+│   │   ├── styles.css       # Punto de entrada
+│   │   ├── variables.css    # Variables y recursos visuales
+│   │   ├── base.css         # Estructura y componentes
+│   │   ├── responsive.css   # Adaptación a pantallas
+│   │   ├── home.css         # Portada
+│   │   └── theme.css        # Identidad visual
+│   ├── js/
+│   │   └── project-stats.js # Interfaz de estadísticas
+│   └── json/
+│       ├── tree.json        # Índice de navegación
+│       └── project-stats.json
 ├── subpags/
 │   ├── ciberseguridad/
 │   ├── android/
 │   └── ia/
-├── scripts/             # Automatizaciones del proyecto
+├── scripts/
+│   └── update_project_stats.py
 └── .github/
-    └── workflows/       # GitHub Actions
+    └── workflows/
+        └── project-stats.yml
 ```
 
-## `04 / ABOUT`
+### Diseño modular
 
-Proyecto personal de documentación técnica: consulta rápida, navegación sencilla y contenido reutilizable. Diseñado para funcionar como una base de conocimiento estática y ligera.
+El CSS se divide por responsabilidades, pero la web continúa cargando una única referencia: `res/css/styles.css`. Este archivo importa los módulos en el orden necesario para conservar la cascada y evitar cambios involuntarios en el diseño.
 
-<div align="center">
+## `04 / AUTOMATION & PROJECT METRICS`
 
-<sub><code>LEARN · TEST · DOCUMENT · REPEAT</code></sub>
+Las estadísticas del código no se mantienen a mano. **GitHub Actions las recalcula automáticamente** cuando se hace push a la rama `master`.
 
-</div>
+```text
+PUSH A MASTER
+     │
+     ▼
+GitHub Actions
+     │
+     ▼
+update_project_stats.py
+     │
+     ▼
+project-stats.json
+     │
+     ▼
+Tooltip de información en la wiki
+```
 
+- El script recorre los archivos del proyecto y agrupa las líneas por lenguaje.
+- El resultado se guarda en `res/json/project-stats.json`.
+- La wiki carga ese JSON y presenta el desglose al pasar el cursor o enfocar el icono de información.
+- Se cuentan **líneas no vacías**, incluidos comentarios.
+- Si el resultado no cambia, no se genera un commit innecesario.
+- El workflow también se puede ejecutar manualmente desde la pestaña **Actions** de GitHub.
 
-<div align="center">
+Formatos contemplados: HTML, CSS, JavaScript, JSON, Python, TXT y Markdown.
 
-# CHANGELOG
+[Ver el workflow de estadísticas](https://github.com/Noocoks/Libreta/actions/workflows/project-stats.yml) · [Consultar los datos generados](https://github.com/Noocoks/Libreta/blob/master/res/json/project-stats.json)
 
-<sub><code>// EVOLUCIÓN DEL PROYECTO</code></sub>
+## `05 / CHANGELOG`
 
-<img src="https://img.shields.io/badge/PROJECT-CIBERNOTAS-0D1117?style=for-the-badge&labelColor=790018" alt="CiberNotas"/>
-
-</div>
-
----
-
-## `01 / CORE`
-
-- Arquitectura modular por categorías y subcategorías.
-- Navegación dinámica mediante árbol e iframe.
-- Historial y enlaces internos sincronizados.
-- Índice JSON, breadcrumbs y contenido relacionado.
-
-## `02 / INTERFACE`
-
+### Estructura y experiencia
+- Organización de la navegación mediante árbol, categorías y subcategorías.
+- Historial, enlaces internos, breadcrumbs y contenido relacionado.
 - Buscador con soporte para acentos, etiquetas y caracteres especiales.
-- Categorías, iconos y colores centralizados mediante CSS.
 - Panel lateral plegable y navegación contextual.
-- Componentes visuales reutilizables para notas, código y laboratorios.
-- CSS dividido por responsabilidades: variables, estilos base, responsive, portada y tema visual.
-- Tooltip de información en la wiki con estadísticas del código por lenguaje.
+- Portada y wiki con identidad visual industrial/carmesí.
 
-## `03 / DOCUMENTATION`
+### Mantenimiento y escalabilidad
+- Modularización del CSS en cinco hojas especializadas.
+- Variables visuales centralizadas y componentes reutilizables.
+- Separación de scripts, datos JSON y contenido documental.
+- Recuento de líneas automatizado mediante GitHub Actions.
 
-- Incorporación de documentación de ciberseguridad, OSINT y phishing.
-- Guías y laboratorios de Hydra, Medusa, Nmap, Legion, ExifTool, Holehe y GoPhish.
-- Sección de IA con ejemplos de APIs, Python, OpenAI, Anthropic y Git.
-- Normalización progresiva de páginas y ejemplos de código.
+### Documentación
+- Incorporación progresiva de contenidos de ciberseguridad, OSINT y phishing.
+- Guías y laboratorios relacionados con Hydra, Medusa, Nmap, Legion, ExifTool, Holehe y GoPhish.
+- Documentación de Android, herramientas, sistemas y personalización.
+- Recursos de IA, APIs, modelos locales, Python y automatización.
 
-## `04 / SECURITY & MAINTENANCE`
+## `06 / KNOWLEDGE INDEX`
 
-- Exclusión de secretos, claves API, cachés y entornos virtuales.
-- CSS modularizado en cinco hojas especializadas, manteniendo `styles.css` como punto de entrada y conservando el orden de la cascada.
-- Estadísticas de líneas automatizadas mediante GitHub Actions en cada push a `master`.
-- Script Python que recorre los formatos configurados y actualiza `res/json/project-stats.json`.
-- La wiki obtiene las estadísticas desde JSON; no es necesario editar los recuentos manualmente.
-- Limpieza de estilos y lógica duplicada.
-- Simplificación de navegación y estructuras heredadas.
+- **CYBERSECURITY** — OSINT, reconocimiento, escaneo de red, auditoría de credenciales y phishing.
+- **ANDROID** — ADB/Fastboot, Magisk, sistemas alternativos y herramientas.
+- **ARTIFICIAL INTELLIGENCE** — APIs, modelos, asistentes locales e integración.
+- **DEVELOPMENT** — Scripts, entornos, Git, estructura web y automatización.
+- **LABS** — Entornos locales, máquinas virtuales y pruebas controladas.
 
-## `05 / STATUS`
+## `07 / PROJECT NOTES`
 
-- **Operativo:** navegación, búsqueda, categorías, etiquetas, índice dinámico y estadísticas automáticas del proyecto.
-- **Automatización:** workflow `.github/workflows/project-stats.yml`, script `scripts/update_project_stats.py` y datos en `res/json/project-stats.json`.
-- **En desarrollo:** migración del contenido antiguo, mejoras visuales y nuevos laboratorios.
-
-<div align="center">
-  <sub><code>BUILDING THE KNOWLEDGE BASE · ONE NOTE AT A TIME</code></sub>
-</div>
-
-<div align="center">
-
-# KNOWLEDGE INDEX
-
-<sub><code>// MAPA DE CONTENIDOS</code></sub>
-
-<img src="https://img.shields.io/badge/INDEX-LIBRETA-0D1117?style=for-the-badge&labelColor=790018" alt="Libreta index"/>
-
-</div>
+- Proyecto personal de documentación técnica y aprendizaje continuo.
+- Desarrollado como sitio estático con HTML, CSS y JavaScript.
+- El contenido se organiza para facilitar la consulta, reutilización y ampliación.
+- Los laboratorios y ejemplos de seguridad están orientados al aprendizaje y a entornos autorizados.
 
 ---
 
-## `01 / CYBERSECURITY`
-
-- **OSINT:** reconocimiento, cuentas, correos e información pública.
-- **Network scanning:** hosts, puertos, servicios e infraestructura.
-- **Credential auditing:** Hydra, Medusa y auditoría de contraseñas.
-- **Phishing:** campañas simuladas, plantillas y laboratorios.
-
-## `02 / ARTIFICIAL INTELLIGENCE`
-
-- APIs: OpenAI y Anthropic.
-- Automatización con Python.
-- Integración de modelos.
-- Gestión de credenciales.
-
-## `03 / DEVELOPMENT`
-
-- Scripts y entornos virtuales.
-- Git y control de versiones.
-- Automatización y gestión de proyectos.
-
-## `04 / LABS`
-
-- Entornos locales y máquinas virtuales.
-- Pruebas controladas.
-- Escenarios prácticos.
-
 <div align="center">
-  <sub><code>FIND IT · STUDY IT · PUT IT TO WORK</code></sub>
+
+### `LEARN · TEST · DOCUMENT · REPEAT`
+
+<sub>Una nota cada vez. Un proyecto en constante evolución.</sub>
+
 </div>
