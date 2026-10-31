@@ -141,7 +141,16 @@ document.addEventListener("click", function (e) {
         return;
     }
 
-    /* Conservar enlaces externos y protocolos como mailto: y tel:. */
+    /* Bloquear protocolos ejecutables; conservar mailto:, tel: y enlaces externos. */
+    if (
+        target.protocol === "javascript:" ||
+        target.protocol === "data:" ||
+        target.protocol === "vbscript:"
+    ) {
+        e.preventDefault();
+        return;
+    }
+
     if (
         target.origin !== window.location.origin ||
         (target.protocol !== "http:" && target.protocol !== "https:")
