@@ -1,49 +1,48 @@
 <!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Nooko">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="phishing mailhog SMTP correo testing desarrollo GoPhish">
-        <meta name="description" content="Guía de MailHog como servidor SMTP de pruebas: funcionamiento, puertos, interfaz web, límites y seguridad.">
-        <title>MailHog</title>
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="keywords" content="phishing mailhog SMTP correo testing desarrollo GoPhish">
+<meta name="description" content="Guía de MailHog como servidor SMTP de pruebas: funcionamiento, puertos, interfaz web, límites y seguridad.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MailHog</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body>
+    <div class="page" data-cat="phishing mailhog SMTP correo testing desarrollo GoPhish">
+        <hr>
+        <h1>MailHog</h1>
 
-        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-        <script src="/Libreta/res/js/page.js"></script>
-    </head>
+        <div class="node-tags"><span class="tag">SMTP</span><span class="tag">correo</span><span class="tag">testing</span><span class="tag">desarrollo</span><span class="tag">GoPhish</span></div>
+        <div class="box box--info"><p><strong>MailHog</strong> es una herramienta para probar el envío de correo. Proporciona un servidor SMTP que recibe mensajes de aplicaciones y una interfaz web para inspeccionarlos sin entregarlos a destinatarios reales.</p><p>Es útil para revisar cabeceras, contenido HTML y adjuntos antes de configurar un servidor de correo de producción.</p></div>
+        <h2>Funcionamiento</h2>
+        <ol>
+            <li>La aplicación envía el mensaje al host y puerto SMTP de MailHog.</li>
+            <li>MailHog recibe y almacena el mensaje según su configuración.</li>
+            <li>La interfaz web permite inspeccionar el mensaje.</li>
+            <li>La API HTTP permite automatizar comprobaciones en pruebas.</li>
+        </ol>
+        <br>
+        <h2>Puertos habituales</h2>
+        <ul><li><strong>1025/TCP:</strong> servidor SMTP.</li><li><strong>8025/TCP:</strong> interfaz web y API.</li></ul>
+        <p>Son los valores predeterminados habituales, pero pueden cambiarse. En un laboratorio limita la publicación a loopback para que otros equipos no accedan al servicio.</p>
+        <h2>Qué puedes comprobar</h2>
+        <ul><li>Asunto, remitente y destinatarios.</li><li>Cabeceras y estructura MIME.</li><li>Contenido de texto y HTML.</li><li>Adjuntos y codificación.</li><li>Que la aplicación utiliza el host y puerto previstos.</li></ul>
+        <h2>Almacenamiento y límites</h2>
+        <p>El almacenamiento predeterminado es volátil y los mensajes pueden perderse al reiniciar o recrear el proceso. El proyecto documenta opciones de persistencia que deben configurarse expresamente.</p>
+        <p>MailHog es un servidor de pruebas, no un relay de producción. No lo expongas como servicio abierto ni lo utilices para entregar correo real.</p>
+        <h2>Integración con GoPhish</h2>
+        <p>Si ambos procesos se ejecutan en el mismo host, configura SMTP como <code>127.0.0.1:1025</code>. Si están en contenedores distintos, utiliza la red interna de Docker y el nombre del servicio: la dirección loopback de un contenedor apunta a ese mismo contenedor.</p>
+        <h2>Instalación</h2>
+        <p><span class="cat"><a href="./ini/index.html">Despliegue con Docker, verificación y limpieza</a></span></p>
+        <h2>Estado y mantenimiento</h2>
+        <p>El repositorio upstream de MailHog es un proyecto antiguo. Antes de integrarlo en un entorno actual, comprueba mantenimiento, compatibilidad y seguridad de la imagen utilizada. Para prácticas, mantenlo aislado.</p>
+        <h2>Fuentes</h2>
+        <ul><li><a href="https://github.com/mailhog/MailHog" target="_blank" rel="noopener noreferrer">Repositorio y README</a></li><li><a href="https://github.com/mailhog/MailHog/blob/master/docs/CONFIG.md" target="_blank" rel="noopener noreferrer">Opciones de configuración</a></li></ul>
 
-    <body>
-        <div class="page" data-cat="phishing mailhog SMTP correo testing desarrollo GoPhish">
-            <hr>
-            <h1>MailHog</h1>
-
-            <div class="node-tags"><span class="tag">SMTP</span><span class="tag">correo</span><span class="tag">testing</span><span class="tag">desarrollo</span><span class="tag">GoPhish</span></div>
-            <div class="box box--info"><p><strong>MailHog</strong> es una herramienta para probar el envío de correo. Proporciona un servidor SMTP que recibe mensajes de aplicaciones y una interfaz web para inspeccionarlos sin entregarlos a destinatarios reales.</p><p>Es útil para revisar cabeceras, contenido HTML y adjuntos antes de configurar un servidor de correo de producción.</p></div>
-            <h2>Funcionamiento</h2>
-            <ol>
-                <li>La aplicación envía el mensaje al host y puerto SMTP de MailHog.</li>
-                <li>MailHog recibe y almacena el mensaje según su configuración.</li>
-                <li>La interfaz web permite inspeccionar el mensaje.</li>
-                <li>La API HTTP permite automatizar comprobaciones en pruebas.</li>
-            </ol>
-            <h2>Puertos habituales</h2>
-            <ul><li><strong>1025/TCP:</strong> servidor SMTP.</li><li><strong>8025/TCP:</strong> interfaz web y API.</li></ul>
-            <p>Son los valores predeterminados habituales, pero pueden cambiarse. En un laboratorio limita la publicación a loopback para que otros equipos no accedan al servicio.</p>
-            <h2>Qué puedes comprobar</h2>
-            <ul><li>Asunto, remitente y destinatarios.</li><li>Cabeceras y estructura MIME.</li><li>Contenido de texto y HTML.</li><li>Adjuntos y codificación.</li><li>Que la aplicación utiliza el host y puerto previstos.</li></ul>
-            <h2>Almacenamiento y límites</h2>
-            <p>El almacenamiento predeterminado es volátil y los mensajes pueden perderse al reiniciar o recrear el proceso. El proyecto documenta opciones de persistencia que deben configurarse expresamente.</p>
-            <p>MailHog es un servidor de pruebas, no un relay de producción. No lo expongas como servicio abierto ni lo utilices para entregar correo real.</p>
-            <h2>Integración con GoPhish</h2>
-            <p>Si ambos procesos se ejecutan en el mismo host, configura SMTP como <code>127.0.0.1:1025</code>. Si están en contenedores distintos, utiliza la red interna de Docker y el nombre del servicio: la dirección loopback de un contenedor apunta a ese mismo contenedor.</p>
-            <h2>Instalación</h2>
-            <p><span class="cat"><a href="./ini/index.html">Despliegue con Docker, verificación y limpieza</a></span></p>
-            <h2>Estado y mantenimiento</h2>
-            <p>El repositorio upstream de MailHog es un proyecto antiguo. Antes de integrarlo en un entorno actual, comprueba mantenimiento, compatibilidad y seguridad de la imagen utilizada. Para prácticas, mantenlo aislado.</p>
-            <h2>Fuentes</h2>
-            <ul><li><a href="https://github.com/mailhog/MailHog" target="_blank" rel="noopener noreferrer">Repositorio y README</a></li><li><a href="https://github.com/mailhog/MailHog/blob/master/docs/CONFIG.md" target="_blank" rel="noopener noreferrer">Opciones de configuración</a></li></ul>
-
-            <hr>
-        </div>
-    </body>
+        <hr>
+    </div>
+</body>
 </html>
