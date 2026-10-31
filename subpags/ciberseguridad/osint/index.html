@@ -1,108 +1,83 @@
 <!doctype html>
 <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Nooko">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="OSINT, fuentes abiertas, investigación, reconocimiento, metadatos, identidad digital">
+        <meta name="description" content="Principios y herramientas OSINT para recopilar, contrastar y analizar información de fuentes abiertas de forma responsable.">
+        <title>OSINT</title>
 
-<head>
-  <meta charset="UTF-8">
+        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+        <script src="/Libreta/res/js/page.js"></script>
+    </head>
 
-  <meta name="author" content="Nooko">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <body>
+        <div class="page" data-cat="osint">
+            <hr>
+            <h1>OSINT (Open Source Intelligence)</h1>
 
-  <meta name="keywords"
-    content="osint, inteligencia de fuentes abiertas, reconocimiento, investigación, exiftool, holehe, seguridad">
+            <div class="node-tags">
+                <span class="tag">OSINT</span>
+                <span class="tag">reconocimiento</span>
+                <span class="tag">investigación</span>
+                <span class="tag">fuentes-abiertas</span>
+            </div>
 
-  <meta name="description"
-    content="OSINT (Open Source Intelligence): recopilación y análisis de información pública para investigación y reconocimiento.">
+            <div class="box box--info">
+                <p>
+                    <strong>OSINT</strong> es el proceso de recopilar, evaluar, relacionar y analizar información
+                    obtenida de fuentes legalmente accesibles al público para responder una pregunta de investigación.
+                    No consiste únicamente en buscar datos: también exige comprobar su procedencia, actualidad y fiabilidad.
+                </p>
+            </div>
 
-  <title>OSINT</title>
+            <h2>Etapas de una investigación</h2>
+            <ol>
+                <li><strong>Definir el objetivo:</strong> concreta qué pregunta se quiere responder y qué queda fuera del alcance.</li>
+                <li><strong>Recopilar:</strong> consulta fuentes públicas pertinentes y registra dónde y cuándo se obtuvo cada dato.</li>
+                <li><strong>Contrastar:</strong> compara la información con fuentes independientes para reducir errores y homónimos.</li>
+                <li><strong>Analizar:</strong> relaciona los datos sin confundir coincidencia con causalidad.</li>
+                <li><strong>Documentar:</strong> conserva evidencias, método, limitaciones y nivel de confianza.</li>
+            </ol>
 
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
-</head>
+            <h2>Herramientas disponibles</h2>
+            <div class="box">
+                <h3>Holehe</h3>
+                <p>
+                    Comprueba señales de registro de una dirección de correo en servicios compatibles.
+                    Sus resultados son indicios y pueden verse afectados por cambios en las plataformas
+                    o medidas antiabuso.
+                </p>
+                <p><span class="cat"><a href="./holehe/index.html">Documentación de Holehe</a></span></p>
+            </div>
 
-<body>
+            <div class="box">
+                <h3>ExifTool</h3>
+                <p>
+                    Lee y permite gestionar metadatos incrustados en imágenes, documentos y otros archivos.
+                    Puede ayudar a identificar fechas, dispositivos o coordenadas cuando esos datos existen.
+                </p>
+                <p><span class="cat"><a href="./exiftool/index.html">Documentación de ExifTool</a></span></p>
+            </div>
 
-  <div class="page" data-cat="osint">
-    <hr>
+            <h2>Fiabilidad y límites</h2>
+            <ul>
+                <li>Un dato público puede estar desactualizado, ser falso o pertenecer a otra persona.</li>
+                <li>La ausencia de un resultado no demuestra que la información no exista.</li>
+                <li>Los metadatos pueden eliminarse, alterarse o heredarse al copiar archivos.</li>
+                <li>Las plataformas pueden limitar consultas o modificar sus respuestas.</li>
+                <li>La correlación de datos personales puede afectar a la privacidad aunque cada dato aislado sea público.</li>
+            </ul>
 
-    <h1>OSINT (Open Source Intelligence)</h1>
+            <div class="box box--info">
+                <p>
+                    <strong>Uso responsable:</strong> limita la recopilación a lo necesario, evita publicar datos personales
+                    y no utilices la información para acosar, suplantar o acceder a cuentas ajenas.
+                </p>
+            </div>
 
-    <div class="node-tags">
-            <span class="tag">osint</span>
-            <span class="tag">reconocimiento</span>
-            <span class="tag">investigación</span>
-            <span class="tag">inteligencia</span>
-            <span class="tag">fuentes-abiertas</span>
+            <hr>
         </div>
-
-    <br>
-
-    <div class="box box--info">
-      <p>
-        <strong>OSINT</strong> (Open Source Intelligence)
-        consiste en recopilar, correlacionar y analizar
-        información disponible públicamente para obtener
-        conocimiento útil sobre personas, organizaciones,
-        infraestructuras o eventos.
-      </p>
-    </div>
-
-    <p>
-      Estas técnicas son ampliamente utilizadas en
-      investigación, auditorías de seguridad,
-      reconocimiento previo a pruebas de penetración
-      y análisis de presencia digital.
-    </p>
-
-    <br>
-    <hr>
-
-    <h2>Herramientas Disponibles</h2>
-
-    <!-- Holehe -->
-    <div class="box">
-      <h3>Holehe</h3>
-
-      <p>
-        Verifica en qué servicios está registrado un correo electrónico.
-      </p>
-
-      <ul>
-        <li>
-          <span class="cat">
-            <a href="./holehe/index.html">
-              Abrir documentación
-            </a>
-          </span>
-        </li>
-      </ul>
-    </div>
-
-    <br>
-
-    <!-- ExifTool -->
-    <div class="box">
-      <h3>ExifTool</h3>
-
-      <p>
-        Extrae, analiza y modifica metadatos de archivos e imágenes.
-      </p>
-
-      <ul>
-        <li>
-          <span class="cat">
-            <a href="./exiftool/index.html">
-              Abrir documentación
-            </a>
-          </span>
-        </li>
-      </ul>
-    </div>
-
-    <br>
-    <hr>
-
-  </div>
-
-</body>
-
+    </body>
 </html>
