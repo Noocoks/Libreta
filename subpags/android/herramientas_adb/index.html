@@ -15,10 +15,84 @@
         <hr>
         <h1>Herramientas ADB</h1>
         <div class="box box--info">
-            <p>Apuntes sobre <strong>Android Debug Bridge (ADB)</strong> y <strong>Fastboot</strong>: conexión, diagnóstico y gestión de dispositivos Android.</p>
-            <p>La documentación está pendiente de completar.</p>
+            <p><strong>Android Debug Bridge (ADB)</strong> y <strong>Fastboot</strong> son herramientas oficiales de la plataforma Android que permiten comunicarse con un dispositivo desde un ordenador. ADB se utiliza principalmente con Android iniciado; Fastboot trabaja desde el modo bootloader o fastboot.</p>
+            <p>Son habituales para desarrollo, diagnóstico, mantenimiento e instalación de software en dispositivos propios o autorizados.</p>
         </div>
         <hr>
+        <h2>ADB y Fastboot: diferencias</h2>
+        <div class="box">
+            <h3>ADB (Android Debug Bridge)</h3>
+            <p>Establece una conexión entre el ordenador y Android mediante el servicio de depuración. Permite ejecutar comandos en una shell remota, transferir archivos, instalar paquetes y consultar registros del sistema.</p>
+        </div>
+        <div class="box">
+            <h3>Fastboot</h3>
+            <p>Es una herramienta de bajo nivel que se comunica con el bootloader. Se utiliza para consultar el estado del dispositivo y, cuando el fabricante lo permite, gestionar particiones o instalar imágenes del sistema.</p>
+        </div>
+        <hr>
+        <h2>Requisitos y preparación</h2>
+        <ul>
+            <li>Instalar Android SDK Platform-Tools desde la documentación oficial de Android.</li>
+            <li>Activar las <strong>Opciones de desarrollador</strong> y la <strong>Depuración USB</strong> si se va a utilizar ADB por cable.</li>
+            <li>Conectar el dispositivo y aceptar en su pantalla la huella RSA del ordenador. No autorizar equipos que no sean de confianza.</li>
+            <li>Para Fastboot, reiniciar al modo bootloader mediante el método específico del fabricante.</li>
+        </ul>
+        <div class="box box--info">
+            <p><strong>Importante:</strong> desbloquear el bootloader suele borrar todos los datos del dispositivo y puede afectar a la garantía o a funciones de seguridad. El procedimiento depende del fabricante y del modelo.</p>
+        </div>
+        <hr>
+        <h2>Comandos básicos de ADB</h2>
+        <div class="box">
+            <h3>Comprobar la conexión</h3>
+            <pre>adb devices</pre>
+            <p>Muestra los dispositivos detectados y su estado. Si aparece como <code>unauthorized</code>, hay que aceptar la autorización en el teléfono.</p>
+        </div>
+        <div class="box">
+            <h3>Acceder a la shell</h3>
+            <pre>adb shell</pre>
+            <p>Abre una terminal dentro del dispositivo con los permisos del usuario de depuración; no concede acceso root automáticamente.</p>
+        </div>
+        <div class="box">
+            <h3>Instalar y transferir archivos</h3>
+            <pre>adb install aplicacion.apk
+adb push archivo.txt /sdcard/Download/
+adb pull /sdcard/Download/archivo.txt .</pre>
+            <p>Instala un APK o copia archivos entre el ordenador y el almacenamiento accesible del dispositivo.</p>
+        </div>
+        <div class="box">
+            <h3>Consultar registros y reiniciar</h3>
+            <pre>adb logcat
+adb reboot
+adb reboot bootloader</pre>
+            <p><code>logcat</code> muestra registros del sistema y de las aplicaciones. Los registros pueden contener datos privados; revísalos antes de compartirlos.</p>
+        </div>
+        <hr>
+        <h2>Comandos básicos de Fastboot</h2>
+        <div class="box">
+            <pre>fastboot devices
+fastboot getvar product
+fastboot reboot</pre>
+            <p>Permiten comprobar si el dispositivo está detectado, consultar una variable de identificación y reiniciar Android. La disponibilidad de variables puede variar según el bootloader.</p>
+        </div>
+        <div class="box box--info">
+            <p>No ejecutes comandos de escritura como <code>flash</code>, <code>erase</code> o el desbloqueo del bootloader sin confirmar antes que la imagen corresponde exactamente al modelo y variante del dispositivo. Un archivo incorrecto puede dejarlo inutilizable.</p>
+        </div>
+        <hr>
+        <h2>Comprobación de la instalación</h2>
+        <div class="box">
+            <pre>adb version
+fastboot --version
+which adb
+which fastboot</pre>
+            <p>Las herramientas deben mostrar su versión y el sistema debe localizar sus ejecutables. Para comprobar la conexión real, utiliza <code>adb devices</code> con Android iniciado o <code>fastboot devices</code> en el modo correspondiente.</p>
+        </div>
+        <hr>
+        <h2>Recursos oficiales</h2>
+        <div class="box">
+            <ul>
+                <li><span class="cat"><a href="https://developer.android.com/tools/adb" target="_blank" rel="noopener noreferrer">Documentación oficial de ADB</a></span></li>
+                <li><span class="cat"><a href="https://developer.android.com/tools/releases/platform-tools" target="_blank" rel="noopener noreferrer">Descarga de Android SDK Platform-Tools</a></span></li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>
