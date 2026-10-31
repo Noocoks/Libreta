@@ -1,155 +1,206 @@
 <!doctype html>
+
 <html lang="es">
+
   <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Nooko">
-    <meta name="keywords" content="fuerza bruta, auditoría, autenticación, contraseñas, diccionarios, Hydra, Medusa">
-    <meta name="description" content="Conceptos y herramientas para evaluar mecanismos de autenticación y defensas frente a intentos repetidos de acceso.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-      Ataques de fuerza bruta
-    </title>
-    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-    <script src="/Libreta/res/js/page.js">
-    </script>
+      <meta charset="UTF-8"><meta name="author" content="Nooko"><meta name="keywords" content="fuerza bruta, auditoría, autenticación, contraseñas, diccionarios, Hydra, Medusa"><meta name="description" content="Conceptos y herramientas para evaluar mecanismos de autenticación y defensas frente a intentos repetidos de acceso."><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>
+    Ataques de fuerza bruta </title><link rel="stylesheet" href="/Libreta/res/css/styles.css">
+        <script src="/Libreta/res/js/page.js"></script>
+
   </head>
+
   <body>
+
     <div class="page" data-cat="fuerza-bruta">
       <hr>
+
       <h1>
         Ataques de fuerza bruta
+
       </h1>
+
       <div class="node-tags">
-        <span class="tag">
-          pentesting
-        </span>
-        <span class="tag">
-          credenciales
-        </span>
-        <span class="tag">
-          autenticación
-        </span>
-        <span class="tag">
-          diccionarios
-        </span>
+          <span class="tag">pentesting </span><span class="tag">credenciales </span><span class="tag">
+        autenticación </span><span class="tag">diccionarios </span>
+
       </div>
+
       <div class="box box--info">
+
         <p>
           Un ataque de fuerza bruta intenta adivinar una credencial probando distintas contraseñas o
           combinaciones de usuario y contraseña hasta encontrar una que el servicio acepte. Las
-          variantes basadas en diccionarios utilizan listas de candidatos en lugar de generar todas
-          las combinaciones posibles.
+          variantes basadas en diccionarios utilizan listas de candidatos en lugar de generar todas las
+          combinaciones posibles.
+
         </p>
+
         <p>
-          En una auditoría autorizada, estas pruebas permiten comprobar si las contraseñas, los
-          límites de intentos y la monitorización ofrecen una protección suficiente. La actividad
-          puede provocar bloqueos, alertas o carga adicional, por lo que debe planificarse y
-          limitarse.
+          En una auditoría autorizada, estas pruebas permiten comprobar si las contraseñas, los límites
+          de intentos y la monitorización ofrecen una protección suficiente. La actividad puede provocar
+          bloqueos, alertas o carga adicional, por lo que debe planificarse y limitarse.
+
         </p>
+
       </div>
+
       <h2>
         Conceptos que conviene distinguir
+
       </h2>
+
       <div class="box">
+
         <h3>
           Fuerza bruta
+
         </h3>
+
         <p>
           Prueba sistemática de un conjunto de combinaciones. El espacio de búsqueda puede crecer
           rápidamente con la longitud y complejidad de la contraseña.
+
         </p>
+
       </div>
+
       <div class="box">
+
         <h3>
           Ataque de diccionario
+
         </h3>
+
         <p>
-          Prueba palabras y contraseñas candidatas procedentes de listas. Puede ser más eficiente
-          cuando se utilizan contraseñas comunes o previsibles.
+          Prueba palabras y contraseñas candidatas procedentes de listas. Puede ser más eficiente cuando
+          se utilizan contraseñas comunes o previsibles.
+
         </p>
+
       </div>
+
       <div class="box">
+
         <h3>
           Password spraying
+
         </h3>
+
         <p>
-          Prueba un número reducido de contraseñas comunes contra muchas cuentas. Puede eludir
-          umbrales de bloqueo por cuenta si las defensas no correlacionan los eventos.
+          Prueba un número reducido de contraseñas comunes contra muchas cuentas. Puede eludir umbrales
+          de bloqueo por cuenta si las defensas no correlacionan los eventos.
+
         </p>
+
       </div>
+
       <div class="box">
+
         <h3>
           Credential stuffing
+
         </h3>
+
         <p>
-          Prueba pares de usuario y contraseña filtrados previamente en otros servicios. Se apoya en
-          la reutilización de contraseñas, no en adivinarlas desde cero.
+          Prueba pares de usuario y contraseña filtrados previamente en otros servicios. Se apoya en la
+          reutilización de contraseñas, no en adivinarlas desde cero.
+
         </p>
+
       </div>
+
       <h2>
         Herramientas documentadas
+
       </h2>
+
       <div class="box">
+
         <h3>
           Hydra
+
         </h3>
+
         <p>
           Herramienta modular para auditar autenticación en distintos servicios de red.
+
         </p>
+
         <p>
-          <span class="cat">
-            <a href="./hydra/index.html">
-              Documentación de Hydra
-            </a>
-          </span>
+          <span class="cat"><a href="./hydra/index.html">Documentación de Hydra </a></span>
+
         </p>
+
       </div>
+
       <div class="box">
+
         <h3>
           Medusa
+
         </h3>
+
         <p>
-          Herramienta de auditoría de autenticación con ejecución concurrente y módulos por
-          servicio.
+          Herramienta de auditoría de autenticación con ejecución concurrente y módulos por servicio.
+
         </p>
+
         <p>
-          <span class="cat">
-            <a href="./medusa/index.html">
-              Documentación de Medusa
-            </a>
-          </span>
+          <span class="cat"><a href="./medusa/index.html">Documentación de Medusa </a></span>
+
         </p>
+
       </div>
+
       <h2>
         Qué debe evaluarse
+
       </h2>
+
       <ul>
+
         <li>
           Longitud, unicidad y almacenamiento seguro de las contraseñas.
+
         </li>
+
         <li>
           Autenticación multifactor y métodos resistentes al phishing.
+
         </li>
+
         <li>
           Limitación de intentos, retardos progresivos y bloqueos proporcionados.
+
         </li>
+
         <li>
           Detección de patrones distribuidos entre cuentas, direcciones y dispositivos.
+
         </li>
+
         <li>
           Registro, alertas y procedimientos de respuesta.
+
         </li>
+
       </ul>
+
       <div class="box box--info">
+
         <p>
-          <strong>
-            Importante:
-          </strong>
-          un bloqueo rígido puede facilitar una denegación de servicio contra usuarios legítimos.
-          Las defensas deben equilibrar protección, disponibilidad y recuperación segura de cuentas.
+          <strong>Importante: </strong>un bloqueo rígido puede facilitar una denegación de servicio
+          contra usuarios legítimos. Las defensas deben equilibrar protección, disponibilidad y
+          recuperación segura de cuentas.
+
         </p>
+
       </div>
+
       <hr>
+
     </div>
+
   </body>
+
 </html>
