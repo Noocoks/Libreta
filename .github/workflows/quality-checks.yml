@@ -51,6 +51,9 @@ jobs:
       - name: Validate tree routes, local links and Python syntax
         run: python scripts/validate_project.py
 
+      - name: Validate CSS resources and HTML fragments
+        run: python scripts/validate_assets.py
+
       - name: Validate JavaScript syntax
         shell: bash
         run: |
