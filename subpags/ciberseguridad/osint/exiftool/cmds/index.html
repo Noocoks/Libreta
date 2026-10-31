@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <meta name="author" content="Nooko">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="ExifTool, comandos, metadatos, OSINT, forense, privacidad">
-        <meta name="description" content="Referencia práctica de comandos ExifTool para consultar, filtrar, exportar y modificar metadatos.">
+        <meta name="keywords" content="ExifTool, comandos, EXIF, XMP, metadatos, JSON, CSV">
+        <meta name="description" content="Referencia práctica de ExifTool con comandos de lectura, filtrado, exportación, edición y preservación de originales.">
         <title>Comandos útiles - ExifTool</title>
 
         <link rel="stylesheet" href="/Libreta/res/css/styles.css">
@@ -19,76 +19,108 @@
 
             <div class="box box--info">
                 <p>
-                    Los ejemplos utilizan <code>archivo.jpg</code> como nombre ilustrativo. Sustitúyelo por la ruta
-                    de un archivo propio. Para las operaciones que modifican metadatos, crea primero una copia.
-                    ExifTool suele conservar el original con extensión <code>_original</code>, pero no conviene
-                    depender de ello como única copia de seguridad.
+                    Los ejemplos usan <code>imagen.jpg</code> como archivo ilustrativo. Sustitúyelo por una ruta
+                    propia. Los comandos de escritura modifican archivos: conserva una copia de seguridad y
+                    comprueba el resultado antes de eliminar cualquier original.
                 </p>
             </div>
 
+            <h2>1. Comprobaciones básicas</h2>
             <div class="box">
-                <h3>Consultar metadatos</h3>
-                <p>
-                    Muestra los campos que ExifTool puede interpretar del archivo. La opción <code>-a</code>
-                    permite mostrar etiquetas duplicadas y <code>-G1</code> identifica el grupo al que pertenece
-                    cada etiqueta.
-                </p>
-                <pre>exiftool archivo.jpg
-exiftool -a -G1 archivo.jpg
-exiftool -exif:all -gps:all archivo.jpg</pre>
+                <pre>exiftool -ver
+exiftool -listf
+exiftool imagen.jpg</pre>
+                <p>Consulta la versión, los formatos reconocidos y los metadatos que pueden leerse del archivo.</p>
             </div>
 
+            <h2>2. Salida más detallada</h2>
             <div class="box">
-                <h3>Consultar campos concretos</h3>
-                <p>Útil cuando solo interesa una parte de la información. Si el campo no existe, no se mostrará un valor.</p>
-                <pre>exiftool -DateTimeOriginal archivo.jpg
-exiftool -GPSLatitude -GPSLongitude archivo.jpg
-exiftool -Make -Model archivo.jpg</pre>
+                <pre>exiftool -a -G1 -s imagen.jpg
+exiftool -EXIF:all imagen.jpg
+exiftool -XMP:all imagen.jpg
+exiftool -GPS:all imagen.jpg</pre>
+                <ul>
+                    <li><code>-a</code> permite mostrar etiquetas duplicadas.</li>
+                    <li><code>-G1</code> muestra el grupo al que pertenece cada etiqueta.</li>
+                    <li><code>-s</code> utiliza nombres de etiquetas breves.</li>
+                </ul>
             </div>
 
+            <h2>3. Consultar campos concretos</h2>
             <div class="box">
-                <h3>Procesar varios archivos</h3>
-                <p>El comodín procesa los archivos coincidentes de la carpeta actual. La opción <code>-r</code> recorre subdirectorios.</p>
+                <pre>exiftool -Make -Model imagen.jpg
+exiftool -DateTimeOriginal -CreateDate -ModifyDate imagen.jpg
+exiftool -GPSLatitude -GPSLongitude imagen.jpg
+exiftool -ImageWidth -ImageHeight imagen.jpg</pre>
+                <p>Las etiquetas que no existan o no sean compatibles no producirán un valor.</p>
+            </div>
+
+            <h2>4. Procesar directorios</h2>
+            <div class="box">
                 <pre>exiftool *.jpg
-exiftool -r /ruta/a/carpeta
-exiftool -csv -FileName -DateTimeOriginal -Make *.jpg > metadatos.csv</pre>
+exiftool -r ./fotografias
+exiftool -r -ext jpg -ext jpeg ./fotografias</pre>
+                <p><code>-r</code> recorre subdirectorios. Limita la carpeta a un conjunto de archivos que tengas derecho a analizar.</p>
             </div>
 
+            <h2>5. Exportar datos</h2>
             <div class="box">
-                <h3>Modificar metadatos</h3>
-                <p>Estas operaciones escriben cambios en el archivo. Comprueba la sintaxis y trabaja sobre copias antes de aplicarlas a un conjunto completo.</p>
-                <pre>exiftool -Artist="Nombre de autor" copia.jpg
-exiftool "-DateTimeOriginal=2026:05:16 10:00:00" copia.jpg
-exiftool -TagsFromFile fuente.jpg destino.jpg</pre>
+                <pre>exiftool -json imagen.jpg > metadatos.json
+exiftool -csv -FileName -DateTimeOriginal -Make -Model *.jpg > inventario.csv
+exiftool -X imagen.jpg > metadatos.xmp</pre>
+                <p>JSON y CSV facilitan el análisis posterior. Comprueba la codificación y los campos vacíos al procesar lotes.</p>
             </div>
 
+            <h2>6. Filtrar por presencia de GPS</h2>
             <div class="box">
-                <h3>Eliminar metadatos</h3>
-                <p>
-                    La opción <code>-all=</code> elimina los grupos de metadatos que ExifTool puede modificar
-                    en ese formato; no elimina el contenido de la imagen ni garantiza que el archivo quede anónimo.
-                </p>
-                <pre>exiftool -all= copia.jpg</pre>
-            </div>
-
-            <div class="box">
-                <h3>Filtrar archivos con GPS</h3>
-                <p>
-                    La condición <code>-if</code> permite procesar solo archivos que tengan el campo indicado.
-                    Las expresiones usan nombres de etiquetas de ExifTool.
-                </p>
                 <pre>exiftool -if '$GPSLatitude' -GPS:all *.jpg</pre>
+                <p>El filtro limita la salida a los archivos que contienen el campo indicado. No confirma que la ubicación sea correcta.</p>
+            </div>
+
+            <h2>7. Escribir o copiar etiquetas</h2>
+            <div class="box">
+                <pre>exiftool -Artist="Autor de laboratorio" copia.jpg
+exiftool "-DateTimeOriginal=2026:01:15 12:30:00" copia.jpg
+exiftool -TagsFromFile origen.jpg destino.jpg</pre>
+                <p>
+                    Estos ejemplos escriben metadatos. La fecha es ilustrativa; no la utilices para alterar
+                    evidencias ni para presentar como auténtico un dato que no lo es.
+                </p>
+            </div>
+
+            <h2>8. Eliminar metadatos</h2>
+            <div class="box">
+                <pre>exiftool -all= copia.jpg</pre>
+                <p>
+                    Elimina los grupos de metadatos que ExifTool puede modificar para ese formato. El alcance
+                    exacto depende del archivo y de sus estructuras; no garantiza anonimato ni elimina información
+                    visible en la imagen.
+                </p>
+            </div>
+
+            <h2>9. Preservar y verificar</h2>
+            <div class="box">
+                <pre>cp imagen.jpg imagen-trabajo.jpg
+sha256sum imagen.jpg imagen-trabajo.jpg
+exiftool imagen-trabajo.jpg</pre>
+                <p>
+                    ExifTool suele conservar una copia con sufijo <code>_original</code> al escribir, salvo que
+                    se indique lo contrario. Aun así, crea tu propia copia y registra hashes antes y después.
+                </p>
             </div>
 
             <div class="box box--info">
                 <p>
-                    <strong>Interpretación forense:</strong> los metadatos son indicios, no una prueba definitiva
-                    de quién creó un archivo, cuándo se tomó una imagen o dónde ocurrió un evento. Pueden editarse,
-                    perderse durante una conversión o reflejar la hora del dispositivo y no una hora verificada.
+                    <strong>Interpretación:</strong> un metadato es un atributo almacenado, no una garantía
+                    de autenticidad. Puede editarse, desaparecer durante una conversión o reflejar el reloj
+                    local del dispositivo. En análisis forense conserva el original y documenta el método.
                 </p>
             </div>
 
+            <h2>Referencia oficial</h2>
+            <p><a href="https://exiftool.org/exiftool_pod.html" target="_blank" rel="noopener noreferrer">Manual de ExifTool y ejemplos de línea de comandos</a></p>
             <hr>
         </div>
+
     </body>
 </html>
