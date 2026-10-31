@@ -2,6 +2,7 @@ var right_arrow_heavy = '&#129090;';
 var left_arrow_heavy = '&#129088;';
 
 var treeData = null;
+var activeNavigationPath = null;
 
 /* ==============================
    ROUTER / IFRAME NAVIGATION
@@ -116,6 +117,8 @@ function navigate(file_path, push = true) {
         console.warn("Navegación bloqueada: ruta no permitida.", file_path);
         return false;
     }
+
+    activeNavigationPath = allowedPath;
 
     iframe.style.opacity = 0;
 
@@ -776,6 +779,17 @@ function syncFrameTags(tag) {
 /* ==============================
    INIT
 ============================== */
+/* ==============================
+   BROWSER HISTORY NAVIGATION
+============================== */
+window.addEventListener("hashchange", function () {
+    var path = window.location.hash.replace(/^#/, "");
+
+    if (path && path !== activeNavigationPath) {
+        navigate(path, false);
+    }
+});
+
 window.addEventListener("load", function () {
 
     loadTree();
