@@ -1,112 +1,117 @@
 <!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Nooko">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="ExifTool, metadatos, EXIF, GPS, OSINT, análisis forense, privacidad">
-        <meta name="description" content="Guía de ExifTool para leer, interpretar, exportar y modificar metadatos, con precauciones de privacidad y análisis forense.">
-        <title>ExifTool</title>
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="keywords" content="ExifTool, metadatos, EXIF, GPS, OSINT, análisis forense, privacidad">
+<meta name="description" content="Guía de ExifTool para leer, interpretar, exportar y modificar metadatos, con precauciones de privacidad y análisis forense.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExifTool</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body>
+    <div class="page" data-cat="osint exiftool">
+        <hr>
+        <h1>ExifTool</h1>
 
-        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-        <script src="/Libreta/res/js/page.js"></script>
-    </head>
+        <div class="node-tags">
+            <span class="tag">metadatos</span>
+            <span class="tag">EXIF</span>
+            <span class="tag">GPS</span>
+            <span class="tag">OSINT</span>
+            <span class="tag">privacidad</span>
+        </div>
+        <br>
 
-    <body>
-        <div class="page" data-cat="osint exiftool">
-            <hr>
-            <h1>ExifTool</h1>
-
-            <div class="node-tags">
-                <span class="tag">metadatos</span>
-                <span class="tag">EXIF</span>
-                <span class="tag">GPS</span>
-                <span class="tag">OSINT</span>
-                <span class="tag">privacidad</span>
-            </div>
-
-            <div class="box box--info">
-                <p>
-                    <strong>ExifTool</strong> es una utilidad de línea de comandos y una biblioteca para leer,
-                    escribir y gestionar metadatos en una gran variedad de formatos. Aunque su nombre hace
-                    referencia a EXIF, también trabaja con otros grupos de metadatos y tipos de archivo.
-                </p>
-                <p>
-                    En OSINT y análisis forense permite examinar información técnica, fechas, software,
-                    autoría o coordenadas cuando esos campos están presentes. La herramienta muestra datos
-                    almacenados en el archivo; no certifica que sean auténticos.
-                </p>
-            </div>
-
-            <h2>Qué son los metadatos</h2>
+        <div class="box box--info">
             <p>
-                Son datos descriptivos asociados al archivo. Pueden almacenarse en distintos bloques o estándares,
-                por ejemplo EXIF, IPTC, XMP o etiquetas propias del formato. Dos imágenes visualmente idénticas
-                pueden contener metadatos diferentes.
+                <strong>ExifTool</strong> es una utilidad de línea de comandos y una biblioteca para leer,
+                escribir y gestionar metadatos en una gran variedad de formatos. Aunque su nombre hace
+                referencia a EXIF, también trabaja con otros grupos de metadatos y tipos de archivo.
             </p>
+            <p>
+                En OSINT y análisis forense permite examinar información técnica, fechas, software,
+                autoría o coordenadas cuando esos campos están presentes. La herramienta muestra datos
+                almacenados en el archivo; no certifica que sean auténticos.
+            </p>
+        </div>
+        <br>
 
-            <h2>Información que puede encontrarse</h2>
-            <div class="box">
-                <ul>
-                    <li><strong>Captura:</strong> fabricante y modelo del dispositivo, parámetros de cámara y orientación.</li>
-                    <li><strong>Fechas:</strong> fecha de captura, creación o modificación. No siempre representan el mismo momento.</li>
-                    <li><strong>Geolocalización:</strong> latitud, longitud y otros campos GPS si fueron guardados.</li>
-                    <li><strong>Edición:</strong> software utilizado, historial parcial o campos añadidos por una aplicación.</li>
-                    <li><strong>Autoría:</strong> autor, copyright, descripción y comentarios.</li>
-                    <li><strong>Datos técnicos:</strong> dimensiones, formato, perfil de color, códec y otros atributos.</li>
-                </ul>
-            </div>
+        <h2>Qué son los metadatos</h2>
+        <p>
+            Son datos descriptivos asociados al archivo. Pueden almacenarse en distintos bloques o estándares,
+            por ejemplo EXIF, IPTC, XMP o etiquetas propias del formato. Dos imágenes visualmente idénticas
+            pueden contener metadatos diferentes.
+        </p>
+        <br>
 
-            <h2>Instalación y primera inspección</h2>
-            <pre>sudo apt update
+        <h2>Información que puede encontrarse</h2>
+        <div class="box">
+            <ul>
+                <li><strong>Captura:</strong> fabricante y modelo del dispositivo, parámetros de cámara y orientación.</li>
+                <li><strong>Fechas:</strong> fecha de captura, creación o modificación. No siempre representan el mismo momento.</li>
+                <li><strong>Geolocalización:</strong> latitud, longitud y otros campos GPS si fueron guardados.</li>
+                <li><strong>Edición:</strong> software utilizado, historial parcial o campos añadidos por una aplicación.</li>
+                <li><strong>Autoría:</strong> autor, copyright, descripción y comentarios.</li>
+                <li><strong>Datos técnicos:</strong> dimensiones, formato, perfil de color, códec y otros atributos.</li>
+            </ul>
+        </div>
+        <br>
+
+        <h2>Instalación y primera inspección</h2>
+        <pre>sudo apt update
 sudo apt install libimage-exiftool-perl
 exiftool -ver
 exiftool imagen.jpg</pre>
-            <p>
-                La salida depende del formato y de los campos presentes. La ausencia de una etiqueta no demuestra
-                que el dato nunca existiera: puede no ser compatible, haberse eliminado o no haberse escrito.
-            </p>
+        <p>
+            La salida depende del formato y de los campos presentes. La ausencia de una etiqueta no demuestra
+            que el dato nunca existiera: puede no ser compatible, haberse eliminado o no haberse escrito.
+        </p>
+        <br>
 
-            <h2>Cómo interpretar correctamente los datos</h2>
-            <ul>
-                <li>Una fecha EXIF puede proceder del reloj del dispositivo y no de una fuente horaria fiable.</li>
-                <li>Las coordenadas GPS pueden estar ausentes, redondeadas o manipuladas.</li>
-                <li>El modelo de cámara identifica un campo declarado, no necesariamente el dispositivo físico original.</li>
-                <li>Una aplicación puede eliminar o reescribir metadatos al exportar o compartir un archivo.</li>
-                <li>Los metadatos deben contrastarse con el contenido, la procedencia y otras evidencias.</li>
-            </ul>
+        <h2>Cómo interpretar correctamente los datos</h2>
+        <ul>
+            <li>Una fecha EXIF puede proceder del reloj del dispositivo y no de una fuente horaria fiable.</li>
+            <li>Las coordenadas GPS pueden estar ausentes, redondeadas o manipuladas.</li>
+            <li>El modelo de cámara identifica un campo declarado, no necesariamente el dispositivo físico original.</li>
+            <li>Una aplicación puede eliminar o reescribir metadatos al exportar o compartir un archivo.</li>
+            <li>Los metadatos deben contrastarse con el contenido, la procedencia y otras evidencias.</li>
+        </ul>
+        <br>
 
-            <h2>Lectura, exportación y edición</h2>
-            <p>
-                ExifTool permite consultar etiquetas concretas, agruparlas por familia, exportar resultados
-                a JSON o CSV y copiar o modificar etiquetas. Para análisis repetibles es recomendable guardar
-                una copia de la salida original junto con el hash del archivo examinado.
-            </p>
-            <pre>sha256sum imagen.jpg
+        <h2>Lectura, exportación y edición</h2>
+        <p>
+            ExifTool permite consultar etiquetas concretas, agruparlas por familia, exportar resultados
+            a JSON o CSV y copiar o modificar etiquetas. Para análisis repetibles es recomendable guardar
+            una copia de la salida original junto con el hash del archivo examinado.
+        </p>
+        <pre>sha256sum imagen.jpg
 exiftool -a -G1 -s imagen.jpg
 exiftool -json imagen.jpg > metadatos.json</pre>
 
-            <h2>Privacidad y preservación de evidencias</h2>
-            <div class="box box--info">
-                <p>
-                    Antes de publicar una fotografía, revisa si contiene ubicación, identificadores de dispositivo
-                    u otros datos personales. Si vas a modificar metadatos, trabaja sobre una copia. En un análisis
-                    forense conserva el original sin alteraciones y documenta cualquier operación realizada.
-                </p>
-                <p>
-                    Eliminar metadatos no garantiza anonimato: el contenido visible, nombres de archivo,
-                    miniaturas, documentos adjuntos u otros elementos pueden seguir revelando información.
-                </p>
-            </div>
-
-            <h2>Comandos y documentación</h2>
-            <ul>
-                <li><span class="cat"><a href="./cmds/index.html">Referencia de comandos explicados</a></span></li>
-                <li><a href="https://exiftool.org/exiftool_pod.html" target="_blank" rel="noopener noreferrer">Documentación oficial de ExifTool</a></li>
-                <li><a href="https://exiftool.org/TagNames/" target="_blank" rel="noopener noreferrer">Referencia de etiquetas por formato</a></li>
-            </ul>
-            <hr>
+        <h2>Privacidad y preservación de evidencias</h2>
+        <div class="box box--info">
+            <p>
+                Antes de publicar una fotografía, revisa si contiene ubicación, identificadores de dispositivo
+                u otros datos personales. Si vas a modificar metadatos, trabaja sobre una copia. En un análisis
+                forense conserva el original sin alteraciones y documenta cualquier operación realizada.
+            </p>
+            <p>
+                Eliminar metadatos no garantiza anonimato: el contenido visible, nombres de archivo,
+                miniaturas, documentos adjuntos u otros elementos pueden seguir revelando información.
+            </p>
         </div>
+        <br>
 
-    </body>
+        <h2>Comandos y documentación</h2>
+        <ul>
+            <li><span class="cat"><a href="./cmds/index.html">Referencia de comandos explicados</a></span></li>
+            <li><a href="https://exiftool.org/exiftool_pod.html" target="_blank" rel="noopener noreferrer">Documentación oficial de ExifTool</a></li>
+            <li><a href="https://exiftool.org/TagNames/" target="_blank" rel="noopener noreferrer">Referencia de etiquetas por formato</a></li>
+        </ul>
+        <br>
+        <hr>
+    </div>
+</body>
 </html>
