@@ -1,49 +1,49 @@
 <!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Nooko">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="Hydra, laboratorio local, SSH, auditoría, autenticación, logs">
-        <meta name="description" content="Práctica controlada con Hydra sobre SSH en localhost, con cuentas desechables, límites de ejecución y análisis defensivo.">
-        <title>Laboratorio - Hydra</title>
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="keywords" content="Hydra, laboratorio local, SSH, auditoría, autenticación, logs">
+<meta name="description" content="Práctica controlada con Hydra sobre SSH en localhost, con cuentas desechables, límites de ejecución y análisis defensivo.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio - Hydra</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body>
+    <div class="page" data-cat="fuerza-bruta hydra lab">
+        <hr>
+        <h1>Laboratorio - Hydra</h1>
 
-        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-        <script src="/Libreta/res/js/page.js"></script>
-    </head>
+        <div class="node-tags">
+            <span class="tag">laboratorio</span>
+            <span class="tag">localhost</span>
+            <span class="tag">SSH</span>
+            <span class="tag">logs</span>
+        </div>
+        <br>
 
-    <body>
-        <div class="page" data-cat="fuerza-bruta hydra lab">
-            <hr>
-            <h1>Laboratorio - Hydra</h1>
+        <div class="box box--info">
+            <p>
+                El objetivo es observar cómo se comporta SSH ante una pequeña prueba de autenticación
+                automatizada y relacionar los resultados con los registros del sistema. Todos los comandos
+                de esta práctica apuntan a <code>127.0.0.1</code>, es decir, al propio equipo.
+            </p>
+            <p>
+                No cambies el objetivo por una IP pública, un equipo de la red o una cuenta real.
+                Usa una máquina virtual desechable o un entorno local que controles.
+            </p>
+        </div>
+        <br>
 
-            <div class="node-tags">
-                <span class="tag">laboratorio</span>
-                <span class="tag">localhost</span>
-                <span class="tag">SSH</span>
-                <span class="tag">logs</span>
-            </div>
-
-            <div class="box box--info">
-                <p>
-                    El objetivo es observar cómo se comporta SSH ante una pequeña prueba de autenticación
-                    automatizada y relacionar los resultados con los registros del sistema. Todos los comandos
-                    de esta práctica apuntan a <code>127.0.0.1</code>, es decir, al propio equipo.
-                </p>
-                <p>
-                    No cambies el objetivo por una IP pública, un equipo de la red o una cuenta real.
-                    Usa una máquina virtual desechable o un entorno local que controles.
-                </p>
-            </div>
-
-            <h2>1. Preparar el entorno</h2>
-            <p>En Debian, Ubuntu o Kali instala el servicio SSH y Hydra:</p>
-            <pre>sudo apt update
+        <h2>1. Preparar el entorno</h2>
+        <p>En Debian, Ubuntu o Kali instala el servicio SSH y Hydra:</p>
+        <pre>sudo apt update
 sudo apt install openssh-server hydra
 sudo systemctl enable --now ssh
 systemctl status ssh --no-pager</pre>
-            <p>Comprueba que SSH escucha localmente:</p>
-            <pre>ss -lnt | grep ':22'</pre>
+        <p>Comprueba que SSH escucha localmente:</p>
+        <pre>ss -lnt | grep ':22'</pre>
 
             <h2>2. Crear una cuenta de laboratorio</h2>
             <p>
@@ -52,25 +52,27 @@ systemctl status ssh --no-pager</pre>
             </p>
             <pre>sudo adduser labuser
 sudo passwd labuser</pre>
-            <p>
-                La contraseña se introduce de forma interactiva. No reutilices una contraseña personal
-                ni incluyas información real en los archivos de prueba.
-            </p>
+        <p>
+            La contraseña se introduce de forma interactiva. No reutilices una contraseña personal
+            ni incluyas información real en los archivos de prueba.
+        </p>
+        <br>
 
-            <h2>3. Crear una lista pequeña</h2>
-            <p>
-                Prepara una lista corta que contenga la contraseña de laboratorio y algunos valores ficticios.
-                La lista debe ser pequeña para que el ejercicio sea predecible y no genere carga innecesaria.
-            </p>
-            <pre>printf '%s\n' 'ClaveLab-Temporal-01' 'valor-ficticio-02' 'valor-ficticio-03' > claves-lab.txt
+        <h2>3. Crear una lista pequeña</h2>
+        <p>
+            Prepara una lista corta que contenga la contraseña de laboratorio y algunos valores ficticios.
+            La lista debe ser pequeña para que el ejercicio sea predecible y no genere carga innecesaria.
+        </p>
+        <pre>printf '%s\n' 'ClaveLab-Temporal-01' 'valor-ficticio-02' 'valor-ficticio-03' > claves-lab.txt
 chmod 600 claves-lab.txt</pre>
-            <p>
-                Asegúrate de haber establecido exactamente la primera entrada como contraseña de <code>labuser</code>
-                durante el paso anterior. Si elegiste otra, edita la lista para que coincida.
-            </p>
+        <p>
+            Asegúrate de haber establecido exactamente la primera entrada como contraseña de <code>labuser</code>
+            durante el paso anterior. Si elegiste otra, edita la lista para que coincida.
+        </p>
+        <br>
 
-            <h2>4. Ejecutar una comprobación limitada</h2>
-            <pre>hydra -l labuser -P claves-lab.txt ssh://127.0.0.1 -t 1 -W 2</pre>
+        <h2>4. Ejecutar una comprobación limitada</h2>
+        <pre>hydra -l labuser -P claves-lab.txt ssh://127.0.0.1 -t 1 -W 2</pre>
             <ul>
                 <li><code>-l</code> indica el usuario de prueba.</li>
                 <li><code>-P</code> indica el archivo de contraseñas.</li>
@@ -83,45 +85,49 @@ chmod 600 claves-lab.txt</pre>
             <p>En otra terminal, consulta los registros de autenticación:</p>
             <pre>sudo journalctl -u ssh --since "10 minutes ago"
 sudo tail -n 50 /var/log/auth.log</pre>
-            <p>
-                La ruta <code>/var/log/auth.log</code> depende de la distribución y de su configuración
-                de logging. Si no existe, utiliza el journal de systemd.
-            </p>
+        <p>
+            La ruta <code>/var/log/auth.log</code> depende de la distribución y de su configuración
+            de logging. Si no existe, utiliza el journal de systemd.
+        </p>
+        <br>
 
-            <h2>6. Analizar los resultados</h2>
-            <ul>
-                <li>Compara el número de intentos de la herramienta con los eventos registrados.</li>
-                <li>Comprueba qué usuario aparece en los eventos y las marcas temporales.</li>
-                <li>Distingue un rechazo de autenticación de un error de conexión.</li>
-                <li>Verifica manualmente que la cuenta de laboratorio sigue funcionando.</li>
-            </ul>
+        <h2>6. Analizar los resultados</h2>
+        <ul>
+            <li>Compara el número de intentos de la herramienta con los eventos registrados.</li>
+            <li>Comprueba qué usuario aparece en los eventos y las marcas temporales.</li>
+            <li>Distingue un rechazo de autenticación de un error de conexión.</li>
+            <li>Verifica manualmente que la cuenta de laboratorio sigue funcionando.</li>
+        </ul>
+        <br>
 
-            <h2>7. Restaurar el laboratorio</h2>
-            <pre>sudo passwd -l labuser
+        <h2>7. Restaurar el laboratorio</h2>
+        <pre>sudo passwd -l labuser
 sudo deluser --remove-home labuser
 rm -f claves-lab.txt</pre>
+        <p>
+            Si necesitas repetir la práctica, crea de nuevo la cuenta temporal. También puedes restaurar
+            una instantánea de la máquina virtual.
+        </p>
+        <br>
+
+        <h2>Conclusión y medidas defensivas</h2>
+        <ul>
+            <li>Utiliza contraseñas largas y únicas.</li>
+            <li>Deshabilita el acceso SSH por contraseña cuando sea viable y utiliza claves protegidas.</li>
+            <li>Restringe SSH por firewall y red de administración.</li>
+            <li>Aplica MFA cuando la arquitectura lo permita.</li>
+            <li>Centraliza registros y configura alertas de intentos anómalos.</li>
+        </ul>
+        <br>
+
+        <div class="box box--info">
             <p>
-                Si necesitas repetir la práctica, crea de nuevo la cuenta temporal. También puedes restaurar
-                una instantánea de la máquina virtual.
+                <strong>Nota:</strong> esta práctica demuestra un mecanismo de autenticación, no la seguridad
+                global del servidor. Un resultado de Hydra debe contrastarse siempre con los registros del servicio.
             </p>
-
-            <h2>Conclusión y medidas defensivas</h2>
-            <ul>
-                <li>Utiliza contraseñas largas y únicas.</li>
-                <li>Deshabilita el acceso SSH por contraseña cuando sea viable y utiliza claves protegidas.</li>
-                <li>Restringe SSH por firewall y red de administración.</li>
-                <li>Aplica MFA cuando la arquitectura lo permita.</li>
-                <li>Centraliza registros y configura alertas de intentos anómalos.</li>
-            </ul>
-
-            <div class="box box--info">
-                <p>
-                    <strong>Nota:</strong> esta práctica demuestra un mecanismo de autenticación, no la seguridad
-                    global del servidor. Un resultado de Hydra debe contrastarse siempre con los registros del servicio.
-                </p>
-            </div>
-            <hr>
         </div>
-
-    </body>
+        <br>
+        <hr>
+    </div>
+</body>
 </html>
