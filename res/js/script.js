@@ -202,6 +202,8 @@ function expandAllSubtrees() {
             btn.textContent = "-";
             btn.dataset.open = "true";
             btn.setAttribute("aria-expanded", "true");
+            var link = btn.parentElement.querySelector("a");
+            if (link) btn.setAttribute("aria-label", "Contraer " + link.textContent);
         }
     }
 }
