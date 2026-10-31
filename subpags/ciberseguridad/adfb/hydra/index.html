@@ -1,171 +1,101 @@
 <!doctype html>
-
 <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Nooko">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="Hydra, pentesting, fuerza bruta, diccionario, SSH, FTP, autenticación">
+        <meta name="description" content="Introducción a Hydra: auditoría de autenticación, instalación, casos de uso y recursos de laboratorio.">
+        <title>Hydra</title>
 
-<head>
-  <meta charset="UTF-8">
+        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+        <script src="/Libreta/res/js/page.js"></script>
+    </head>
 
-  <meta name="author" content="Nooko">
+    <body>
+        <div class="page" data-cat="fuerza-bruta hydra">
+            <hr>
+            <h1>Hydra</h1>
 
-  <meta name="keywords" content="hydra, pentesting, fuerza bruta, diccionario, ssh, ftp">
+            <p><em><small>Herramienta de auditoría de autenticación para entornos autorizados.</small></em></p>
 
-  <meta name="description"
-    content="Hydra es una herramienta de auditoría de seguridad utilizada para evaluar sistemas de autenticación mediante pruebas de credenciales en entornos autorizados.">
+            <div class="node-tags">
+                <span class="tag">pentesting</span>
+                <span class="tag">credenciales</span>
+                <span class="tag">diccionario</span>
+                <span class="tag">SSH</span>
+                <span class="tag">FTP</span>
+            </div>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <div class="box box--info">
+                <p>
+                    <strong>Hydra</strong> (THC Hydra) es una herramienta de código abierto que automatiza pruebas
+                    de autenticación contra distintos servicios de red mediante módulos específicos. En auditorías
+                    autorizadas se utiliza para evaluar la resistencia de las credenciales y de los controles de acceso.
+                </p>
+                <p>
+                    Hydra no descubre por sí sola una vulnerabilidad del software: prueba credenciales a través
+                    de mecanismos de inicio de sesión y depende de la respuesta del servicio, de la configuración
+                    y de los límites que este aplique.
+                </p>
+            </div>
 
-  <title>Hydra</title>
+            <h2>Casos de uso</h2>
+            <div class="box">
+                <h3>Auditoría de autenticación</h3>
+                <p>
+                    Comprobar, dentro de un alcance aprobado, si las cuentas de prueba utilizan contraseñas
+                    previsibles y si las políticas de acceso están correctamente configuradas.
+                </p>
+            </div>
 
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
-</head>
+            <div class="box">
+                <h3>Evaluación de controles defensivos</h3>
+                <p>
+                    Observar si el servicio aplica limitación de intentos, retardos, alertas o bloqueos
+                    y comprobar que estas medidas no impiden el acceso legítimo de forma desproporcionada.
+                </p>
+            </div>
 
-<body>
+            <div class="box">
+                <h3>Formación y laboratorio</h3>
+                <p>
+                    Comprender cómo se comporta un servicio de autenticación ante intentos repetidos
+                    y relacionar los eventos observados con los registros del sistema.
+                </p>
+            </div>
 
-  <div class="page" data-cat="fuerza-bruta hydra">
-    <hr>
+            <h2>Instalación</h2>
+            <p>En distribuciones basadas en Debian, Ubuntu o Kali puede instalarse desde los repositorios configurados:</p>
+            <pre>sudo apt update
+sudo apt install hydra</pre>
 
-    <h1>Hydra</h1>
+            <h2>Comprobación</h2>
+            <pre>command -v hydra
+hydra -h
+hydra -U ssh</pre>
+            <p>
+                El primer comando localiza el ejecutable, el segundo muestra la ayuda general y el tercero consulta
+                la información del módulo SSH. La disponibilidad de módulos puede variar según la compilación.
+            </p>
 
-    <p>
-      <em>
-        <small>
-          Herramienta de auditoría de autenticación para entornos autorizados.
-        </small>
-      </em>
-    </p>
+            <div class="box box--info">
+                <p>
+                    <strong>Antes de una prueba:</strong> define por escrito el sistema autorizado, las cuentas
+                    de laboratorio, el volumen máximo de solicitudes y la ventana de ejecución. Evita cuentas reales
+                    y detén la actividad si aparecen bloqueos inesperados o degradación del servicio.
+                </p>
+            </div>
 
-    <div class="node-tags">
-      <span class="tag">pentesting</span>
-      <span class="tag">credenciales</span>
-      <span class="tag">diccionario</span>
-      <span class="tag">ssh</span>
-      <span class="tag">ftp</span>
-    </div>
-    <br>
+            <h2>Recursos relacionados</h2>
+            <div class="box">
+                <ul>
+                    <li><span class="cat"><a href="./arq/index.html">Arquitectura y módulos</a></span></li>
+                    <li><span class="cat"><a href="./lab/index.html">Laboratorio controlado</a></span></li>
+                </ul>
+            </div>
 
-    <div class="box box--info">
-      <p>
-        <strong>Hydra</strong> es una herramienta <strong>Open Source</strong> de auditoría de autenticación que permite
-        evaluar la fortaleza de usuarios y contraseñas mediante pruebas automatizadas sobre múltiples servicios de red.
-        <br>
-        Su objetivo es detectar credenciales débiles y comprobar la eficacia de las políticas de seguridad en entornos
-        autorizados, sin explotar vulnerabilidades del sistema ni modificar su configuración.
-      </p>
-    </div>
-    <br>
-    <hr>
-
-    <h2>Casos de uso más frecuentes</h2>
-
-    <div class="box">
-
-      <h3>Auditorías de seguridad sobre servicios de autenticación</h3>
-
-      <p>
-        Permite comprobar la existencia de credenciales débiles y verificar que las políticas de autenticación
-        implantadas protegen correctamente los servicios corporativos.
-      </p>
-
-    </div>
-    <br>
-
-    <div class="box">
-
-      <h3>Detección de contraseñas débiles o reutilizadas</h3>
-
-      <p>
-        Permite la detección de contraseñas poco robustas y de uso reiterado para distintos servicios/aplicaciones.
-      </p>
-
-    </div>
-    <br>
-
-    <div class="box">
-
-      <h3>Verificación de políticas de bloqueo y limitación de intentos</h3>
-
-      <p>
-        Permite evaluar si el servicio aplica límites de intentos (rate limiting) y políticas de bloqueo. Durante una
-        auditoría autorizada se observa cuántos intentos permite antes de limitar o bloquear temporalmente el acceso,
-        así como la duración de esa medida.
-      </p>
-
-    </div>
-    <br>
-
-    <div class="box">
-
-      <h3>Pentesting autorizado</h3>
-
-      <p>
-        Ayuda a comprobar si las credenciales y las políticas de autenticación ofrecen una resistencia adecuada frente
-        a intentos automatizados. Los resultados permiten identificar debilidades y proponer medidas correctoras.
-      </p>
-
-    </div>
-    <br>
-    <hr>
-
-    <h2>Instalación</h2>
-
-    <p>
-      En distribuciones basadas en Debian, Ubuntu o Kali Linux puede instalarse directamente desde los repositorios
-      oficiales.
-    </p>
-
-    <div class="box">
-      <pre>
-└─$ sudo apt update
-└─$ sudo apt install hydra
-</pre>
-    </div>
-
-    <br>
-
-    <h2>Comprobación de la instalación</h2>
-
-    <div class="box">
-      <pre>
-└─$ which hydra
-└─$ hydra -h
-└─$ hydra -U
-</pre>
-    </div>
-
-    <p>
-      Si la instalación es correcta, el sistema localizará el ejecutable y mostrará la ayuda integrada junto con la
-      lista de módulos disponibles.
-    </p>
-
-    <br>
-    <hr>
-
-    <h2>Recursos relacionados</h2>
-
-    <div class="box">
-      <ul>
-
-        <li>
-          <span class="cat">
-            <a href="./arq/index.html">
-              Arquitectura
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span class="cat">
-            <a href="./lab/index.html">
-              Laboratorio
-            </a>
-          </span>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-
-</body>
-
+            <hr>
+        </div>
+    </body>
 </html>
