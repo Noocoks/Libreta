@@ -220,7 +220,8 @@ function collapseAllSubtrees() {
             btn.textContent = "+";
             btn.dataset.open = "false";
             btn.setAttribute("aria-expanded", "false");
-            btn.setAttribute("aria-expanded", "false");
+            var link = btn.parentElement.querySelector("a");
+            if (link) btn.setAttribute("aria-label", "Expandir " + link.textContent);
         }
     }
 }
@@ -245,6 +246,9 @@ function initTreeState() {
         if (btn) {
             btn.textContent = "+";
             btn.dataset.open = "false";
+            btn.setAttribute("aria-expanded", "false");
+            var link = btn.parentElement.querySelector("a");
+            if (link) btn.setAttribute("aria-label", "Expandir " + link.textContent);
         }
     }
 
@@ -615,6 +619,8 @@ function filterTreeNode(li, search) {
                 if (btn) {
                     btn.textContent = "-";
                     btn.dataset.open = "true";
+                    btn.setAttribute("aria-expanded", "true");
+                    btn.setAttribute("aria-label", "Contraer " + link.textContent);
                 }
             }
         }
@@ -627,6 +633,8 @@ function filterTreeNode(li, search) {
             if (btn) {
                 btn.textContent = "-";
                 btn.dataset.open = "true";
+                btn.setAttribute("aria-expanded", "true");
+                btn.setAttribute("aria-label", "Contraer " + link.textContent);
             }
         }
     }
