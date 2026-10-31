@@ -371,6 +371,20 @@
                 "autenticacion",
                 "variables",
                 "integracion"
+              ],
+              "children": [
+                {
+                  "name": "Comprobación APIs",
+                  "cat": "api-check",
+                  "path": "subpags/ia/proyecto_local/apis/comprobante/index.html",
+                  "tags": [
+                    "api",
+                    "python",
+                    "dotenv",
+                    "variables-entorno",
+                    "comprobacion"
+                  ]
+                }
               ]
             },
             {
