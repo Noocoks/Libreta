@@ -2,7 +2,6 @@
 """Calcula las estadísticas de líneas del repositorio Libreta."""
 
 import json
-import os
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -21,6 +20,7 @@ LANGUAGES = {
     ".txt": ("txt", "TXT"),
     ".md": ("markdown", "Markdown"),
 }
+
 
 def main():
     totals = {}
@@ -57,13 +57,37 @@ def main():
         total_files += 1
         total_lines += lines
 
+    languages = sorted(
+        totals.values(),
+        key=lambda item: item["lines"],
+        reverse=True,
+    )
+
+    # Conserva la fecha si el recuento no ha cambiado. Así, el commit
+    # generado por el workflow no provoca ejecuciones que se repitan.
+    previous = {}
+    if OUTPUT.exists():
+        try:
+            previous = json.loads(OUTPUT.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            previous = {}
+
+    unchanged = (
+        previous.get("total_files") == total_files
+        and previous.get("total_lines") == total_lines
+        and previous.get("languages") == languages
+    )
+
+    generated_at = previous.get("generated_at") if unchanged else None
+    if not generated_at:
+        generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+
     result = {
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "commit": os.environ.get("GITHUB_SHA", "local")[:7],
+        "generated_at": generated_at,
         "total_files": total_files,
         "total_lines": total_lines,
         "counting": "non-empty lines",
-        "languages": sorted(totals.values(), key=lambda item: item["lines"], reverse=True),
+        "languages": languages,
     }
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
