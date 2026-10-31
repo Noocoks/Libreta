@@ -74,7 +74,7 @@
                 <li>Historial persistente en JSON.</li>
                 <li>Múltiples sesiones independientes.</li>
                 <li>Selección automática del proveedor.</li>
-                <li>Animación tipo streaming.</li>
+                <li>Impresión progresiva simulada de la respuesta.</li>
                 <li>Modo conversación continua.</li>
                 <li>Comandos internos de gestión.</li>
                 <li>Soporte mediante argumentos CLI.</li>
@@ -82,6 +82,15 @@
         </div>
 
         <hr>
+
+        <p>
+            <small>
+                La impresión progresiva muestra carácter a carácter una respuesta
+                que ya se ha recibido completa. Es una animación local y no equivale
+                al streaming real de la API, que entrega fragmentos mientras el modelo
+                genera la respuesta.
+            </small>
+        </p>
 
         <h2 id="arquitectura">Arquitectura</h2>
 
@@ -166,6 +175,17 @@
         <hr>
 
         <h2 id="codigo">Código fuente</h2>
+
+        <p>
+            <small>
+                Los ejemplos utilizan <code>gpt-6-luna</code> y
+                <code>claude-sonnet-5</code>. Consulta los catálogos oficiales de
+                <a href="https://developers.openai.com/api/docs/models" target="_blank" rel="noopener noreferrer">OpenAI</a>
+                y
+                <a href="https://platform.claude.com/docs/es/about-claude/models/overview" target="_blank" rel="noopener noreferrer">Anthropic</a>
+                para comprobar su disponibilidad y los identificadores vigentes.
+            </small>
+        </p>
 
         <div class="code-card">
             <details>
@@ -319,7 +339,7 @@ def auto_select_model(prompt):
 def ask_openai(history):
 
     response = openai_client.chat.completions.create(
-        model="gpt-4.1-mini",
+        model="gpt-6-luna",
         messages=history
     )
 
@@ -332,7 +352,7 @@ def ask_openai(history):
 def ask_claude(history):
 
     response = anthropic_client.messages.create(
-        model="claude-sonnet-4-0",
+        model="claude-sonnet-5",
         max_tokens=200,
         messages=history
     )
