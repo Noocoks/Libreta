@@ -1,35 +1,34 @@
 <!doctype html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Nooko">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="Hydra, arquitectura, módulos, concurrencia, autenticación, protocolos">
-        <meta name="description" content="Arquitectura lógica de THC Hydra: motor, módulos, tareas concurrentes, entradas, respuestas y límites.">
-        <title>Arquitectura - Hydra</title>
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="keywords" content="Hydra, arquitectura, módulos, concurrencia, autenticación, protocolos">
+<meta name="description" content="Arquitectura lógica de THC Hydra: motor, módulos, tareas concurrentes, entradas, respuestas y límites.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arquitectura - Hydra</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body>
+    <div class="page" data-cat="fuerza-bruta hydra arq">
+        <hr>
+        <h1>Arquitectura - Hydra</h1>
 
-        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-        <script src="/Libreta/res/js/page.js"></script>
-    </head>
+        <p><em><small>Cómo se organiza la herramienta y cómo se relacionan sus componentes.</small></em></p>
 
-    <body>
-        <div class="page" data-cat="fuerza-bruta hydra arq">
-            <hr>
-            <h1>Arquitectura - Hydra</h1>
+        <div class="box box--info">
+            <p>
+                Hydra combina un núcleo que coordina la ejecución con módulos especializados en protocolos.
+                El núcleo gestiona los parámetros, las entradas, las tareas concurrentes y la presentación
+                de resultados; cada módulo implementa los detalles de comunicación con el servicio evaluado.
+            </p>
+        </div>
+        <br>
 
-            <p><em><small>Cómo se organiza la herramienta y cómo se relacionan sus componentes.</small></em></p>
-
-            <div class="box box--info">
-                <p>
-                    Hydra combina un núcleo que coordina la ejecución con módulos especializados en protocolos.
-                    El núcleo gestiona los parámetros, las entradas, las tareas concurrentes y la presentación
-                    de resultados; cada módulo implementa los detalles de comunicación con el servicio evaluado.
-                </p>
-            </div>
-
-            <h2>Flujo lógico</h2>
-            <div class="box">
-                <pre>Parámetros y alcance autorizado
+        <h2>Flujo lógico</h2>
+        <div class="box">
+            <pre>Parámetros y alcance autorizado
           |
           v
 Validación de opciones y entradas
@@ -51,84 +50,93 @@ Interpretación de la respuesta
           |
           v
 Resultados, errores y registros</pre>
-                <p>
-                    Es un esquema conceptual: los detalles internos pueden variar entre versiones y módulos.
-                    No todos los protocolos responden de la misma forma ni ofrecen la misma información.
-                </p>
-            </div>
-
-            <h2>Componentes</h2>
-            <div class="box">
-                <h3>1. Interfaz de parámetros</h3>
-                <p>
-                    Recibe el host, el servicio, los usuarios, las contraseñas, el puerto y las opciones
-                    generales o específicas del módulo. La sintaxis debe validarse con la ayuda de la versión instalada.
-                </p>
-            </div>
-            <div class="box">
-                <h3>2. Gestor de entradas</h3>
-                <p>
-                    Lee valores individuales o archivos de entrada y organiza las combinaciones que se comprobarán.
-                    El tamaño de las listas determina el volumen potencial de trabajo.
-                </p>
-            </div>
-            <div class="box">
-                <h3>3. Motor de concurrencia</h3>
-                <p>
-                    Distribuye las tareas entre conexiones simultáneas. Los límites de concurrencia, espera y timeout
-                    influyen en la velocidad, la estabilidad y la posibilidad de activar controles defensivos.
-                </p>
-            </div>
-            <div class="box">
-                <h3>4. Módulos de protocolo</h3>
-                <p>
-                    Implementan el diálogo específico de cada servicio. Por eso las opciones de un módulo HTTP
-                    no tienen por qué ser válidas para SSH, FTP, SMTP u otros servicios.
-                </p>
-                <p>
-                    La disponibilidad real depende de la versión y de las bibliotecas presentes durante la compilación.
-                    Consulta <code>hydra -h</code> y <code>hydra -U nombre_modulo</code>.
-                </p>
-            </div>
-            <div class="box">
-                <h3>5. Clasificación y salida</h3>
-                <p>
-                    El módulo interpreta las respuestas y el núcleo presenta los resultados. Una conexión fallida,
-                    una respuesta ambigua o un bloqueo no deben confundirse con una contraseña incorrecta.
-                </p>
-            </div>
-
-            <h2>Parámetros que afectan al comportamiento</h2>
-            <ul>
-                <li><code>-t</code>: número de tareas paralelas por objetivo, según el modo de ejecución.</li>
-                <li><code>-w</code>: tiempo máximo de espera por respuesta.</li>
-                <li><code>-W</code>: espera entre conexiones que realiza una tarea.</li>
-                <li><code>-s</code>: puerto del servicio cuando no se utiliza el predeterminado.</li>
-                <li><code>-o</code>: guarda la salida en un archivo.</li>
-                <li><code>-v</code> / <code>-V</code>: aumentan el detalle de salida; revisa la ayuda de tu versión.</li>
-            </ul>
-
-            <h2>Protocolos y módulos</h2>
             <p>
-                La documentación de Hydra incluye módulos para servicios como SSH, FTP, HTTP(S), SMTP, IMAP,
-                POP3, SMB, LDAP, bases de datos y otros. Esta lista no debe interpretarse como garantía de que
-                todos estén habilitados en cualquier instalación.
+                Es un esquema conceptual: los detalles internos pueden variar entre versiones y módulos.
+                No todos los protocolos responden de la misma forma ni ofrecen la misma información.
             </p>
-
-            <h2>Qué no hace el motor</h2>
-            <ul>
-                <li>No determina por sí solo si una aplicación tiene una vulnerabilidad de software.</li>
-                <li>No sustituye la revisión de políticas de contraseñas ni la comprobación manual.</li>
-                <li>No puede inferir con certeza el estado de una cuenta si el servicio oculta o uniformiza respuestas.</li>
-            </ul>
-
-            <h2>Fuentes</h2>
-            <ul>
-                <li><a href="https://github.com/vanhauser-thc/thc-hydra" target="_blank" rel="noopener noreferrer">Código y documentación de THC Hydra</a></li>
-                <li><a href="https://github.com/vanhauser-thc/thc-hydra/blob/master/hydra.1" target="_blank" rel="noopener noreferrer">Manual de opciones y módulos</a></li>
-            </ul>
-            <hr>
         </div>
+        <br>
 
-    </body>
+        <h2>Componentes</h2>
+        <div class="box">
+            <h3>1. Interfaz de parámetros</h3>
+            <p>
+                Recibe el host, el servicio, los usuarios, las contraseñas, el puerto y las opciones
+                generales o específicas del módulo. La sintaxis debe validarse con la ayuda de la versión instalada.
+            </p>
+        </div>
+        <br>
+        <div class="box">
+            <h3>2. Gestor de entradas</h3>
+            <p>
+                Lee valores individuales o archivos de entrada y organiza las combinaciones que se comprobarán.
+                El tamaño de las listas determina el volumen potencial de trabajo.
+            </p>
+        </div>
+        <br>
+        <div class="box">
+            <h3>3. Motor de concurrencia</h3>
+            <p>
+                Distribuye las tareas entre conexiones simultáneas. Los límites de concurrencia, espera y timeout
+                influyen en la velocidad, la estabilidad y la posibilidad de activar controles defensivos.
+            </p>
+        </div>
+        <br>
+        <div class="box">
+            <h3>4. Módulos de protocolo</h3>
+            <p>
+                Implementan el diálogo específico de cada servicio. Por eso las opciones de un módulo HTTP
+                no tienen por qué ser válidas para SSH, FTP, SMTP u otros servicios.
+            </p>
+            <p>
+                La disponibilidad real depende de la versión y de las bibliotecas presentes durante la compilación.
+                Consulta <code>hydra -h</code> y <code>hydra -U nombre_modulo</code>.
+            </p>
+        </div>
+        <br>
+        <div class="box">
+            <h3>5. Clasificación y salida</h3>
+            <p>
+                El módulo interpreta las respuestas y el núcleo presenta los resultados. Una conexión fallida,
+                una respuesta ambigua o un bloqueo no deben confundirse con una contraseña incorrecta.
+            </p>
+        </div>
+        <br>
+
+        <h2>Parámetros que afectan al comportamiento</h2>
+        <ul>
+            <li><code>-t</code>: número de tareas paralelas por objetivo, según el modo de ejecución.</li>
+            <li><code>-w</code>: tiempo máximo de espera por respuesta.</li>
+            <li><code>-W</code>: espera entre conexiones que realiza una tarea.</li>
+            <li><code>-s</code>: puerto del servicio cuando no se utiliza el predeterminado.</li>
+            <li><code>-o</code>: guarda la salida en un archivo.</li>
+            <li><code>-v</code> / <code>-V</code>: aumentan el detalle de salida; revisa la ayuda de tu versión.</li>
+        </ul>
+        <br>
+
+        <h2>Protocolos y módulos</h2>
+        <p>
+            La documentación de Hydra incluye módulos para servicios como SSH, FTP, HTTP(S), SMTP, IMAP,
+            POP3, SMB, LDAP, bases de datos y otros. Esta lista no debe interpretarse como garantía de que
+            todos estén habilitados en cualquier instalación.
+        </p>
+        <br>
+
+        <h2>Qué no hace el motor</h2>
+        <ul>
+            <li>No determina por sí solo si una aplicación tiene una vulnerabilidad de software.</li>
+            <li>No sustituye la revisión de políticas de contraseñas ni la comprobación manual.</li>
+            <li>No puede inferir con certeza el estado de una cuenta si el servicio oculta o uniformiza respuestas.</li>
+        </ul>
+        <br>
+
+        <h2>Fuentes</h2>
+        <ul>
+            <li><a href="https://github.com/vanhauser-thc/thc-hydra" target="_blank" rel="noopener noreferrer">Código y documentación de THC Hydra</a></li>
+            <li><a href="https://github.com/vanhauser-thc/thc-hydra/blob/master/hydra.1" target="_blank" rel="noopener noreferrer">Manual de opciones y módulos</a></li>
+        </ul>
+        <br>
+        <hr>
+    </div>
+</body>
 </html>
