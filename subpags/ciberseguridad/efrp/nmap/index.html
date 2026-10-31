@@ -1,132 +1,131 @@
 <!doctype html>
 <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Nooko">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="Nmap, Zenmap, escaneo de red, puertos, NSE, descubrimiento, servicios">
+        <meta name="description" content="Guía de Nmap y Zenmap: fases de exploración, estados de puertos, detección de servicios, NSE, instalación e interpretación.">
+        <title>Nmap / Zenmap</title>
 
-<head>
-  <meta charset="UTF-8">
+        <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+        <script src="/Libreta/res/js/page.js"></script>
+    </head>
 
-  <meta name="author" content="Nooko">
+    <body>
+        <div class="page" data-cat="escaneo nmap">
+            <hr>
+            <h1>Nmap / Zenmap</h1>
 
-  <meta name="keywords" content="nmap, zenmap, escaneo de red, puertos, pentesting, seguridad">
+            <div class="node-tags">
+                <span class="tag">nmap</span>
+                <span class="tag">puertos</span>
+                <span class="tag">redes</span>
+                <span class="tag">enumeración</span>
+                <span class="tag">NSE</span>
+            </div>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <div class="box box--info">
+                <p>
+                    <strong>Nmap</strong> (Network Mapper) es una herramienta de código abierto para descubrir
+                    hosts, explorar puertos y obtener información sobre los servicios que responden en una red.
+                    <strong>Zenmap</strong> es una interfaz gráfica para configurar y revisar análisis de Nmap;
+                    no es un motor de escaneo independiente.
+                </p>
+            </div>
 
-  <meta name="description" content="Explicación de Nmap y Zenmap para escaneo de redes y análisis de puertos">
+            <h2>Para qué se utiliza</h2>
+            <ul>
+                <li>Inventariar equipos accesibles en una red autorizada.</li>
+                <li>Identificar puertos TCP y UDP que responden.</li>
+                <li>Reconocer servicios y, cuando es posible, sus versiones.</li>
+                <li>Obtener indicios del sistema operativo y de la configuración de red.</li>
+                <li>Ejecutar scripts NSE para tareas de descubrimiento y comprobación.</li>
+                <li>Guardar resultados para compararlos en auditorías posteriores.</li>
+            </ul>
 
-  <title>Nmap / Zenmap</title>
+            <h2>Conceptos esenciales</h2>
+            <div class="box">
+                <h3>Host activo</h3>
+                <p>Equipo que responde a uno o varios métodos de descubrimiento. Un firewall puede impedir que responda y producir un falso negativo.</p>
+                <h3>Puerto abierto</h3>
+                <p>Existe una aplicación escuchando y aceptando conexiones o sondeos en ese puerto.</p>
+                <h3>Puerto cerrado</h3>
+                <p>El equipo responde, pero no hay una aplicación escuchando en ese puerto.</p>
+                <h3>Puerto filtrado</h3>
+                <p>Un filtro de red impide determinar si está abierto o cerrado.</p>
+                <h3>Open|filtered</h3>
+                <p>Nmap no puede distinguir entre un puerto abierto y uno filtrado con el método empleado. Es frecuente en determinados análisis UDP.</p>
+            </div>
 
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
-</head>
+            <h2>Fases habituales de un análisis</h2>
+            <ol>
+                <li><strong>Definir alcance:</strong> confirmar rangos, hosts y ventanas autorizadas.</li>
+                <li><strong>Descubrimiento:</strong> identificar qué equipos parecen estar activos.</li>
+                <li><strong>Exploración de puertos:</strong> determinar qué puertos responden y su estado.</li>
+                <li><strong>Detección de servicios:</strong> intentar reconocer el protocolo y la versión.</li>
+                <li><strong>Enumeración adicional:</strong> utilizar scripts NSE adecuados al objetivo y al permiso concedido.</li>
+                <li><strong>Documentación:</strong> guardar resultados y validar manualmente los hallazgos relevantes.</li>
+            </ol>
 
-<body>
+            <h2>Instalación y comprobación</h2>
+            <pre>sudo apt update
+sudo apt install nmap
+nmap --version
+nmap --help</pre>
+            <p>
+                Zenmap puede distribuirse por separado y su disponibilidad depende de la distribución.
+                Consulta el paquete o la documentación oficial antes de asumir que se instala junto con Nmap.
+            </p>
 
-  <div class="page" data-cat="escaneo nmap">
-    <hr>
+            <h2>Ejemplos seguros en el propio equipo</h2>
+            <p>Los ejemplos siguientes utilizan exclusivamente loopback:</p>
+            <pre>nmap -sn 127.0.0.1
+nmap -p 22,80,443 127.0.0.1
+nmap -sV -p 22,80,443 127.0.0.1
+nmap -oN resultado-local.txt 127.0.0.1</pre>
+            <ul>
+                <li><code>-sn</code> realiza descubrimiento de hosts sin escaneo de puertos.</li>
+                <li><code>-p</code> limita el análisis a los puertos indicados.</li>
+                <li><code>-sV</code> intenta identificar el servicio y su versión.</li>
+                <li><code>-oN</code> guarda la salida en formato normal.</li>
+            </ul>
 
-    <h1>Nmap / Zenmap</h1>
+            <h2>Nmap Scripting Engine (NSE)</h2>
+            <p>
+                NSE permite automatizar tareas mediante scripts. Las categorías incluyen, entre otras,
+                <code>default</code>, <code>discovery</code>, <code>safe</code>, <code>vuln</code>,
+                <code>auth</code> e <code>intrusive</code>. No todos los scripts tienen el mismo impacto:
+                revisa su finalidad antes de ejecutarlos y evita categorías intrusivas o de explotación
+                salvo autorización y planificación específicas.
+            </p>
 
-    <div class="node-tags">
-      <span class="tag">nmap</span>
-      <span class="tag">puertos</span>
-      <span class="tag">redes</span>
-      <span class="tag">enumeración</span>
-      <span class="tag">descubrimiento</span>
-    </div>
-    <br>
+            <h2>Cómo interpretar el resultado</h2>
+            <ul>
+                <li>El nombre del servicio asociado a un puerto es una identificación probable, no una certeza.</li>
+                <li>La detección de versión depende de las respuestas y de la base de firmas de Nmap.</li>
+                <li>Un puerto abierto no demuestra que exista una vulnerabilidad.</li>
+                <li>Un puerto filtrado no demuestra que el servicio esté apagado.</li>
+                <li>Un análisis UDP puede ser más lento y producir estados ambiguos.</li>
+            </ul>
 
-    <div class="box box--info">
-      <p>
-        <strong>Nmap</strong> y <strong>Zenmap</strong> son herramientas utilizadas en
-        <span class="cat">
-          <a href="../index.html">Escaneo de redes y puertos</a>
-        </span>
-        para descubrir dispositivos, detectar puertos abiertos e identificar servicios activos.
-      </p>
-    </div>
+            <h2>Limitaciones y buenas prácticas</h2>
+            <ul>
+                <li>La topología, NAT, firewalls y reglas de filtrado afectan a la visibilidad.</li>
+                <li>Escaneos intensivos pueden generar alertas o afectar a dispositivos sensibles.</li>
+                <li>Los resultados deben contrastarse con inventario, configuración y registros.</li>
+                <li>Guarda la línea de comandos, la fecha, la versión de Nmap y el alcance.</li>
+            </ul>
 
-    <p>
-      En esencia son la misma herramienta. Se utilizan para analizar redes,
-      detectar puertos abiertos, dispositivos conectados, servicios activos
-      y posibles vulnerabilidades.
-    </p>
-    <br>
-    <hr>
+            <h2>Fuentes oficiales</h2>
+            <ul>
+                <li><a href="https://nmap.org/book/man.html" target="_blank" rel="noopener noreferrer">Manual de referencia de Nmap</a></li>
+                <li><a href="https://nmap.org/book/man-version-detection.html" target="_blank" rel="noopener noreferrer">Detección de servicios y versiones</a></li>
+                <li><a href="https://nmap.org/book/nse.html" target="_blank" rel="noopener noreferrer">Nmap Scripting Engine</a></li>
+                <li><a href="https://nmap.org/zenmap/" target="_blank" rel="noopener noreferrer">Zenmap</a></li>
+            </ul>
+            <hr>
+        </div>
 
-    <h2>Diferencias entre Nmap y Zenmap</h2>
-
-    <div class="box">
-
-      <h3>Nmap</h3>
-
-      <ul>
-        <li>Funciona mediante línea de comandos.</li>
-        <li>Ofrece el máximo control y flexibilidad.</li>
-        <li>Es la opción más utilizada en auditorías y pentesting profesional.</li>
-        <li>Permite automatización mediante scripts.</li>
-      </ul>
-      <br>
-
-      <h3>Zenmap</h3>
-
-      <ul>
-        <li>Interfaz gráfica oficial de Nmap.</li>
-        <li>Facilita la creación de escaneos sin memorizar comandos.</li>
-        <li>Permite visualizar resultados de forma más intuitiva.</li>
-        <li>Orientado a usuarios principiantes o entornos educativos.</li>
-      </ul>
-
-    </div>
-    <br>
-    <hr>
-
-    <h2>Capacidades principales</h2>
-
-    <div class="box">
-      <ul>
-        <li>Descubrimiento de hosts activos.</li>
-        <li>Detección de puertos abiertos.</li>
-        <li>Identificación de servicios y versiones.</li>
-        <li>Detección de sistemas operativos.</li>
-        <li>Ejecución de scripts NSE (Nmap Scripting Engine).</li>
-        <li>Mapeo y análisis de redes.</li>
-      </ul>
-    </div>
-    <br>
-    <hr>
-
-    <h2>Conclusión</h2>
-
-    <div class="box box--info">
-      <p>
-        La diferencia principal es la interfaz de uso:
-        <strong>Nmap</strong> funciona desde terminal y
-        <strong>Zenmap</strong> es su interfaz gráfica oficial, que permite
-        configurar y consultar escaneos mediante una ventana.
-      </p>
-
-      <p>
-        Zenmap utiliza Nmap como motor. Por ello puede ofrecer las mismas
-        capacidades, siempre que se ejecuten opciones equivalentes; los resultados
-        concretos dependen de la configuración y del tipo de escaneo seleccionado.
-      </p>
-
-      <p>
-        Zenmap no siempre se instala automáticamente junto con Nmap. Su disponibilidad
-        depende del sistema y del paquete utilizado. Puedes consultar la
-        <a href="https://nmap.org/zenmap/" target="_blank" rel="noopener noreferrer">
-          página oficial de Zenmap
-        </a>
-        y la
-        <a href="https://nmap.org/download.html" target="_blank" rel="noopener noreferrer">
-          página de descargas de Nmap
-        </a>.
-      </p>
-    </div>
-    <br>
-    <hr>
-
-  </div>
-
-</body>
-
+    </body>
 </html>
