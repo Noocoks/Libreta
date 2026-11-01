@@ -16,13 +16,17 @@
         if (
             !data ||
             !Array.isArray(data.languages) ||
-            !Number.isFinite(data.total_lines) ||
-            !data.generated_at ||
+            data.languages.length === 0 ||
+            !Number.isSafeInteger(data.total_lines) ||
+            data.total_lines < 0 ||
+            typeof data.generated_at !== "string" ||
             !Number.isFinite(Date.parse(data.generated_at)) ||
             data.languages.some(function (language) {
                 return !language ||
                     typeof language.label !== "string" ||
-                    !Number.isFinite(language.lines);
+                    !language.label.trim() ||
+                    !Number.isSafeInteger(language.lines) ||
+                    language.lines < 0;
             })
         ) {
             throw new Error("Formato de estadísticas no válido");
