@@ -104,8 +104,8 @@
         <div class="box">
             <ol>
                 <li>Carga de variables de entorno.</li>
-                <li>Inicialización de clientes OpenAI y Anthropic.</li>
-                <li>Gestión de sesiones persistentes.</li>
+                <li>Inicialización bajo demanda del proveedor seleccionado.</li>
+                <li>Gestión de sesiones persistentes con nombres validados.</li>
                 <li>Router automático de selección.</li>
                 <li>Funciones específicas por proveedor.</li>
                 <li>Chat interactivo o consulta puntual.</li>
@@ -120,6 +120,12 @@
             <h3>Historial persistente</h3>
 
             <p>Guarda conversaciones en formato JSON dentro de:</p>
+            <p>
+                Los nombres de sesión aceptan entre 1 y 64 caracteres: letras,
+                números, guion y guion bajo. Se rechazan rutas, separadores y
+                enlaces simbólicos para evitar que una sesión acceda a archivos
+                ajenos al directorio previsto.
+            </p>
 
             <pre><code>~/.ai_cli_sessions/</code></pre>
 
@@ -214,14 +220,13 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import json
 import sys
 import argparse
 import time
 
 from dotenv import load_dotenv
-from openai import OpenAI
-from anthropic import Anthropic
 from colorama import Fore, Style, init
 
 
@@ -235,24 +240,56 @@ load_dotenv()
 # CLIENTES
 #---------------------
 
-openai_client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY")
-)
+openai_client = None
+anthropic_client = None
 
-anthropic_client = Anthropic(
-    api_key=os.getenv("ANTHROPIC_API_KEY")
-)
+
+def get_openai_client():
+
+    global openai_client
+
+    if openai_client is None:
+
+        api_key = os.getenv("OPENAI_API_KEY")
+
+        if not api_key:
+            raise ValueError("Falta la variable OPENAI_API_KEY")
+
+        from openai import OpenAI
+
+        openai_client = OpenAI(api_key=api_key)
+
+    return openai_client
+
+
+def get_anthropic_client():
+
+    global anthropic_client
+
+    if anthropic_client is None:
+
+        api_key = os.getenv("ANTHROPIC_API_KEY")
+
+        if not api_key:
+            raise ValueError("Falta la variable ANTHROPIC_API_KEY")
+
+        from anthropic import Anthropic
+
+        anthropic_client = Anthropic(api_key=api_key)
+
+    return anthropic_client
 
 #---------------------
 # CONFIG
 #---------------------
 
-BASE_HISTORY_DIR = os.path.expanduser(
-    "~/.ai_cli_sessions"
+BASE_HISTORY_DIR = os.path.realpath(
+    os.path.expanduser("~/.ai_cli_sessions")
 )
-  
+
 os.makedirs(
     BASE_HISTORY_DIR,
+    mode=0o700,
     exist_ok=True
 )
 
@@ -276,11 +313,31 @@ def stream_print(text, delay=0.01):
 
 
 def get_history_path(session_name):
+    """Devuelve una ruta segura dentro del directorio de sesiones."""
 
-    return os.path.join(
+    if not isinstance(session_name, str) or not re.fullmatch(
+        r"[a-zA-Z0-9_-]{1,64}",
+        session_name
+    ):
+        raise ValueError(
+            "Nombre de sesión no válido. Usa 1-64 letras, números, '_' o '-'."
+        )
+
+    path = os.path.join(
         BASE_HISTORY_DIR,
         f"{session_name}.json"
     )
+
+    # No seguir enlaces simbólicos preexistentes.
+    if os.path.islink(path):
+        raise ValueError("La sesión no puede ser un enlace simbólico")
+
+    resolved_path = os.path.realpath(path)
+
+    if os.path.dirname(resolved_path) != BASE_HISTORY_DIR:
+        raise ValueError("La ruta de sesión está fuera del directorio permitido")
+
+    return resolved_path
 
 
 def load_history(session_name):
@@ -290,7 +347,7 @@ def load_history(session_name):
     if not os.path.exists(path):
         return []
 
-    with open(path, "r") as f:
+    with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -298,11 +355,12 @@ def save_history(session_name, history):
 
     path = get_history_path(session_name)
 
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(
             history,
             f,
-            indent=2
+            indent=2,
+            ensure_ascii=False
         )
 
 
@@ -345,7 +403,7 @@ def auto_select_model(prompt):
 
 def ask_openai(history):
 
-    response = openai_client.chat.completions.create(
+    response = get_openai_client().chat.completions.create(
         model="gpt-6-luna",
         messages=history
     )
@@ -358,7 +416,7 @@ def ask_openai(history):
 
 def ask_claude(history):
 
-    response = anthropic_client.messages.create(
+    response = get_anthropic_client().messages.create(
         model="claude-sonnet-5",
         max_tokens=200,
         messages=history
@@ -405,7 +463,11 @@ def single_prompt_mode(model, prompt, session):
         "content": prompt
     })
 
-    reply = ask_model(model, history)
+    try:
+        reply = ask_model(model, history)
+    except Exception as error:
+        print(Fore.RED + f"\n[ERROR] {error}")
+        return
 
     history.append({
         "role": "assistant",
@@ -567,7 +629,8 @@ parser.add_argument(
 
 parser.add_argument(
     "--session",
-    default="default"
+    default="default",
+    help="Nombre de sesión (1-64 letras, números, '_' o '-')"
 )
 
 parser.add_argument(
@@ -576,6 +639,12 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
+
+try:
+    get_history_path(args.session)
+except ValueError as error:
+    print(Fore.RED + f"[ERROR] {error}")
+    sys.exit(2)
 
 #---------------------
 # VALIDACIÓN
