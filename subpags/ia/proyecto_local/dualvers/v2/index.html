@@ -227,9 +227,7 @@ import argparse
 import time
 
 from dotenv import load_dotenv
-from openai import OpenAI
-from anthropic import Anthropic
-from colorama import Fore, Style, init
+ from colorama import Fore, Style, init
 
 
 # INIT
@@ -257,6 +255,8 @@ def get_openai_client():
         if not api_key:
             raise ValueError("Falta la variable OPENAI_API_KEY")
 
+        from openai import OpenAI
+
         openai_client = OpenAI(api_key=api_key)
 
     return openai_client
@@ -272,6 +272,8 @@ def get_anthropic_client():
 
         if not api_key:
             raise ValueError("Falta la variable ANTHROPIC_API_KEY")
+
+        from anthropic import Anthropic
 
         anthropic_client = Anthropic(api_key=api_key)
 
