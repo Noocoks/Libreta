@@ -1,111 +1,64 @@
 <!doctype html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="author" content="Nooko">
-
-    <meta name="keywords" content="gophish, laboratorio, phishing, campañas, smtp, entrenamiento">
-
-    <meta name="description"
-        content="Laboratorio práctico de Gophish para simulación de campañas de phishing en entornos controlados.">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Laboratorio - Gophish</title>
+    <meta name="keywords" content="phishing gophish laboratorio MailHog SMTP simulación">
+    <meta name="description" content="Laboratorio local de GoPhish y MailHog para probar correos simulados sin enviarlos a destinatarios reales.">
+    <title>Laboratorio - GoPhish</title>
 
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
-
-    <div class="page" data-cat="phishing gophish lab">
+    <div class="page" data-cat="phishing gophish laboratorio MailHog SMTP simulación">
         <hr>
+        <h1>Laboratorio - GoPhish</h1>
 
-        <h1>Laboratorio - Gophish</h1>
-
-        <div class="node-tags">
-            <span class="tag">smtp</span>
-            <span class="tag">landing-page</span>
-            <span class="tag">email-template</span>
-            <span class="tag">tracking</span>
-            <span class="tag">reporting</span>
-        </div>
-
+        <div class="box box--info"><p>La práctica conecta GoPhish con MailHog, que captura los mensajes y permite inspeccionarlos desde una interfaz local. No se envían correos a Internet ni a personas reales. Utiliza destinatarios ficticios y no recojas contraseñas.</p></div>
         <br>
 
-        <div class="box box--info">
-            <p>
-                Disclaimer: Entorno controlado para realizar simulaciones de phishing y estudiar
-                el comportamiento de los usuarios sin afectar sistemas reales.
-            </p>
-        </div>
-
+        <h2>1. Preparar MailHog</h2>
+        <p>Sigue la <span class="cat"><a href="../../mailhog/ini/index.html">guía de instalación de MailHog</a></span> y comprueba <code>http://127.0.0.1:8025</code>.</p>
         <br>
+
+        <h2>2. Instalar GoPhish</h2>
+        <p>Descarga una versión desde el repositorio oficial y sigue las instrucciones correspondientes a tu sistema. Mantén la consola administrativa en localhost o una red de gestión aislada.</p>
+        <p><a href="https://github.com/gophish/gophish/releases" target="_blank" rel="noopener noreferrer">Versiones oficiales</a></p>
+        <br>
+
+        <h2>3. Configurar el perfil SMTP local</h2>
+        <ul>
+            <li><strong>Host:</strong> <code>127.0.0.1:1025</code>, si ambos servicios comparten host.</li>
+            <li><strong>Remitente:</strong> <code>simulacion@lab.local</code>.</li>
+            <li><strong>Autenticación:</strong> vacía en la configuración predeterminada de MailHog.</li>
+        </ul>
+        <p>Envía un mensaje a <code>alumno@lab.local</code> y confirma su recepción en MailHog.</p>
+        <br>
+
+        <h2>4. Crear grupo y plantilla</h2>
+        <p>Incluye solo destinatarios ficticios o cuentas controladas. Utiliza un mensaje inocuo, sin adjuntos ejecutables, enlaces externos ni suplantación de marcas.</p>
+        <br>
+
+        <h2>5. Crear una landing page educativa</h2>
+        <p>Explica que el enlace forma parte de una práctica y muestra recomendaciones para reconocer mensajes sospechosos. No añadas campos de contraseña.</p>
+        <br>
+
+        <h2>6. Ejecutar y comprobar</h2>
+        <p>Selecciona el grupo, plantilla, página y perfil SMTP local. Ejecuta la campaña y comprueba el mensaje en MailHog. Visita el enlace local y revisa los eventos registrados.</p>
+        <br>
+
+        <h2>7. Cerrar el ejercicio</h2>
+        <ul>
+            <li>Detén la campaña y conserva solo los resultados necesarios.</li>
+            <li>Elimina destinatarios y datos que ya no necesites.</li>
+            <li>Conserva métricas agregadas para el informe.</li>
+            <li>Detén los servicios del laboratorio.</li>
+        </ul>
+
         <hr>
-
-        <h2>Preparación del entorno</h2>
-
-        <div class="box">
-            <ul>
-                <li>Máquina local o virtual.</li>
-                <li>Red aislada o entorno de pruebas.</li>
-            </ul>
-        </div>
-
-        <br>
-
-        <div class="box">
-            <h3>Configuración inicial</h3>
-
-            <ul>
-                <li>Definir dominio o IP de laboratorio.</li>
-                <li>Configurar un servidor SMTP de pruebas.</li>
-            </ul>
-        </div>
-
-        <br>
-
-        <div class="box">
-            <h3>Creación de campaña</h3>
-
-            <ul>
-                <li>Diseñar la plantilla de correo.</li>
-                <li>Crear una landing page simulada.</li>
-                <li>Definir grupos de usuarios de prueba.</li>
-            </ul>
-        </div>
-
-        <br>
-
-        <div class="box">
-            <h3>Ejecución</h3>
-
-            <ul>
-                <li>Enviar la campaña.</li>
-                <li>Monitorizar la actividad en tiempo real.</li>
-            </ul>
-        </div>
-
-        <br>
-
-        <div class="box">
-            <h3>Análisis</h3>
-
-            <ul>
-                <li>Tasa de apertura.</li>
-                <li>Tasa de clics.</li>
-                <li>Interacciones registradas.</li>
-            </ul>
-        </div>
-
-        <br>
-        <hr>
-
     </div>
-
 </body>
-
 </html>

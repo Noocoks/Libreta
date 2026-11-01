@@ -1,19 +1,11 @@
 <!doctype html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="author" content="Nooko">
-
-    <meta name="keywords"
-        content="medusa, arquitectura, autenticación, fuerza bruta, auditoría, protocolos, ssh, ftp, pentesting">
-
-    <meta name="description"
-        content="Arquitectura, funcionamiento interno y componentes de Medusa para auditorías de autenticación autorizadas.">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="keywords" content="Medusa, arquitectura, módulos, hilos, autenticación, protocolos">
+    <meta name="description" content="Arquitectura y componentes de Medusa: núcleo, módulos independientes, concurrencia, entradas y clasificación de respuestas.">
     <title>Arquitectura - Medusa</title>
 
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
@@ -21,384 +13,143 @@
 </head>
 
 <body>
-
-    <div class="page" data-cat="fuerza-bruta arq">
+    <div class="page" data-cat="fuerza-bruta medusa arq">
         <hr>
-
         <h1>Arquitectura - Medusa</h1>
-
-        <p>
-            <em><small>Funcionamiento interno, arquitectura y componentes principales.</small></em>
-        </p>
-        <br>
 
         <div class="box box--info">
             <p>
-                Medusa está diseñada como una herramienta modular destinada a realizar
-                auditorías de autenticación de forma rápida y eficiente mediante el uso
-                de múltiples hilos de ejecución y módulos específicos para cada protocolo.
+                Medusa separa el programa principal de los módulos de protocolo. El núcleo coordina las entradas
+                y la ejecución; los módulos implementan la comunicación con cada servicio. Este diseño permite
+                ampliar la compatibilidad sin reescribir el motor principal.
             </p>
         </div>
+
         <br>
-        <hr>
 
-        <h2>Arquitectura lógica</h2>
-
+        <h2>Diagrama conceptual</h2>
         <div class="box">
-            <pre>
-Usuario
-    │
-Configuración de la auditoría
-    │
-Motor principal
-    │
-Gestor de hilos
-    │
-Módulo del protocolo
-    │
-Servicio remoto
-    │
-Respuesta de autenticación
-    │
-Análisis de resultados
-</pre>
-
-            <p><em>
-                Cada componente realiza una función específica, permitiendo separar la gestión
-                de usuarios, contraseñas, protocolos y procesamiento de resultados.
-            </em></p>
-
+            <pre>Configuración y alcance
+          |
+          v
+Núcleo de Medusa
+          |
+          +---- Lectura de usuarios
+          |
+          +---- Lectura de contraseñas
+          |
+          v
+Planificador de hilos
+          |
+          v
+Módulo del servicio
+          |
+          v
+Servicio de autenticación
+          |
+          v
+Clasificación y salida</pre>
         </div>
+
         <br>
-        <hr>
-
-        <h2>Funcionamiento interno</h2>
-
-        <div class="box">
-            <ol>
-                <li>Selección del protocolo que se desea evaluar.</li>
-
-                <li>Configuración del entorno de auditoría.</li>
-
-                <li>Carga de listas de usuarios y contraseñas.</li>
-
-                <li>Generación de combinaciones de credenciales.</li>
-
-                <li>Distribución del trabajo entre múltiples hilos.</li>
-
-                <li>Envío de solicitudes de autenticación.</li>
-
-                <li>Recepción de respuestas del servicio.</li>
-
-                <li>Clasificación de los resultados obtenidos.</li>
-
-                <li>Generación del informe final.</li>
-            </ol>
-
-            <p>
-                Este proceso permite automatizar pruebas repetitivas de autenticación de forma
-                eficiente dentro de entornos autorizados.
-            </p>
-
-        </div>
-        <br>
-        <hr>
 
         <h2>Componentes principales</h2>
-
         <div class="box">
-            <h3>Motor principal</h3>
-
-            <ul>
-                <li>Coordina toda la ejecución de la herramienta.</li>
-                <li>Gestiona el flujo completo de la auditoría.</li>
-            </ul>
-
+            <h3>Núcleo</h3>
+            <p>Interpreta opciones, prepara el trabajo y coordina los módulos.</p>
         </div>
-        <br>
-
+        <div class="box">
+            <h3>Gestor de entradas</h3>
+            <p>
+                Gestiona objetivos, usuarios y contraseñas. Estos datos pueden proceder de valores individuales
+                o de archivos. El formato y la combinación de entradas deben revisarse antes de ejecutar una prueba.
+            </p>
+        </div>
         <div class="box">
             <h3>Gestor de hilos</h3>
-
-            <ul>
-                <li>Distribuye el trabajo entre múltiples hilos.</li>
-                <li>Permite aumentar considerablemente el rendimiento.</li>
-            </ul>
-
-        </div>
-        <br>
-
-        <div class="box">
-            <h3>Módulos por protocolo</h3>
-
-            <ul>
-                <li>Cada protocolo dispone de un módulo independiente.</li>
-                <li>Cada módulo implementa la comunicación con su servicio correspondiente.</li>
-            </ul>
-
-        </div>
-        <br>
-
-        <div class="box">
-            <h3>Gestor de resultados</h3>
-
-            <ul>
-                <li>Analiza las respuestas recibidas.</li>
-                <li>Determina si una autenticación ha sido válida o no.</li>
-                <li>Registra el resultado final de la auditoría.</li>
-            </ul>
-        </div>
-        <br>
-        <hr>
-
-        <h2>Protocolos compatibles</h2>
-
-        <div class="box">
-            <ul>
-                <li>SSH</li>
-                <li>FTP</li>
-                <li>HTTP Basic</li>
-                <li>HTTP Digest</li>
-                <li>SMTP</li>
-                <li>POP3</li>
-                <li>IMAP</li>
-                <li>Telnet</li>
-                <li>VNC</li>
-                <li>MySQL</li>
-                <li>PostgreSQL</li>
-                <li>LDAP</li>
-                <li>SMB</li>
-                <li>MSSQL</li>
-            </ul>
-
             <p>
-                La disponibilidad exacta depende de la versión compilada y de las bibliotecas
-                instaladas durante la compilación.
+                Distribuye tareas concurrentes. La concurrencia efectiva está condicionada por los parámetros,
+                el módulo, la red y los límites del servicio remoto.
             </p>
-
         </div>
-        <br>
-        <hr>
-
-        <h2>Ámbitos de utilización</h2>
-
         <div class="box">
-            <ul>
-                <li>Auditorías de seguridad.</li>
-
-                <li>Pentesting autorizado.</li>
-
-                <li>Formación universitaria.</li>
-
-                <li>Laboratorios de ciberseguridad.</li>
-
-                <li>Evaluación de políticas de contraseñas.</li>
-
-                <li>Comprobación de servicios de autenticación.</li>
-
-                <li>Verificación del cumplimiento de normativas internas.</li>
-            </ul>
-
+            <h3>Módulos independientes</h3>
             <p>
-                Su utilización debe limitarse siempre a sistemas propios o sobre los que exista
-                autorización expresa.
+                Los módulos se distribuyen como componentes separados y contienen la lógica específica
+                del protocolo. Algunos requieren bibliotecas de desarrollo adicionales para compilarse.
             </p>
-
         </div>
-        <br>
-        <hr>
-
-        <h2>Ventajas</h2>
-
         <div class="box">
-            <ul>
-                <li>Software libre.</li>
-
-                <li>Arquitectura modular.</li>
-
-                <li>Elevado rendimiento.</li>
-
-                <li>Ejecución multihilo.</li>
-
-                <li>Compatibilidad con numerosos protocolos.</li>
-
-                <li>Escalabilidad.</li>
-
-                <li>Facilidad de integración en auditorías.</li>
-            </ul>
-        </div>
-
-        <br>
-        <hr>
-
-        <h2>Desventajas</h2>
-
-        <div class="box">
-            <ul>
-                <li>Puede generar numerosos registros de auditoría.</li>
-
-                <li>Es fácilmente detectable por sistemas de monitorización.</li>
-
-                <li>Puede provocar bloqueos automáticos de cuentas cuando existen políticas de seguridad.</li>
-
-                <li>Depende de la calidad de las credenciales utilizadas durante la auditoría.</li>
-
-                <li>No explota vulnerabilidades del sistema.</li>
-            </ul>
-
-        </div>
-        <br>
-        <hr>
-
-        <h2>Diferencias con Hydra</h2>
-
-        <div class="box">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Característica</th>
-                        <th>Hydra</th>
-                        <th>Medusa</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>Popularidad</td>
-                        <td>Muy alta</td>
-                        <td>Alta</td>
-                    </tr>
-
-                    <tr>
-                        <td>Arquitectura</td>
-                        <td>Modular</td>
-                        <td>Modular</td>
-                    </tr>
-
-                    <tr>
-                        <td>Rendimiento</td>
-                        <td>Muy elevado</td>
-                        <td>Muy elevado</td>
-                    </tr>
-
-                    <tr>
-                        <td>Multihilo</td>
-                        <td>Sí</td>
-                        <td>Sí</td>
-                    </tr>
-
-                    <tr>
-                        <td>Protocolos soportados</td>
-                        <td>Muy amplio</td>
-                        <td>Amplio</td>
-                    </tr>
-
-                    <tr>
-                        <td>Comunidad</td>
-                        <td>Muy grande</td>
-                        <td>Más reducida</td>
-                    </tr>
-
-                </tbody>
-            </table>
-
+            <h3>Gestión de resultados</h3>
             <p>
-                Ambas herramientas persiguen objetivos similares, aunque presentan diferencias
-                en su implementación, diseño interno y comunidad de desarrollo.
+                Recoge respuestas, errores y estados de autenticación. Una respuesta ambigua o un timeout
+                debe registrarse como incertidumbre, no como una credencial necesariamente incorrecta.
             </p>
-
         </div>
+
         <br>
-        <hr>
 
-        <h2>Riesgos asociados</h2>
+        <h2>Comprobar los módulos disponibles</h2>
+        <pre>medusa -d
+medusa -M ssh -q</pre>
+        <p>
+            El primer comando enumera los módulos instalados. El segundo consulta las opciones del módulo SSH.
+            Si no aparece, comprueba el paquete y sus dependencias antes de asumir que el protocolo está soportado.
+        </p>
 
-        <div class="box">
-            <p>
-                El principal riesgo que pone de manifiesto Medusa es el uso de credenciales
-                débiles.
-            </p>
-
-            <p>
-                Una contraseña sencilla puede descubrirse con relativa rapidez durante una
-                auditoría autorizada.
-            </p>
-
-            <p>
-                Esto demuestra la importancia de establecer políticas de autenticación
-                robustas y mecanismos de protección complementarios.
-            </p>
-
-        </div>
         <br>
-        <hr>
 
-        <h2>Métodos de protección</h2>
+        <h2>Dependencias y compilación</h2>
+        <p>
+            La documentación de Medusa indica que ciertos módulos dependen de bibliotecas externas, como
+            OpenSSL, LibSSH2 o bibliotecas específicas de bases de datos y servicios. Por ello, dos instalaciones
+            con versiones similares pueden ofrecer conjuntos de módulos distintos.
+        </p>
 
-        <div class="box">
-            <ul>
-                <li>Utilizar contraseñas largas y complejas.</li>
-
-                <li>Implementar autenticación multifactor (MFA).</li>
-
-                <li>Aplicar bloqueos temporales tras varios intentos fallidos.</li>
-
-                <li>Limitar la velocidad de autenticación.</li>
-
-                <li>Supervisar continuamente los registros del sistema.</li>
-
-                <li>Implementar sistemas automáticos de detección de intrusiones.</li>
-
-                <li>Bloquear direcciones IP sospechosas.</li>
-
-                <li>Eliminar protocolos inseguros.</li>
-
-                <li>Formar a los usuarios en buenas prácticas de seguridad.</li>
-            </ul>
-        </div>
         <br>
-        <hr>
 
-        <h2>Buenas prácticas</h2>
+        <h2>Comparación conceptual con Hydra</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspecto</th>
+                    <th>Medusa</th>
+                    <th>Hydra</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Diseño</td>
+                    <td>Núcleo y módulos independientes</td>
+                    <td>Núcleo y módulos por servicio</td>
+                </tr>
+                <tr>
+                    <td>Concurrencia</td>
+                    <td>Basada en hilos</td>
+                    <td>Basada en tareas paralelas</td>
+                </tr>
+                <tr>
+                    <td>Compatibilidad</td>
+                    <td>Depende de módulos y dependencias instaladas</td>
+                    <td>Depende de módulos y bibliotecas compiladas</td>
+                </tr>
+                <tr>
+                    <td>Elección</td>
+                    <td>Depende del servicio y del flujo de auditoría</td>
+                    <td>Depende del servicio y del flujo de auditoría</td>
+                </tr>
+            </tbody>
+        </table>
 
-        <div class="box">
-            <ul>
-                <li>Obtener autorización previa antes de realizar cualquier auditoría.</li>
-
-                <li>Trabajar únicamente sobre sistemas controlados o autorizados.</li>
-
-                <li>Documentar todas las pruebas realizadas.</li>
-
-                <li>Conservar los registros generados durante la auditoría.</li>
-
-                <li>Informar de las debilidades detectadas.</li>
-
-                <li>Proponer medidas correctoras adecuadas.</li>
-
-                <li>Aplicar siempre el principio de mínima intrusión.</li>
-            </ul>
-        </div>
         <br>
+
+        <h2>Fuentes</h2>
+        <ul>
+            <li><a href="https://jmk-foofus.github.io/medusa/medusa.html" target="_blank" rel="noopener noreferrer">Documentación técnica de Medusa</a></li>
+            <li><a href="https://github.com/jmk-foofus/medusa" target="_blank" rel="noopener noreferrer">Repositorio del proyecto</a></li>
+        </ul>
         <hr>
-
-        <h2>Recursos relacionados</h2>
-
-        <div class="box">
-            <ul>
-                <li>
-                    <span class="cat">
-                        <a href="../lab/index.html">
-                            Laboratorio
-                        </a>
-                    </span>
-                </li>
-            </ul>
-        </div>
-        <br>
-        <hr>
-
     </div>
 
 </body>
-
 </html>

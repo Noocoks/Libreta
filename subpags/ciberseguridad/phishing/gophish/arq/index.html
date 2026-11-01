@@ -1,108 +1,75 @@
 <!doctype html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="author" content="Nooko">
-
-    <meta name="keywords" content="gophish, arquitectura, phishing, smtp, landing pages, tracking">
-
-    <meta name="description"
-        content="Arquitectura interna de Gophish y componentes utilizados para gestionar campañas de phishing controladas.">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Arquitectura - Gophish</title>
+    <meta name="keywords" content="phishing gophish arquitectura campañas SMTP landing pages">
+    <meta name="description" content="Arquitectura de GoPhish: administración, campañas, SMTP, páginas de destino y registro de eventos.">
+    <title>Arquitectura - GoPhish</title>
 
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
-
-    <div class="page" data-cat="phishing gophish arq">
+    <div class="page" data-cat="phishing gophish arquitectura campañas SMTP landing pages">
         <hr>
+        <h1>Arquitectura - GoPhish</h1>
 
-        <h1>Arquitectura - Gophish</h1>
-
-        <div class="box box--info">
-            <p>
-                <strong>Gophish</strong> se estructura en varios componentes encargados de
-                <strong>gestionar</strong> campañas, <strong>enviar</strong> correos, <strong>alojar</strong>
-                páginas de captura y <strong>registrar</strong> la interacción de los usuarios.
-            </p>
-        </div>
-
+        <div class="box box--info"><p>GoPhish reúne una interfaz de administración y componentes que preparan campañas, entregan mensajes por SMTP, sirven páginas y registran interacciones. La configuración de red y el almacenamiento deben protegerse como parte del laboratorio.</p></div>
         <br>
-        <hr>
+
+        <h2>Diagrama conceptual</h2>
+        <div class="box"><pre>Operador autorizado
+        |
+        v
+Interfaz de administración
+        |
+        +---- Grupos de prueba
+        +---- Plantillas de correo
+        +---- Landing pages
+        +---- Perfil SMTP
+        |
+        v
+Motor de campañas
+        |
+        +---- SMTP ---> MailHog / servidor de pruebas
+        |
+        +---- Enlace ---> Landing page
+                         |
+                         v
+                  Registro de eventos
+                         |
+                         v
+                  Resultados e informe</pre></div>
+        <br>
 
         <h2>Componentes</h2>
-
-        <div class="box">
-            <h3>Servidor web</h3>
-
-            <p>
-                Proporciona la interfaz de administración utilizada para crear y
-                gestionar campañas de phishing.
-            </p>
-
-            <ul>
-                <li>Plantillas de correo.</li>
-                <li>Landing pages.</li>
-                <li>Perfiles objetivo.</li>
-                <li>Estadísticas de campañas.</li>
-            </ul>
-        </div>
-
+        <div class="box"><h3>Interfaz administrativa</h3><p>Permite gestionar usuarios, grupos, plantillas, páginas, perfiles y campañas. Debe estar accesible solo para administradores autorizados.</p></div>
+        <div class="box"><h3>Grupos</h3><p>Organizan destinatarios de la simulación. En este laboratorio deben contener direcciones ficticias o cuentas controladas.</p></div>
+        <div class="box"><h3>Plantillas y páginas</h3><p>Definen el correo y el destino del enlace. Para formación utiliza una página educativa y no recojas contraseñas reales.</p></div>
+        <div class="box"><h3>Perfil SMTP</h3><p>Define host y puerto de entrega. En un laboratorio local debe apuntar a MailHog y no a un servidor externo.</p></div>
+        <div class="box"><h3>Seguimiento</h3><p>Registra eventos de envío, apertura y clic. Las herramientas de privacidad y seguridad pueden alterar estas métricas.</p></div>
         <br>
 
-        <div class="box">
-            <h3>Motor SMTP</h3>
-
-            <p>
-                Encargado del envío de correos electrónicos simulados.
-            </p>
-
-            <ul>
-                <li>Servidores SMTP propios.</li>
-                <li>Servicios externos de laboratorio.</li>
-            </ul>
-        </div>
-
+        <h2>Separación de red</h2>
+        <ul>
+            <li>Consola administrativa en localhost o red de gestión aislada.</li>
+            <li>SMTP de pruebas sin relay hacia Internet.</li>
+            <li>Landing page disponible solo para navegadores de prueba.</li>
+            <li>Base de datos y exportaciones con permisos restrictivos.</li>
+        </ul>
         <br>
 
-        <div class="box">
-            <h3>Landing Pages</h3>
+        <h2>Fuentes oficiales</h2>
+        <ul>
+            <li><a href="https://docs.getgophish.com/user-guide/documentation/campaigns" target="_blank" rel="noopener noreferrer">Campañas</a></li>
+            <li><a href="https://docs.getgophish.com/user-guide/documentation/sending-profiles" target="_blank" rel="noopener noreferrer">Perfiles SMTP</a></li>
+            <li><a href="https://docs.getgophish.com/user-guide/documentation/groups" target="_blank" rel="noopener noreferrer">Grupos</a></li>
+        </ul>
 
-            <p>
-                Páginas web diseñadas para simular formularios de autenticación
-                u otros escenarios de ingeniería social.
-            </p>
-        </div>
-
-        <br>
-
-        <div class="box">
-            <h3>Tracking y Logging</h3>
-
-            <p>
-                Sistema encargado de recopilar métricas e interacciones.
-            </p>
-
-            <ul>
-                <li>Aperturas de correos.</li>
-                <li>Clics en enlaces.</li>
-                <li>Envío de formularios.</li>
-                <li>Captura de indicadores de compromiso.</li>
-            </ul>
-        </div>
-
-        <br>
         <hr>
-
     </div>
-
 </body>
-
 </html>

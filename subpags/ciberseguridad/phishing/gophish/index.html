@@ -1,111 +1,93 @@
 <!doctype html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="author" content="Nooko">
-
-    <meta name="keywords" content="gophish, phishing, ingenieria social, campañas, red team, concienciacion">
-
-    <meta name="description"
-        content="Gophish es una plataforma para la simulación de campañas de phishing en entornos controlados.">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Gophish</title>
+    <meta name="keywords" content="phishing gophish simulación campañas SMTP concienciación">
+    <meta name="description" content="Guía de GoPhish para simulaciones autorizadas: componentes, campañas, métricas, seguridad y laboratorio local.">
+    <title>GoPhish</title>
 
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
 
 <body>
-
-    <div class="page" data-cat="phishing gophish">
+    <div class="page" data-cat="phishing gophish simulación campañas SMTP concienciación">
         <hr>
-
-        <h1>Gophish</h1>
+        <h1>GoPhish</h1>
 
         <div class="node-tags">
-            <span class="tag">phishing</span>
-            <span class="tag">ingenieria-social</span>
-            <span class="tag">campañas</span>
-            <span class="tag">red-team</span>
-            <span class="tag">concienciacion</span>
+            <span class="tag">phishing</span><span class="tag">simulación</span><span class="tag">campañas</span><span class="tag">concienciación</span>
         </div>
-        <br>
-
         <div class="box box--info">
-            <p>
-                <strong>Gophish</strong> es una plataforma de
-                <span class="cat">
-                    <a href="../index.html">Phishing</a>
-                </span>
-                diseñada para simular campañas de ingeniería social en entornos controlados.
-            </p>
-        </div>
-
-        <p>
-            Su objetivo es recrear escenarios reales de phishing para evaluar
-            el comportamiento de los usuarios y mejorar la formación en seguridad.
-        </p>
-        <br>
-        <hr>
-
-        <h2>Casos de uso</h2>
-
-        <div class="box">
-            <ul>
-                <li>Simulación de campañas de phishing.</li>
-                <li>Evaluación de la concienciación de usuarios.</li>
-                <li>Entrenamiento de equipos Blue Team y Red Team.</li>
-                <li>Obtención de métricas e indicadores de compromiso.</li>
-            </ul>
-        </div>
-
-        <p>
-            <em><sub>/* Utilizada principalmente en formación corporativa,
-                    auditorías internas y ejercicios Red Team. */</sub></em>
-        </p>
-        <br>
-        <hr>
-
-        <h2>Recursos relacionados</h2>
-
-        <div class="box">
-            <ul>
-
-                <li>
-                    <span class="cat">
-                        <a href="./arq/index.html">
-                            Arquitectura
-                        </a>
-                    </span>
-                </li>
-
-                <li>
-                    <span class="cat">
-                        <a href="./lab/index.html">
-                            Laboratorio
-                        </a>
-                    </span>
-                </li>
-
-                <li>
-                    <span class="cat">
-                        <a href="./perUse/index.html">
-                            Flujo de uso
-                        </a>
-                    </span>
-                </li>
-
-            </ul>
+            <p><strong>GoPhish</strong> es una plataforma de código abierto para organizar simulaciones de phishing y ejercicios de concienciación. Gestiona grupos de destinatarios, plantillas, páginas educativas, perfiles SMTP y resultados.</p>
+            <p>Su uso requiere autorización, alcance definido y responsables identificados. Esta documentación se centra en laboratorios y formación, no en la captura de credenciales reales ni en campañas contra terceros.</p>
         </div>
         <br>
-        <hr>
 
+        <h2>Qué permite evaluar</h2>
+        <ul>
+            <li>Reconocimiento de señales sospechosas en un mensaje simulado.</li>
+            <li>Interacción con enlaces de prueba.</li>
+            <li>Uso de los canales internos para reportar mensajes.</li>
+            <li>Funcionamiento de controles técnicos y procesos de respuesta.</li>
+        </ul>
+        <br>
+
+        <h2>Elementos de una campaña</h2>
+        <ol>
+            <li><strong>Grupo:</strong> destinatarios incluidos en el alcance autorizado.</li>
+            <li><strong>Plantilla:</strong> contenido del mensaje de simulación.</li>
+            <li><strong>Landing page:</strong> página educativa que recibe al usuario tras el enlace.</li>
+            <li><strong>Sending profile:</strong> configuración SMTP que entrega el mensaje.</li>
+            <li><strong>Campaign:</strong> relaciona plantilla, página, grupo, URL y perfil.</li>
+            <li><strong>Results:</strong> eventos y métricas obtenidos durante el ejercicio.</li>
+        </ol>
+        <br>
+
+        <h2>Métricas e interpretación</h2>
+        <ul>
+            <li><strong>Enviado:</strong> el sistema procesó el envío mediante el perfil configurado.</li>
+            <li><strong>Abierto:</strong> puede depender de imágenes de seguimiento que algunos clientes bloquean o precargan.</li>
+            <li><strong>Clic:</strong> registra visitas al enlace; proxies y sistemas de seguridad pueden abrirlo automáticamente.</li>
+            <li><strong>Datos enviados:</strong> no se deben solicitar ni almacenar contraseñas reales en un ejercicio formativo.</li>
+            <li><strong>Reportado:</strong> requiere un canal complementario de reporte definido por la organización.</li>
+        </ul>
+        <p>Una apertura o un clic no demuestran por sí solos una decisión consciente del usuario. Analiza varias señales y prioriza métricas agregadas.</p>
+        <br>
+
+        <h2>Flujo de trabajo recomendado</h2>
+        <ol>
+            <li>Define objetivo, alcance, periodo y responsables.</li>
+            <li>Usa destinatarios de prueba y correo local.</li>
+            <li>Prepara un mensaje inocuo y una página educativa.</li>
+            <li>Configura el SMTP para apuntar a MailHog.</li>
+            <li>Envía primero un mensaje a una dirección controlada.</li>
+            <li>Revisa eventos y documenta limitaciones.</li>
+            <li>Comparte conclusiones agregadas y recomendaciones.</li>
+        </ol>
+        <br>
+
+        <h2>Seguridad</h2>
+        <ul>
+            <li>No recojas contraseñas ni credenciales reales.</li>
+            <li>No expongas la consola administrativa a Internet.</li>
+            <li>Protege la base de datos y limita el acceso a resultados.</li>
+            <li>Utiliza SMTP de laboratorio para evitar envíos accidentales.</li>
+            <li>Define retención y eliminación de datos antes de comenzar.</li>
+        </ul>
+        <br>
+
+        <h2>Recursos</h2>
+        <ul>
+            <li><span class="cat"><a href="./arq/index.html">Arquitectura</a></span></li>
+            <li><span class="cat"><a href="./lab/index.html">Laboratorio local con MailHog</a></span></li>
+            <li><span class="cat"><a href="./perUse/index.html">Flujo de uso y recursos</a></span></li>
+            <li><a href="https://docs.getgophish.com/user-guide/" target="_blank" rel="noopener noreferrer">Guía oficial de GoPhish</a></li>
+        </ul>
+
+        <hr>
     </div>
-
 </body>
-
 </html>

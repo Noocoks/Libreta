@@ -3,92 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
-    <meta name="keywords" content="medusa, laboratorio, defensa, ssh, monitorización, logs, autenticación, hardening">
-    <meta name="description" content="Laboratorio didáctico para analizar registros de autenticación y evaluar medidas defensivas frente a intentos repetidos de acceso.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Medusa, laboratorio, SSH, logs, autenticación, hardening">
+    <meta name="description" content="Laboratorio local para analizar autenticaciones SSH, registros y medidas defensivas con Medusa.">
     <title>Laboratorio - Medusa</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="fuerza-bruta medusa lab">
         <hr>
         <h1>Laboratorio - Medusa</h1>
-        <p><em><small>Observación de autenticación y evaluación de mecanismos de defensa.</small></em></p>
 
         <div class="box box--info">
-            <p>Este laboratorio permite estudiar cómo se registran los intentos de autenticación y cómo las medidas de seguridad ayudan a detectar y mitigar actividad sospechosa. Utiliza exclusivamente equipos propios o entornos autorizados.</p>
-        </div>
-        <hr>
-
-        <h2>Objetivos</h2>
-        <div class="box">
-            <ul>
-                <li>Comprender los registros de autenticación.</li>
-                <li>Identificar eventos de acceso fallido y correcto.</li>
-                <li>Reconocer patrones de actividad anómala.</li>
-                <li>Evaluar medidas defensivas y documentar resultados.</li>
-            </ul>
+            <p>
+                Esta práctica utiliza SSH en <code>127.0.0.1</code> para estudiar el comportamiento de Medusa
+                y los registros del sistema. No la ejecutes contra equipos de terceros ni contra cuentas reales.
+            </p>
         </div>
 
-        <h2>Entorno</h2>
-        <div class="box">
-            <ul>
-                <li>Máquina virtual Linux.</li>
-                <li>Servicio SSH habilitado para prácticas.</li>
-                <li>Usuario de pruebas independiente.</li>
-                <li>Registros del sistema y herramienta de monitorización.</li>
-                <li>Firewall e instantánea de recuperación.</li>
-            </ul>
-        </div>
-        <hr>
+        <br>
 
-        <h2>Proyectos</h2>
-        <div class="box">
-            <h3>1. Identificación de eventos</h3>
-            <p>Localiza intentos fallidos y correctos, usuarios implicados, direcciones IP y marcas temporales.</p>
-        </div>
-        <div class="box">
-            <h3>2. Análisis de registros</h3>
-            <p>Busca intentos repetitivos, frecuencia de eventos y patrones que puedan indicar actividad anómala.</p>
-        </div>
-        <div class="box">
-            <h3>3. Políticas de seguridad</h3>
-            <p>Compara los registros antes y después de aplicar contraseñas robustas, bloqueos temporales, restricciones de acceso y alertas.</p>
-        </div>
-        <div class="box">
-            <h3>4. Monitorización</h3>
-            <p>Observa en tiempo real los registros del sistema y los eventos del servicio SSH.</p>
-        </div>
-        <div class="box">
-            <h3>5. Informe técnico</h3>
-            <p>Documenta el entorno, las evidencias, las medidas aplicadas y las conclusiones.</p>
-        </div>
-        <hr>
+        <h2>1. Preparar el servicio local</h2>
+        <pre>sudo apt update
+sudo apt install openssh-server medusa
+sudo systemctl enable --now ssh
+systemctl status ssh --no-pager
+ss -lnt | grep ':22'</pre>
 
-        <h2>Resultados esperados</h2>
-        <div class="box">
-            <ul>
-                <li>Interpretar registros de autenticación.</li>
-                <li>Reconocer patrones repetitivos.</li>
-                <li>Valorar las políticas de seguridad y la monitorización.</li>
-            </ul>
-        </div>
+        <br>
 
-        <h2>Buenas prácticas</h2>
-        <div class="box">
-            <ul>
-                <li>Trabajar únicamente en entornos autorizados.</li>
-                <li>Conservar los registros originales.</li>
-                <li>Documentar las observaciones sin alterar evidencias.</li>
-            </ul>
-        </div>
+        <h2>2. Crear una cuenta temporal</h2>
+        <pre>sudo adduser medusa-lab
+sudo passwd medusa-lab</pre>
+        <p>
+            Establece una contraseña de laboratorio que no reutilices. No asignes permisos administrativos
+            a esta cuenta.
+        </p>
 
-        <h2>Recursos relacionados</h2>
-        <div class="box">
-            <ul><li><span class="cat"><a href="../arq/index.html">Arquitectura</a></span></li></ul>
-        </div>
+        <br>
+
+        <h2>3. Crear una lista corta de práctica</h2>
+        <pre>printf '%s\n' 'ClaveMedusa-Lab-01' 'valor-ficticio-02' 'valor-ficticio-03' > claves-medusa.txt
+chmod 600 claves-medusa.txt</pre>
+        <p>
+            Asegúrate de que la contraseña establecida para la cuenta coincide con la primera entrada.
+        </p>
+
+        <br>
+
+        <h2>4. Verificar los módulos</h2>
+        <pre>medusa -d
+medusa -M ssh -q</pre>
+        <p>
+            Continúa solo si el módulo SSH está instalado. La ayuda del módulo permite conocer sus opciones
+            particulares.
+        </p>
+
+        <br>
+
+        <h2>5. Prueba limitada sobre localhost</h2>
+        <pre>medusa -h 127.0.0.1 -u medusa-lab -P claves-medusa.txt -M ssh -t 1</pre>
+        <p>
+            El destino es el propio equipo y se utiliza un único hilo. Mantén la lista reducida y detén
+            el ejercicio si el servicio muestra errores o bloqueos inesperados.
+        </p>
+
+        <br>
+
+        <h2>6. Revisar registros</h2>
+        <pre>sudo journalctl -u ssh --since "10 minutes ago"
+sudo tail -n 50 /var/log/auth.log</pre>
+        <p>
+            La disponibilidad de <code>/var/log/auth.log</code> depende de la distribución. El journal
+            de systemd es una alternativa cuando el servicio registra allí sus eventos.
+        </p>
+
+        <br>
+
+        <h2>7. Informe de práctica</h2>
+        <ul>
+            <li>Versión de Medusa y módulos disponibles.</li>
+            <li>Servicio y dirección local evaluados.</li>
+            <li>Número de intentos y duración.</li>
+            <li>Eventos de autenticación observados en los registros.</li>
+            <li>Diferencias entre errores de conexión y rechazos de credenciales.</li>
+            <li>Medidas defensivas recomendadas.</li>
+        </ul>
+
+        <br>
+
+        <h2>8. Limpieza</h2>
+        <pre>sudo passwd -l medusa-lab
+sudo deluser --remove-home medusa-lab
+rm -f claves-medusa.txt</pre>
+        <p>Si trabajas en una máquina virtual, restaura la instantánea al terminar.</p>
         <hr>
     </div>
+
 </body>
 </html>

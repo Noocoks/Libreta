@@ -3,72 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
-    <meta name="keywords" content="medusa, autenticación, auditoría, fuerza bruta, ssh, ftp, instalación, kali linux">
-    <meta name="description" content="Introducción a Medusa, casos de uso, protocolos compatibles, instalación y comprobación.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Medusa, auditoría de autenticación, módulos, SSH, FTP, pentesting">
+    <meta name="description" content="Documentación de Medusa: arquitectura modular, opciones, módulos, instalación, resultados, limitaciones y laboratorio.">
     <title>Medusa</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="fuerza-bruta medusa">
         <hr>
         <h1>Medusa</h1>
 
+        <p><em><small>Auditor de autenticación de red modular y multihilo.</small></em></p>
+
         <div class="node-tags">
-            <span class="tag">ssh</span>
-            <span class="tag">ftp</span>
-            <span class="tag">fuerza-bruta</span>
-            <span class="tag">paralelización</span>
+            <span class="tag">SSH</span>
+            <span class="tag">FTP</span>
             <span class="tag">autenticación</span>
+            <span class="tag">módulos</span>
+            <span class="tag">auditoría</span>
         </div>
-        <p><em><small>Herramienta de auditoría de autenticación para entornos autorizados.</small></em></p>
 
         <div class="box box--info">
-            <p><strong>Medusa</strong> es una herramienta <strong>Open Source</strong> que permite evaluar la seguridad de servicios de red mediante pruebas automatizadas de autenticación. Se utiliza para comprobar la fortaleza de las credenciales y las políticas de acceso en sistemas propios o autorizados.</p>
-        </div>
-        <hr>
-
-        <h2>Casos de uso</h2>
-        <div class="box">
-            <h3>Auditorías de seguridad</h3>
-            <p>Detectar credenciales débiles y comprobar las políticas de autenticación.</p>
-        </div>
-        <div class="box">
-            <h3>Laboratorios y formación</h3>
-            <p>Estudiar los mecanismos de autenticación y las buenas prácticas de seguridad en entornos controlados.</p>
-        </div>
-        <div class="box">
-            <h3>Validación de políticas</h3>
-            <p>Comprobar medidas como el bloqueo de cuentas, la autenticación multifactor y la limitación de intentos.</p>
-        </div>
-        <hr>
-
-        <h2>Instalación</h2>
-        <div class="box">
-            <pre><code>sudo apt update
-sudo apt install medusa</code></pre>
+            <p>
+                <strong>Medusa</strong> es una herramienta de código abierto diseñada para realizar auditorías
+                automatizadas de inicio de sesión en servicios de red. Su arquitectura utiliza hilos de ejecución
+                y módulos independientes para los distintos protocolos de autenticación.
+            </p>
+            <p>
+                Se utiliza para evaluar credenciales y controles de acceso en sistemas propios o autorizados.
+                No es un escáner general de vulnerabilidades: su ámbito principal es la autenticación remota.
+            </p>
         </div>
 
-        <h2>Comprobación</h2>
+        <br>
+
+        <h2>Cómo funciona</h2>
+        <ol>
+            <li>Se define el host o conjunto de hosts que forman parte del alcance.</li>
+            <li>Se selecciona un módulo compatible con el servicio.</li>
+            <li>Se proporcionan usuarios y contraseñas individuales o mediante archivos.</li>
+            <li>El programa distribuye el trabajo entre hilos, de acuerdo con los límites configurados.</li>
+            <li>El módulo realiza el intercambio de autenticación y clasifica la respuesta.</li>
+            <li>Los resultados y errores se muestran para su análisis.</li>
+        </ol>
+
+        <br>
+
+        <h2>Conceptos importantes</h2>
         <div class="box">
-            <pre><code>which medusa
+            <h3>Módulos</h3>
+            <p>
+                Cada servicio dispone de un módulo específico. La instalación puede incluir un conjunto
+                diferente según las dependencias disponibles durante la compilación.
+            </p>
+            <h3>Paralelización</h3>
+            <p>
+                Medusa puede probar distintos hosts, usuarios o contraseñas de forma concurrente.
+                Más hilos no significan necesariamente mejores resultados: el servicio puede limitar
+                conexiones o bloquear cuentas.
+            </p>
+            <h3>Opciones del módulo</h3>
+            <p>
+                Algunos protocolos necesitan parámetros adicionales, por ejemplo dominio, modo de autenticación
+                o comportamiento específico del servicio. Consulta la ayuda del módulo antes de usarlo.
+            </p>
+        </div>
+
+        <br>
+
+        <h2>Servicios y protocolos</h2>
+        <p>
+            La documentación del proyecto enumera módulos para servicios como SSH, FTP, HTTP, SMB, SMTP,
+            POP3, IMAP, RDP, VNC, bases de datos y otros. La disponibilidad concreta debe comprobarse
+            en la instalación local.
+        </p>
+
+        <br>
+
+        <h2>Instalación y verificación</h2>
+        <pre>sudo apt update
+sudo apt install medusa
+
+command -v medusa
 medusa -V
-medusa -h</code></pre>
-            <p>Si los comandos responden correctamente, la herramienta está instalada y disponible.</p>
-        </div>
-        <hr>
+medusa -h
+medusa -d</pre>
+        <p>
+            <code>medusa -d</code> muestra los módulos instalados. Para consultar las opciones de un módulo
+            concreto, utiliza <code>medusa -M ssh -q</code> si el módulo SSH está disponible.
+        </p>
 
-        <h2>Recursos relacionados</h2>
-        <div class="box">
-            <ul>
-                <li><span class="cat"><a href="./arq/index.html">Arquitectura</a></span></li>
-                <li><span class="cat"><a href="./lab/index.html">Laboratorio</a></span></li>
-                <li><span class="cat"><a href="../../adfb/index.html">Ataques de fuerza bruta</a></span></li>
-                <li><span class="cat"><a href="../hydra/index.html">Hydra</a></span></li>
-            </ul>
-        </div>
+        <br>
+
+        <h2>Interpretación de resultados</h2>
+        <ul>
+            <li>Una autenticación aceptada debe contrastarse con los registros del servicio.</li>
+            <li>Un error de conexión no demuestra que la contraseña sea incorrecta.</li>
+            <li>Un módulo ausente suele indicar que no se compiló o instaló la dependencia necesaria.</li>
+            <li>Los límites de intentos, bloqueos y respuestas genéricas pueden dificultar la clasificación.</li>
+        </ul>
+
+        <br>
+
+        <h2>Medusa y Hydra</h2>
+        <p>
+            Ambas herramientas persiguen objetivos similares y tienen una arquitectura modular y concurrente.
+            La elección depende de los módulos disponibles, la compatibilidad con el servicio, la facilidad
+            de uso, la documentación y las necesidades concretas de la auditoría. No existe una ganadora
+            universal por velocidad o número de protocolos.
+        </p>
+
+        <br>
+
+        <h2>Buenas prácticas y defensa</h2>
+        <ul>
+            <li>Define por escrito el alcance y utiliza cuentas de prueba.</li>
+            <li>Limita la concurrencia y la duración de las pruebas.</li>
+            <li>Aplica MFA, contraseñas únicas y controles contra intentos repetidos.</li>
+            <li>Supervisa eventos de autenticación y correlaciónalos entre servicios.</li>
+            <li>Detén la prueba si aparecen bloqueos inesperados o degradación.</li>
+        </ul>
+
+        <br>
+
+        <h2>Documentación complementaria</h2>
+        <ul>
+            <li><span class="cat"><a href="./arq/index.html">Arquitectura de Medusa</a></span></li>
+            <li><span class="cat"><a href="./lab/index.html">Laboratorio y análisis de registros</a></span></li>
+            <li><a href="https://jmk-foofus.github.io/medusa/medusa.html" target="_blank" rel="noopener noreferrer">Documentación del proyecto Medusa</a></li>
+        </ul>
         <hr>
     </div>
+
 </body>
 </html>
