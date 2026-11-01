@@ -47,23 +47,29 @@ existe / no detectado / limitado / incierto</pre>
 
         <h2>Componentes</h2>
         <div class="box"><h3>Entrada</h3><p>Recibe la dirección que se comprobará. Debe ser propia o estar cubierta por autorización expresa.</p></div>
-    <div class="box"><h3>Módulos de servicio</h3><p>Cada módulo implementa una consulta particular. No todos los proveedores usan los mismos endpoints, mensajes ni respuestas.</p></div>
-    <div class="box"><h3>Cliente HTTP y concurrencia</h3><p>Coordina solicitudes y respuestas. Las consultas deben respetar los límites y controles antiabuso de los servicios.</p></div>
-    <div class="box"><h3>Analizador</h3><p>Examina códigos, texto y señales indirectas. Un cambio en la web del proveedor puede invalidar la lógica de un módulo.</p></div>
-    <div class="box"><h3>Clasificador</h3><p>Resume los resultados y debe conservar estados de limitación e incertidumbre; reducirlos a un sí/no puede inducir a error.</p></div>
-    <h2>Estados de salida</h2>
-    <ul>
-        <li><strong>Found:</strong> señal compatible con una cuenta existente.</li>
-        <li><strong>Not found:</strong> no se detectó una señal de registro.</li>
-        <li><strong>Rate limited:</strong> el proveedor limitó la frecuencia de consultas.</li>
-        <li><strong>Uncertain / error:</strong> no existe evidencia suficiente.</li>
-    </ul>
-    <h2>Riesgo de enumeración</h2>
-    <p>La enumeración puede revelar en qué plataformas se utiliza una dirección. Los proveedores reducen este riesgo con respuestas uniformes, límites de frecuencia y controles antiautomatización.</p>
-    <h2>Fuente</h2>
-    <p><a href="https://github.com/megadose/holehe" target="_blank" rel="noopener noreferrer">Código y documentación de Holehe</a></p>
+        <div class="box"><h3>Módulos de servicio</h3><p>Cada módulo implementa una consulta particular. No todos los proveedores usan los mismos endpoints, mensajes ni respuestas.</p></div>
+        <div class="box"><h3>Cliente HTTP y concurrencia</h3><p>Coordina solicitudes y respuestas. Las consultas deben respetar los límites y controles antiabuso de los servicios.</p></div>
+        <div class="box"><h3>Analizador</h3><p>Examina códigos, texto y señales indirectas. Un cambio en la web del proveedor puede invalidar la lógica de un módulo.</p></div>
+        <div class="box"><h3>Clasificador</h3><p>Resume los resultados y debe conservar estados de limitación e incertidumbre; reducirlos a un sí/no puede inducir a error.</p></div>
+        <br>
 
-    <hr>
+        <h2>Estados de salida</h2>
+        <ul>
+            <li><strong>Found:</strong> señal compatible con una cuenta existente.</li>
+            <li><strong>Not found:</strong> no se detectó una señal de registro.</li>
+            <li><strong>Rate limited:</strong> el proveedor limitó la frecuencia de consultas.</li>
+            <li><strong>Uncertain / error:</strong> no existe evidencia suficiente.</li>
+        </ul>
+        <br>
+
+        <h2>Riesgo de enumeración</h2>
+        <p>La enumeración puede revelar en qué plataformas se utiliza una dirección. Los proveedores reducen este riesgo con respuestas uniformes, límites de frecuencia y controles antiautomatización.</p>
+        <br>
+
+        <h2>Fuente</h2>
+        <p><a href="https://github.com/megadose/holehe" target="_blank" rel="noopener noreferrer">Código y documentación de Holehe</a></p>
+
+        <hr>
     </div>
 </body>
 </html>

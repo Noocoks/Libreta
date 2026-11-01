@@ -18,33 +18,47 @@
         <h1>Laboratorio - GoPhish</h1>
 
         <div class="box box--info"><p>La práctica conecta GoPhish con MailHog, que captura los mensajes y permite inspeccionarlos desde una interfaz local. No se envían correos a Internet ni a personas reales. Utiliza destinatarios ficticios y no recojas contraseñas.</p></div>
-    <h2>1. Preparar MailHog</h2>
-    <p>Sigue la <span class="cat"><a href="../../mailhog/ini/index.html">guía de instalación de MailHog</a></span> y comprueba <code>http://127.0.0.1:8025</code>.</p>
-    <h2>2. Instalar GoPhish</h2>
-    <p>Descarga una versión desde el repositorio oficial y sigue las instrucciones correspondientes a tu sistema. Mantén la consola administrativa en localhost o una red de gestión aislada.</p>
-    <p><a href="https://github.com/gophish/gophish/releases" target="_blank" rel="noopener noreferrer">Versiones oficiales</a></p>
-    <h2>3. Configurar el perfil SMTP local</h2>
-    <ul>
-        <li><strong>Host:</strong> <code>127.0.0.1:1025</code>, si ambos servicios comparten host.</li>
-        <li><strong>Remitente:</strong> <code>simulacion@lab.local</code>.</li>
-        <li><strong>Autenticación:</strong> vacía en la configuración predeterminada de MailHog.</li>
-    </ul>
-    <p>Envía un mensaje a <code>alumno@lab.local</code> y confirma su recepción en MailHog.</p>
-    <h2>4. Crear grupo y plantilla</h2>
-    <p>Incluye solo destinatarios ficticios o cuentas controladas. Utiliza un mensaje inocuo, sin adjuntos ejecutables, enlaces externos ni suplantación de marcas.</p>
-    <h2>5. Crear una landing page educativa</h2>
-    <p>Explica que el enlace forma parte de una práctica y muestra recomendaciones para reconocer mensajes sospechosos. No añadas campos de contraseña.</p>
-    <h2>6. Ejecutar y comprobar</h2>
-    <p>Selecciona el grupo, plantilla, página y perfil SMTP local. Ejecuta la campaña y comprueba el mensaje en MailHog. Visita el enlace local y revisa los eventos registrados.</p>
-    <h2>7. Cerrar el ejercicio</h2>
-    <ul>
-        <li>Detén la campaña y conserva solo los resultados necesarios.</li>
-        <li>Elimina destinatarios y datos que ya no necesites.</li>
-        <li>Conserva métricas agregadas para el informe.</li>
-        <li>Detén los servicios del laboratorio.</li>
-    </ul>
+        <br>
 
-    <hr>
+        <h2>1. Preparar MailHog</h2>
+        <p>Sigue la <span class="cat"><a href="../../mailhog/ini/index.html">guía de instalación de MailHog</a></span> y comprueba <code>http://127.0.0.1:8025</code>.</p>
+        <br>
+
+        <h2>2. Instalar GoPhish</h2>
+        <p>Descarga una versión desde el repositorio oficial y sigue las instrucciones correspondientes a tu sistema. Mantén la consola administrativa en localhost o una red de gestión aislada.</p>
+        <p><a href="https://github.com/gophish/gophish/releases" target="_blank" rel="noopener noreferrer">Versiones oficiales</a></p>
+        <br>
+
+        <h2>3. Configurar el perfil SMTP local</h2>
+        <ul>
+            <li><strong>Host:</strong> <code>127.0.0.1:1025</code>, si ambos servicios comparten host.</li>
+            <li><strong>Remitente:</strong> <code>simulacion@lab.local</code>.</li>
+            <li><strong>Autenticación:</strong> vacía en la configuración predeterminada de MailHog.</li>
+        </ul>
+        <p>Envía un mensaje a <code>alumno@lab.local</code> y confirma su recepción en MailHog.</p>
+        <br>
+
+        <h2>4. Crear grupo y plantilla</h2>
+        <p>Incluye solo destinatarios ficticios o cuentas controladas. Utiliza un mensaje inocuo, sin adjuntos ejecutables, enlaces externos ni suplantación de marcas.</p>
+        <br>
+
+        <h2>5. Crear una landing page educativa</h2>
+        <p>Explica que el enlace forma parte de una práctica y muestra recomendaciones para reconocer mensajes sospechosos. No añadas campos de contraseña.</p>
+        <br>
+
+        <h2>6. Ejecutar y comprobar</h2>
+        <p>Selecciona el grupo, plantilla, página y perfil SMTP local. Ejecuta la campaña y comprueba el mensaje en MailHog. Visita el enlace local y revisa los eventos registrados.</p>
+        <br>
+
+        <h2>7. Cerrar el ejercicio</h2>
+        <ul>
+            <li>Detén la campaña y conserva solo los resultados necesarios.</li>
+            <li>Elimina destinatarios y datos que ya no necesites.</li>
+            <li>Conserva métricas agregadas para el informe.</li>
+            <li>Detén los servicios del laboratorio.</li>
+        </ul>
+
+        <hr>
     </div>
 </body>
 </html>
