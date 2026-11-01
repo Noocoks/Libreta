@@ -6,17 +6,17 @@
     <meta name="keywords" content="openai, chatgpt, api, python, sdk, modelos, ia">
     <meta name="description" content="Introducción a OpenAI y su API: autenticación, SDK de Python, modelos, ejecución y comprobación de peticiones.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenAI</title>
+    <title>OpenAI &amp; S-GPT</title>
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
 <body>
     <div class="page" data-cat="ia companias">
         <hr>
-        <h1>OpenAI</h1>
+        <h1>OpenAI &amp; S-GPT</h1>
 
         <div class="node-tags">
-            <span class="tag">openai</span>
+            <span class="tag">shell-gpt</span>
             <span class="tag">llm</span>
             <span class="tag">api</span>
             <span class="tag">python-sdk</span>
@@ -117,6 +117,33 @@
                 Los nombres de modelos, parámetros y métodos pueden cambiar. Utiliza
                 la referencia oficial como fuente de verdad en lugar de copiar un
                 identificador antiguo de un ejemplo.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Shell-GPT desde terminal</h2>
+        <div class="box">
+            <p>
+                <strong>Shell-GPT</strong> (comando <code>sgpt</code>) es una
+                herramienta de línea de comandos que permite consultar modelos
+                desde el terminal y generar explicaciones, fragmentos de código
+                o sugerencias de comandos. Es independiente del script Python
+                de esta página, aunque puede utilizar el mismo proveedor de API.
+            </p>
+            <pre>pip install shell-gpt
+sgpt "Explica qué hace este comando de Linux"</pre>
+            <p>
+                La instalación inicial puede solicitar una clave y guardar su
+                configuración en el directorio de usuario de Shell-GPT. No des por
+                hecho que utilizará automáticamente el archivo <code>.env</code>
+                del proyecto. Comprueba la configuración oficial antes de cambiar
+                credenciales o proveedores.
+            </p>
+            <p>
+                <a href="https://github.com/TheR1D/shell_gpt" target="_blank" rel="noopener noreferrer">Shell-GPT · repositorio y guía oficial</a>
+                ·
+                <a href="https://pypi.org/project/shell-gpt/" target="_blank" rel="noopener noreferrer">Shell-GPT · paquete en PyPI</a>
             </p>
         </div>
         <br>
