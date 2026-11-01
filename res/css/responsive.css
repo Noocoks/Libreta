@@ -38,13 +38,6 @@ hashes o comandos largos rompan el layout */
     overflow-wrap: anywhere;
 }
 
-/* Variables utilizadas por algunas secciones */
-:root {
-    --border-color: var(--border);
-    --accent-color: var(--cat-phishing);
-    --box-bg: var(--panel);
-}
-
 /* ============================================================================
    TABLET / PORTÁTIL
    ============================================================================ */
@@ -86,6 +79,7 @@ hashes o comandos largos rompan el layout */
         inset: 0 auto 0 0;
 
         width: min(82vw, 320px);
+        margin-left: 0;
         min-width: 0;
         max-width: 320px;
         height: 100dvh;
