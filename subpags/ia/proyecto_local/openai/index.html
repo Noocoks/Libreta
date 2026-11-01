@@ -1,93 +1,140 @@
 <!doctype html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-
-  <meta name="author" content="Nooko">
-
-  <meta name="keywords" content="openai, chatgpt, s-gpt, api, python, ia">
-
-  <meta name="description"
-    content="Configuración y prueba de OpenAI mediante Python y herramientas de terminal como S-GPT.">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>OpenAI & S-GPT</title>
-
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nooko">
+    <meta name="keywords" content="openai, chatgpt, api, python, sdk, modelos, ia">
+    <meta name="description" content="Introducción a OpenAI y su API: autenticación, SDK de Python, modelos, ejecución y comprobación de peticiones.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI</title>
+    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+    <script src="/Libreta/res/js/page.js"></script>
 </head>
-
 <body>
+    <div class="page" data-cat="ia companias">
+        <hr>
+        <h1>OpenAI</h1>
 
-  <div class="page" data-cat="ia companias">
+        <div class="node-tags">
+            <span class="tag">openai</span>
+            <span class="tag">llm</span>
+            <span class="tag">api</span>
+            <span class="tag">python-sdk</span>
+            <span class="tag">chatbot</span>
+        </div>
 
-    <hr>
+        <div class="box box--info">
+            <p>
+                <strong>OpenAI</strong> desarrolla modelos y servicios de inteligencia
+                artificial. Esta sección se centra en el acceso programático mediante
+                la API: un script Python envía una petición autenticada y recibe una
+                respuesta generada por el modelo solicitado.
+            </p>
+            <p>
+                La API es una interfaz para integrar los modelos en aplicaciones.
+                No debe confundirse con la interfaz web de ChatGPT: son productos
+                relacionados, pero tienen paneles, credenciales y condiciones de uso
+                que deben consultarse por separado.
+            </p>
+        </div>
+        <br>
+        <hr>
 
-    <h1>OpenAI & S-GPT</h1>
+        <h2>Conceptos principales</h2>
+        <div class="box">
+            <ul>
+                <li><strong>API:</strong> interfaz HTTP que permite a un programa solicitar operaciones al servicio.</li>
+                <li><strong>Clave API:</strong> credencial que identifica y autoriza el proyecto que realiza la petición.</li>
+                <li><strong>SDK:</strong> biblioteca que simplifica la comunicación con la API desde un lenguaje, en este caso Python.</li>
+                <li><strong>Modelo:</strong> sistema seleccionado para procesar la entrada. Los identificadores disponibles pueden cambiar con el tiempo.</li>
+                <li><strong>Respuesta:</strong> resultado devuelto por la API, junto con metadatos como uso y estado de la petición.</li>
+            </ul>
+        </div>
+        <br>
+        <hr>
 
-    <div class="node-tags">
-      <span class="tag">shell-gpt</span>
-      <span class="tag">llm</span>
-      <span class="tag">api</span>
-      <span class="tag">python-sdk</span>
-      <span class="tag">chatbot</span>
+        <h2>Preparar el entorno</h2>
+        <div class="box">
+            <p>
+                Activa el entorno virtual creado en la
+                <span class="cat"><a href="../index.html">guía del proyecto local</a></span>
+                e instala el SDK oficial:
+            </p>
+            <pre>pip install --upgrade openai</pre>
+            <p>
+                El paquete se instala desde Python Package Index y permite utilizar
+                los métodos documentados por OpenAI sin construir manualmente cada
+                petición HTTP.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Autenticación</h2>
+        <div class="box">
+            <p>
+                Genera una clave en el panel de la plataforma y guárdala en el archivo
+                <code>.env</code> del proyecto:
+            </p>
+            <pre>OPENAI_API_KEY=tu_clave</pre>
+            <p>
+                Carga la variable con <code>python-dotenv</code> y crea el cliente
+                utilizando la variable de entorno. No escribas la clave literal
+                dentro del script.
+            </p>
+            <p>
+                Si la petición devuelve un error de autenticación, comprueba que la
+                variable existe en el proceso, que la clave pertenece al proyecto
+                correcto y que no ha sido revocada.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Crear y ejecutar la prueba</h2>
+        <div class="box">
+            <p>La documentación de esta libreta incluye un script de comprobación independiente:</p>
+            <pre>python test_openai.py</pre>
+            <ul>
+                <li><strong>Archivo:</strong> <span class="cat"><a href="./comprobante/index.html">Comprobante OpenAI</a></span>.</li>
+                <li><strong>Objetivo:</strong> verificar que Python encuentra la clave, conecta con el servicio y puede procesar una petición.</li>
+                <li><strong>Resultado esperado:</strong> una respuesta válida del modelo configurado, no una ejecución completamente local.</li>
+            </ul>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Errores habituales</h2>
+        <div class="box">
+            <ul>
+                <li><strong>401 / autenticación:</strong> clave incorrecta, ausente, revocada o asociada a otro proyecto.</li>
+                <li><strong>429 / límite:</strong> límite de uso, cuota o velocidad; revisa el panel y la respuesta de la API.</li>
+                <li><strong>Modelo no disponible:</strong> identificador incorrecto, retirado o sin acceso para el proyecto.</li>
+                <li><strong>Error de conexión:</strong> revisa DNS, conexión a Internet, proxy y certificados del sistema.</li>
+                <li><strong>Respuesta vacía o inesperada:</strong> inspecciona el objeto devuelto y adapta el código a la estructura vigente del SDK.</li>
+            </ul>
+            <p>
+                Los nombres de modelos, parámetros y métodos pueden cambiar. Utiliza
+                la referencia oficial como fuente de verdad en lugar de copiar un
+                identificador antiguo de un ejemplo.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Recursos oficiales</h2>
+        <div class="box">
+            <ul>
+                <li><a href="https://openai.com/" target="_blank" rel="noopener noreferrer">Sitio oficial de OpenAI</a></li>
+                <li><a href="https://platform.openai.com/docs/quickstart" target="_blank" rel="noopener noreferrer">Guía de inicio de la API</a></li>
+                <li><a href="https://platform.openai.com/docs/api-reference" target="_blank" rel="noopener noreferrer">Referencia de la API</a></li>
+                <li><a href="https://platform.openai.com/docs/models" target="_blank" rel="noopener noreferrer">Catálogo y documentación de modelos</a></li>
+                <li><a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer">Panel de claves API</a></li>
+                <li><a href="https://github.com/openai/openai-python" target="_blank" rel="noopener noreferrer">SDK oficial de Python en GitHub</a></li>
+                <li><a href="https://pypi.org/project/openai/" target="_blank" rel="noopener noreferrer">Paquete openai en PyPI</a></li>
+            </ul>
+        </div>
+        <hr>
     </div>
-
-    <br>
-
-    <div class="box box--info">
-      <p>
-        Configuración básica para utilizar modelos de OpenAI
-        mediante API desde Python y herramientas de terminal.
-      </p>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Crear archivo de prueba</h2>
-
-    <div class="box">
-      <pre>
-└─$ nano test_openai.py
-</pre>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Contenido del archivo</h2>
-
-    <div class="box">
-      <ul>
-        <li>
-          <span class="cat">
-            <a href="./comprobante/index.html">
-              Comprobante OpenAI
-            </a>
-          </span>
-        </li>
-      </ul>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Ejecución</h2>
-
-    <div class="box">
-      <pre>
-└─$ python test_openai.py
-</pre>
-    </div>
-
-    <br>
-    <hr>
-
-  </div>
-
 </body>
-
 </html>
