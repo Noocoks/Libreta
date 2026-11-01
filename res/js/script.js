@@ -394,6 +394,40 @@ function createTreeNode(item) {
     return li;
 }
 
+function isValidTreeNode(node) {
+
+    if (
+        !node ||
+        typeof node !== "object" ||
+        Array.isArray(node) ||
+        typeof node.name !== "string" ||
+        !node.name.trim() ||
+        typeof node.path !== "string" ||
+        !node.path.trim() ||
+        (node.cat !== undefined && typeof node.cat !== "string") ||
+        (node.tags !== undefined && (
+            !Array.isArray(node.tags) ||
+            !node.tags.every(function (tag) {
+                return typeof tag === "string";
+            })
+        )) ||
+        (node.children !== undefined && !Array.isArray(node.children))
+    ) {
+        return false;
+    }
+
+    return !node.children || node.children.every(isValidTreeNode);
+}
+
+function isValidTree(data) {
+
+    return Boolean(
+        data &&
+        Array.isArray(data.sections) &&
+        data.sections.every(isValidTreeNode)
+    );
+}
+
 function buildTree(data) {
 
     var root = document.getElementById("tree_root");
@@ -402,7 +436,7 @@ function buildTree(data) {
 
     root.innerHTML = "";
 
-    if (!data.sections) return;
+    if (!isValidTree(data)) return;
 
     for (var i = 0; i < data.sections.length; i++) {
 
@@ -427,8 +461,8 @@ function loadTree() {
         })
 
         .then(function (data) {
-            if (!data || !Array.isArray(data.sections)) {
-                throw new Error("tree.json no contiene una lista válida de secciones");
+            if (!isValidTree(data)) {
+                throw new Error("tree.json contiene una estructura de navegación no válida");
             }
 
             treeData = data;
