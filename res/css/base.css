@@ -6,12 +6,10 @@ body {
     min-height: 100%;
     overflow-x: hidden;
     font-size: 13px;
-    font-family: "Open Sans", sans-serif !important;
     margin: 0;
     padding: 0;
     background: var(--bg);
     color: var(--text);
-    white-space: normal;
 }
 
 p {
