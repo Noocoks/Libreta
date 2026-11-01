@@ -105,7 +105,7 @@
             <ol>
                 <li>Carga de variables de entorno.</li>
                 <li>Inicialización bajo demanda del proveedor seleccionado.</li>
-                <li>Gestión de sesiones persistentes.</li>
+                <li>Gestión de sesiones persistentes con nombres validados.</li>
                 <li>Router automático de selección.</li>
                 <li>Funciones específicas por proveedor.</li>
                 <li>Chat interactivo o consulta puntual.</li>
@@ -120,6 +120,12 @@
             <h3>Historial persistente</h3>
 
             <p>Guarda conversaciones en formato JSON dentro de:</p>
+            <p>
+                Los nombres de sesión aceptan entre 1 y 64 caracteres: letras,
+                números, guion y guion bajo. Se rechazan rutas, separadores y
+                enlaces simbólicos para evitar que una sesión acceda a archivos
+                ajenos al directorio previsto.
+            </p>
 
             <pre><code>~/.ai_cli_sessions/</code></pre>
 
@@ -455,7 +461,11 @@ def single_prompt_mode(model, prompt, session):
         "content": prompt
     })
 
-    reply = ask_model(model, history)
+    try:
+        reply = ask_model(model, history)
+    except Exception as error:
+        print(Fore.RED + f"\n[ERROR] {error}")
+        return
 
     history.append({
         "role": "assistant",
@@ -617,7 +627,8 @@ parser.add_argument(
 
 parser.add_argument(
     "--session",
-    default="default"
+    default="default",
+    help="Nombre de sesión (1-64 letras, números, '_' o '-')"
 )
 
 parser.add_argument(
@@ -626,6 +637,12 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
+
+try:
+    get_history_path(args.session)
+except ValueError as error:
+    print(Fore.RED + f"[ERROR] {error}")
+    sys.exit(2)
 
 #---------------------
 # VALIDACIÓN
