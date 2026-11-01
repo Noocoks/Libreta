@@ -35,6 +35,24 @@
                 para generar correos electrónicos de simulación.
             </p>
         </div>
+        <br>
+
+        <div class="box">
+            <p>
+                La variable <code>{{.URL}}</code> del enlace es un marcador de
+                posición de GoPhish. Al crear la campaña, la plataforma lo sustituye
+                por la dirección asociada a esa campaña y al destinatario. Por eso
+                el enlace de la plantilla debe coincidir con la URL configurada en
+                el formulario de campaña.
+            </p>
+            <p>
+                La documentación oficial explica la sintaxis de plantillas y las
+                variables disponibles:
+                <a href="https://docs.getgophish.com/user-guide/building-your-first-campaign/creating-the-template" target="_blank" rel="noopener noreferrer">Creating the Template</a>
+                y
+                <a href="https://docs.getgophish.com/user-guide/documentation/campaigns" target="_blank" rel="noopener noreferrer">Campaigns</a>.
+            </p>
+        </div>
 
         <p>
             Este código corresponde al contenido del correo enviado
@@ -90,7 +108,7 @@
                 <div class="code-body">
                     <p>
                         A continuación se muestra la plantilla HTML empleada
-                        para usarla como correo falso durante la simulación:
+                        para utilizarlo como correo de prueba durante la simulación:
                     </p>
 
                     <!-- Código -->
