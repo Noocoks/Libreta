@@ -414,11 +414,16 @@ pre {
     -ms-user-select: text;
     user-select: text;
     padding: 10px;
-    overflow: auto;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
     margin: 1em 0;
-    white-space: pre-wrap;
+    white-space: pre;
+    overflow-wrap: normal;
+    word-break: normal;
     tab-size: 4;
-    line-height: 1.4;
+    line-height: 1.5;
+    -webkit-overflow-scrolling: touch;
 }
 
 
