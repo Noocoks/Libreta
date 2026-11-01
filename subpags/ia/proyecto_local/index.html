@@ -1,32 +1,21 @@
 <!doctype html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-
-  <meta name="author" content="Nico">
-
-  <meta name="keywords" content="ia, openai, anthropic, python, api, entorno virtual, shell-gpt, automatización">
-
-  <meta name="description"
-    content="Preparación de un entorno local para trabajar con APIs de inteligencia artificial usando Python, OpenAI y Anthropic.">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Proyecto local</title>
-
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nooko">
+    <meta name="keywords" content="ia, openai, anthropic, python, api, entorno virtual, shell-gpt, automatización">
+    <meta name="description" content="Preparación de un entorno local para trabajar con APIs de inteligencia artificial usando Python, OpenAI y Anthropic.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto local</title>
+    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+    <script src="/Libreta/res/js/page.js"></script>
 </head>
-
 <body>
+    <div class="page" data-cat="ia local">
+        <hr>
+        <h1>Proyecto de IA local</h1>
 
-  <div class="page" data-cat="ia local">
-    <hr>
-
-    <h1>Proyecto de IA local</h1>
-
-    <div class="node-tags">
+        <div class="node-tags">
             <span class="tag">python</span>
             <span class="tag">openai</span>
             <span class="tag">anthropic</span>
@@ -34,184 +23,179 @@
             <span class="tag">venv</span>
         </div>
 
-    <br>
+        <div class="box box--info">
+            <p>
+                Este apartado documenta la preparación de un entorno de trabajo local
+                para utilizar distintos proveedores de inteligencia artificial desde
+                Python. Los modelos se ejecutan en la infraestructura del proveedor:
+                el equipo local ejecuta los scripts y se comunica con ellos mediante
+                sus APIs.
+            </p>
+            <p>
+                La separación por entornos virtuales, variables de entorno y módulos
+                facilita probar cada proveedor y desarrollar herramientas que puedan
+                alternar entre varios modelos.
+            </p>
+        </div>
+        <br>
+        <hr>
 
-    <div class="box box--info">
-      <p>
-        Apartado dedicado a la creación de un entorno local para trabajar
-        con modelos de inteligencia artificial mediante APIs, automatizaciones
-        y scripts desarrollados en Python.
-      </p>
-    </div>
-
-    <p>
-      El objetivo es disponer de una estructura organizada que permita
-      probar, desarrollar y combinar distintos proveedores de IA
-      desde un único entorno de trabajo.
-    </p>
-
-    <br>
-    <hr>
-
-    <h2>Estructura recomendada</h2>
-
-    <div class="box">
-      <pre>
-~/ai/
+        <h2>Estructura del proyecto</h2>
+        <div class="box">
+            <pre>~/ai/
 ├── venv/
 ├── .env
 ├── .gitignore
-├── test_"...".py
-</pre>
+├── test_openai.py
+├── test_claude.py
+└── otros_scripts.py</pre>
+            <p>
+                <code>venv/</code> contiene las dependencias aisladas del proyecto.
+                <code>.env</code> almacena las claves API, mientras que
+                <code>.gitignore</code> evita que los secretos y el entorno virtual
+                se incorporen al repositorio.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Creación del entorno virtual</h2>
+        <div class="box">
+            <pre>mkdir ~/ai
+cd ~/ai
+python3 -m venv venv
+source venv/bin/activate</pre>
+            <p>
+                El entorno virtual mantiene las bibliotecas de este proyecto separadas
+                de las instaladas globalmente en el sistema. Cuando esté activo,
+                normalmente aparecerá el nombre <code>venv</code> en el prompt.
+            </p>
+        </div>
+        <br>
+
+        <h3>Acceso rápido</h3>
+        <div class="box">
+            <pre>cd ~/ai
+source venv/bin/activate</pre>
+            <p>
+                Ejecuta estos comandos cada vez que abras una terminal nueva y quieras
+                trabajar en el proyecto. Para salir del entorno utiliza
+                <code>deactivate</code>.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Instalación de dependencias</h2>
+        <div class="box">
+            <pre>python -m pip install --upgrade pip
+pip install openai anthropic python-dotenv</pre>
+            <p>
+                <strong>openai</strong> y <strong>anthropic</strong> son los SDK oficiales
+                de cada proveedor. <strong>python-dotenv</strong> permite cargar variables
+                desde un archivo <code>.env</code>. Instala únicamente las bibliotecas
+                que utilice cada script; herramientas como Shell-GPT o IPython son
+                complementarias, no requisitos para llamar a las APIs.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Gestión segura de las claves API</h2>
+        <div class="box">
+            <p>
+                Una clave API autentica las peticiones realizadas a un proveedor.
+                Debe tratarse como una contraseña: no la incluyas directamente en
+                el código, capturas públicas, mensajes de error ni repositorios.
+            </p>
+            <pre>nano .env</pre>
+            <p>Ejemplo de estructura del archivo:</p>
+            <pre>OPENAI_API_KEY=tu_clave_de_openai
+ANTHROPIC_API_KEY=tu_clave_de_anthropic</pre>
+            <p>
+                Sustituye los valores de ejemplo por las claves generadas en los
+                paneles oficiales. No compartas el archivo ni publiques sus valores.
+            </p>
+            <pre>chmod 600 .env</pre>
+            <p>
+                En sistemas Unix, este permiso limita la lectura y escritura del
+                archivo a su propietario. Añade también estas entradas a
+                <code>.gitignore</code>:
+            </p>
+            <pre>.env
+venv/
+__pycache__/</pre>
+        </div>
+        <br>
+
+        <div class="box box--info">
+            <p>
+                <strong>Importante:</strong> el acceso a ChatGPT o Claude mediante
+                sus aplicaciones web no implica que las llamadas API estén incluidas
+                en la misma suscripción. Consulta la facturación y los límites de cada
+                plataforma antes de ejecutar pruebas repetidas.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Cómo funciona una petición</h2>
+        <div class="box">
+            <ol>
+                <li>El script carga las variables del entorno.</li>
+                <li>El SDK construye una petición HTTP autenticada.</li>
+                <li>El proveedor procesa la entrada con el modelo seleccionado.</li>
+                <li>La API devuelve una respuesta que el script interpreta.</li>
+                <li>El programa muestra o almacena el resultado según su diseño.</li>
+            </ol>
+            <p>
+                La conexión requiere Internet y una clave válida. El código se ejecuta
+                localmente, pero la inferencia de estos proveedores no se realiza en
+                tu ordenador.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Flujo de trabajo</h2>
+        <div class="box">
+            <ol>
+                <li>Crear la carpeta y el entorno virtual.</li>
+                <li>Instalar los SDK y las dependencias necesarias.</li>
+                <li>Generar las claves API y guardarlas en <code>.env</code>.</li>
+                <li>Proteger los secretos con permisos y reglas de Git.</li>
+                <li>Ejecutar por separado las pruebas de OpenAI y Anthropic.</li>
+                <li>Comprobar errores de autenticación, conexión y límites.</li>
+                <li>Integrar los proveedores en scripts propios cuando las pruebas funcionen.</li>
+            </ol>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Recursos oficiales</h2>
+        <div class="box">
+            <ul>
+                <li><a href="https://docs.python.org/3/library/venv.html" target="_blank" rel="noopener noreferrer">Documentación de entornos virtuales de Python</a></li>
+                <li><a href="https://pypi.org/project/python-dotenv/" target="_blank" rel="noopener noreferrer">python-dotenv en PyPI</a></li>
+                <li><a href="https://platform.openai.com/docs/quickstart" target="_blank" rel="noopener noreferrer">OpenAI API Quickstart</a></li>
+                <li><a href="https://platform.claude.com/docs/en/get-started" target="_blank" rel="noopener noreferrer">Anthropic API: primeros pasos</a></li>
+            </ul>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Recursos relacionados</h2>
+        <div class="box">
+            <ul>
+                <li><span class="cat"><a href="./apis/index.html">Gestión de APIs</a></span></li>
+                <li><span class="cat"><a href="./apis/comprobante/index.html">Comprobación de APIs</a></span></li>
+                <li><span class="cat"><a href="./git/index.html">Integración con Git</a></span></li>
+                <li><span class="cat"><a href="./openai/index.html">OpenAI</a></span></li>
+                <li><span class="cat"><a href="./anthropic/index.html">Anthropic</a></span></li>
+                <li><span class="cat"><a href="./dualvers/index.html">Uso Dual</a></span></li>
+            </ul>
+        </div>
+        <hr>
     </div>
-
-    <br>
-    <hr>
-
-    <h2>Creación del entorno virtual</h2>
-
-    <div class="box">
-      <pre>
-└─$ mkdir ~/ai && cd ~/ai
-└─$ python3 -m venv venv
-└─$ source venv/bin/activate
-</pre>
-    </div>
-
-    <h3>Acceso rápido</h3>
-
-    <div class="box">
-      <pre>
-└─$ cd ~/ai && source venv/bin/activate
-</pre>
-    </div>
-
-    <p>
-      Puedes utilizar cualquier ruta de trabajo. La mostrada aquí es la
-      utilizada durante la documentación del proyecto.
-    </p>
-
-    <br>
-    <hr>
-
-    <h2>Instalación de dependencias</h2>
-
-    <div class="box">
-      <pre>
-└─$ pip install --upgrade \
-openai \
-anthropic \
-shell-gpt \
-ipython \
-python-dotenv
-</pre>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Gestión de APIs</h2>
-
-    <div class="box">
-      <p>
-        Las claves se almacenan dentro de un archivo <strong>.env</strong>
-        para evitar exponerlas en código fuente o repositorios.
-      </p>
-    </div>
-
-    <h3>Permisos recomendados</h3>
-
-    <div class="box">
-      <pre>
-└─$ chmod 600 .env
-</pre>
-    </div>
-
-    <p>
-      Esto restringe completamente el acceso al propietario del archivo.
-    </p>
-
-    <br>
-    <hr>
-
-    <h2>Flujo de trabajo</h2>
-
-    <div class="box">
-      <ol>
-        <li>Crear el entorno virtual.</li>
-        <li>Instalar dependencias.</li>
-        <li>Configurar las APIs.</li>
-        <li>Verificar el funcionamiento mediante scripts de prueba.</li>
-        <li>Configurar Git y exclusiones del repositorio.</li>
-        <li>Crear integraciones con OpenAI y Anthropic.</li>
-        <li>Desarrollar aplicaciones que combinen múltiples modelos.</li>
-      </ol>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Recursos relacionados</h2>
-
-    <div class="box">
-      <ul>
-
-        <li>
-          <span class="cat">
-            <a href="./apis/index.html">
-              APIs
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span class="cat">
-            <a href="./apis/comprobante/index.html">
-              Comprobación de APIs
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span class="cat">
-            <a href="./git/index.html">
-              IA + Git
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span class="cat">
-            <a href="./openai/index.html">
-              OpenAI
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span class="cat">
-            <a href="./anthropic/index.html">
-              Anthropic
-            </a>
-          </span>
-        </li>
-
-        <li>
-          <span class="cat">
-            <a href="./dualvers/v1/index.html">
-              Uso Dual
-            </a>
-          </span>
-        </li>
-
-      </ul>
-    </div>
-
-    <br>
-    <hr>
-
-  </div>
-
 </body>
-
 </html>
