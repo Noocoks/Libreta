@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Hydra, THC Hydra, auditoría de autenticación, SSH, FTP, protocolos, pentesting">
     <meta name="description" content="Documentación de Hydra: funcionamiento, módulos, opciones, instalación, resultados, limitaciones y prácticas en laboratorio autorizado.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hydra</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="fuerza-bruta hydra">
         <hr>
@@ -24,7 +26,6 @@
             <span class="tag">SSH</span>
             <span class="tag">FTP</span>
         </div>
-        <br>
 
         <div class="box box--info">
             <p>
@@ -39,6 +40,7 @@
                 el formulario o la respuesta del servidor se han interpretado incorrectamente.
             </p>
         </div>
+
         <br>
 
         <h2>Qué problema permite estudiar</h2>
@@ -47,6 +49,7 @@
             aplica controles adecuados ante intentos repetidos. En una auditoría bien delimitada también
             permite observar registros, alertas, retardos y bloqueos.
         </p>
+
         <br>
 
         <h2>Conceptos fundamentales</h2>
@@ -77,6 +80,7 @@
                 intercambiables: consulta la ayuda del módulo concreto antes de interpretar sus parámetros.
             </p>
         </div>
+
         <br>
 
         <h2>Casos de uso legítimos</h2>
@@ -85,6 +89,7 @@
             <li><strong>Validación defensiva:</strong> observar si el servicio limita intentos y genera registros útiles.</li>
             <li><strong>Formación:</strong> estudiar la relación entre contraseñas débiles, autenticación y monitorización.</li>
         </ol>
+
         <br>
 
         <h2>Instalación y comprobación</h2>
@@ -100,6 +105,7 @@ hydra -U ssh</pre>
             específicas del módulo SSH disponible en esa compilación. La lista de módulos puede variar
             según las bibliotecas instaladas al compilar el programa.
         </p>
+
         <br>
 
         <h2>Cómo interpretar los resultados</h2>
@@ -109,6 +115,7 @@ hydra -U ssh</pre>
             <li><strong>Error de conexión:</strong> puede deberse a red, firewall, servicio detenido, timeout o límites del servidor.</li>
             <li><strong>Bloqueo o limitación:</strong> la prueba puede haber activado controles defensivos; detén la ejecución y revisa los registros.</li>
         </ul>
+
         <br>
 
         <h2>Limitaciones y errores habituales</h2>
@@ -119,6 +126,7 @@ hydra -U ssh</pre>
             <li>Un puerto accesible no implica que la autenticación sea vulnerable.</li>
             <li>El volumen de intentos puede afectar a la disponibilidad del servicio.</li>
         </ul>
+
         <br>
 
         <h2>Medidas defensivas relacionadas</h2>
@@ -129,7 +137,6 @@ hydra -U ssh</pre>
             <li>Alertas ante fallos repetidos y revisión centralizada de registros.</li>
             <li>Deshabilitar servicios de administración innecesarios y restringir su acceso por red.</li>
         </ul>
-        <br>
 
         <div class="box box--info">
             <p>
@@ -138,6 +145,7 @@ hydra -U ssh</pre>
                 de ejecución y un procedimiento para detener la prueba.
             </p>
         </div>
+
         <br>
 
         <h2>Documentación complementaria</h2>
@@ -146,8 +154,8 @@ hydra -U ssh</pre>
             <li><span class="cat"><a href="./lab/index.html">Laboratorio local paso a paso</a></span></li>
             <li><a href="https://github.com/vanhauser-thc/thc-hydra" target="_blank" rel="noopener noreferrer">Repositorio oficial de THC Hydra</a></li>
         </ul>
-        <br>
         <hr>
     </div>
+
 </body>
 </html>

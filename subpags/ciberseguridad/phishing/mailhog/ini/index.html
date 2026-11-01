@@ -3,53 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="mailhog Docker SMTP correo contenedor instalación">
     <meta name="description" content="Instalación de MailHog con Docker, exposición limitada a localhost, comprobaciones, gestión y eliminación.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicialización - MailHog</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="mailhog Docker SMTP correo contenedor instalación">
         <hr>
         <h1>Inicialización - MailHog</h1>
 
         <div class="box box--info"><p>Esta guía publica los puertos de MailHog únicamente en localhost. Así, la interfaz web y el SMTP de pruebas no quedan accesibles desde otros equipos de la red.</p></div>
-        <br>
-        <h2>1. Comprobar Docker</h2>
-        <pre>docker --version
+    <h2>1. Comprobar Docker</h2>
+    <pre>docker --version
 sudo systemctl status docker --no-pager</pre>
-        <h2>2. Crear el contenedor</h2>
-        <pre>docker run -d \
+    <h2>2. Crear el contenedor</h2>
+    <pre>docker run -d \
     --name mailhog \
     --restart unless-stopped \
     -p 127.0.0.1:1025:1025 \
     -p 127.0.0.1:8025:8025 \
     mailhog/mailhog</pre>
-        <p>El prefijo <code>127.0.0.1</code> limita los puertos publicados al propio equipo. No lo elimines en un laboratorio que no deba ser accesible desde la red.</p>
-        <h2>3. Verificar</h2>
-        <pre>docker ps --filter name=mailhog
+    <p>El prefijo <code>127.0.0.1</code> limita los puertos publicados al propio equipo. No lo elimines en un laboratorio que no deba ser accesible desde la red.</p>
+    <h2>3. Verificar</h2>
+    <pre>docker ps --filter name=mailhog
 docker logs --tail 50 mailhog
 curl -I http://127.0.0.1:8025</pre>
-        <p>Abre <code>http://127.0.0.1:8025</code>. La interfaz debe mostrar la bandeja de mensajes.</p>
-        <h2>4. Configurar la aplicación</h2>
-        <ul><li><strong>Host SMTP:</strong> <code>127.0.0.1</code></li><li><strong>Puerto:</strong> <code>1025</code></li><li><strong>TLS:</strong> desactivado en la configuración local predeterminada.</li><li><strong>Autenticación:</strong> no configurada de forma predeterminada.</li></ul>
-        <p>Estos parámetros son exclusivos de pruebas locales; no los utilices para correo real ni para aplicaciones expuestas.</p>
-        <h2>5. Gestión</h2>
-        <pre>docker stop mailhog
+    <p>Abre <code>http://127.0.0.1:8025</code>. La interfaz debe mostrar la bandeja de mensajes.</p>
+    <h2>4. Configurar la aplicación</h2>
+    <ul><li><strong>Host SMTP:</strong> <code>127.0.0.1</code></li><li><strong>Puerto:</strong> <code>1025</code></li><li><strong>TLS:</strong> desactivado en la configuración local predeterminada.</li><li><strong>Autenticación:</strong> no configurada de forma predeterminada.</li></ul>
+    <p>Estos parámetros son exclusivos de pruebas locales; no los utilices para correo real ni para aplicaciones expuestas.</p>
+    <h2>5. Gestión</h2>
+    <pre>docker stop mailhog
 docker start mailhog
 docker restart mailhog
 docker logs -f mailhog</pre>
-        <h2>6. Eliminar el laboratorio</h2>
-        <pre>docker stop mailhog
+    <h2>6. Eliminar el laboratorio</h2>
+    <pre>docker stop mailhog
 docker rm mailhog</pre>
-        <p>Si también quieres eliminar la imagen local, comprueba antes que ningún otro contenedor la utiliza y ejecuta <code>docker image rm mailhog/mailhog</code>.</p>
-        <h2>Solución de problemas</h2>
-        <ul><li><strong>Puerto ocupado:</strong> revisa <code>ss -lntp</code>.</li><li><strong>Interfaz inaccesible:</strong> revisa estado y logs del contenedor.</li><li><strong>Sin mensajes:</strong> comprueba host, puerto y conectividad entre servicios.</li><li><strong>Mensajes perdidos:</strong> el almacenamiento predeterminado puede ser volátil.</li></ul>
-        <div class="box box--info"><p><strong>Seguridad:</strong> MailHog no debe funcionar como relay de producción. Mantén los puertos limitados a localhost y evita opciones de liberación de mensajes hacia servidores reales.</p></div>
+    <p>Si también quieres eliminar la imagen local, comprueba antes que ningún otro contenedor la utiliza y ejecuta <code>docker image rm mailhog/mailhog</code>.</p>
+    <h2>Solución de problemas</h2>
+    <ul><li><strong>Puerto ocupado:</strong> revisa <code>ss -lntp</code>.</li><li><strong>Interfaz inaccesible:</strong> revisa estado y logs del contenedor.</li><li><strong>Sin mensajes:</strong> comprueba host, puerto y conectividad entre servicios.</li><li><strong>Mensajes perdidos:</strong> el almacenamiento predeterminado puede ser volátil.</li></ul>
+    <div class="box box--info"><p><strong>Seguridad:</strong> MailHog no debe funcionar como relay de producción. Mantén los puertos limitados a localhost y evita opciones de liberación de mensajes hacia servidores reales.</p></div>
 
-        <hr>
+    <hr>
     </div>
 </body>
 </html>

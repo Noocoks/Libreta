@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Medusa, auditoría de autenticación, módulos, SSH, FTP, pentesting">
     <meta name="description" content="Documentación de Medusa: arquitectura modular, opciones, módulos, instalación, resultados, limitaciones y laboratorio.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medusa</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="fuerza-bruta medusa">
         <hr>
@@ -24,7 +26,6 @@
             <span class="tag">módulos</span>
             <span class="tag">auditoría</span>
         </div>
-        <br>
 
         <div class="box box--info">
             <p>
@@ -37,6 +38,7 @@
                 No es un escáner general de vulnerabilidades: su ámbito principal es la autenticación remota.
             </p>
         </div>
+
         <br>
 
         <h2>Cómo funciona</h2>
@@ -48,6 +50,7 @@
             <li>El módulo realiza el intercambio de autenticación y clasifica la respuesta.</li>
             <li>Los resultados y errores se muestran para su análisis.</li>
         </ol>
+
         <br>
 
         <h2>Conceptos importantes</h2>
@@ -69,6 +72,7 @@
                 o comportamiento específico del servicio. Consulta la ayuda del módulo antes de usarlo.
             </p>
         </div>
+
         <br>
 
         <h2>Servicios y protocolos</h2>
@@ -77,6 +81,7 @@
             POP3, IMAP, RDP, VNC, bases de datos y otros. La disponibilidad concreta debe comprobarse
             en la instalación local.
         </p>
+
         <br>
 
         <h2>Instalación y verificación</h2>
@@ -91,6 +96,7 @@ medusa -d</pre>
             <code>medusa -d</code> muestra los módulos instalados. Para consultar las opciones de un módulo
             concreto, utiliza <code>medusa -M ssh -q</code> si el módulo SSH está disponible.
         </p>
+
         <br>
 
         <h2>Interpretación de resultados</h2>
@@ -100,6 +106,7 @@ medusa -d</pre>
             <li>Un módulo ausente suele indicar que no se compiló o instaló la dependencia necesaria.</li>
             <li>Los límites de intentos, bloqueos y respuestas genéricas pueden dificultar la clasificación.</li>
         </ul>
+
         <br>
 
         <h2>Medusa y Hydra</h2>
@@ -109,6 +116,7 @@ medusa -d</pre>
             de uso, la documentación y las necesidades concretas de la auditoría. No existe una ganadora
             universal por velocidad o número de protocolos.
         </p>
+
         <br>
 
         <h2>Buenas prácticas y defensa</h2>
@@ -119,6 +127,7 @@ medusa -d</pre>
             <li>Supervisa eventos de autenticación y correlaciónalos entre servicios.</li>
             <li>Detén la prueba si aparecen bloqueos inesperados o degradación.</li>
         </ul>
+
         <br>
 
         <h2>Documentación complementaria</h2>
@@ -127,8 +136,8 @@ medusa -d</pre>
             <li><span class="cat"><a href="./lab/index.html">Laboratorio y análisis de registros</a></span></li>
             <li><a href="https://jmk-foofus.github.io/medusa/medusa.html" target="_blank" rel="noopener noreferrer">Documentación del proyecto Medusa</a></li>
         </ul>
-        <br>
         <hr>
     </div>
+
 </body>
 </html>

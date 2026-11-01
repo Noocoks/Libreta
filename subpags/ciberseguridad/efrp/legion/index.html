@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Legion, pentesting, reconocimiento, Nmap, enumeración, auditoría de redes">
     <meta name="description" content="Documentación de Legion: framework semiautomatizado, flujo de reconocimiento, dependencias, interpretación y estado del proyecto.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legion</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="escaneo legion">
         <hr>
@@ -22,7 +24,6 @@
             <span class="tag">framework</span>
             <span class="tag">interfaz-gráfica</span>
         </div>
-        <br>
 
         <div class="box box--info">
             <p>
@@ -36,6 +37,7 @@
                 positivos o resultados incompletos.
             </p>
         </div>
+
         <br>
 
         <h2>Qué aporta frente a ejecutar herramientas por separado</h2>
@@ -45,6 +47,7 @@
             <li>Facilita revisar el contexto de un host sin cambiar continuamente entre terminales.</li>
             <li>Puede guardar el estado del proyecto para continuar el análisis.</li>
         </ul>
+
         <br>
 
         <h2>Flujo de trabajo recomendado</h2>
@@ -56,6 +59,7 @@
             <li><strong>Validación:</strong> comprueba manualmente los hallazgos importantes con la herramienta original.</li>
             <li><strong>Informe:</strong> registra evidencias, incertidumbres, impacto y recomendaciones.</li>
         </ol>
+
         <br>
 
         <h2>Relación con otras herramientas</h2>
@@ -69,6 +73,7 @@
                 no garantiza que esté instalada o habilitada en tu sistema.
             </p>
         </div>
+
         <br>
 
         <h2>Instalación y estado del proyecto</h2>
@@ -83,11 +88,11 @@ legion --help</pre>
             de mantenimiento actual. El repositorio antiguo de Abacus-Group-RTO está archivado y su aviso
             remite a una nueva ubicación; no conviene seguir tutoriales antiguos sin verificar que siguen vigentes.
         </p>
-        <br>
         <p>
             <a href="https://github.com/Hackman238/legion" target="_blank" rel="noopener noreferrer">Repositorio de Legion indicado como nueva ubicación del proyecto</a>
             · <a href="https://gitlab.com/kalilinux/packages/legion" target="_blank" rel="noopener noreferrer">Paquete de Legion en Kali</a>
         </p>
+
         <br>
 
         <h2>Limitaciones</h2>
@@ -98,6 +103,7 @@ legion --help</pre>
             <li>La interfaz no reemplaza la comprensión de Nmap y de las herramientas que invoca.</li>
             <li>Algunos módulos pueden generar tráfico intenso o interactuar con servicios de forma intrusiva.</li>
         </ul>
+
         <br>
 
         <h2>Buenas prácticas</h2>
@@ -108,7 +114,6 @@ legion --help</pre>
             <li>Conserva el proyecto y las salidas originales.</li>
             <li>Documenta qué hallazgos fueron confirmados y cuáles son solo indicios.</li>
         </ul>
-        <br>
 
         <div class="box box--info">
             <p>
@@ -117,8 +122,8 @@ legion --help</pre>
                 no depender únicamente del resumen gráfico.
             </p>
         </div>
-        <br>
         <hr>
     </div>
+
 </body>
 </html>

@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="ExifTool, metadatos, EXIF, GPS, OSINT, análisis forense, privacidad">
     <meta name="description" content="Guía de ExifTool para leer, interpretar, exportar y modificar metadatos, con precauciones de privacidad y análisis forense.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExifTool</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="osint exiftool">
         <hr>
@@ -22,7 +24,6 @@
             <span class="tag">OSINT</span>
             <span class="tag">privacidad</span>
         </div>
-        <br>
 
         <div class="box box--info">
             <p>
@@ -36,6 +37,7 @@
                 almacenados en el archivo; no certifica que sean auténticos.
             </p>
         </div>
+
         <br>
 
         <h2>Qué son los metadatos</h2>
@@ -44,6 +46,7 @@
             por ejemplo EXIF, IPTC, XMP o etiquetas propias del formato. Dos imágenes visualmente idénticas
             pueden contener metadatos diferentes.
         </p>
+
         <br>
 
         <h2>Información que puede encontrarse</h2>
@@ -57,6 +60,7 @@
                 <li><strong>Datos técnicos:</strong> dimensiones, formato, perfil de color, códec y otros atributos.</li>
             </ul>
         </div>
+
         <br>
 
         <h2>Instalación y primera inspección</h2>
@@ -68,6 +72,7 @@ exiftool imagen.jpg</pre>
             La salida depende del formato y de los campos presentes. La ausencia de una etiqueta no demuestra
             que el dato nunca existiera: puede no ser compatible, haberse eliminado o no haberse escrito.
         </p>
+
         <br>
 
         <h2>Cómo interpretar correctamente los datos</h2>
@@ -78,6 +83,7 @@ exiftool imagen.jpg</pre>
             <li>Una aplicación puede eliminar o reescribir metadatos al exportar o compartir un archivo.</li>
             <li>Los metadatos deben contrastarse con el contenido, la procedencia y otras evidencias.</li>
         </ul>
+
         <br>
 
         <h2>Lectura, exportación y edición</h2>
@@ -89,6 +95,8 @@ exiftool imagen.jpg</pre>
         <pre>sha256sum imagen.jpg
 exiftool -a -G1 -s imagen.jpg
 exiftool -json imagen.jpg > metadatos.json</pre>
+
+        <br>
 
         <h2>Privacidad y preservación de evidencias</h2>
         <div class="box box--info">
@@ -102,6 +110,7 @@ exiftool -json imagen.jpg > metadatos.json</pre>
                 miniaturas, documentos adjuntos u otros elementos pueden seguir revelando información.
             </p>
         </div>
+
         <br>
 
         <h2>Comandos y documentación</h2>
@@ -110,8 +119,8 @@ exiftool -json imagen.jpg > metadatos.json</pre>
             <li><a href="https://exiftool.org/exiftool_pod.html" target="_blank" rel="noopener noreferrer">Documentación oficial de ExifTool</a></li>
             <li><a href="https://exiftool.org/TagNames/" target="_blank" rel="noopener noreferrer">Referencia de etiquetas por formato</a></li>
         </ul>
-        <br>
         <hr>
     </div>
+
 </body>
 </html>

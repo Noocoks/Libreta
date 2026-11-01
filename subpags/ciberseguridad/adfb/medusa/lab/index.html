@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Medusa, laboratorio, SSH, logs, autenticación, hardening">
     <meta name="description" content="Laboratorio local para analizar autenticaciones SSH, registros y medidas defensivas con Medusa.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboratorio - Medusa</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="fuerza-bruta medusa lab">
         <hr>
@@ -21,6 +23,7 @@
                 y los registros del sistema. No la ejecutes contra equipos de terceros ni contra cuentas reales.
             </p>
         </div>
+
         <br>
 
         <h2>1. Preparar el servicio local</h2>
@@ -30,6 +33,8 @@ sudo systemctl enable --now ssh
 systemctl status ssh --no-pager
 ss -lnt | grep ':22'</pre>
 
+        <br>
+
         <h2>2. Crear una cuenta temporal</h2>
         <pre>sudo adduser medusa-lab
 sudo passwd medusa-lab</pre>
@@ -37,6 +42,7 @@ sudo passwd medusa-lab</pre>
             Establece una contraseña de laboratorio que no reutilices. No asignes permisos administrativos
             a esta cuenta.
         </p>
+
         <br>
 
         <h2>3. Crear una lista corta de práctica</h2>
@@ -45,6 +51,7 @@ chmod 600 claves-medusa.txt</pre>
         <p>
             Asegúrate de que la contraseña establecida para la cuenta coincide con la primera entrada.
         </p>
+
         <br>
 
         <h2>4. Verificar los módulos</h2>
@@ -54,22 +61,26 @@ medusa -M ssh -q</pre>
             Continúa solo si el módulo SSH está instalado. La ayuda del módulo permite conocer sus opciones
             particulares.
         </p>
+
         <br>
 
         <h2>5. Prueba limitada sobre localhost</h2>
         <pre>medusa -h 127.0.0.1 -u medusa-lab -P claves-medusa.txt -M ssh -t 1</pre>
-            <p>
-                El destino es el propio equipo y se utiliza un único hilo. Mantén la lista reducida y detén
-                el ejercicio si el servicio muestra errores o bloqueos inesperados.
-            </p>
+        <p>
+            El destino es el propio equipo y se utiliza un único hilo. Mantén la lista reducida y detén
+            el ejercicio si el servicio muestra errores o bloqueos inesperados.
+        </p>
 
-            <h2>6. Revisar registros</h2>
-            <pre>sudo journalctl -u ssh --since "10 minutes ago"
+        <br>
+
+        <h2>6. Revisar registros</h2>
+        <pre>sudo journalctl -u ssh --since "10 minutes ago"
 sudo tail -n 50 /var/log/auth.log</pre>
         <p>
             La disponibilidad de <code>/var/log/auth.log</code> depende de la distribución. El journal
             de systemd es una alternativa cuando el servicio registra allí sus eventos.
         </p>
+
         <br>
 
         <h2>7. Informe de práctica</h2>
@@ -81,6 +92,7 @@ sudo tail -n 50 /var/log/auth.log</pre>
             <li>Diferencias entre errores de conexión y rechazos de credenciales.</li>
             <li>Medidas defensivas recomendadas.</li>
         </ul>
+
         <br>
 
         <h2>8. Limpieza</h2>
@@ -90,5 +102,6 @@ rm -f claves-medusa.txt</pre>
         <p>Si trabajas en una máquina virtual, restaura la instantánea al terminar.</p>
         <hr>
     </div>
+
 </body>
 </html>

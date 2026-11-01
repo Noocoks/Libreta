@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Nmap, Zenmap, escaneo de red, puertos, NSE, descubrimiento, servicios">
     <meta name="description" content="Guía de Nmap y Zenmap: fases de exploración, estados de puertos, detección de servicios, NSE, instalación e interpretación.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nmap / Zenmap</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="escaneo nmap">
         <hr>
@@ -22,7 +24,6 @@
             <span class="tag">enumeración</span>
             <span class="tag">NSE</span>
         </div>
-        <br>
 
         <div class="box box--info">
             <p>
@@ -32,6 +33,7 @@
                 no es un motor de escaneo independiente.
             </p>
         </div>
+
         <br>
 
         <h2>Para qué se utiliza</h2>
@@ -43,6 +45,7 @@
             <li>Ejecutar scripts NSE para tareas de descubrimiento y comprobación.</li>
             <li>Guardar resultados para compararlos en auditorías posteriores.</li>
         </ul>
+
         <br>
 
         <h2>Conceptos esenciales</h2>
@@ -58,6 +61,7 @@
             <h3>Open|filtered</h3>
             <p>Nmap no puede distinguir entre un puerto abierto y uno filtrado con el método empleado. Es frecuente en determinados análisis UDP.</p>
         </div>
+
         <br>
 
         <h2>Fases habituales de un análisis</h2>
@@ -69,6 +73,7 @@
             <li><strong>Enumeración adicional:</strong> utilizar scripts NSE adecuados al objetivo y al permiso concedido.</li>
             <li><strong>Documentación:</strong> guardar resultados y validar manualmente los hallazgos relevantes.</li>
         </ol>
+
         <br>
 
         <h2>Instalación y comprobación</h2>
@@ -80,6 +85,7 @@ nmap --help</pre>
             Zenmap puede distribuirse por separado y su disponibilidad depende de la distribución.
             Consulta el paquete o la documentación oficial antes de asumir que se instala junto con Nmap.
         </p>
+
         <br>
 
         <h2>Ejemplos seguros en el propio equipo</h2>
@@ -94,6 +100,7 @@ nmap -oN resultado-local.txt 127.0.0.1</pre>
             <li><code>-sV</code> intenta identificar el servicio y su versión.</li>
             <li><code>-oN</code> guarda la salida en formato normal.</li>
         </ul>
+
         <br>
 
         <h2>Nmap Scripting Engine (NSE)</h2>
@@ -104,6 +111,7 @@ nmap -oN resultado-local.txt 127.0.0.1</pre>
             revisa su finalidad antes de ejecutarlos y evita categorías intrusivas o de explotación
             salvo autorización y planificación específicas.
         </p>
+
         <br>
 
         <h2>Cómo interpretar el resultado</h2>
@@ -114,6 +122,7 @@ nmap -oN resultado-local.txt 127.0.0.1</pre>
             <li>Un puerto filtrado no demuestra que el servicio esté apagado.</li>
             <li>Un análisis UDP puede ser más lento y producir estados ambiguos.</li>
         </ul>
+
         <br>
 
         <h2>Limitaciones y buenas prácticas</h2>
@@ -123,6 +132,7 @@ nmap -oN resultado-local.txt 127.0.0.1</pre>
             <li>Los resultados deben contrastarse con inventario, configuración y registros.</li>
             <li>Guarda la línea de comandos, la fecha, la versión de Nmap y el alcance.</li>
         </ul>
+
         <br>
 
         <h2>Fuentes oficiales</h2>
@@ -132,8 +142,8 @@ nmap -oN resultado-local.txt 127.0.0.1</pre>
             <li><a href="https://nmap.org/book/nse.html" target="_blank" rel="noopener noreferrer">Nmap Scripting Engine</a></li>
             <li><a href="https://nmap.org/zenmap/" target="_blank" rel="noopener noreferrer">Zenmap</a></li>
         </ul>
-        <br>
         <hr>
     </div>
+
 </body>
 </html>

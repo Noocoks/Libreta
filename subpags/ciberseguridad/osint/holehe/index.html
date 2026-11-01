@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="osint holehe, correo, cuentas, privacidad">
     <meta name="description" content="Guía de Holehe: enumeración de cuentas asociadas a correos, instalación, interpretación, límites y uso responsable.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holehe</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="osint holehe">
         <hr>
@@ -18,14 +20,16 @@
         <div class="node-tags">
             <span class="tag">OSINT</span><span class="tag">correo</span><span class="tag">cuentas</span><span class="tag">privacidad</span>
         </div>
-        <br>
         <div class="box box--info">
             <p><strong>Holehe</strong> comprueba si una dirección de correo parece estar asociada a cuentas en servicios online compatibles. Automatiza consultas a mecanismos de registro o recuperación y analiza las respuestas.</p>
             <p>Sus resultados son indicios, no una prueba de identidad ni de control de una cuenta. Los proveedores pueden modificar sus respuestas, limitar consultas o utilizar mensajes ambiguos para proteger a sus usuarios.</p>
         </div>
         <br>
+
         <h2>Qué hace y qué no hace</h2>
         <p>Holehe intenta inferir si un servicio reconoce una dirección. No accede a la cuenta, no obtiene contraseñas y no demuestra quién la controla.</p>
+        <br>
+
         <h2>Funcionamiento general</h2>
         <ol>
             <li>Recibe una dirección de correo autorizada.</li>
@@ -35,6 +39,7 @@
             <li>Clasifica cada resultado, incluyendo estados inciertos o limitados.</li>
         </ol>
         <br>
+
         <h2>Casos de uso legítimos</h2>
         <ul>
             <li>Revisar la exposición de una dirección propia.</li>
@@ -43,6 +48,7 @@
             <li>Comprender cómo los servicios protegen la privacidad de sus usuarios.</li>
         </ul>
         <br>
+
         <h2>Instalación aislada</h2>
         <p>Utiliza un entorno virtual para no modificar el Python del sistema:</p>
         <pre>sudo apt update
@@ -53,33 +59,41 @@ python -m pip install --upgrade pip
 python -m pip install holehe
 holehe --help</pre>
         <p>La disponibilidad del paquete y sus dependencias puede cambiar. Si falla, consulta las instrucciones del repositorio y la versión de Python compatible.</p>
+        <br>
+
         <h2>Ejemplo con una dirección propia</h2>
         <pre>holehe correo-de-prueba@example.com</pre>
-            <p>Utiliza solo direcciones que controles o para las que tengas permiso expreso. Evita consultas masivas de direcciones de terceros.</p>
-            <h2>Interpretación de resultados</h2>
-            <ul>
-                <li><strong>Found:</strong> existe una señal compatible con una cuenta.</li>
-                <li><strong>Not found:</strong> no se obtuvo señal; no demuestra que nunca haya existido una cuenta.</li>
-                <li><strong>Rate limited:</strong> el servicio limitó la consulta; no es un resultado negativo.</li>
-                <li><strong>Uncertain / error:</strong> la evidencia no permite clasificar el resultado.</li>
-            </ul>
-            <h2>Limitaciones y privacidad</h2>
-            <ul>
-                <li>Los formularios y respuestas de los proveedores cambian.</li>
-                <li>Los controles antiabuso pueden limitar o falsear la señal observable.</li>
-                <li>Una cuenta asociada a un correo no identifica a una persona concreta.</li>
-                <li>Los datos de recuperación parcialmente ocultos también pueden ser información personal.</li>
-            </ul>
-            <div class="box box--info">
-                <p><strong>Uso responsable:</strong> limita las consultas a direcciones propias o autorizadas, no publiques resultados identificables y elimina los datos cuando dejen de ser necesarios.</p>
-            </div>
-            <h2>Recursos</h2>
-            <ul>
-                <li><span class="cat"><a href="./arq/index.html">Arquitectura y clasificación de respuestas</a></span></li>
-                <li><a href="https://github.com/megadose/holehe" target="_blank" rel="noopener noreferrer">Repositorio de Holehe</a></li>
-            </ul>
+        <p>Utiliza solo direcciones que controles o para las que tengas permiso expreso. Evita consultas masivas de direcciones de terceros.</p>
+        <br>
 
-            <hr>
+        <h2>Interpretación de resultados</h2>
+        <ul>
+            <li><strong>Found:</strong> existe una señal compatible con una cuenta.</li>
+            <li><strong>Not found:</strong> no se obtuvo señal; no demuestra que nunca haya existido una cuenta.</li>
+            <li><strong>Rate limited:</strong> el servicio limitó la consulta; no es un resultado negativo.</li>
+            <li><strong>Uncertain / error:</strong> la evidencia no permite clasificar el resultado.</li>
+        </ul>
+        <br>
+
+        <h2>Limitaciones y privacidad</h2>
+        <ul>
+            <li>Los formularios y respuestas de los proveedores cambian.</li>
+            <li>Los controles antiabuso pueden limitar o falsear la señal observable.</li>
+            <li>Una cuenta asociada a un correo no identifica a una persona concreta.</li>
+            <li>Los datos de recuperación parcialmente ocultos también pueden ser información personal.</li>
+        </ul>
+        <div class="box box--info">
+            <p><strong>Uso responsable:</strong> limita las consultas a direcciones propias o autorizadas, no publiques resultados identificables y elimina los datos cuando dejen de ser necesarios.</p>
         </div>
-    </body>
+        <br>
+
+        <h2>Recursos</h2>
+        <ul>
+            <li><span class="cat"><a href="./arq/index.html">Arquitectura y clasificación de respuestas</a></span></li>
+            <li><a href="https://github.com/megadose/holehe" target="_blank" rel="noopener noreferrer">Repositorio de Holehe</a></li>
+        </ul>
+
+        <hr>
+    </div>
+</body>
 </html>

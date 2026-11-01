@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Hydra, laboratorio local, SSH, auditoría, autenticación, logs">
     <meta name="description" content="Práctica controlada con Hydra sobre SSH en localhost, con cuentas desechables, límites de ejecución y análisis defensivo.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboratorio - Hydra</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="fuerza-bruta hydra lab">
         <hr>
@@ -21,7 +23,6 @@
             <span class="tag">SSH</span>
             <span class="tag">logs</span>
         </div>
-        <br>
 
         <div class="box box--info">
             <p>
@@ -34,6 +35,7 @@
                 Usa una máquina virtual desechable o un entorno local que controles.
             </p>
         </div>
+
         <br>
 
         <h2>1. Preparar el entorno</h2>
@@ -45,17 +47,20 @@ systemctl status ssh --no-pager</pre>
         <p>Comprueba que SSH escucha localmente:</p>
         <pre>ss -lnt | grep ':22'</pre>
 
-            <h2>2. Crear una cuenta de laboratorio</h2>
-            <p>
-                Crea una cuenta temporal que no tenga permisos administrativos. Establece una contraseña
-                de práctica que no utilices en ningún otro servicio:
-            </p>
-            <pre>sudo adduser labuser
+        <br>
+
+        <h2>2. Crear una cuenta de laboratorio</h2>
+        <p>
+            Crea una cuenta temporal que no tenga permisos administrativos. Establece una contraseña
+            de práctica que no utilices en ningún otro servicio:
+        </p>
+        <pre>sudo adduser labuser
 sudo passwd labuser</pre>
         <p>
             La contraseña se introduce de forma interactiva. No reutilices una contraseña personal
             ni incluyas información real en los archivos de prueba.
         </p>
+
         <br>
 
         <h2>3. Crear una lista pequeña</h2>
@@ -69,26 +74,30 @@ chmod 600 claves-lab.txt</pre>
             Asegúrate de haber establecido exactamente la primera entrada como contraseña de <code>labuser</code>
             durante el paso anterior. Si elegiste otra, edita la lista para que coincida.
         </p>
+
         <br>
 
         <h2>4. Ejecutar una comprobación limitada</h2>
         <pre>hydra -l labuser -P claves-lab.txt ssh://127.0.0.1 -t 1 -W 2</pre>
-            <ul>
-                <li><code>-l</code> indica el usuario de prueba.</li>
-                <li><code>-P</code> indica el archivo de contraseñas.</li>
-                <li><code>ssh://127.0.0.1</code> limita el destino al propio equipo.</li>
-                <li><code>-t 1</code> utiliza una sola tarea concurrente.</li>
-                <li><code>-W 2</code> introduce una espera entre conexiones de la tarea.</li>
-            </ul>
+        <ul>
+            <li><code>-l</code> indica el usuario de prueba.</li>
+            <li><code>-P</code> indica el archivo de contraseñas.</li>
+            <li><code>ssh://127.0.0.1</code> limita el destino al propio equipo.</li>
+            <li><code>-t 1</code> utiliza una sola tarea concurrente.</li>
+            <li><code>-W 2</code> introduce una espera entre conexiones de la tarea.</li>
+        </ul>
 
-            <h2>5. Observar los registros</h2>
-            <p>En otra terminal, consulta los registros de autenticación:</p>
-            <pre>sudo journalctl -u ssh --since "10 minutes ago"
+        <br>
+
+        <h2>5. Observar los registros</h2>
+        <p>En otra terminal, consulta los registros de autenticación:</p>
+        <pre>sudo journalctl -u ssh --since "10 minutes ago"
 sudo tail -n 50 /var/log/auth.log</pre>
         <p>
             La ruta <code>/var/log/auth.log</code> depende de la distribución y de su configuración
             de logging. Si no existe, utiliza el journal de systemd.
         </p>
+
         <br>
 
         <h2>6. Analizar los resultados</h2>
@@ -98,6 +107,7 @@ sudo tail -n 50 /var/log/auth.log</pre>
             <li>Distingue un rechazo de autenticación de un error de conexión.</li>
             <li>Verifica manualmente que la cuenta de laboratorio sigue funcionando.</li>
         </ul>
+
         <br>
 
         <h2>7. Restaurar el laboratorio</h2>
@@ -108,6 +118,7 @@ rm -f claves-lab.txt</pre>
             Si necesitas repetir la práctica, crea de nuevo la cuenta temporal. También puedes restaurar
             una instantánea de la máquina virtual.
         </p>
+
         <br>
 
         <h2>Conclusión y medidas defensivas</h2>
@@ -118,7 +129,6 @@ rm -f claves-lab.txt</pre>
             <li>Aplica MFA cuando la arquitectura lo permita.</li>
             <li>Centraliza registros y configura alertas de intentos anómalos.</li>
         </ul>
-        <br>
 
         <div class="box box--info">
             <p>
@@ -126,8 +136,8 @@ rm -f claves-lab.txt</pre>
                 global del servidor. Un resultado de Hydra debe contrastarse siempre con los registros del servicio.
             </p>
         </div>
-        <br>
         <hr>
     </div>
+
 </body>
 </html>

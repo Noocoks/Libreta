@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Hydra, arquitectura, módulos, concurrencia, autenticación, protocolos">
     <meta name="description" content="Arquitectura lógica de THC Hydra: motor, módulos, tareas concurrentes, entradas, respuestas y límites.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arquitectura - Hydra</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="fuerza-bruta hydra arq">
         <hr>
@@ -24,6 +26,7 @@
                 de resultados; cada módulo implementa los detalles de comunicación con el servicio evaluado.
             </p>
         </div>
+
         <br>
 
         <h2>Flujo lógico</h2>
@@ -55,6 +58,7 @@ Resultados, errores y registros</pre>
                 No todos los protocolos responden de la misma forma ni ofrecen la misma información.
             </p>
         </div>
+
         <br>
 
         <h2>Componentes</h2>
@@ -65,7 +69,6 @@ Resultados, errores y registros</pre>
                 generales o específicas del módulo. La sintaxis debe validarse con la ayuda de la versión instalada.
             </p>
         </div>
-        <br>
         <div class="box">
             <h3>2. Gestor de entradas</h3>
             <p>
@@ -73,7 +76,6 @@ Resultados, errores y registros</pre>
                 El tamaño de las listas determina el volumen potencial de trabajo.
             </p>
         </div>
-        <br>
         <div class="box">
             <h3>3. Motor de concurrencia</h3>
             <p>
@@ -81,7 +83,6 @@ Resultados, errores y registros</pre>
                 influyen en la velocidad, la estabilidad y la posibilidad de activar controles defensivos.
             </p>
         </div>
-        <br>
         <div class="box">
             <h3>4. Módulos de protocolo</h3>
             <p>
@@ -93,7 +94,6 @@ Resultados, errores y registros</pre>
                 Consulta <code>hydra -h</code> y <code>hydra -U nombre_modulo</code>.
             </p>
         </div>
-        <br>
         <div class="box">
             <h3>5. Clasificación y salida</h3>
             <p>
@@ -101,6 +101,7 @@ Resultados, errores y registros</pre>
                 una respuesta ambigua o un bloqueo no deben confundirse con una contraseña incorrecta.
             </p>
         </div>
+
         <br>
 
         <h2>Parámetros que afectan al comportamiento</h2>
@@ -112,6 +113,7 @@ Resultados, errores y registros</pre>
             <li><code>-o</code>: guarda la salida en un archivo.</li>
             <li><code>-v</code> / <code>-V</code>: aumentan el detalle de salida; revisa la ayuda de tu versión.</li>
         </ul>
+
         <br>
 
         <h2>Protocolos y módulos</h2>
@@ -120,6 +122,7 @@ Resultados, errores y registros</pre>
             POP3, SMB, LDAP, bases de datos y otros. Esta lista no debe interpretarse como garantía de que
             todos estén habilitados en cualquier instalación.
         </p>
+
         <br>
 
         <h2>Qué no hace el motor</h2>
@@ -128,6 +131,7 @@ Resultados, errores y registros</pre>
             <li>No sustituye la revisión de políticas de contraseñas ni la comprobación manual.</li>
             <li>No puede inferir con certeza el estado de una cuenta si el servicio oculta o uniformiza respuestas.</li>
         </ul>
+
         <br>
 
         <h2>Fuentes</h2>
@@ -135,8 +139,8 @@ Resultados, errores y registros</pre>
             <li><a href="https://github.com/vanhauser-thc/thc-hydra" target="_blank" rel="noopener noreferrer">Código y documentación de THC Hydra</a></li>
             <li><a href="https://github.com/vanhauser-thc/thc-hydra/blob/master/hydra.1" target="_blank" rel="noopener noreferrer">Manual de opciones y módulos</a></li>
         </ul>
-        <br>
         <hr>
     </div>
+
 </body>
 </html>

@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="phishing gophish arquitectura campañas SMTP landing pages">
     <meta name="description" content="Arquitectura de GoPhish: administración, campañas, SMTP, páginas de destino y registro de eventos.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arquitectura - GoPhish</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="phishing gophish arquitectura campañas SMTP landing pages">
         <hr>
         <h1>Arquitectura - GoPhish</h1>
 
         <div class="box box--info"><p>GoPhish reúne una interfaz de administración y componentes que preparan campañas, entregan mensajes por SMTP, sirven páginas y registran interacciones. La configuración de red y el almacenamiento deben protegerse como parte del laboratorio.</p></div>
-        <br>
-        <h2>Diagrama conceptual</h2>
-        <div class="box"><pre>Operador autorizado
+    <h2>Diagrama conceptual</h2>
+    <div class="box"><pre>Operador autorizado
         |
         v
 Interfaz de administración
@@ -41,30 +42,28 @@ Motor de campañas
                          v
                   Resultados e informe</pre></div>
         <br>
+
         <h2>Componentes</h2>
         <div class="box"><h3>Interfaz administrativa</h3><p>Permite gestionar usuarios, grupos, plantillas, páginas, perfiles y campañas. Debe estar accesible solo para administradores autorizados.</p></div>
-        <div class="box"><h3>Grupos</h3><p>Organizan destinatarios de la simulación. En este laboratorio deben contener direcciones ficticias o cuentas controladas.</p></div>
-        <div class="box"><h3>Plantillas y páginas</h3><p>Definen el correo y el destino del enlace. Para formación utiliza una página educativa y no recojas contraseñas reales.</p></div>
-        <div class="box"><h3>Perfil SMTP</h3><p>Define host y puerto de entrega. En un laboratorio local debe apuntar a MailHog y no a un servidor externo.</p></div>
-        <div class="box"><h3>Seguimiento</h3><p>Registra eventos de envío, apertura y clic. Las herramientas de privacidad y seguridad pueden alterar estas métricas.</p></div>
-        <br>
-        <h2>Separación de red</h2>
-        <ul>
-            <li>Consola administrativa en localhost o red de gestión aislada.</li>
-            <li>SMTP de pruebas sin relay hacia Internet.</li>
-            <li>Landing page disponible solo para navegadores de prueba.</li>
-            <li>Base de datos y exportaciones con permisos restrictivos.</li>
-        </ul>
-        <br>
-        <h2>Fuentes oficiales</h2>
-        <ul>
-            <li><a href="https://docs.getgophish.com/user-guide/documentation/campaigns" target="_blank" rel="noopener noreferrer">Campañas</a></li>
-            <li><a href="https://docs.getgophish.com/user-guide/documentation/sending-profiles" target="_blank" rel="noopener noreferrer">Perfiles SMTP</a></li>
-            <li><a href="https://docs.getgophish.com/user-guide/documentation/groups" target="_blank" rel="noopener noreferrer">Grupos</a></li>
-        </ul>
-        <br>
+    <div class="box"><h3>Grupos</h3><p>Organizan destinatarios de la simulación. En este laboratorio deben contener direcciones ficticias o cuentas controladas.</p></div>
+    <div class="box"><h3>Plantillas y páginas</h3><p>Definen el correo y el destino del enlace. Para formación utiliza una página educativa y no recojas contraseñas reales.</p></div>
+    <div class="box"><h3>Perfil SMTP</h3><p>Define host y puerto de entrega. En un laboratorio local debe apuntar a MailHog y no a un servidor externo.</p></div>
+    <div class="box"><h3>Seguimiento</h3><p>Registra eventos de envío, apertura y clic. Las herramientas de privacidad y seguridad pueden alterar estas métricas.</p></div>
+    <h2>Separación de red</h2>
+    <ul>
+        <li>Consola administrativa en localhost o red de gestión aislada.</li>
+        <li>SMTP de pruebas sin relay hacia Internet.</li>
+        <li>Landing page disponible solo para navegadores de prueba.</li>
+        <li>Base de datos y exportaciones con permisos restrictivos.</li>
+    </ul>
+    <h2>Fuentes oficiales</h2>
+    <ul>
+        <li><a href="https://docs.getgophish.com/user-guide/documentation/campaigns" target="_blank" rel="noopener noreferrer">Campañas</a></li>
+        <li><a href="https://docs.getgophish.com/user-guide/documentation/sending-profiles" target="_blank" rel="noopener noreferrer">Perfiles SMTP</a></li>
+        <li><a href="https://docs.getgophish.com/user-guide/documentation/groups" target="_blank" rel="noopener noreferrer">Grupos</a></li>
+    </ul>
 
-        <hr>
+    <hr>
     </div>
 </body>
 </html>

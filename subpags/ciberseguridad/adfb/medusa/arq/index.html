@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nooko">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Medusa, arquitectura, módulos, hilos, autenticación, protocolos">
     <meta name="description" content="Arquitectura y componentes de Medusa: núcleo, módulos independientes, concurrencia, entradas y clasificación de respuestas.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arquitectura - Medusa</title>
+
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
+
 <body>
     <div class="page" data-cat="fuerza-bruta medusa arq">
         <hr>
@@ -22,6 +24,7 @@
                 ampliar la compatibilidad sin reescribir el motor principal.
             </p>
         </div>
+
         <br>
 
         <h2>Diagrama conceptual</h2>
@@ -47,6 +50,7 @@ Servicio de autenticación
           v
 Clasificación y salida</pre>
         </div>
+
         <br>
 
         <h2>Componentes principales</h2>
@@ -54,7 +58,6 @@ Clasificación y salida</pre>
             <h3>Núcleo</h3>
             <p>Interpreta opciones, prepara el trabajo y coordina los módulos.</p>
         </div>
-        <br>
         <div class="box">
             <h3>Gestor de entradas</h3>
             <p>
@@ -62,7 +65,6 @@ Clasificación y salida</pre>
                 o de archivos. El formato y la combinación de entradas deben revisarse antes de ejecutar una prueba.
             </p>
         </div>
-        <br>
         <div class="box">
             <h3>Gestor de hilos</h3>
             <p>
@@ -70,7 +72,6 @@ Clasificación y salida</pre>
                 el módulo, la red y los límites del servicio remoto.
             </p>
         </div>
-        <br>
         <div class="box">
             <h3>Módulos independientes</h3>
             <p>
@@ -78,7 +79,6 @@ Clasificación y salida</pre>
                 del protocolo. Algunos requieren bibliotecas de desarrollo adicionales para compilarse.
             </p>
         </div>
-        <br>
         <div class="box">
             <h3>Gestión de resultados</h3>
             <p>
@@ -86,6 +86,7 @@ Clasificación y salida</pre>
                 debe registrarse como incertidumbre, no como una credencial necesariamente incorrecta.
             </p>
         </div>
+
         <br>
 
         <h2>Comprobar los módulos disponibles</h2>
@@ -95,6 +96,7 @@ medusa -M ssh -q</pre>
             El primer comando enumera los módulos instalados. El segundo consulta las opciones del módulo SSH.
             Si no aparece, comprueba el paquete y sus dependencias antes de asumir que el protocolo está soportado.
         </p>
+
         <br>
 
         <h2>Dependencias y compilación</h2>
@@ -103,6 +105,7 @@ medusa -M ssh -q</pre>
             OpenSSL, LibSSH2 o bibliotecas específicas de bases de datos y servicios. Por ello, dos instalaciones
             con versiones similares pueden ofrecer conjuntos de módulos distintos.
         </p>
+
         <br>
 
         <h2>Comparación conceptual con Hydra</h2>
@@ -138,13 +141,15 @@ medusa -M ssh -q</pre>
             </tbody>
         </table>
 
+        <br>
+
         <h2>Fuentes</h2>
         <ul>
             <li><a href="https://jmk-foofus.github.io/medusa/medusa.html" target="_blank" rel="noopener noreferrer">Documentación técnica de Medusa</a></li>
             <li><a href="https://github.com/jmk-foofus/medusa" target="_blank" rel="noopener noreferrer">Repositorio del proyecto</a></li>
         </ul>
-        <br>
         <hr>
     </div>
+
 </body>
 </html>
