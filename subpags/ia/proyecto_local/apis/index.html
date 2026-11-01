@@ -1,165 +1,164 @@
 <!doctype html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-
-  <meta name="author" content="Nooko">
-
-  <meta name="keywords" content="api, openai, anthropic, claude, chatgpt, variables entorno, python, ia">
-
-  <meta name="description" content="Configuración de claves API para OpenAI y Anthropic mediante variables de entorno.">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>APIs</title>
-
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nooko">
+    <meta name="keywords" content="api, openai, anthropic, claude, python, variables de entorno, autenticación">
+    <meta name="description" content="Configuración y protección de claves API para OpenAI y Anthropic mediante variables de entorno en Python.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APIs</title>
+    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+    <script src="/Libreta/res/js/page.js"></script>
 </head>
-
 <body>
-
     <div class="page" data-cat="ia api">
-      <hr>
-
-      <h1>APIs</h1>
+        <hr>
+        <h1>APIs</h1>
 
         <div class="node-tags">
-            <span class="tag">http/s</span>
-            <span class="tag">clave</span>
-            <span class="tag">autenticacion</span>
-            <span class="tag">variables</span>
-            <span class="tag">integracion</span>
+            <span class="tag">http</span>
+            <span class="tag">api-key</span>
+            <span class="tag">autenticación</span>
+            <span class="tag">variables-entorno</span>
+            <span class="tag">integración</span>
         </div>
 
-      <div class="box box--info">
-        <p>
-          Antes de utilizar los modelos de
-          <strong>OpenAI</strong> y <strong>Anthropic</strong>,
-          es necesario obtener las claves API de cada proveedor
-          y almacenarlas de forma segura.
-        </p>
-      </div>
+        <div class="box box--info">
+            <p>
+                Una API permite que un programa se comunique con un servicio externo
+                mediante peticiones definidas. En este proyecto, los scripts Python
+                utilizan las APIs de OpenAI y Anthropic para enviar entradas y recibir
+                respuestas de sus modelos.
+            </p>
+            <p>
+                Para autorizar esas peticiones, cada proveedor entrega una clave API.
+                La clave identifica el proyecto o cuenta que realiza la solicitud y
+                debe mantenerse privada.
+            </p>
+        </div>
+        <br>
+        <hr>
 
-      <br>
-      <hr>
+        <h2>Obtener las claves</h2>
+        <div class="box">
+            <p>
+                Accede a la consola oficial de cada proveedor, inicia sesión y crea
+                una clave desde el apartado correspondiente:
+            </p>
+            <ul>
+                <li><a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer">OpenAI · gestión de claves API</a></li>
+                <li><a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer">Anthropic · gestión de claves API</a></li>
+            </ul>
+            <p>
+                Copia la clave cuando se muestre y guárdala en un lugar seguro.
+                Si se expone, revócala desde la consola y genera otra.
+            </p>
+        </div>
+        <br>
+        <hr>
 
-      <h2>Obtención de claves</h2>
+        <h2>Crear el archivo .env</h2>
+        <div class="box">
+            <p>
+                Dentro de la carpeta raíz del proyecto, crea un archivo llamado
+                <code>.env</code>:
+            </p>
+            <pre>nano .env</pre>
+            <p>Utiliza una variable distinta para cada proveedor:</p>
+            <pre>OPENAI_API_KEY=tu_clave_de_openai
+ANTHROPIC_API_KEY=tu_clave_de_anthropic</pre>
+            <p>
+                Los nombres deben coincidir con los que consulta el script mediante
+                <code>os.getenv()</code>. No añadas comillas ni espacios alrededor
+                del signo <code>=</code> salvo que la biblioteca o el formato lo requieran.
+            </p>
+        </div>
+        <br>
 
-      <p>
-        Accede a los paneles de administración de:
-      </p>
+        <h2>Cargar las variables desde Python</h2>
+        <div class="box">
+            <p>
+                Instala <code>python-dotenv</code> y carga el archivo al inicio
+                del programa:
+            </p>
+            <pre>pip install python-dotenv</pre>
+            <pre>import os
+from dotenv import load_dotenv
 
-      <ul>
+load_dotenv()
 
-        <li>
-          <a href="https://openai.com/">
-            OpenAI
-          </a>
-        </li>
+openai_key = os.getenv("OPENAI_API_KEY")
+anthropic_key = os.getenv("ANTHROPIC_API_KEY")</pre>
+            <p>
+                <code>load_dotenv()</code> lee el archivo y añade sus valores al
+                entorno del proceso. <code>os.getenv()</code> obtiene cada variable;
+                si no existe, devuelve <code>None</code>, por lo que el programa
+                debe comprobarla antes de inicializar el cliente.
+            </p>
+        </div>
+        <br>
+        <hr>
 
-        <li>
-          <a href="https://www.anthropic.com/">
-            Anthropic
-          </a>
-        </li>
+        <h2>Proteger los secretos</h2>
+        <div class="box">
+            <p>En Linux, limita los permisos del archivo:</p>
+            <pre>chmod 600 .env</pre>
+            <p>
+                Añade el archivo y los artefactos del entorno virtual a
+                <code>.gitignore</code>:
+            </p>
+            <pre>.env
+venv/
+__pycache__/
+*.pyc</pre>
+            <ul>
+                <li>No publiques claves en GitHub, incluso si el repositorio es privado.</li>
+                <li>No incluyas claves en capturas, documentación o registros de depuración.</li>
+                <li>No compartas una misma clave entre proyectos si puedes separarlas.</li>
+                <li>Revoca y sustituye cualquier clave que sospeches que se ha filtrado.</li>
+                <li>Revisa límites de uso, permisos y facturación desde la consola oficial.</li>
+            </ul>
+        </div>
+        <br>
+        <hr>
 
-      </ul>
+        <h2>Comprobar la configuración</h2>
+        <div class="box">
+            <p>
+                La existencia de una variable no demuestra que la clave sea válida.
+                La comprobación real consiste en realizar una petición sencilla con
+                el SDK del proveedor y revisar la respuesta.
+            </p>
+            <ul>
+                <li><span class="cat"><a href="./comprobante/index.html">Comprobación de APIs</a></span></li>
+                <li><span class="cat"><a href="../openai/index.html">Configuración OpenAI</a></span></li>
+                <li><span class="cat"><a href="../anthropic/index.html">Configuración Anthropic</a></span></li>
+            </ul>
+        </div>
+        <br>
 
-      <p>
-        Desde cada plataforma podrás generar una clave API
-        asociada a tu cuenta.
-      </p>
+        <div class="box box--info">
+            <p>
+                <strong>Nota sobre costes:</strong> las peticiones API pueden generar
+                cargos independientes de las suscripciones de las aplicaciones web.
+                Consulta los precios, límites y condiciones actuales de cada proveedor
+                antes de realizar pruebas.
+            </p>
+        </div>
+        <br>
+        <hr>
 
-      <br>
-      <hr>
-
-      <h2>Crear archivo .env</h2>
-
-      <div class="box">
-        <pre>
-
-    └─$ nano .env
-        </pre>
-      </div>
-
-      <p>
-        Dentro del archivo guarda las claves:
-      </p>
-
-      <div class="box">
-        <pre>
-
-    OPENAI_API_KEY=xxxx
-    ANTHROPIC_API_KEY=xxxx
-        </pre>
-      </div>
-
-      <p>
-        Sustituye <strong>xxxx</strong> por las claves
-        generadas en cada plataforma.
-      </p>
-
-      <br>
-      <hr>
-
-      <h2>Recomendaciones</h2>
-
-      <ul>
-        <li>No compartir el archivo <strong>.env</strong>.</li>
-        <li>No subir las claves a GitHub.</li>
-        <li>Utilizar siempre variables de entorno.</li>
-        <li>Proteger el archivo mediante permisos restrictivos.</li>
-      </ul>
-
-      <div class="box">
-        <pre>
-
-    └─$ chmod 600 .env
-        </pre>
-      </div>
-
-      <br>
-      <hr>
-
-      <h2>Recursos relacionados</h2>
-
-      <div class="box">
-        <ul>
-
-          <li>
-            <span class="cat">
-              <a href="../../index.html">
-                IA
-              </a>
-            </span>
-          </li>
-
-          <li>
-            <span class="cat">
-              <a href="../git/index.html">
-                IA + Git
-              </a>
-            </span>
-          </li>
-
-          <li>
-            <span class="cat">
-              <a href="./comprobante/index.html">
-                Comprobación APIs
-              </a>
-            </span>
-          </li>
-
-        </ul>
-      </div>
-
-      <br>
-      <hr>
-
+        <h2>Documentación oficial</h2>
+        <div class="box">
+            <ul>
+                <li><a href="https://platform.openai.com/docs/quickstart" target="_blank" rel="noopener noreferrer">OpenAI · guía de inicio</a></li>
+                <li><a href="https://platform.openai.com/docs/api-reference" target="_blank" rel="noopener noreferrer">OpenAI · referencia API</a></li>
+                <li><a href="https://platform.claude.com/docs/en/intro" target="_blank" rel="noopener noreferrer">Anthropic · primeros pasos</a></li>
+                <li><a href="https://platform.claude.com/docs/en/api" target="_blank" rel="noopener noreferrer">Anthropic · referencia API</a></li>
+                <li><a href="https://pypi.org/project/python-dotenv/" target="_blank" rel="noopener noreferrer">python-dotenv · paquete y documentación</a></li>
+            </ul>
+        </div>
+        <hr>
     </div>
-
 </body>
-
 </html>

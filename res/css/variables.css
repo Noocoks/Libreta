@@ -23,11 +23,7 @@
     --accent: #790018;
     --accent-bright: #a21d3b;
     --accent-light: #d14a68;
-    --accent-glow: rgba(162, 29, 59, .22);
-    --surface-glass: rgba(18, 24, 32, .88);
-    --shadow-deep: 0 18px 48px rgba(0, 0, 0, .28);
     --ease-out: cubic-bezier(.22, 1, .36, 1);
-    --ease-standard: cubic-bezier(.2, .75, .25, 1);
 
     --border-color: var(--border);
     --accent-color: var(--accent-light);

@@ -3,18 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="author" content="Nooko">
-
     <meta name="keywords" content="gophish, landing-page, credential-capture, html-form, post-request, phishing">
-
-    <meta name="description"
-        content="Código fuente y documentación de una Landing Page utilizada en simulaciones de Gophish para captura de credenciales en laboratorio.">
-
+    <meta name="description" content="Código fuente y documentación de una Landing Page utilizada en simulaciones de Gophish para captura de credenciales en laboratorio.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Landing Page - Código</title>
-
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
@@ -30,6 +23,27 @@
                 Landing page utilizada durante las simulaciones
                 de Gophish para capturar credenciales y registrar
                 interacciones de usuarios en laboratorio.
+            </p>
+        </div>
+        <br>
+
+        <div class="box">
+            <p>
+                El código contiene un formulario con campos <code>username</code>
+                y <code>password</code> que utiliza el método <code>POST</code>.
+                En la captura asociada a esta página aparecen activadas las opciones
+                <strong>Capture Submitted Data</strong> y <strong>Capture Passwords</strong>.
+                GoPhish muestra allí una advertencia: las contraseñas capturadas se
+                almacenan en texto claro en su base de datos. Esta nota describe la
+                configuración que quedó registrada en el laboratorio; utiliza solo
+                datos ficticios y nunca introduzcas credenciales reales.
+            </p>
+            <p>
+                Consulta la
+                <a href="https://docs.getgophish.com/user-guide/building-your-first-campaign/creating-the-landing-page" target="_blank" rel="noopener noreferrer">guía oficial para crear Landing Pages</a>
+                y la
+                <a href="https://docs.getgophish.com/api-documentation/landing-pages" target="_blank" rel="noopener noreferrer">referencia de la API de páginas</a>
+                para entender las opciones de captura y redirección.
             </p>
         </div>
         <br>

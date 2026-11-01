@@ -119,44 +119,47 @@ function navigate(file_path, push = true) {
     }
 
     activeNavigationPath = allowedPath;
-
     iframe.style.opacity = 0;
 
-    setTimeout(function () {
+    iframe.onload = function () {
 
-        iframe.onload = function () {
+        if (activeNavigationPath !== allowedPath) {
+            return;
+        }
 
-            iframe.style.opacity = 1;
+        iframe.style.opacity = 1;
 
-            try {
+        try {
 
-                var breadcrumbData = findNodePath(
-                    treeData.sections,
-                    allowedPath
-                );
+            var breadcrumbData = findNodePath(
+                treeData.sections,
+                allowedPath
+            );
 
-                iframe.contentWindow.postMessage({
-                    type: "breadcrumb",
-                    path: allowedPath,
-                    breadcrumb: breadcrumbData
-                }, window.location.origin);
+            iframe.contentWindow.postMessage({
+                type: "breadcrumb",
+                path: allowedPath,
+                breadcrumb: breadcrumbData
+            }, window.location.origin);
 
-            } catch (e) {
+        } catch (e) {
 
-                console.warn(
-                    "No se pudo enviar breadcrumb",
-                    e
-                );
+            console.warn(
+                "No se pudo enviar breadcrumb",
+                e
+            );
 
-            }
-        };
+        }
+    };
 
-        iframe.src = new URL(
-            allowedPath,
-            window.location.href
-        ).href;
+    iframe.onerror = function () {
+        iframe.style.opacity = 1;
+    };
 
-    }, 120);
+    iframe.src = new URL(
+        allowedPath,
+        window.location.href
+    ).href;
 
     if (push) {
         window.location.hash = allowedPath;
@@ -391,6 +394,40 @@ function createTreeNode(item) {
     return li;
 }
 
+function isValidTreeNode(node) {
+
+    if (
+        !node ||
+        typeof node !== "object" ||
+        Array.isArray(node) ||
+        typeof node.name !== "string" ||
+        !node.name.trim() ||
+        typeof node.path !== "string" ||
+        !node.path.trim() ||
+        (node.cat !== undefined && typeof node.cat !== "string") ||
+        (node.tags !== undefined && (
+            !Array.isArray(node.tags) ||
+            !node.tags.every(function (tag) {
+                return typeof tag === "string";
+            })
+        )) ||
+        (node.children !== undefined && !Array.isArray(node.children))
+    ) {
+        return false;
+    }
+
+    return !node.children || node.children.every(isValidTreeNode);
+}
+
+function isValidTree(data) {
+
+    return Boolean(
+        data &&
+        Array.isArray(data.sections) &&
+        data.sections.every(isValidTreeNode)
+    );
+}
+
 function buildTree(data) {
 
     var root = document.getElementById("tree_root");
@@ -399,7 +436,7 @@ function buildTree(data) {
 
     root.innerHTML = "";
 
-    if (!data.sections) return;
+    if (!isValidTree(data)) return;
 
     for (var i = 0; i < data.sections.length; i++) {
 
@@ -414,7 +451,7 @@ function buildTree(data) {
 
 function loadTree() {
 
-    fetch("res/json/tree.json")
+    fetch(new URL("res/json/tree.json", document.baseURI).href)
         .then(function (response) {
             if (!response.ok) {
                 throw new Error("No se pudo cargar tree.json (" + response.status + ")");
@@ -424,8 +461,8 @@ function loadTree() {
         })
 
         .then(function (data) {
-            if (!data || !Array.isArray(data.sections)) {
-                throw new Error("tree.json no contiene una lista válida de secciones");
+            if (!isValidTree(data)) {
+                throw new Error("tree.json contiene una estructura de navegación no válida");
             }
 
             treeData = data;
@@ -794,28 +831,37 @@ window.addEventListener("load", function () {
 
     loadTree();
 
-    document.onkeydown = function (ev) {
+    document.addEventListener("keydown", function (ev) {
 
         if (ev.key === "Escape") {
-            toggle_tree_panel();
+            var toggle = document.getElementById("tree_panel_toggle_btn");
+
+            if (toggle && toggle.getAttribute("aria-expanded") === "true") {
+                toggle_tree_panel();
+            }
+
+            return;
         }
 
-        if (ev.key === "!") {
+        var target = ev.target;
+        var isEditable = target && (
+            target.isContentEditable ||
+            /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)
+        );
 
-            var input =
-                document.getElementById(
-                    "tree_search"
-                );
-
-            if (!input) return;
-
-            ev.preventDefault();
-
-            input.focus();
-            input.select();
+        if (ev.key !== "!" || isEditable) {
+            return;
         }
 
-    };
+        var input = document.getElementById("tree_search");
+
+        if (!input) return;
+
+        ev.preventDefault();
+        input.focus();
+        input.select();
+
+    });
 
     var panels = document.getElementsByClassName("two-panels")[0];
 
@@ -835,4 +881,3 @@ window.addEventListener("load", function () {
 });
 
 
-console.log("script.js cargado");

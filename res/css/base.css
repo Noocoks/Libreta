@@ -6,12 +6,10 @@ body {
     min-height: 100%;
     overflow-x: hidden;
     font-size: 13px;
-    font-family: "Open Sans", sans-serif !important;
     margin: 0;
     padding: 0;
     background: var(--bg);
     color: var(--text);
-    white-space: normal;
 }
 
 p {
@@ -416,11 +414,16 @@ pre {
     -ms-user-select: text;
     user-select: text;
     padding: 10px;
-    overflow: auto;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
     margin: 1em 0;
-    white-space: pre-wrap;
+    white-space: pre;
+    overflow-wrap: normal;
+    word-break: normal;
     tab-size: 4;
-    line-height: 1.4;
+    line-height: 1.5;
+    -webkit-overflow-scrolling: touch;
 }
 
 

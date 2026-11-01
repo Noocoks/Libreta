@@ -166,9 +166,12 @@ document.addEventListener("click", function (e) {
         return;
     }
 
-    /* Bloquear páginas internas que no estén declaradas en el índice. */
+    /*
+     * Solo las páginas registradas en el árbol se cargan dentro del
+     * enrutador principal. Los recursos internos (imágenes, archivos,
+     * documentos o enlaces con fragmentos) conservan su navegación normal.
+     */
     if (!allowedPath) {
-        e.preventDefault();
         return;
     }
 
@@ -182,33 +185,36 @@ document.addEventListener("click", function (e) {
 ============================== */
 document.addEventListener("keydown", function (ev) {
 
-    /* abrir buscador */
-    if (ev.key === "!") {
+    if (ev.key === "Escape") {
+        var toggle = window.parent.document.getElementById("tree_panel_toggle_btn");
 
-        ev.preventDefault();
-
-        var input =
-            window.parent.document.getElementById(
-                "tree_search"
-            );
-
-        if (!input) {
-            return;
+        if (toggle && toggle.getAttribute("aria-expanded") === "true") {
+            ev.preventDefault();
+            window.parent.toggle_tree_panel();
         }
-
-        input.focus();
-        input.select();
 
         return;
     }
 
-    /* mostrar/ocultar índice */
-    if (ev.key === "Escape") {
+    var target = ev.target;
+    var isEditable = target && (
+        target.isContentEditable ||
+        /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)
+    );
 
-        ev.preventDefault();
-
-        window.parent.toggle_tree_panel();
+    if (ev.key !== "!" || isEditable) {
+        return;
     }
+
+    var input = window.parent.document.getElementById("tree_search");
+
+    if (!input) {
+        return;
+    }
+
+    ev.preventDefault();
+    input.focus();
+    input.select();
 });
 
 /* ==============================
@@ -279,11 +285,6 @@ document.addEventListener("click", function (ev) {
 
     var tag =
         ev.target.textContent.trim();
-
-    console.log(
-        "[" + tag + "]",
-        tag.length
-    );
 
     /* si ya está seleccionada, desactivar */
     if (
