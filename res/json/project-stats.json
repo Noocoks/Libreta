@@ -1,7 +1,7 @@
 {
-    "generated_at": "2026-11-01T22:18:53+00:00",
+    "generated_at": "2026-11-01T22:25:41+00:00",
     "total_files": 70,
-    "total_lines": 10611,
+    "total_lines": 10603,
     "counting": "non-empty lines",
     "languages": [
         {
@@ -44,7 +44,7 @@
             "key": "markdown",
             "label": "Markdown",
             "files": 1,
-            "lines": 144
+            "lines": 136
         }
     ]
 }
