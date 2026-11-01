@@ -157,18 +157,7 @@ Formatos contemplados: HTML, CSS, JavaScript, JSON, Python, TXT y Markdown.
 - **DEVELOPMENT** — Scripts, entornos, Git, estructura web y automatización.
 - **LABS** — Entornos locales, máquinas virtuales y pruebas controladas.
 
-## `07 / DUALVERS V2`
-
-Dualvers V2 es un proyecto local de integración con modelos de IA, documentado dentro de la sección de inteligencia artificial. La implementación incorpora controles para trabajar con sesiones de forma más segura:
-
-- Validación estricta de los identificadores de sesión.
-- Rechazo de separadores de ruta, traversal y enlaces simbólicos.
-- Comprobación de que las rutas resueltas permanecen dentro del directorio de sesiones.
-- Creación de directorios con permisos restrictivos.
-- Inicialización bajo demanda del SDK y del proveedor seleccionado.
-- Comprobación de la clave API correspondiente al proveedor activo.
-
-## `08 / PROJECT NOTES`
+## `07 / PROJECT NOTES`
 
 - Proyecto personal de documentación técnica y aprendizaje continuo.
 - Desarrollado como sitio estático con HTML, CSS y JavaScript.
