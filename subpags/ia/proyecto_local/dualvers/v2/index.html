@@ -662,6 +662,408 @@ else:
 
     </div>
 
+</body>text, delay=0.01):
+    """Simulando streaming tipo ChatGPT"""
+
+    for char in text:
+        print(
+            char,
+            end="",
+            flush=True
+        )
+
+        time.sleep(delay)
+
+    print()
+
+
+def get_history_path(session_name):
+
+    return os.path.join(
+        BASE_HISTORY_DIR,
+        f"{session_name}.json"
+    )
+
+
+def load_history(session_name):
+
+    path = get_history_path(session_name)
+
+    if not os.path.exists(path):
+        return []
+
+    with open(path, "r") as f:
+        return json.load(f)
+
+
+def save_history(session_name, history):
+
+    path = get_history_path(session_name)
+
+    with open(path, "w") as f:
+        json.dump(
+            history,
+            f,
+            indent=2
+        )
+
+
+def clear_history(session_name):
+
+    path = get_history_path(session_name)
+
+    if os.path.exists(path):
+
+        os.remove(path)
+
+        print(
+            Fore.YELLOW +
+            f"[+] Historial eliminado: {session_name}"
+        )
+
+#---------------------
+# ROUTER AUTO
+#---------------------
+
+def auto_select_model(prompt):
+
+    coding_keywords = [
+        "python", "html", "html5", "css", "css3",
+        "java", "bash", "script", "docker", "linux",
+        "bug", "error", "code", "código", "codigo",
+        "programa", "terminal", "kali"
+    ]
+
+    for word in coding_keywords:
+
+        if word in prompt.lower():
+            return "claude"
+
+    return "openai"
+
+#---------------------
+# OPENAI
+#---------------------
+
+def ask_openai(history):
+
+    response = openai_client.chat.completions.create(
+        model="gpt-6-luna",
+        messages=history
+    )
+
+    return response.choices[0].message.content
+
+#---------------------
+# CLAUDE
+#---------------------
+
+def ask_claude(history):
+
+    response = anthropic_client.messages.create(
+        model="claude-sonnet-5",
+        max_tokens=200,
+        messages=history
+    )
+
+    return response.content[0].text
+
+#---------------------
+# MAIN ASK
+#---------------------
+
+def ask_model(model, history):
+
+    if model == "openai":
+        return ask_openai(history)
+
+    elif model == "claude":
+        return ask_claude(history)
+
+    else:
+        raise ValueError("Modelo inválido")
+
+#---------------------
+# SINGLE PROMPT MODE
+#---------------------
+
+def single_prompt_mode(model, prompt, session):
+
+    history = load_history(session)
+
+    if model == "auto":
+
+        selected_model = auto_select_model(prompt)
+
+        print(
+            Fore.CYAN +
+            f"[AUTO] usando: {selected_model}"
+        )
+
+        model = selected_model
+
+    history.append({
+        "role": "user",
+        "content": prompt
+    })
+
+    reply = ask_model(model, history)
+
+    history.append({
+        "role": "assistant",
+        "content": reply
+    })
+
+    save_history(session, history)
+
+    print(Fore.GREEN + f"\n[{model}]")
+
+    stream_print(reply)
+
+#---------------------
+# CHAT LOOP
+#---------------------
+
+def interactive_chat(model, session):
+
+    history = load_history(session)
+    
+    print(Fore.CYAN + f"\n[+] Modelo: {model}")
+    print(Fore.CYAN + f"[+] Sesión: {session}")
+
+    print(Fore.YELLOW + "\nComandos:")
+    print("/exit")
+    print("/clear")
+    print("/model openai")
+    print("/model claude")
+    print("/model auto\n")
+
+    while True:
+
+        user_input = input(
+            Fore.BLUE +
+            "\nTú > " +
+            Style.RESET_ALL
+        )
+
+        if user_input == "/exit":
+            break
+
+        if user_input == "/clear":
+
+            history = []
+
+            save_history(
+                session,
+                history
+            )
+
+            print(
+                Fore.YELLOW +
+                "[+] Historial limpiado"
+            )
+
+            continue
+
+        if user_input.startswith("/model"):
+
+            try:
+
+                new_model = user_input.split()[1]
+
+                if new_model in [
+                    "openai",
+                    "claude",
+                    "auto"
+                ]:
+
+                    model = new_model
+
+                    print(
+                        Fore.CYAN +
+                        f"[+] Modelo cambiado a: {model}"
+                    )
+
+                else:
+
+                    print(
+                        Fore.RED +
+                        "Modelo inválido"
+                    )
+
+            except:
+
+                print(
+                    Fore.RED +
+                    "Uso: /model openai"
+                )
+
+            continue
+
+        selected_model = model
+
+        if model == "auto":
+
+            selected_model = auto_select_model(
+                user_input
+            )
+
+            print(
+                Fore.MAGENTA +
+                f"[AUTO] -> {selected_model}"
+            )
+
+        history.append({
+            "role": "user",
+            "content": user_input
+        })
+
+        try:
+
+            reply = ask_model(
+                selected_model,
+                history
+            )
+
+        except Exception as e:
+
+            print(
+                Fore.RED +
+                f"\n[ERROR] {e}"
+            )
+
+            continue
+
+        print(
+            Fore.GREEN +
+            f"\n{selected_model}> "
+        )
+
+        stream_print(reply)
+
+        history.append({
+            "role": "assistant",
+            "content": reply
+        })
+
+        save_history(
+            session,
+            history
+        )
+
+#---------------------
+# ARGPARSE
+#---------------------
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument(
+    "model",
+    help="openai | claude | auto"
+)
+
+parser.add_argument(
+    "prompt",
+    nargs="*"
+)
+
+parser.add_argument(
+    "--session",
+    default="default"
+)
+
+parser.add_argument(
+    "--clear",
+    action="store_true"
+)
+
+args = parser.parse_args()
+
+#---------------------
+# VALIDACIÓN
+#---------------------
+
+if args.model not in [
+    "openai",
+    "claude",
+    "auto"
+]:
+
+    print(
+        Fore.RED +
+        "Modelo inválido"
+    )
+
+    sys.exit()
+
+#---------------------
+# CLEAR
+#---------------------
+
+if args.clear:
+
+    clear_history(args.session)
+
+    sys.exit()
+
+#---------------------
+# SINGLE PROMPT
+#---------------------
+
+if args.prompt:
+
+    prompt = " ".join(args.prompt)
+
+    single_prompt_mode(
+        args.model,
+        prompt,
+        args.session
+    )
+
+else:
+
+    interactive_chat(
+        args.model,
+        args.session
+     )</pre>
+                </div>
+            </details>
+
+        </div>
+        <hr>
+
+        <h2>Recursos relacionados</h2>
+
+        <div class="box">
+            <ul>
+                <li>
+                    <span class="cat">
+                        <a href="../v1/index.html">Uso Dual V1</a>
+                    </span>
+                </li>
+
+                <li>
+                    <span class="cat">
+                        <a href="../../openai/index.html">OpenAI &amp; S-GPT</a>
+                    </span>
+                </li>
+
+                <li>
+                    <span class="cat">
+                        <a href="../../anthropic/index.html">Claude &amp; Anthropic</a>
+                    </span>
+                </li>
+
+                <li>
+                    <span class="cat">
+                        <a href="../../apis/index.html">APIs</a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
 </body>
 
 </html>
