@@ -1,92 +1,135 @@
 <!doctype html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-
-  <meta name="author" content="Nooko">
-
-  <meta name="keywords" content="anthropic, claude, api, python, ia, llm">
-
-  <meta name="description" content="Configuración y prueba de Claude mediante la API de Anthropic usando Python.">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Claude & Anthropic</title>
-
-  <link rel="stylesheet" href="/Libreta/res/css/styles.css">
-  <script src="/Libreta/res/js/page.js"></script>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nooko">
+    <meta name="keywords" content="anthropic, claude, api, python, ia, llm, sdk">
+    <meta name="description" content="Introducción a Anthropic y Claude mediante su API: autenticación, SDK de Python, modelos, ejecución y errores habituales.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthropic & Claude</title>
+    <link rel="stylesheet" href="/Libreta/res/css/styles.css">
+    <script src="/Libreta/res/js/page.js"></script>
 </head>
-
 <body>
+    <div class="page" data-cat="ia companias">
+        <hr>
+        <h1>Anthropic & Claude</h1>
 
-  <div class="page" data-cat="ia companias">
+        <div class="node-tags">
+            <span class="tag">anthropic</span>
+            <span class="tag">claude</span>
+            <span class="tag">llm</span>
+            <span class="tag">api</span>
+            <span class="tag">python-sdk</span>
+        </div>
 
-    <hr>
+        <div class="box box--info">
+            <p>
+                <strong>Anthropic</strong> desarrolla la familia de modelos
+                <strong>Claude</strong> y ofrece una API para integrarlos en
+                aplicaciones. Desde Python, el SDK oficial gestiona la petición,
+                la autenticación y la lectura de la respuesta.
+            </p>
+            <p>
+                Claude puede utilizarse desde diferentes productos e interfaces.
+                Esta página documenta el acceso mediante API, que requiere una
+                credencial propia y está sujeto a los límites y condiciones del
+                proyecto configurado en la consola.
+            </p>
+        </div>
+        <br>
+        <hr>
 
-    <h1>Claude & Anthropic</h1>
+        <h2>Conceptos principales</h2>
+        <div class="box">
+            <ul>
+                <li><strong>Anthropic:</strong> proveedor del servicio y de la API.</li>
+                <li><strong>Claude:</strong> familia de modelos que procesa las entradas.</li>
+                <li><strong>API key:</strong> credencial utilizada para autenticar la petición.</li>
+                <li><strong>Messages API:</strong> endpoint de conversación que recibe mensajes y devuelve contenido generado.</li>
+                <li><strong>SDK:</strong> biblioteca oficial que facilita el uso de la API desde Python.</li>
+            </ul>
+        </div>
+        <br>
+        <hr>
 
-    <div class="node-tags">
-      <span class="tag">claude-code</span>
-      <span class="tag">llm</span>
-      <span class="tag">api</span>
-      <span class="tag">python-sdk</span>
-      <span class="tag">razonamiento</span>
+        <h2>Preparar el entorno</h2>
+        <div class="box">
+            <p>
+                Activa el entorno virtual descrito en la
+                <span class="cat"><a href="../index.html">guía del proyecto local</a></span>
+                e instala el paquete oficial:
+            </p>
+            <pre>pip install --upgrade anthropic</pre>
+            <p>
+                Mantener el SDK actualizado ayuda a utilizar los métodos y parámetros
+                compatibles con la versión actual de la API.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Autenticación</h2>
+        <div class="box">
+            <p>Guarda la clave en el archivo <code>.env</code>:</p>
+            <pre>ANTHROPIC_API_KEY=tu_clave</pre>
+            <p>
+                Carga la variable de entorno antes de inicializar el cliente.
+                Evita incluir el valor literal en el código, en capturas o en
+                repositorios compartidos.
+            </p>
+            <p>
+                Si la autenticación falla, revisa que la clave esté activa, que
+                se haya cargado en el proceso y que pertenezca a la cuenta o
+                espacio de trabajo esperado.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Crear y ejecutar la prueba</h2>
+        <div class="box">
+            <p>La libreta contiene un script de comprobación independiente:</p>
+            <pre>python test_claude.py</pre>
+            <ul>
+                <li><strong>Archivo:</strong> <span class="cat"><a href="./comprobante/index.html">Comprobante Anthropic</a></span>.</li>
+                <li><strong>Objetivo:</strong> validar la carga de la clave y realizar una petición de prueba.</li>
+                <li><strong>Resultado esperado:</strong> recibir y mostrar contenido devuelto por la API.</li>
+            </ul>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Errores habituales</h2>
+        <div class="box">
+            <ul>
+                <li><strong>401 / autenticación:</strong> clave incorrecta, ausente o revocada.</li>
+                <li><strong>429 / límite:</strong> se ha alcanzado un límite de velocidad o uso; consulta la respuesta y la consola.</li>
+                <li><strong>Modelo no disponible:</strong> el identificador puede haber cambiado o no estar habilitado para la cuenta.</li>
+                <li><strong>400 / petición inválida:</strong> revisa el formato de los mensajes y los parámetros obligatorios.</li>
+                <li><strong>Respuesta inesperada:</strong> comprueba el tipo de bloque devuelto antes de acceder a su contenido.</li>
+            </ul>
+            <p>
+                Consulta el catálogo vigente antes de cambiar el identificador de
+                modelo en un script: los nombres y las capacidades evolucionan.
+            </p>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Recursos oficiales</h2>
+        <div class="box">
+            <ul>
+                <li><a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer">Sitio oficial de Anthropic</a></li>
+                <li><a href="https://platform.claude.com/docs/en/get-started" target="_blank" rel="noopener noreferrer">Primeros pasos con la API</a></li>
+                <li><a href="https://platform.claude.com/docs/en/api" target="_blank" rel="noopener noreferrer">Referencia de la API</a></li>
+                <li><a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank" rel="noopener noreferrer">Descripción general de modelos</a></li>
+                <li><a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer">Consola y claves API</a></li>
+                <li><a href="https://github.com/anthropics/anthropic-sdk-python" target="_blank" rel="noopener noreferrer">SDK oficial de Python en GitHub</a></li>
+                <li><a href="https://pypi.org/project/anthropic/" target="_blank" rel="noopener noreferrer">Paquete anthropic en PyPI</a></li>
+            </ul>
+        </div>
+        <hr>
     </div>
-
-    <br>
-
-    <div class="box box--info">
-      <p>
-        Configuración básica para utilizar modelos Claude
-        mediante la API de Anthropic desde Python.
-      </p>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Crear archivo de prueba</h2>
-
-    <div class="box">
-      <pre>
-└─$ nano test_claude.py
-</pre>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Contenido del archivo</h2>
-
-    <div class="box">
-      <ul>
-        <li>
-          <span class="cat">
-            <a href="./comprobante/index.html">
-              Comprobante Anthropic
-            </a>
-          </span>
-        </li>
-      </ul>
-    </div>
-
-    <br>
-    <hr>
-
-    <h2>Ejecución</h2>
-
-    <div class="box">
-      <pre>
-└─$ python test_claude.py
-</pre>
-    </div>
-
-    <br>
-    <hr>
-
-  </div>
-
 </body>
-
 </html>
