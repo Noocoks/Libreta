@@ -1,166 +1,244 @@
 <!doctype html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="author" content="Nooko">
+    <meta name="keywords" content="gophish, campaign, smtp-profile, landing-page, mail-template, mailhog, laboratorio">
+    <meta name="description" content="Documentación de una práctica local de GoPhish con MailHog: grupo, plantilla, landing page, perfil SMTP y campañas mostradas en capturas propias.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="keywords" content="gophish, campaign, smtp-profile, landing-page, mail-template, credential-capture">
-
-    <meta name="description" content="Capturas y configuración de una campaña local de Gophish junto a MailHog.">
-
-    <title>Uso Personal - Caps - Gophish</title>
-
+    <title>Uso Personal - Ejemplo práctico - GoPhish</title>
     <link rel="stylesheet" href="/Libreta/res/css/styles.css">
     <script src="/Libreta/res/js/page.js"></script>
 </head>
-
 <body>
-
     <div class="page" data-cat="phishing gophish ejem">
         <hr>
+        <h1>Uso Personal - Ejemplo práctico - GoPhish</h1>
 
-        <h1>Uso Personal - Ejemplo practico - Gophish</h1>
+        <div class="node-tags">
+            <span class="tag">gophish</span>
+            <span class="tag">mailhog</span>
+            <span class="tag">smtp</span>
+            <span class="tag">landing-page</span>
+            <span class="tag">campaña</span>
+            <span class="tag">laboratorio-local</span>
+        </div>
 
         <div class="box box--info">
             <p>
-                Disclaimer: Capturas correspondientes a la primera configuración
-                local realizada con
-                <span class="cat">
-                    <a href="../../index.html">
-                        Gophish
-                    </a>
-                </span> junto a
-                <span class="cat">
-                    <a href="../../../mailhog/index.html">
-                        MailHog
-                    </a>
-                </span>
-                en un entorno de laboratorio.
+                Esta página recoge una práctica realizada en un laboratorio propio
+                con <strong>GoPhish</strong> y <strong>MailHog</strong>. Las imágenes
+                son capturas de la configuración que se utilizó durante ese ejercicio;
+                la explicación se ha ampliado para que cada pantalla pueda entenderse
+                sin alterar los ajustes que aparecen en ella.
+            </p>
+            <p>
+                <span class="cat"><a href="https://github.com/gophish/gophish" target="_blank" rel="noopener noreferrer">GoPhish · repositorio oficial</a></span>
+                <span class="cat"><a href="https://github.com/mailhog/MailHog" target="_blank" rel="noopener noreferrer">MailHog · repositorio oficial</a></span>
             </p>
         </div>
         <br>
         <hr>
 
         <h2>Índice</h2>
-
         <div class="box">
             <ul>
                 <li><a href="#grupos">Grupos</a></li>
                 <li><a href="#mt">Mail Template</a></li>
                 <li><a href="#lp">Landing Page</a></li>
-                <li><a href="#pde">Perfil de envío</a></li>
-                <li><a href="#campaña">Campaña</a></li>
+                <li><a href="#pde">Selección del perfil de envío</a></li>
+                <li><a href="#campana-test">Campaña de prueba</a></li>
+                <li><a href="#campana-demo">Campaña Demo</a></li>
+                <li><a href="#resultado">Resultado y comprobaciones</a></li>
             </ul>
+        </div>
+        <br>
+        <hr>
+
+        <h2>Configuración del laboratorio</h2>
+        <div class="box">
+            <p>
+                GoPhish se utiliza para definir los elementos de la simulación y
+                coordinar el envío. MailHog actúa como servidor SMTP de pruebas:
+                recibe los mensajes del laboratorio y permite inspeccionarlos desde
+                su interfaz web, sin depender de una bandeja de correo real.
+            </p>
+            <p>
+                En las capturas de campaña aparece la URL
+                <code>http://localhost:8080</code> y el perfil de envío
+                <strong>MailHog</strong>. La interfaz web habitual de MailHog en esta
+                configuración se consulta en
+                <a href="http://127.0.0.1:8025" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8025</a>.
+                Estos destinos corresponden al equipo donde se ejecuta el laboratorio;
+                no son direcciones públicas.
+            </p>
+            <p>
+                La configuración interna del perfil SMTP (host, puerto y demás
+                parámetros) se documenta en la
+                <span class="cat"><a href="../../../mailhog/ini/index.html">guía de inicialización de MailHog</a></span>.
+            </p>
         </div>
         <br>
         <hr>
 
         <h2>Configuración</h2>
         <div class="box box--media">
-            <h3 id="grupos">Grupos</h3>
-
+            <h3 id="grupos">1. Grupos</h3>
             <p>
-                Apartado destinado a la definición de los
-                destinatarios mediante nombre, apellidos
-                y correo electrónico.
+                Los grupos organizan los destinatarios que participan en una campaña.
+                La captura muestra el grupo <strong>D1</strong> con un único registro
+                de prueba y sus campos de nombre, apellidos, correo y posición.
+                El grupo se selecciona posteriormente al crear la campaña.
             </p>
-
-            <img src="/Libreta/images/14-2.png" alt="Configuración de grupos">
+            <img src="/Libreta/images/14-2.png" alt="GoPhish: edición del grupo D1 con un destinatario de prueba">
         </div>
         <br>
 
         <div class="box box--media">
-            <h3 id="mt">Mail Template</h3>
-
+            <h3 id="mt">2. Mail Template</h3>
             <p>
-                Plantilla de correo que recibirá el usuario
-                objetivo durante la simulación.
+                La plantilla define el contenido del correo que se utilizará en la
+                simulación: remitente, asunto, cuerpo HTML o texto y enlaces. En la
+                captura se observa la plantilla <strong>Verificación de cuenta requerida</strong>,
+                con un remitente de laboratorio y un asunto de acción requerida.
             </p>
-
             <p>
-                <span class="cat">
-                    <a href="./codes/mail_templates/index.html">
-                        Código fuente
-                    </a>
-                </span>
+                El código de la plantilla se conserva en la página
+                <span class="cat"><a href="./codes/mail_templates/index.html">Código fuente del Mail Template</a></span>.
+                En él aparece la variable <code>{{.URL}}</code>, que GoPhish sustituye
+                por el enlace asociado a la campaña.
             </p>
-
-            <img src="/Libreta/images/14-3.png" alt="Plantilla de correo">
+            <img src="/Libreta/images/14-3.png" alt="GoPhish: plantilla de correo de verificación de cuenta">
         </div>
         <br>
 
         <div class="box box--media">
-            <h3 id="lp">Landing Page</h3>
-
+            <h3 id="lp">3. Landing Page</h3>
             <p>
-                Página mostrada al usuario tras acceder al enlace
-                contenido en el correo.
+                La Landing Page es la página que se muestra al abrir el enlace del
+                correo. En esta práctica se utilizó la página
+                <strong>Inicio de sesión básico</strong>, cuyo código HTML se puede
+                consultar en <span class="cat"><a href="./codes/landing_pages/index.html">Código fuente de la Landing Page</a></span>.
             </p>
-
             <p>
-                Se utilizaron las opciones:
+                La captura muestra activadas las opciones <strong>Capture Submitted Data</strong>
+                y <strong>Capture Passwords</strong>. También aparece el aviso de GoPhish
+                indicando que las contraseñas capturadas se almacenan sin cifrar en
+                la base de datos. Se conserva esta información porque describe la
+                configuración real que muestra la captura; no debe interpretarse como
+                una recomendación para utilizar credenciales reales.
             </p>
-
-            <ul>
-                <li>Capture Submitted Data</li>
-                <li>Capture Passwords</li>
-            </ul>
-
             <p>
-                <span class="cat">
-                    <a href="./codes/landing_pages/index.html">
-                        Código fuente
-                    </a>
-                </span>
+                En el campo de redirección se observa <code>https://google.com</code>.
+                Es el destino configurado en esa pantalla después del envío del
+                formulario, no la URL local utilizada para acceder a la campaña.
             </p>
-
-            <img src="/Libreta/images/14-4.png" alt="Landing Page">
+            <img src="/Libreta/images/14-4.png" alt="GoPhish: Landing Page con Capture Submitted Data y Capture Passwords activados y aviso de almacenamiento sin cifrar">
         </div>
         <br>
 
-        <div class="box box--media">
-            <h3 id="pde">Perfil de envío</h3>
-
+        <div class="box box--info">
             <p>
-                Configuración SMTP utilizada para el envío
-                de correos mediante MailHog en entorno local.
+                <strong>Lectura de esta captura:</strong> el ejemplo documenta una
+                configuración histórica de laboratorio. Si se reproduce el ejercicio,
+                utiliza únicamente datos ficticios y cuentas controladas, mantén el
+                entorno aislado y elimina los registros cuando ya no sean necesarios.
+                No introduzcas contraseñas personales o reutilizadas: GoPhish advierte
+                expresamente que la captura de contraseñas puede almacenarlas en claro.
             </p>
-
-            <img src="/Libreta/images/14-5.png" alt="Perfil SMTP">
         </div>
         <br>
         <hr>
 
+        <h2>Perfil de envío y campañas</h2>
+        <div class="box box--media">
+            <h3 id="pde">4. Selección del perfil de envío</h3>
+            <p>
+                La imagen muestra el formulario <strong>New Campaign</strong> y,
+                concretamente, el campo <strong>Sending Profile</strong> con
+                <strong>MailHog</strong> seleccionado. Por tanto, esta captura
+                documenta la selección de un perfil SMTP ya creado; no es la
+                pantalla donde se definen sus parámetros internos.
+            </p>
+            <p>
+                La configuración del servidor SMTP se realiza previamente en
+                <span class="cat"><a href="../../../mailhog/ini/index.html">MailHog · inicialización</a></span>.
+                La selección del perfil permite que GoPhish entregue los mensajes
+                de esta campaña al servidor de pruebas.
+            </p>
+            <img src="/Libreta/images/14-5.png" alt="GoPhish: formulario de campaña test con el perfil de envío MailHog seleccionado">
+        </div>
+        <br>
+
+        <div class="box box--media">
+            <h3 id="campana-test">5. Campaña de prueba: test</h3>
+            <p>
+                Esta captura muestra una campaña llamada <strong>test</strong>.
+                Se han seleccionado la plantilla de verificación, la Landing Page
+                de inicio de sesión, la URL <code>http://localhost:8080</code>,
+                el perfil <strong>MailHog</strong> y el grupo <strong>D1</strong>.
+                La fecha y hora visibles en la imagen son las configuradas en ese
+                formulario en el momento de la captura.
+            </p>
+            <p>
+                La URL del campo <strong>URL</strong> es la dirección que se incluye
+                en los enlaces de la campaña. En este caso apunta a localhost, por lo
+                que la práctica depende del entorno donde se ejecuta el servicio.
+            </p>
+            <img src="/Libreta/images/14-5.png" alt="GoPhish: campaña test con plantilla, landing page, localhost, MailHog y grupo D1">
+        </div>
+        <br>
+
+        <div class="box box--media">
+            <h3 id="campana-demo">6. Campaña Demo</h3>
+            <p>
+                La segunda captura muestra otra configuración denominada
+                <strong>Demo</strong>. Vuelve a aparecer la URL local
+                <code>http://localhost:8080</code>, el perfil de envío
+                <strong>MailHog</strong> y el grupo <strong>D1</strong>.
+                La imagen conserva la fecha y hora que se introdujeron en ese
+                formulario; se presenta como una captura adicional de la práctica,
+                no como una prueba de que ambas campañas se ejecutaran en ese orden.
+            </p>
+            <img src="/Libreta/images/14-1.png" alt="GoPhish: formulario de campaña Demo con URL local, perfil MailHog y grupo D1">
+        </div>
+        <br>
+        <hr>
+
+        <h2 id="resultado">Resultado y comprobaciones</h2>
         <div class="box">
-            <h3 id="resultado">Resultado</h3>
-
+            <ol>
+                <li>Comprobar que el grupo contiene únicamente destinatarios de prueba.</li>
+                <li>Revisar la plantilla y confirmar que el enlace apunta al destino local esperado.</li>
+                <li>Verificar que el perfil de envío seleccionado es MailHog.</li>
+                <li>Comprobar en la interfaz de MailHog que el mensaje llega al buzón de pruebas.</li>
+                <li>Acceder a la URL local desde el equipo de laboratorio y revisar el comportamiento de la Landing Page.</li>
+                <li>Contrastar los eventos de GoPhish con el mensaje recibido en MailHog.</li>
+            </ol>
             <p>
-                Por finalizar únicamente será necesario
-                rellenar el apartado de campaña y
-                finalizar la configuración.
+                Las capturas incluidas documentan pantallas de configuración. Por sí
+                solas no demuestran que una campaña se haya lanzado correctamente ni
+                que el mensaje haya sido recibido; esa comprobación requiere revisar
+                MailHog y los resultados de GoPhish.
             </p>
         </div>
         <br>
         <hr>
 
-        <div class="box box--media">
-            <h3 id="campaña">Campaña</h3>
-
-            <p>
-                Una vez completados los apartados anteriores,
-                únicamente será necesario rellenar los campos
-                restantes prestando especial atención a la URL
-                utilizada durante la simulación.
-            </p>
-
-            <img src="/Libreta/images/14-1.png" alt="Configuración de campaña en Gophish">
+        <h2>Documentación original</h2>
+        <div class="box">
+            <ul>
+                <li><a href="https://getgophish.com/" target="_blank" rel="noopener noreferrer">GoPhish · sitio oficial</a></li>
+                <li><a href="https://docs.getgophish.com/user-guide/" target="_blank" rel="noopener noreferrer">GoPhish · guía oficial de usuario</a></li>
+                <li><a href="https://docs.getgophish.com/user-guide/documentation/groups" target="_blank" rel="noopener noreferrer">GoPhish · grupos</a></li>
+                <li><a href="https://docs.getgophish.com/user-guide/documentation/email-templates" target="_blank" rel="noopener noreferrer">GoPhish · plantillas de correo</a></li>
+                <li><a href="https://docs.getgophish.com/user-guide/documentation/landing-pages" target="_blank" rel="noopener noreferrer">GoPhish · Landing Pages</a></li>
+                <li><a href="https://docs.getgophish.com/user-guide/documentation/sending-profiles" target="_blank" rel="noopener noreferrer">GoPhish · perfiles de envío</a></li>
+                <li><a href="https://docs.getgophish.com/user-guide/documentation/campaigns" target="_blank" rel="noopener noreferrer">GoPhish · campañas</a></li>
+                <li><a href="https://github.com/mailhog/MailHog" target="_blank" rel="noopener noreferrer">MailHog · repositorio y documentación</a></li>
+            </ul>
         </div>
-
+        <hr>
     </div>
-
 </body>
-
 </html>
