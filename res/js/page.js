@@ -166,9 +166,12 @@ document.addEventListener("click", function (e) {
         return;
     }
 
-    /* Bloquear páginas internas que no estén declaradas en el índice. */
+    /*
+     * Solo las páginas registradas en el árbol se cargan dentro del
+     * enrutador principal. Los recursos internos (imágenes, archivos,
+     * documentos o enlaces con fragmentos) conservan su navegación normal.
+     */
     if (!allowedPath) {
-        e.preventDefault();
         return;
     }
 
