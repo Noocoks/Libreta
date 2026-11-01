@@ -70,7 +70,8 @@ La estructura separa contenido, presentación, lógica y automatizaciones para q
 │   ├── css/
 │   │   ├── styles.css       # Punto de entrada
 │   │   ├── variables.css    # Variables y recursos visuales
-│   │   ├── base.css         # Estructura y componentes
+│   │   ├── base.css         # Fundamentos globales y elementos HTML
+│   │   ├── components.css   # Componentes de contenido reutilizables
 │   │   ├── responsive.css   # Adaptación a pantallas
 │   │   ├── home.css         # Portada
 │   │   └── theme.css        # Identidad visual
@@ -92,7 +93,7 @@ La estructura separa contenido, presentación, lógica y automatizaciones para q
 
 ### Diseño modular
 
-El CSS se divide por responsabilidades, pero la web continúa cargando una única referencia: `res/css/styles.css`. Este archivo importa los módulos en el orden necesario para conservar la cascada y evitar cambios involuntarios en el diseño.
+El CSS se divide por responsabilidades, pero la web continúa cargando una única referencia: `res/css/styles.css`. Este archivo importa seis hojas funcionales —`variables.css`, `base.css`, `components.css`, `responsive.css`, `home.css` y `theme.css`— en un orden definido para conservar la cascada. `base.css` contiene los fundamentos globales; `components.css`, la estructura base de los componentes de contenido; `theme.css`, sus acabados visuales; y `responsive.css`, los ajustes por resolución.
 
 ## `04 / AUTOMATION & PROJECT METRICS`
 
@@ -135,8 +136,9 @@ Formatos contemplados: HTML, CSS, JavaScript, JSON, Python, TXT y Markdown.
 - Portada y wiki con identidad visual industrial/carmesí.
 
 ### Mantenimiento y escalabilidad
-- Modularización del CSS en cinco hojas especializadas.
-- Variables visuales centralizadas y componentes reutilizables.
+- Modularización del CSS en seis hojas funcionales, con `styles.css` como punto de entrada.
+- Separación real entre fundamentos globales (`base.css`) y componentes de contenido (`components.css`).
+- Variables visuales centralizadas y capas independientes de tema, portada y adaptación responsive.
 - Separación de scripts, datos JSON y contenido documental.
 - Recuento de líneas automatizado mediante GitHub Actions.
 
@@ -145,6 +147,7 @@ Formatos contemplados: HTML, CSS, JavaScript, JSON, Python, TXT y Markdown.
 - Guías y laboratorios relacionados con Hydra, Medusa, Nmap, Legion, ExifTool, Holehe y GoPhish.
 - Documentación de Android, herramientas, sistemas y personalización.
 - Recursos de IA, APIs, modelos locales, Python y automatización.
+- Dualvers V2: validación de nombres de sesión, protección frente a traversal y enlaces simbólicos, aislamiento de rutas y configuración del proveedor bajo demanda.
 
 ## `06 / KNOWLEDGE INDEX`
 
@@ -154,7 +157,18 @@ Formatos contemplados: HTML, CSS, JavaScript, JSON, Python, TXT y Markdown.
 - **DEVELOPMENT** — Scripts, entornos, Git, estructura web y automatización.
 - **LABS** — Entornos locales, máquinas virtuales y pruebas controladas.
 
-## `07 / PROJECT NOTES`
+## `07 / DUALVERS V2`
+
+Dualvers V2 es un proyecto local de integración con modelos de IA, documentado dentro de la sección de inteligencia artificial. La implementación incorpora controles para trabajar con sesiones de forma más segura:
+
+- Validación estricta de los identificadores de sesión.
+- Rechazo de separadores de ruta, traversal y enlaces simbólicos.
+- Comprobación de que las rutas resueltas permanecen dentro del directorio de sesiones.
+- Creación de directorios con permisos restrictivos.
+- Inicialización bajo demanda del SDK y del proveedor seleccionado.
+- Comprobación de la clave API correspondiente al proveedor activo.
+
+## `08 / PROJECT NOTES`
 
 - Proyecto personal de documentación técnica y aprendizaje continuo.
 - Desarrollado como sitio estático con HTML, CSS y JavaScript.
