@@ -12,30 +12,30 @@
 </head>
 <body>
     <div class="page" data-cat="ia api comprobacion">
-      <hr>
-      <h1>Comprobación APIs</h1>
-      <div class="node-tags">
-        <span class="tag">python</span><span class="tag">dotenv</span>
-        <span class="tag">variables-entorno</span><span class="tag">openai</span>
-        <span class="tag">anthropic</span><span class="tag">api</span>
-      </div>
+        <hr>
+        <h1>Comprobación APIs</h1>
+        <div class="node-tags">
+            <span class="tag">python</span><span class="tag">dotenv</span>
+            <span class="tag">variables-entorno</span><span class="tag">openai</span>
+            <span class="tag">anthropic</span><span class="tag">api</span>
+        </div>
 
-      <div class="box box--info">
-        <p>Este script comprueba que las claves API almacenadas en <code>.env</code> se cargan correctamente. Por seguridad, muestra únicamente si están configuradas; nunca imprime sus valores.</p>
-      </div>
-      <hr>
+        <div class="box box--info">
+            <p>Este script comprueba que las claves API almacenadas en <code>.env</code> se cargan correctamente. Por seguridad, muestra únicamente si están configuradas; nunca imprime sus valores.</p>
+        </div>
+        <hr>
 
-      <h2>Código</h2>
-      <div class="code-card">
-        <details>
-          <summary>
-            <div class="code-header">
-              <div><strong>📄 check_apis.py</strong><br><span>Python</span></div>
-              <span class="arrow"></span>
-            </div>
-          </summary>
-          <div class="code-body">
-            <pre><code>import os
+        <h2>Código</h2>
+        <div class="code-card">
+            <details>
+                <summary>
+                    <div class="code-header">
+                        <div><strong>📄 check_apis.py</strong><br><span>Python</span></div>
+                        <span class="arrow"></span>
+                    </div>
+                </summary>
+                <div class="code-body">
+                    <pre><code>import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -44,35 +44,41 @@ for name in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY"):
     configured = bool(os.getenv(name))
     status = "configurada" if configured else "no encontrada"
     print(f"{name}: {status}")</code></pre>
-          </div>
-        </details>
-      </div>
-      <hr>
+                </div>
+            </details>
+        </div>
+        <hr>
 
-      <h2>Resultado esperado</h2>
-      <div class="box">
-        <pre><code>OPENAI_API_KEY: configurada
+        <h2>Resultado esperado</h2>
+        <div class="box">
+            <pre><code>OPENAI_API_KEY: configurada
 ANTHROPIC_API_KEY: configurada</code></pre>
-        <p>Si aparece <code>no encontrada</code>, revisa la ubicación del archivo <code>.env</code> y el nombre de la variable.</p>
-      </div>
+            <p>Si aparece <code>no encontrada</code>, revisa la ubicación del archivo <code>.env</code> y el nombre de la variable.</p>
+        </div>
 
-      <h2>Dependencias</h2>
-      <div class="box"><pre><code>pip install python-dotenv</code></pre></div>
+        <h2>Dependencias</h2>
+        <div class="box"><pre><code>pip install python-dotenv</code></pre></div>
 
-      <h2>Recursos relacionados</h2>
-      <div class="box">
-        <ul>
-          <li><span class="cat"><a href="../index.html">APIs</a></span></li>
-          <li><span class="cat"><a href="../../git/index.html">IA + Git</a></span></li>
-          <li><span class="cat"><a href="../../openai/index.html">OpenAI</a></span></li>
-          <li><span class="cat"><a href="../../anthropic/index.html">Anthropic</a></span></li>
-        </ul>
-      </div>
-      <h2>Documentación oficial</h2>
-      <div class="box">
-        <ul>
-          <li><a href="https://platform.openai.com/docs/quickstart" target="_blank" rel="noopener noreferrer">OpenAI · primeros pasos con la API</a></li>
-          <li><a href="https://platform.claude.com/docs/en/intro" target="_blank" rel="noopener noreferrer">Anthropic · introducción a Claude API</a></li>
+        <h2>Recursos relacionados</h2>
+        <div class="box">
+            <ul>
+                <li><span class="cat"><a href="../index.html">APIs</a></span></li>
+                <li><span class="cat"><a href="../../git/index.html">IA + Git</a></span></li>
+                <li><span class="cat"><a href="../../openai/index.html">OpenAI</a></span></li>
+                <li><span class="cat"><a href="../../anthropic/index.html">Anthropic</a></span></li>
+            </ul>
+        </div>
+        <h2>Documentación oficial</h2>
+        <div class="box">
+            <ul>
+                <li><a href="https://platform.openai.com/docs/quickstart" target="_blank" rel="noopener noreferrer">OpenAI · primeros pasos con la API</a></li>
+                <li><a href="https://platform.claude.com/docs/en/intro" target="_blank" rel="noopener noreferrer">Anthropic · introducción a Claude API</a></li>
+                <li><a href="https://pypi.org/project/python-dotenv/" target="_blank" rel="noopener noreferrer">python-dotenv · documentación del paquete</a></li>
+            </ul>
+        </div>
+        <hr>
+    </div>
+</body>/docs/en/intro" target="_blank" rel="noopener noreferrer">Anthropic · introducción a Claude API</a></li>
           <li><a href="https://pypi.org/project/python-dotenv/" target="_blank" rel="noopener noreferrer">python-dotenv · documentación del paquete</a></li>
         </ul>
       </div>
