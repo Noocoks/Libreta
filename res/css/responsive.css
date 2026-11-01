@@ -38,6 +38,14 @@ hashes o comandos largos rompan el layout */
     overflow-wrap: anywhere;
 }
 
+/* El código fuente mantiene sus espacios y utiliza scroll horizontal. */
+.page pre,
+.page pre code {
+    white-space: pre;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
 /* ============================================================================
    TABLET / PORTÁTIL
    ============================================================================ */
