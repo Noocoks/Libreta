@@ -119,44 +119,47 @@ function navigate(file_path, push = true) {
     }
 
     activeNavigationPath = allowedPath;
-
     iframe.style.opacity = 0;
 
-    setTimeout(function () {
+    iframe.onload = function () {
 
-        iframe.onload = function () {
+        if (activeNavigationPath !== allowedPath) {
+            return;
+        }
 
-            iframe.style.opacity = 1;
+        iframe.style.opacity = 1;
 
-            try {
+        try {
 
-                var breadcrumbData = findNodePath(
-                    treeData.sections,
-                    allowedPath
-                );
+            var breadcrumbData = findNodePath(
+                treeData.sections,
+                allowedPath
+            );
 
-                iframe.contentWindow.postMessage({
-                    type: "breadcrumb",
-                    path: allowedPath,
-                    breadcrumb: breadcrumbData
-                }, window.location.origin);
+            iframe.contentWindow.postMessage({
+                type: "breadcrumb",
+                path: allowedPath,
+                breadcrumb: breadcrumbData
+            }, window.location.origin);
 
-            } catch (e) {
+        } catch (e) {
 
-                console.warn(
-                    "No se pudo enviar breadcrumb",
-                    e
-                );
+            console.warn(
+                "No se pudo enviar breadcrumb",
+                e
+            );
 
-            }
-        };
+        }
+    };
 
-        iframe.src = new URL(
-            allowedPath,
-            window.location.href
-        ).href;
+    iframe.onerror = function () {
+        iframe.style.opacity = 1;
+    };
 
-    }, 120);
+    iframe.src = new URL(
+        allowedPath,
+        window.location.href
+    ).href;
 
     if (push) {
         window.location.hash = allowedPath;
@@ -414,7 +417,7 @@ function buildTree(data) {
 
 function loadTree() {
 
-    fetch("res/json/tree.json")
+    fetch(new URL("res/json/tree.json", document.baseURI).href)
         .then(function (response) {
             if (!response.ok) {
                 throw new Error("No se pudo cargar tree.json (" + response.status + ")");
@@ -794,28 +797,37 @@ window.addEventListener("load", function () {
 
     loadTree();
 
-    document.onkeydown = function (ev) {
+    document.addEventListener("keydown", function (ev) {
 
         if (ev.key === "Escape") {
-            toggle_tree_panel();
+            var toggle = document.getElementById("tree_panel_toggle_btn");
+
+            if (toggle && toggle.getAttribute("aria-expanded") === "true") {
+                toggle_tree_panel();
+            }
+
+            return;
         }
 
-        if (ev.key === "!") {
+        var target = ev.target;
+        var isEditable = target && (
+            target.isContentEditable ||
+            /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)
+        );
 
-            var input =
-                document.getElementById(
-                    "tree_search"
-                );
-
-            if (!input) return;
-
-            ev.preventDefault();
-
-            input.focus();
-            input.select();
+        if (ev.key !== "!" || isEditable) {
+            return;
         }
 
-    };
+        var input = document.getElementById("tree_search");
+
+        if (!input) return;
+
+        ev.preventDefault();
+        input.focus();
+        input.select();
+
+    });
 
     var panels = document.getElementsByClassName("two-panels")[0];
 
@@ -835,4 +847,3 @@ window.addEventListener("load", function () {
 });
 
 
-console.log("script.js cargado");
