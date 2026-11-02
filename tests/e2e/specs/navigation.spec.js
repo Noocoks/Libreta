@@ -15,12 +15,9 @@ test.describe("Navegación principal", () => {
     test("el árbol navega a una página y genera sus migas de pan", async ({ page }) => {
         await page.goto("wiki.html");
 
-        // Los enlaces incluyen un emoji decorativo en su nombre accesible.
-        const cyberSecurity = page.locator("#tree_root > li").filter({
-            has: page.locator(":scope > a").filter({ hasText: /Ciberseguridad/ })
-        });
-
-        await expect(cyberSecurity).toBeVisible();
+        // La primera sección del JSON es Ciberseguridad; el enlace lleva un emoji decorativo.
+        const cyberSecurity = page.locator("#tree_root > li").first();
+        await expect(cyberSecurity.locator(":scope > a")).toContainText("Ciberseguridad");
         await cyberSecurity.locator(":scope > button").click();
 
         await page.getByRole("link", {
