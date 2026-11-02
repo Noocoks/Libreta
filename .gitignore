@@ -1,0 +1,6 @@
+# Dependencias de desarrollo
+node_modules/
+
+# Resultados y diagnósticos de Playwright
+playwright-report/
+test-results/
