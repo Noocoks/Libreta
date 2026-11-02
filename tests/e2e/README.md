@@ -13,7 +13,7 @@ Libreta utiliza Playwright para comprobar el comportamiento de la web en un nave
 Desde la raíz del repositorio:
 
 ```bash
-npm install
+npm install --no-package-lock
 npx playwright install chromium
 ```
 
