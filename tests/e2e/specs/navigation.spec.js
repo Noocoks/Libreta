@@ -15,25 +15,24 @@ test.describe("Navegación principal", () => {
     test("el árbol navega a una página y genera sus migas de pan", async ({ page }) => {
         await page.goto("wiki.html");
 
+        // Los enlaces incluyen un emoji decorativo en su nombre accesible.
         const cyberSecurity = page.locator("#tree_root > li").filter({
-            has: page.getByRole("link", { name: "Ciberseguridad", exact: true })
+            has: page.locator(":scope > a").filter({ hasText: /Ciberseguridad/ })
         });
 
         await expect(cyberSecurity).toBeVisible();
         await cyberSecurity.locator(":scope > button").click();
 
         await page.getByRole("link", {
-            name: "Ataques de fuerza bruta",
-            exact: true
+            name: /Ataques de fuerza bruta/
         }).click();
 
         const bruteForce = page.getByRole("link", {
-            name: "Ataques de fuerza bruta",
-            exact: true
+            name: /Ataques de fuerza bruta/
         }).locator("xpath=..");
 
         await bruteForce.locator(":scope > button").click();
-        await page.getByRole("link", { name: "Hydra", exact: true }).click();
+        await page.getByRole("link", { name: /Hydra/ }).click();
 
         const content = page.frameLocator("#page_frame");
         await expect(content.locator("h1").first()).toHaveText("Hydra");
