@@ -5,6 +5,8 @@
     "description": "Pruebas automatizadas de extremo a extremo para Libreta",
     "scripts": {
         "test:e2e": "playwright test",
+        "test:e2e:firefox": "playwright test --project=\"Firefox Desktop\"",
+        "test:e2e:responsive": "playwright test --project=\"Firefox Responsive\"",
         "test:e2e:headed": "playwright test --headed",
         "test:e2e:report": "playwright show-report"
     },
