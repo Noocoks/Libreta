@@ -6,7 +6,7 @@
 
 **Aprender. Experimentar. Documentar.**
 
-Una libreta técnica para reunir conocimientos, herramientas, laboratorios y documentación práctica sobre ciberseguridad, Android, inteligencia artificial y desarrollo.
+Una base de conocimiento técnica para documentar herramientas, procedimientos y laboratorios prácticos de ciberseguridad, Android, inteligencia artificial y desarrollo. Cada contenido está organizado para poder consultarse, ampliarse y mantenerse con facilidad.
 
 <p>
   <a href="https://noocoks.github.io/Libreta/">
@@ -52,7 +52,7 @@ No pretende ser un manual cerrado: crece con cada nota, práctica, herramienta y
 | Reconocimiento y escaneo | Nmap · Legion |
 | OSINT | ExifTool · Holehe |
 | Laboratorios de phishing | GoPhish · MailHog |
-| IA y desarrollo | OpenAI · Anthropic · Shell-GPT · Python · Git |
+| IA y desarrollo | Dualvers V2 · OpenAI · Anthropic · Shell-GPT · Python · Git |
 | Android | ADB · Fastboot · Magisk |
 
 *La lista refleja herramientas documentadas en el proyecto; no implica que todas estén integradas en la web.*
@@ -93,7 +93,7 @@ La estructura separa contenido, presentación, lógica y automatizaciones para q
 
 ### Diseño modular
 
-El CSS se divide por responsabilidades, pero la web continúa cargando una única referencia: `res/css/styles.css`. Este archivo importa seis hojas funcionales —`variables.css`, `base.css`, `components.css`, `responsive.css`, `home.css` y `theme.css`— en un orden definido para conservar la cascada. `base.css` contiene los fundamentos globales; `components.css`, la estructura base de los componentes de contenido; `theme.css`, sus acabados visuales; y `responsive.css`, los ajustes por resolución.
+El CSS se divide por responsabilidades, pero la web continúa cargando una única referencia: `res/css/styles.css`. Este archivo importa seis hojas funcionales —`variables.css`, `base.css`, `components.css`, `responsive.css`, `home.css` y `theme.css`— en un orden definido para conservar la cascada. `variables.css` centraliza los valores visuales; `base.css` reúne los fundamentos globales y el layout; `components.css` contiene la estructura base de los componentes de contenido; `responsive.css` adapta la interfaz a cada resolución; `home.css` se ocupa de la portada; y `theme.css` aplica los acabados visuales.
 
 ## `04 / AUTOMATION & PROJECT METRICS`
 
@@ -121,6 +121,7 @@ Tooltip de información en la wiki
 - Se cuentan **líneas no vacías**, incluidos comentarios.
 - Si el resultado no cambia, no se genera un commit innecesario.
 - El workflow también se puede ejecutar manualmente desde la pestaña **Actions** de GitHub.
+- Los controles de calidad de GitHub Actions verifican la estructura y sintaxis de los recursos del proyecto antes de integrar cambios.
 
 Formatos contemplados: HTML, CSS, JavaScript, JSON, Python, TXT y Markdown.
 
@@ -147,7 +148,8 @@ Formatos contemplados: HTML, CSS, JavaScript, JSON, Python, TXT y Markdown.
 - Guías y laboratorios relacionados con Hydra, Medusa, Nmap, Legion, ExifTool, Holehe y GoPhish.
 - Documentación de Android, herramientas, sistemas y personalización.
 - Recursos de IA, APIs, modelos locales, Python y automatización.
-- Dualvers V2: validación de nombres de sesión, protección frente a traversal y enlaces simbólicos, aislamiento de rutas y configuración del proveedor bajo demanda.
+- Dualvers V2: valida los nombres de sesión (1–64 caracteres permitidos), rechaza traversal, separadores de ruta y enlaces simbólicos, comprueba que las rutas permanezcan dentro del directorio de sesiones y crea ese directorio con permisos restrictivos (`0700`).
+- Dualvers V2: inicializa bajo demanda el SDK del proveedor seleccionado y comprueba únicamente la clave API necesaria para OpenAI o Anthropic.
 
 ## `06 / KNOWLEDGE INDEX`
 
