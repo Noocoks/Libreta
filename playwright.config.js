@@ -16,9 +16,23 @@ module.exports = defineConfig({
     use: {
         baseURL: "http://127.0.0.1:4173/Libreta/",
         trace: "retain-on-failure",
-        screenshot: "only-on-failure",
-        ...devices["Desktop Chrome"]
+        screenshot: "only-on-failure"
     },
+    projects: [
+        {
+            name: "Firefox Desktop",
+            use: {
+                ...devices["Desktop Firefox"]
+            }
+        },
+        {
+            name: "Firefox Responsive",
+            use: {
+                ...devices["Desktop Firefox"],
+                viewport: { width: 390, height: 844 }
+            }
+        }
+    ],
     webServer: {
         command: "python3 tests/e2e/server.py",
         url: "http://127.0.0.1:4173/Libreta/",
