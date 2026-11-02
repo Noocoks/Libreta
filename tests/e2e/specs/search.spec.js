@@ -46,6 +46,17 @@ test.describe("Buscador y etiquetas", () => {
         const content = page.frameLocator("#page_frame");
         await expect(content.locator("h1").first()).toHaveText("Hydra");
 
+        // En viewport móvil el índice se superpone al contenido; ciérralo
+        // para que las etiquetas de la página reciban la interacción del usuario.
+        const indexToggle = page.locator("#tree_panel_toggle_btn");
+        if (
+            await indexToggle.isVisible() &&
+            await indexToggle.getAttribute("aria-expanded") === "true"
+        ) {
+            await indexToggle.click();
+            await expect(indexToggle).toHaveAttribute("aria-expanded", "false");
+        }
+
         await content.locator(".node-tags .tag").filter({
             hasText: /^pentesting$/
         }).click();
