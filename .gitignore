@@ -4,3 +4,18 @@ node_modules/
 # Resultados y diagnósticos de Playwright
 playwright-report/
 test-results/
+
+# Configuración local y posibles credenciales
+.env
+.env.*
+!.env.example
+.npmrc
+!.npmrc.example
+
+# Claves privadas, certificados y almacenes de firma
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
