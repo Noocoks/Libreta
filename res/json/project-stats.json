@@ -1,7 +1,7 @@
 {
-    "generated_at": "2026-11-03T15:23:27+00:00",
+    "generated_at": "2026-11-03T22:06:02+00:00",
     "total_files": 79,
-    "total_lines": 10975,
+    "total_lines": 10957,
     "counting": "non-empty lines",
     "languages": [
         {
@@ -26,7 +26,7 @@
             "key": "json",
             "label": "JSON",
             "files": 3,
-            "lines": 532
+            "lines": 514
         },
         {
             "key": "txt",
