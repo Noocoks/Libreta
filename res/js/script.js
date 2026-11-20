@@ -721,6 +721,20 @@ function filterTreeNode(li, search) {
    BREADCRUMB HELPERS
 ============================== */
 
+function collectAllowedPaths(nodes, result) {
+    result = result || [];
+    if (!Array.isArray(nodes)) return result;
+    nodes.forEach(function (node) {
+        if (node && typeof node.path === "string") {
+            var path = node.path;
+            while (path.charAt(0) === "/") path = path.slice(1);
+            result.push(path);
+        }
+        if (node && Array.isArray(node.children)) collectAllowedPaths(node.children, result);
+    });
+    return result;
+}
+
 function findNodePath(
     nodes,
     targetPath,
