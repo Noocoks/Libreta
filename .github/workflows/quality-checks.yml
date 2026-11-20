@@ -40,6 +40,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Audit npm dependencies
+        run: npm audit --audit-level=high
+
       - name: Validate every JSON file
         run: |
           python - <<'PY'

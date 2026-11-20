@@ -139,8 +139,9 @@ function navigate(file_path, push = true) {
             iframe.contentWindow.postMessage({
                 type: "breadcrumb",
                 path: allowedPath,
-                breadcrumb: breadcrumbData
-            }, window.location.origin);
+                breadcrumb: breadcrumbData,
+                allowedPaths: collectAllowedPaths(treeData.sections)
+            }, "*");
 
         } catch (e) {
 
@@ -767,26 +768,24 @@ function findNodePath(
 ============================== */
 
 window.addEventListener("message", function (event) {
-
     var iframe = getIframe();
+    var data = event.data;
+    if (!iframe || event.source !== iframe.contentWindow ||
+        event.origin !== "null" || !data || typeof data !== "object") return;
 
-    if (
-        !iframe ||
-        event.source !== iframe.contentWindow ||
-        event.origin !== window.location.origin ||
-        !event.data ||
-        typeof event.data !== "object"
-    ) {
-        return;
+    if (data.type === "navigate" && typeof data.path === "string" && data.path.length <= 500) {
+        navigate(data.path, true);
+    } else if (data.type === "search-tag" && typeof data.tag === "string" &&
+        data.tag.length > 0 && data.tag.length <= 100) {
+        searchByTag(data.tag);
+    } else if (data.type === "clear-search") {
+        clearTreeSearch();
+    } else if (data.type === "toggle-index") {
+        toggle_tree_panel();
+    } else if (data.type === "focus-search") {
+        var input = document.getElementById("tree_search");
+        if (input) { input.focus(); input.select(); }
     }
-
-    if (
-        event.data.type === "navigate" &&
-        typeof event.data.path === "string"
-    ) {
-        navigate(event.data.path, true);
-    }
-
 });
 
 /* ==============================
@@ -804,7 +803,7 @@ function syncFrameTags(tag) {
         iframe.contentWindow.postMessage({
             type: "highlight-tag",
             tag: tag || ""
-        }, window.location.origin);
+        }, "*");
 
     } catch (e) {
 

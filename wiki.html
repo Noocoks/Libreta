@@ -8,6 +8,7 @@
     <meta name="description"
         content="Notas completas de Ciberseguridad e Inteligencia Artificial, con técnicas OSINT, herramientas y laboratorios prácticos">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; form-action 'self';">
 
     <title>Notas - Noocoks</title>
 
@@ -32,14 +33,14 @@
 
                 <!-- Botones de control -->
                 <div class="index-controls">
-                    <button onclick="expandAllSubtrees()">Abrir</button>
-                    <button onclick="collapseAllSubtrees()">Cerrar</button>
+                    <button id="tree_expand_all" type="button">Abrir</button>
+                    <button id="tree_collapse_all" type="button">Cerrar</button>
                 </div>
 
                 <!-- Buscador -->
                 <div class="index-search">
-                    <input type="text" id="tree_search" aria-label="Buscar en el índice" placeholder="Buscar... {!}" oninput="filterTree(this.value)">
-                    <button id="tree_search_clear" type="button" aria-label="Limpiar búsqueda" title="Limpiar búsqueda" onclick="clearTreeSearch()">✘</button>
+                    <input type="text" id="tree_search" aria-label="Buscar en el índice" placeholder="Buscar... {!}">
+                    <button id="tree_search_clear" type="button" aria-label="Limpiar búsqueda" title="Limpiar búsqueda">✘</button>
                 </div>
 
                 <!-- Arbol de contenido -->
@@ -77,7 +78,7 @@
                     <!-- Footer content -->
                     <div class="tree-footer-box">
                         <div><strong>Nombre:</strong> Nooko</div>
-                        <div><strong>Contacto:</strong> nicoletobondia06@gmail.com</div>
+                        <div><strong>Contacto:</strong><a href="https://github.com/Noocoks" target="_blank" rel="noopener noreferrer"> GitHub</a></div>
                         <div><strong>Proyecto:</strong> Notas</div>
                         <div><strong>Github Link:</strong><a href="https://github.com/Noocoks" target="_blank"
                                 rel="noopener noreferrer"> Noocoks</a></div>
@@ -89,10 +90,11 @@
         </div>
 
         <div class="page-panel">
-            <iframe id="page_frame" title="Contenido de la documentación"></iframe>
+            <iframe id="page_frame" title="Contenido de la documentación" sandbox="allow-scripts" referrerpolicy="same-origin"></iframe>
         </div>
 
     </div>
+    <script src="/Libreta/res/js/wiki-controls.js" defer></script>
 </body>
 
 </html>
