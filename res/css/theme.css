@@ -95,6 +95,24 @@ div.tree-panel:hover {
     background: linear-gradient(180deg, #18212a, #111820);
 }
 
+.wiki-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px 10px;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .2em;
+}
+
+.wiki-brand img {
+    display: block;
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
+
 .index-title {
     padding: 17px 12px 8px;
     margin: 0 10px 8px;
