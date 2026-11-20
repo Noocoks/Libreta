@@ -17,10 +17,14 @@ jobs:
   update-stats:
     name: Recalcular líneas de código
     runs-on: ubuntu-latest
+    outputs:
+      pr_operation: ${{ steps.create-pr.outputs.pull-request-operation }}
+      pr_branch: ${{ steps.create-pr.outputs.pull-request-branch }}
     # Solo recalcula en master y propone el resultado mediante PR; nunca hace push directo a master.
     if: github.ref == 'refs/heads/master'
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: Obtener el repositorio
@@ -36,18 +40,34 @@ jobs:
       - name: Calcular estadísticas
         run: python scripts/update_project_stats.py
 
-      - name: Guardar estadísticas actualizadas
+      - name: Crear PR con estadísticas actualizadas
+        id: create-pr
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          add-paths: res/json/project-stats.json
+          commit-message: "chore: actualizar estadísticas del proyecto"
+          title: "chore: actualizar estadísticas del proyecto"
+          body: "Actualización automática de las estadísticas del repositorio. Se integra mediante pull request para respetar la protección de master."
+          branch: automation/project-stats
+          delete-branch: true
+          base: master
+
+  dispatch-checks:
+    name: Ejecutar controles de la PR automática
+    needs: update-stats
+    if: needs.update-stats.outputs.pr_operation == 'created' || needs.update-stats.outputs.pr_operation == 'updated'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+
+    steps:
+      - name: Lanzar Quality checks, E2E y CodeQL
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BRANCH: ${{ needs.update-stats.outputs.pr_branch }}
         run: |
-          if git diff --quiet -- res/json/project-stats.json; then
-            echo "Las estadísticas ya están actualizadas."
-            exit 0
-          fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add res/json/project-stats.json
-          git commit -m "chore: actualizar estadísticas del proyecto"
-          TOKEN_HEADER="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
-          git -c http.extraheader="AUTHORIZATION: basic $TOKEN_HEADER" push
+          gh workflow run quality-checks.yml --ref "$PR_BRANCH"
+          gh workflow run e2e-tests.yml --ref "$PR_BRANCH"
+          gh workflow run codeql.yml --ref "$PR_BRANCH"
