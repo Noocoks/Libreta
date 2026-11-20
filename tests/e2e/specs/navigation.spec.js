@@ -43,6 +43,8 @@ test("iframe sandbox isolates documentation without allow-same-origin", async ({
  await page.goto("wiki.html"); const frame=page.locator("#page_frame");
  await expect(frame).toHaveAttribute("sandbox","allow-scripts");
  await expect(frame).toHaveAttribute("referrerpolicy","same-origin");
+ const cyberSecurity=page.locator("#tree_root > li").first();
+ await cyberSecurity.locator(":scope > button").click();
  await page.getByRole("link",{name:/Ataques de fuerza bruta/}).click();
  const content=page.frameLocator("#page_frame");
  await expect(content.locator("h1").first()).toHaveText("Ataques de fuerza bruta");
