@@ -17,7 +17,7 @@ jobs:
   update-stats:
     name: Recalcular líneas de código
     runs-on: ubuntu-latest
-    # La escritura solo se permite en master, también en ejecuciones manuales.
+    # Solo recalcula en master y propone el resultado mediante PR; nunca hace push directo a master.
     if: github.ref == 'refs/heads/master'
     permissions:
       contents: write

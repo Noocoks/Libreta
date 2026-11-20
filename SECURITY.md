@@ -9,7 +9,7 @@
 - La wiki no usa manejadores de eventos inline.
 - Se ha eliminado Google Fonts.
 - Quality checks ejecuta `npm audit --audit-level=high`.
-- El workflow de estadísticas no persiste credenciales Git y expone el token solo durante el push.
+- El workflow de estadísticas no persiste credenciales Git ni escribe directamente en `master`: abre una PR automática con permisos limitados, compatible con la protección de rama.
 - La dirección de correo de contacto se ha retirado del HTML público de la wiki.
 
 ## Configuración pendiente en GitHub
