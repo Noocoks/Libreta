@@ -2,7 +2,7 @@
 
 ## Controles implementados
 
-- Las 48 páginas publicadas y la plantilla HTML declaran una política CSP. La lista permite explícitamente el origen de GitHub Pages y el servidor local usado por Playwright para que los recursos del iframe aislado puedan cargarse.
+- Las 48 páginas publicadas y la plantilla HTML declaran una política CSP restrictiva. En producción solo se permite el origen propio de GitHub Pages para recursos del proyecto; el origen local de Playwright se añade únicamente en las respuestas generadas por el servidor de pruebas.
 - El iframe de la wiki usa `sandbox="allow-scripts"` sin `allow-same-origin`.
 - La comunicación se limita a mensajes explícitos. El padre valida la ventana emisora exacta y el origen opaco `null`; el documento hijo valida la ventana padre y su origen mediante el referrer.
 - El router vuelve a validar las rutas recibidas contra el árbol.
