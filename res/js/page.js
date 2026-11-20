@@ -1,11 +1,18 @@
 /* ==============================
    BREADCRUMBS CONSTANTES
 ============================== */
+var parentOrigin = null;
+try {
+    parentOrigin = new URL(document.referrer).origin;
+} catch (error) {
+    parentOrigin = null;
+}
+
 window.addEventListener("message", function (e) {
 
     if (
         e.source !== window.parent ||
-        e.origin !== new URL(document.referrer).origin ||
+        e.origin !== parentOrigin ||
         !e.data ||
         typeof e.data !== "object" ||
         e.data.type !== "breadcrumb" ||
@@ -238,7 +245,7 @@ window.addEventListener("message", function (e) {
 
     if (
         e.source !== window.parent ||
-        e.origin !== window.location.origin ||
+        e.origin !== parentOrigin ||
         !e.data ||
         typeof e.data !== "object" ||
         e.data.type !== "highlight-tag"
