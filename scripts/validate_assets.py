@@ -21,9 +21,19 @@ class HtmlDocument(HTMLParser):
         self.ids: set[str] = set()
         self.duplicates: set[str] = set()
         self.fragments: list[str] = []
+        self.csp: str | None = None
+        self.inline_handlers: list[str] = []
+        self.iframes: list[set[str]] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
+        for name in values:
+            if name.lower().startswith("on"):
+                self.inline_handlers.append(name)
+        if tag == "meta" and (values.get("http-equiv") or "").lower() == "content-security-policy":
+            self.csp = values.get("content") or ""
+        if tag == "iframe":
+            self.iframes.append(set((values.get("sandbox") or "").split()))
         element_id = values.get("id")
         if element_id:
             if element_id in self.ids:
@@ -70,6 +80,9 @@ def check_css_resources() -> int:
             ERRORS.append(f"No se pudo leer {css_file.relative_to(ROOT)}: {error}")
             continue
 
+        if "fonts.googleapis.com" in source or "fonts.gstatic.com" in source:
+            ERRORS.append(f"Dependencia de Google Fonts no permitida en {css_file.relative_to(ROOT)}")
+
         references = [match.group(2).strip() for match in URL_PATTERN.finditer(source)]
         references.extend(match.group(2).strip() for match in IMPORT_PATTERN.finditer(source))
 
@@ -101,6 +114,30 @@ def check_html_fragments() -> tuple[int, int]:
             ERRORS.append(f"No se pudo leer {html_file.relative_to(ROOT)}: {error}")
             continue
         documents[html_file.resolve()] = parser
+
+        relative = html_file.relative_to(ROOT).as_posix()
+        if not parser.csp:
+            ERRORS.append(f"Falta Content-Security-Policy en {relative}")
+        else:
+            directives = {}
+            for directive in parser.csp.split(";"):
+                parts = directive.strip().split()
+                if parts:
+                    directives[parts[0].lower()] = parts[1:]
+            for name, expected in (("default-src", "'self'"), ("base-uri", "'self'"), ("object-src", "'none'")):
+                if expected not in directives.get(name, []):
+                    ERRORS.append(f"CSP sin {name} {expected} en {relative}")
+            script_sources = directives.get("script-src", [])
+            if "'self'" not in script_sources or "https://noocoks.github.io" not in script_sources:
+                ERRORS.append(f"CSP script-src no permite únicamente los orígenes esperados en {relative}")
+            if "'unsafe-inline'" in script_sources:
+                ERRORS.append(f"CSP permite scripts inline en {relative}")
+        if parser.inline_handlers:
+            ERRORS.append(f"Eventos inline no permitidos en {relative}: {', '.join(parser.inline_handlers)}")
+        for sandbox in parser.iframes:
+            if "allow-scripts" not in sandbox or "allow-same-origin" in sandbox:
+                ERRORS.append(f"iframe sin aislamiento adecuado en {relative}: sandbox={sorted(sandbox)}")
+
         for duplicate in sorted(parser.duplicates):
             ERRORS.append(
                 f"ID HTML duplicado en {html_file.relative_to(ROOT)}: #{duplicate}"

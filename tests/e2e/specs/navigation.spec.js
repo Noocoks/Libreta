@@ -49,4 +49,12 @@ test("iframe sandbox isolates documentation without allow-same-origin", async ({
  const content=page.frameLocator("#page_frame");
  await expect(content.locator("h1").first()).toHaveText("Ataques de fuerza bruta");
  await expect(content.locator("#auto-breadcrumb")).toContainText("Ciberseguridad");
+ const isolation=await content.locator("body").evaluate(() => {
+  let parentAccess;
+  try { void window.parent.document; parentAccess="accessible"; }
+  catch (error) { parentAccess=error.name; }
+  return {origin:window.location.origin,parentAccess};
+ });
+ expect(isolation.origin).toBe("null");
+ expect(isolation.parentAccess).toBe("SecurityError");
 });
