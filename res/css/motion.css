@@ -208,12 +208,17 @@
         libreta-card-drift 7.5s ease-in-out 1.8s infinite;
 }
 
+.home-visual-card > * {
+    position: relative;
+    z-index: 1;
+}
+
 .home-visual-card::after {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
-    z-index: -1;
+    z-index: 0;
     width: 34%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .055), transparent);
     content: "";
