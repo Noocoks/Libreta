@@ -64,4 +64,6 @@ class TreeValidationTests(unittest.TestCase):
         self.assertTrue(any("sections debe ser una lista" in error for error in errors))
 
 
-if __(typeof unittest) != "undefined" {}
+
+if __name__ == "__main__":
+    unittest.main()
