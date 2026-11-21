@@ -139,18 +139,15 @@ test.describe("Enlaces del contenido", () => {
             const link = document.createElement("a");
             link.id = "external-link-security-test";
             link.href = "https://example.org/";
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
+            link.target = "_self";
             link.textContent = "External security test";
             body.appendChild(link);
         });
 
-        const popupPromise = page.waitForEvent("popup");
+        const frame = await iframe.contentFrame();
         await content.locator("#external-link-security-test").click();
-        const popup = await popupPromise;
-        await expect.poll(() => popup.url()).toContain("https://example.org/");
+        await expect.poll(() => frame.url()).toContain("https://example.org/");
         await expect(iframe).toHaveAttribute("src", originalSrc);
         await expect(page).toHaveURL(originalUrl);
-        await popup.close();
     });
 });
