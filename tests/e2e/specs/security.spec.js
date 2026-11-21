@@ -82,8 +82,9 @@ test.describe("Política CSP", () => {
         await page.goto("wiki.html");
         await statsResponse;
         await expect.poll(() => intercepted).toBe(true);
-        await expect(page.locator(".project-stats-data")).toBeVisible();
+        await page.waitForTimeout(100);
         console.log("STATS_DIAGNOSTIC", JSON.stringify(consoleErrors));
+        await expect(page.locator(".project-stats-data")).toBeVisible();
         await expect(page.locator(".project-stats-languages")).toContainText(hostileLabel);
         await expect(page.locator(".project-stats-languages img")).toHaveCount(0);
         expect(await page.evaluate(() => window.__statsInjected === true)).toBe(false);
@@ -113,8 +114,9 @@ test.describe("Política CSP", () => {
         await page.goto("wiki.html");
         await statsResponse;
         await expect.poll(() => intercepted).toBe(true);
-        await expect(page.locator(".project-stats-error")).toBeVisible();
+        await page.waitForTimeout(100);
         console.log("STATS_SIZE_DIAGNOSTIC", JSON.stringify(consoleErrors));
+        await expect(page.locator(".project-stats-error")).toBeVisible();
         await expect(page.locator(".project-stats-loading")).toBeHidden();
     });
 
