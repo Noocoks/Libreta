@@ -31,6 +31,22 @@ module.exports = defineConfig({
                 ...devices["Desktop Firefox"],
                 viewport: { width: 390, height: 844 }
             }
+        },
+        {
+            name: "Chromium Desktop",
+            use: { ...devices["Desktop Chrome"] }
+        },
+        {
+            name: "Chromium Responsive",
+            use: { ...devices["Desktop Chrome"], viewport: { width: 390, height: 844 } }
+        },
+        {
+            name: "WebKit Desktop",
+            use: { ...devices["Desktop Safari"] }
+        },
+        {
+            name: "WebKit Responsive",
+            use: { ...devices["Desktop Safari"], viewport: { width: 390, height: 844 } }
         }
     ],
     webServer: {

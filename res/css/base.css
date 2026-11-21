@@ -330,3 +330,6 @@ body.tree-hidden div.page-panel {
 #tree_search_clear:hover {
     color: var(--text);
 }
+
+/* Estado de filtrado: evita estilos inline y permite CSP sin unsafe-inline. */
+.tree li.search-hidden { display: none !important; }

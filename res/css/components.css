@@ -27,7 +27,7 @@ div.page-panel {
     height: 100%;
     border: 0;
     opacity: 1;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .page a,
@@ -565,3 +565,6 @@ details[open] .arrow {
 }
 
 
+
+.page-panel.is-loading iframe { opacity: .28; transform: scale(.995); }
+.page-panel.is-entering iframe { animation: libreta-enter 360ms cubic-bezier(.22, 1, .36, 1) both; }

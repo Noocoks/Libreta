@@ -19,6 +19,15 @@ for (const viewport of viewports) {
 
         const toggle = page.locator("#tree_panel_toggle_btn");
         await expect(toggle).toBeVisible();
+        // En móvil/tablet se prioriza el contenido; en escritorio se conserva el índice abierto.
+        const mobileLayout = viewport.width <= 900;
+        const initialExpanded = mobileLayout ? "false" : "true";
+        await expect(toggle).toHaveAttribute("aria-expanded", initialExpanded);
+        if (mobileLayout) {
+            await expect(page.locator(".tree-panel")).toHaveClass(/hidden/);
+        } else {
+            await expect(page.locator(".tree-panel")).not.toHaveClass(/hidden/);
+        }
 
         const bounds = await toggle.boundingBox();
         expect(bounds).not.toBeNull();
@@ -28,8 +37,30 @@ for (const viewport of viewports) {
         expect(bounds.y + bounds.height).toBeLessThanOrEqual(viewport.height);
 
         await toggle.click();
-        await expect(toggle).toHaveAttribute("aria-expanded", "false");
+        await expect(toggle).toHaveAttribute("aria-expanded", mobileLayout ? "true" : "false");
+        if (mobileLayout) {
+            await expect(page.locator(".tree-panel")).not.toHaveClass(/hidden/);
+            const drawer = await page.locator(".tree-panel").boundingBox();
+            expect(drawer.x).toBe(0);
+            expect(drawer.width).toBeLessThanOrEqual(Math.min(viewport.width * 0.82, 320) + 1);
+        } else {
+            await expect(page.locator(".tree-panel")).toHaveClass(/hidden/);
+        }
         await toggle.click();
-        await expect(toggle).toHaveAttribute("aria-expanded", "true");
+        await expect(toggle).toHaveAttribute("aria-expanded", initialExpanded);
+        if (mobileLayout) {
+            await expect(page.locator(".tree-panel")).toHaveClass(/hidden/);
+            const layout = await page.evaluate(() => ({
+                viewportWidth: document.documentElement.clientWidth,
+                documentWidth: document.documentElement.scrollWidth,
+                contentWidth: document.querySelector(".page-panel").getBoundingClientRect().width,
+                iframeWidth: document.querySelector("#page_frame").getBoundingClientRect().width
+            }));
+            expect(layout.documentWidth).toBeLessThanOrEqual(layout.viewportWidth);
+            expect(layout.contentWidth).toBeCloseTo(viewport.width, 0);
+            expect(layout.iframeWidth).toBeCloseTo(viewport.width, 0);
+        } else {
+            await expect(page.locator(".tree-panel")).not.toHaveClass(/hidden/);
+        }
     });
 }

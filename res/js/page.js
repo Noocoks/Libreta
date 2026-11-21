@@ -1,11 +1,18 @@
 /* ==============================
    BREADCRUMBS CONSTANTES
 ============================== */
+var parentOrigin = null;
+try {
+    parentOrigin = new URL(document.referrer).origin;
+} catch (error) {
+    parentOrigin = null;
+}
+
 window.addEventListener("message", function (e) {
 
     if (
         e.source !== window.parent ||
-        e.origin !== window.location.origin ||
+        e.origin !== parentOrigin ||
         !e.data ||
         typeof e.data !== "object" ||
         e.data.type !== "breadcrumb" ||
@@ -39,8 +46,9 @@ window.addEventListener("message", function (e) {
         }
     }
 
-    breadcrumb.innerHTML = "";
+    breadcrumb.replaceChildren();
 
+    window.allowedTreePaths = Array.isArray(e.data.allowedPaths) ? e.data.allowedPaths : [];
     var nodes = e.data.breadcrumb;
 
     if (!nodes) {
@@ -67,7 +75,17 @@ window.addEventListener("message", function (e) {
 
                     ev.preventDefault();
 
-                    window.parent.changeFrame(path);
+                    var normalizedPath = typeof path === "string"
+                        ? path.replace(/^\/+/, "")
+                        : "";
+                    var pathIndex = window.allowedTreePaths.indexOf(normalizedPath);
+
+                    if (pathIndex !== -1) {
+                        window.parent.postMessage({
+                            type: "navigate",
+                            pathIndex: pathIndex
+                        }, "*");
+                    }
 
                 };
 
@@ -161,7 +179,11 @@ document.addEventListener("click", function (e) {
     var allowedPath = null;
 
     try {
-        allowedPath = window.parent.getAllowedPath(target.pathname);
+        var basePath = new URL(".", document.referrer).pathname;
+        var relative = target.pathname.startsWith(basePath)
+            ? decodeURIComponent(target.pathname.slice(basePath.length))
+            : "";
+        allowedPath = window.allowedTreePaths.indexOf(relative) !== -1 ? relative : null;
     } catch (error) {
         return;
     }
@@ -175,8 +197,16 @@ document.addEventListener("click", function (e) {
         return;
     }
 
+    var pathIndex = window.allowedTreePaths.indexOf(allowedPath);
+    if (pathIndex === -1) {
+        return;
+    }
+
     e.preventDefault();
-    window.parent.changeFrame(allowedPath);
+    window.parent.postMessage({
+        type: "navigate",
+        pathIndex: pathIndex
+    }, "*");
 
 });
 
@@ -186,12 +216,8 @@ document.addEventListener("click", function (e) {
 document.addEventListener("keydown", function (ev) {
 
     if (ev.key === "Escape") {
-        var toggle = window.parent.document.getElementById("tree_panel_toggle_btn");
-
-        if (toggle && toggle.getAttribute("aria-expanded") === "true") {
-            ev.preventDefault();
-            window.parent.toggle_tree_panel();
-        }
+        ev.preventDefault();
+        window.parent.postMessage({ type: "toggle-index" }, "*");
 
         return;
     }
@@ -206,15 +232,8 @@ document.addEventListener("keydown", function (ev) {
         return;
     }
 
-    var input = window.parent.document.getElementById("tree_search");
-
-    if (!input) {
-        return;
-    }
-
     ev.preventDefault();
-    input.focus();
-    input.select();
+    window.parent.postMessage({ type: "focus-search" }, "*");
 });
 
 /* ==============================
@@ -244,7 +263,7 @@ window.addEventListener("message", function (e) {
 
     if (
         e.source !== window.parent ||
-        e.origin !== window.location.origin ||
+        e.origin !== parentOrigin ||
         !e.data ||
         typeof e.data !== "object" ||
         e.data.type !== "highlight-tag"
@@ -295,7 +314,7 @@ document.addEventListener("click", function (ev) {
 
         clearTagSelection();
 
-        window.parent.clearTreeSearch();
+        window.parent.postMessage({ type: "clear-search" }, "*");
 
         return;
     }
@@ -306,5 +325,5 @@ document.addEventListener("click", function (ev) {
         "tag-match"
     );
 
-    window.parent.searchByTag(tag);
+    window.parent.postMessage({ type: "search-tag", tag: tag }, "*");
 });

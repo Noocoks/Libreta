@@ -7,6 +7,8 @@ test.describe("Controles del árbol", () => {
     });
 
     test("abrir y cerrar todas las ramas actualiza su estado accesible", async ({ page }) => {
+        const indexToggle = page.locator("#tree_panel_toggle_btn");
+        if (await indexToggle.getAttribute("aria-expanded") !== "true") await indexToggle.click();
         await page.getByRole("button", { name: "Abrir", exact: true }).click();
 
         const branches = page.locator("#tree_root button[aria-expanded]");
@@ -20,14 +22,14 @@ test.describe("Controles del árbol", () => {
         const toggle = page.locator("#tree_panel_toggle_btn");
 
         await expect(toggle).toBeVisible();
-        await expect(toggle).toHaveAttribute("aria-expanded", "true");
+        const mobileLayout = await page.evaluate(() => window.matchMedia("(max-width: 900px)").matches);
+        const initialExpanded = mobileLayout ? "false" : "true";
+        await expect(toggle).toHaveAttribute("aria-expanded", initialExpanded);
 
         await toggle.click();
-        await expect(toggle).toHaveAttribute("aria-expanded", "false");
-        await expect(page.locator(".tree-panel")).toHaveClass(/hidden/);
+        await expect(toggle).toHaveAttribute("aria-expanded", mobileLayout ? "true" : "false");
 
         await toggle.click();
-        await expect(toggle).toHaveAttribute("aria-expanded", "true");
-        await expect(page.locator(".tree-panel")).not.toHaveClass(/hidden/);
+        await expect(toggle).toHaveAttribute("aria-expanded", initialExpanded);
     });
 });

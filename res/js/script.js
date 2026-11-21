@@ -1,5 +1,3 @@
-var right_arrow_heavy = '&#129090;';
-var left_arrow_heavy = '&#129088;';
 
 var treeData = null;
 var activeNavigationPath = null;
@@ -119,7 +117,8 @@ function navigate(file_path, push = true) {
     }
 
     activeNavigationPath = allowedPath;
-    iframe.style.opacity = 0;
+    var pagePanel = iframe.closest(".page-panel");
+    if (pagePanel) pagePanel.classList.add("is-loading");
 
     iframe.onload = function () {
 
@@ -127,7 +126,10 @@ function navigate(file_path, push = true) {
             return;
         }
 
-        iframe.style.opacity = 1;
+        if (pagePanel) {
+            pagePanel.classList.remove("is-loading");
+            pagePanel.classList.add("is-entering");
+        }
 
         try {
 
@@ -139,8 +141,9 @@ function navigate(file_path, push = true) {
             iframe.contentWindow.postMessage({
                 type: "breadcrumb",
                 path: allowedPath,
-                breadcrumb: breadcrumbData
-            }, window.location.origin);
+                breadcrumb: breadcrumbData,
+                allowedPaths: collectAllowedPaths(treeData.sections)
+            }, "*");
 
         } catch (e) {
 
@@ -153,7 +156,7 @@ function navigate(file_path, push = true) {
     };
 
     iframe.onerror = function () {
-        iframe.style.opacity = 1;
+        if (pagePanel) pagePanel.classList.remove("is-loading", "is-entering");
     };
 
     iframe.src = new URL(
@@ -282,13 +285,13 @@ function toggle_tree_panel() {
     if (tree.classList.contains("hidden")) {
         tree.classList.remove("hidden");
         document.body.classList.remove("tree-hidden");
-        btn.innerHTML = left_arrow_heavy;
+        btn.textContent = "❮";
         btn.setAttribute("aria-expanded", "true");
         btn.setAttribute("aria-label", "Ocultar índice");
     } else {
         tree.classList.add("hidden");
         document.body.classList.add("tree-hidden");
-        btn.innerHTML = right_arrow_heavy;
+        btn.textContent = "❯";
         btn.setAttribute("aria-expanded", "false");
         btn.setAttribute("aria-label", "Mostrar índice");
     }
@@ -434,7 +437,7 @@ function buildTree(data) {
 
     if (!root) return;
 
-    root.innerHTML = "";
+    root.replaceChildren();
 
     if (!isValidTree(data)) return;
 
@@ -468,6 +471,14 @@ function loadTree() {
             treeData = data;
             buildTree(data);
 
+            // En móvil y tablet, priorizar el contenido y dejar el índice como drawer.
+            // El botón ya está creado por el evento load antes de que termine este fetch.
+            var panelToggle = document.getElementById("tree_panel_toggle_btn");
+            if (window.matchMedia("(max-width: 900px)").matches &&
+                panelToggle && panelToggle.getAttribute("aria-expanded") === "true") {
+                toggle_tree_panel();
+            }
+
             var page = window.location.hash.replace(/^#/, "");
 
             if (page) {
@@ -480,7 +491,7 @@ function loadTree() {
 
             var root = document.getElementById("tree_root");
             if (root) {
-                root.innerHTML = "";
+                root.replaceChildren();
                 var message = document.createElement("li");
                 message.className = "tree-load-error";
                 message.textContent = "No se pudo cargar el índice. Recarga la página o inténtalo más tarde.";
@@ -543,12 +554,12 @@ function normalizeSearchText(text) {
 
 function showAllChildren(li) {
 
-    li.style.display = "";
+    li.classList.remove("search-hidden");
 
     var children = li.querySelectorAll("li");
 
     for (var i = 0; i < children.length; i++) {
-        children[i].style.display = "";
+        children[i].classList.remove("search-hidden");
     }
 
     var subtrees = li.querySelectorAll("ul.subtree");
@@ -655,7 +666,7 @@ function filterTreeNode(li, search) {
 
     var visible = selfMatch || childMatch;
 
-    li.style.display = visible ? "" : "none";
+    li.classList.toggle("search-hidden", !visible);
 
     if (search !== "") {
 
@@ -720,6 +731,20 @@ function filterTreeNode(li, search) {
    BREADCRUMB HELPERS
 ============================== */
 
+function collectAllowedPaths(nodes, result) {
+    result = result || [];
+    if (!Array.isArray(nodes)) return result;
+    nodes.forEach(function (node) {
+        if (node && typeof node.path === "string") {
+            var path = node.path;
+            while (path.charAt(0) === "/") path = path.slice(1);
+            result.push(path);
+        }
+        if (node && Array.isArray(node.children)) collectAllowedPaths(node.children, result);
+    });
+    return result;
+}
+
 function findNodePath(
     nodes,
     targetPath,
@@ -767,26 +792,29 @@ function findNodePath(
 ============================== */
 
 window.addEventListener("message", function (event) {
-
     var iframe = getIframe();
+    var data = event.data;
+    if (!iframe || event.source !== iframe.contentWindow ||
+        event.origin !== "null" || !data || typeof data !== "object") return;
 
-    if (
-        !iframe ||
-        event.source !== iframe.contentWindow ||
-        event.origin !== window.location.origin ||
-        !event.data ||
-        typeof event.data !== "object"
-    ) {
-        return;
+    if (data.type === "navigate" && Number.isSafeInteger(data.pathIndex)) {
+        if (treeData && Array.isArray(treeData.sections)) {
+            var allowedPaths = collectAllowedPaths(treeData.sections);
+            if (data.pathIndex >= 0 && data.pathIndex < allowedPaths.length) {
+                navigate(allowedPaths[data.pathIndex], true);
+            }
+        }
+    } else if (data.type === "search-tag" && typeof data.tag === "string" &&
+        data.tag.length > 0 && data.tag.length <= 100) {
+        searchByTag(data.tag);
+    } else if (data.type === "clear-search") {
+        clearTreeSearch();
+    } else if (data.type === "toggle-index") {
+        toggle_tree_panel();
+    } else if (data.type === "focus-search") {
+        var input = document.getElementById("tree_search");
+        if (input) { input.focus(); input.select(); }
     }
-
-    if (
-        event.data.type === "navigate" &&
-        typeof event.data.path === "string"
-    ) {
-        navigate(event.data.path, true);
-    }
-
 });
 
 /* ==============================
@@ -804,7 +832,7 @@ function syncFrameTags(tag) {
         iframe.contentWindow.postMessage({
             type: "highlight-tag",
             tag: tag || ""
-        }, window.location.origin);
+        }, "*");
 
     } catch (e) {
 
@@ -870,7 +898,7 @@ window.addEventListener("load", function () {
         var btn = document.createElement("button");
 
         btn.onclick = toggle_tree_panel;
-        btn.innerHTML = left_arrow_heavy;
+        btn.textContent = "❮";
         btn.id = "tree_panel_toggle_btn";
         btn.type = "button";
         btn.setAttribute("aria-label", "Ocultar índice");
