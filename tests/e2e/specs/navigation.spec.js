@@ -107,3 +107,50 @@ test.describe("Validación de mensajes del iframe", () => {
         await expect(iframe).toHaveAttribute("src", before);
     });
 });
+
+test.describe("Enlaces del contenido", () => {
+    test("redirige enlaces internos permitidos a través del router", async ({ page }) => {
+        await page.goto("wiki.html");
+        const firstSection = page.locator("#tree_root > li").first();
+        await expect(firstSection).toBeVisible();
+        await firstSection.locator(":scope > a").click();
+
+        const content = page.frameLocator("#page_frame");
+        await expect(content.locator("h1").first()).toBeVisible();
+        await content.getByRole("link", { name: /Explorar OSINT/ }).click();
+
+        await expect(content.locator("h1").first()).toHaveText("OSINT (Open Source Intelligence)");
+        await expect(page).toHaveURL(/#subpags\/ciberseguridad\/osint\/index\.html$/);
+    });
+
+    test("conserva enlaces externos sin secuestrar la navegación principal", async ({ page }) => {
+        await page.goto("wiki.html");
+        const firstSection = page.locator("#tree_root > li").first();
+        await expect(firstSection).toBeVisible();
+        await firstSection.locator(":scope > a").click();
+
+        const iframe = page.locator("#page_frame");
+        const content = page.frameLocator("#page_frame");
+        await expect(content.locator("h1").first()).toBeVisible();
+        const originalSrc = await iframe.getAttribute("src");
+        const originalUrl = page.url();
+
+        await content.locator("body").evaluate((body) => {
+            const link = document.createElement("a");
+            link.id = "external-link-security-test";
+            link.href = "https://example.org/";
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = "External security test";
+            body.appendChild(link);
+        });
+
+        const popupPromise = page.waitForEvent("popup");
+        await content.locator("#external-link-security-test").click();
+        const popup = await popupPromise;
+        await expect.poll(() => popup.url()).toContain("https://example.org/");
+        await expect(iframe).toHaveAttribute("src", originalSrc);
+        await expect(page).toHaveURL(originalUrl);
+        await popup.close();
+    });
+});
