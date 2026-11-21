@@ -50,4 +50,3 @@ test.describe("Sistema de movimiento", () => {
         }
     });
 });
-});
