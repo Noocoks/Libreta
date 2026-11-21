@@ -21,9 +21,19 @@ class HtmlDocument(HTMLParser):
         self.ids: set[str] = set()
         self.duplicates: set[str] = set()
         self.fragments: list[str] = []
+        self.csp: str | None = None
+        self.inline_handlers: list[str] = []
+        self.iframes: list[set[str]] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
+        for name in values:
+            if name.lower().startswith("on"):
+                self.inline_handlers.append(name)
+        if tag == "meta" and (values.get("http-equiv") or "").lower() == "content-security-policy":
+            self.csp = values.get("content") or ""
+        if tag == "iframe":
+            self.iframes.append(set((values.get("sandbox") or "").split()))
         element_id = values.get("id")
         if element_id:
             if element_id in self.ids:
@@ -61,6 +71,74 @@ def local_target(source: Path, raw_url: str) -> tuple[Path, str] | None:
     return target, unquote(parsed.fragment)
 
 
+# Allowlist deliberada: no se admiten comodines, hosts adicionales ni directivas desconocidas.
+EXPECTED_CSP = {
+    "default-src": ["'self'"],
+    "base-uri": ["'self'"],
+    "object-src": ["'none'"],
+    "script-src": ["'self'", "https://noocoks.github.io"],
+    # unsafe-inline se conserva solo para estilos existentes; nunca se permite en scripts.
+    "style-src": ["'self'", "'unsafe-inline'", "https://noocoks.github.io"],
+    "img-src": ["'self'", "data:", "https://noocoks.github.io"],
+    "font-src": ["'self'", "https://noocoks.github.io"],
+    "connect-src": ["'self'", "https://noocoks.github.io"],
+    "form-action": ["'self'"],
+}
+# frame-src puede omitirse: default-src 'self' aplica como fallback equivalente.
+OPTIONAL_CSP = {"frame-src": ["'self'"]}
+
+
+def validate_csp_policy(policy: str) -> list[str]:
+    """Valida la CSP contra una allowlist exacta, incluidos orígenes y directivas."""
+    errors: list[str] = []
+    directives: dict[str, list[str]] = {}
+    for raw_directive in policy.split(";"):
+        parts = raw_directive.strip().split()
+        if not parts:
+            continue
+        name = parts[0].lower()
+        if name in directives:
+            errors.append(f"directiva duplicada: {name}")
+            continue
+        directives[name] = parts[1:]
+
+    allowed_names = set(EXPECTED_CSP) | set(OPTIONAL_CSP)
+    for name in sorted(set(directives) - allowed_names):
+        errors.append(f"directiva no autorizada: {name}")
+    for name, expected_sources in OPTIONAL_CSP.items():
+        if name in directives and directives[name] != expected_sources:
+            errors.append(
+                f"{name}: valores esperados {expected_sources!r}, recibidos {directives[name]!r}"
+            )
+    for name, expected_sources in EXPECTED_CSP.items():
+        actual_sources = directives.get(name)
+        if actual_sources is None:
+            errors.append(f"falta directiva: {name}")
+            continue
+        if actual_sources != expected_sources:
+            errors.append(
+                f"{name}: valores esperados {expected_sources!r}, recibidos {actual_sources!r}"
+            )
+    return errors
+
+
+def is_google_fonts_reference(reference: str) -> bool:
+    """Detecta Google Fonts comparando el hostname analizado, no subcadenas."""
+    try:
+        hostname = urlsplit(reference.strip()).hostname
+    except ValueError:
+        return False
+
+    if hostname is None:
+        return False
+
+    normalized_hostname = hostname.lower().rstrip(".")
+    return (
+        normalized_hostname == "fonts.googleapis.com"
+        or normalized_hostname == "fonts.gstatic.com"
+    )
+
+
 def check_css_resources() -> int:
     checked = 0
     for css_file in sorted((ROOT / "res").rglob("*.css")):
@@ -72,6 +150,9 @@ def check_css_resources() -> int:
 
         references = [match.group(2).strip() for match in URL_PATTERN.finditer(source)]
         references.extend(match.group(2).strip() for match in IMPORT_PATTERN.finditer(source))
+
+        if any(is_google_fonts_reference(reference) for reference in references):
+            ERRORS.append(f"Dependencia de Google Fonts no permitida en {css_file.relative_to(ROOT)}")
 
         for reference in references:
             if not reference or reference.startswith("#"):
@@ -101,6 +182,19 @@ def check_html_fragments() -> tuple[int, int]:
             ERRORS.append(f"No se pudo leer {html_file.relative_to(ROOT)}: {error}")
             continue
         documents[html_file.resolve()] = parser
+
+        relative = html_file.relative_to(ROOT).as_posix()
+        if not parser.csp:
+            ERRORS.append(f"Falta Content-Security-Policy en {relative}")
+        else:
+            for policy_error in validate_csp_policy(parser.csp):
+                ERRORS.append(f"CSP inválida en {relative}: {policy_error}")
+        if parser.inline_handlers:
+            ERRORS.append(f"Eventos inline no permitidos en {relative}: {', '.join(parser.inline_handlers)}")
+        for sandbox in parser.iframes:
+            if "allow-scripts" not in sandbox or "allow-same-origin" in sandbox:
+                ERRORS.append(f"iframe sin aislamiento adecuado en {relative}: sandbox={sorted(sandbox)}")
+
         for duplicate in sorted(parser.duplicates):
             ERRORS.append(
                 f"ID HTML duplicado en {html_file.relative_to(ROOT)}: #{duplicate}"

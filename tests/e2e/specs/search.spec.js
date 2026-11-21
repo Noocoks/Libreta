@@ -4,6 +4,11 @@ test.describe("Buscador y etiquetas", () => {
     test.beforeEach(async ({ page }) => {
         await page.goto("wiki.html");
         await expect(page.locator("#tree_root > li")).toHaveCount(3);
+        const toggle = page.locator("#tree_panel_toggle_btn");
+        if (await toggle.getAttribute("aria-expanded") !== "true") {
+            await toggle.click();
+            await expect(toggle).toHaveAttribute("aria-expanded", "true");
+        }
     });
 
     test("encuentra nodos por nombre sin distinguir mayúsculas", async ({ page }) => {

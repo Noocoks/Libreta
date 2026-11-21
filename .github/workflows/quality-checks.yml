@@ -40,6 +40,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Audit npm dependencies
+        run: npm audit --audit-level=high
+
       - name: Validate every JSON file
         run: |
           python - <<'PY'
@@ -65,3 +68,31 @@ jobs:
             echo "Checking $file"
             node --check "$file"
           done < <(find . -type f -name '*.js' -not -path './.git/*' -not -path './node_modules/*' -print0)
+
+      - name: Run Python unit tests
+        run: python -m unittest discover -s tests/unit -v
+
+      - name: Install actionlint and zizmor (verified release archives)
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz \
+            --output /tmp/actionlint.tar.gz
+          echo "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8  /tmp/actionlint.tar.gz" | sha256sum --check
+          tar -xzf /tmp/actionlint.tar.gz -C /tmp actionlint
+          sudo install /tmp/actionlint /usr/local/bin/actionlint
+
+          curl --fail --silent --show-error --location \
+            https://github.com/zizmorcore/zizmor/releases/download/v1.32.0/zizmor-x86_64-unknown-linux-gnu.tar.gz \
+            --output /tmp/zizmor.tar.gz
+          echo "bb110cc765eca9cd7efb2e284a956be5974c60027b0970f16397d86208a9957b  /tmp/zizmor.tar.gz" | sha256sum --check
+          mkdir -p /tmp/zizmor
+          tar -xzf /tmp/zizmor.tar.gz -C /tmp/zizmor
+          sudo install /tmp/zizmor/zizmor /usr/local/bin/zizmor
+
+      - name: Lint GitHub Actions workflows
+        run: actionlint .github/workflows/*.yml
+
+      - name: Audit GitHub Actions security
+        run: zizmor .github/workflows
