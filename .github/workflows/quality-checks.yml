@@ -5,9 +5,11 @@ on:
     branches:
       - master
       - "fix/**"
+      - "ui/**"
   pull_request:
     branches:
       - master
+      - "security/hardening-2026"
   workflow_dispatch:
 
 # Denegar todos los permisos por defecto; cada job declara solo los necesarios.
