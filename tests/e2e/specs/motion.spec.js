@@ -7,6 +7,30 @@ test.describe("Sistema de movimiento", () => {
         await expect(page.getByRole("link", { name: /Explorar Libreta/ })).toBeVisible();
     });
 
+    test("el hero visual compone sus capas de movimiento sin ocultar el contenido", async ({ page }) => {
+        await page.goto("index.html");
+        const motion = await page.evaluate(() => {
+            const card = document.querySelector(".home-visual-card");
+            const core = document.querySelector(".home-visual-core");
+            return {
+                cardAnimation: getComputedStyle(card).animationName,
+                cardSweep: getComputedStyle(card, "::after").animationName,
+                cardSweepLayer: getComputedStyle(card, "::after").zIndex,
+                corePulse: getComputedStyle(core, "::before").animationName,
+                outerOrbit: getComputedStyle(document.querySelector(".home-visual-orbit--outer")).animationName,
+                titleAnimation: getComputedStyle(document.querySelector(".home-title span")).animationName
+            };
+        });
+
+        expect(motion.cardAnimation).toContain("libreta-enter");
+        expect(motion.cardAnimation).toContain("libreta-card-drift");
+        expect(motion.cardSweep).toBe("libreta-scan");
+        expect(motion.cardSweepLayer).toBe("0");
+        expect(motion.corePulse).toBe("libreta-ring-pulse");
+        expect(motion.outerOrbit).toBe("home-orbit");
+        expect(motion.titleAnimation).toBe("libreta-title-sheen");
+    });
+
     test("la navegación de documentos usa estados CSS y no estilos inline", async ({ page }) => {
         await page.goto("wiki.html");
         await expect(page.locator("#tree_root > li")).toHaveCount(3);
@@ -26,7 +50,7 @@ test.describe("Sistema de movimiento", () => {
         await page.emulateMedia({ reducedMotion: "reduce" });
         await page.goto("index.html");
         const homeDurations = await page.evaluate(() => {
-            return [".home-title", ".home-visual-core"].map((selector) => {
+            return [".home-title", ".home-visual-core", ".home-visual-card"].map((selector) => {
                 const style = getComputedStyle(document.querySelector(selector));
                 return { animation: style.animationDuration, transition: style.transitionDuration };
             });
