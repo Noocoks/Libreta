@@ -33,6 +33,7 @@ test.describe("Navegación principal", () => {
     test("el árbol navega a una página y genera sus migas de pan", async ({ page }) => {
         await page.goto("wiki.html");
         await openIndex(page);
+        await openIndex(page);
 
         // La primera sección del JSON es Ciberseguridad; el enlace lleva un emoji decorativo.
         const cyberSecurity = page.locator("#tree_root > li").first();
@@ -59,7 +60,8 @@ test.describe("Navegación principal", () => {
 
 
 test("iframe sandbox isolates documentation without allow-same-origin", async ({ page }) => {
- await page.goto("wiki.html"); await openIndex(page); const frame=page.locator("#page_frame");
+ await page.goto("wiki.html");
+        await openIndex(page); await openIndex(page); const frame=page.locator("#page_frame");
  await expect(frame).toHaveAttribute("sandbox","allow-scripts");
  await expect(frame).toHaveAttribute("referrerpolicy","same-origin");
  const cyberSecurity=page.locator("#tree_root > li").first();
@@ -81,6 +83,7 @@ test("iframe sandbox isolates documentation without allow-same-origin", async ({
 test.describe("Validación de mensajes del iframe", () => {
     test("rechaza índices de navegación inválidos y mensajes desconocidos", async ({ page }) => {
         await page.goto("wiki.html");
+        await openIndex(page);
         await openIndex(page);
         const firstSection = page.locator("#tree_root > li").first();
         await expect(firstSection).toBeVisible();
@@ -111,6 +114,7 @@ test.describe("Validación de mensajes del iframe", () => {
     test("ignora mensajes falsificados desde la ventana principal", async ({ page }) => {
         await page.goto("wiki.html");
         await openIndex(page);
+        await openIndex(page);
         const firstSection = page.locator("#tree_root > li").first();
         await expect(firstSection).toBeVisible();
         await firstSection.locator(":scope > a").click();
@@ -133,6 +137,7 @@ test.describe("Validación de mensajes del iframe", () => {
 test.describe("Enlaces del contenido", () => {
     test("redirige enlaces internos permitidos a través del router", async ({ page }) => {
         await page.goto("wiki.html");
+        await openIndex(page);
         const firstSection = page.locator("#tree_root > li").first();
         await expect(firstSection).toBeVisible();
         await firstSection.locator(":scope > a").click();
@@ -149,6 +154,7 @@ test.describe("Enlaces del contenido", () => {
 
     test("conserva enlaces externos sin secuestrar la navegación principal", async ({ page }) => {
         await page.goto("wiki.html");
+        await openIndex(page);
         const firstSection = page.locator("#tree_root > li").first();
         await expect(firstSection).toBeVisible();
         await firstSection.locator(":scope > a").click();
