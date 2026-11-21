@@ -1,6 +1,10 @@
 import unittest
 
-from scripts.validate_assets import EXPECTED_CSP, validate_csp_policy
+from scripts.validate_assets import (
+    EXPECTED_CSP,
+    has_exact_iframe_sandbox_permissions,
+    validate_csp_policy,
+)
 
 
 def policy_from(sources):
@@ -32,6 +36,18 @@ class ContentSecurityPolicyTests(unittest.TestCase):
         errors = validate_csp_policy(policy)
         self.assertTrue(any("falta directiva: object-src" in error for error in errors))
         self.assertTrue(any("directiva duplicada: default-src" in error for error in errors))
+
+    def test_iframe_sandbox_accepts_only_the_exact_minimum_permission(self):
+        self.assertTrue(has_exact_iframe_sandbox_permissions({"allow-scripts"}))
+        for permissions in (
+            set(),
+            {"allow-same-origin"},
+            {"allow-scripts", "allow-same-origin"},
+            {"allow-scripts", "allow-popups"},
+            {"allow-scripts", "allow-forms"},
+            {"allow-scripts", "allow-top-navigation"},
+        ):
+            self.assertFalse(has_exact_iframe_sandbox_permissions(permissions))
 
     def test_rejects_style_src_attr_override(self):
         policy = policy_from(EXPECTED_CSP) + "; style-src-attr 'unsafe-inline'"
