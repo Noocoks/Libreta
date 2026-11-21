@@ -3,7 +3,7 @@
 ## Controles implementados en el repositorio
 
 - Las páginas HTML publicadas y la plantilla declaran una Content Security Policy (CSP) con allowlist explícita para los recursos del sitio. El validador rechaza directivas duplicadas, directivas desconocidas, orígenes adicionales, comodines y valores distintos de la política aprobada.
-- La CSP no permite JavaScript inline ni `eval`. `style-src 'unsafe-inline'` se mantiene temporalmente por compatibilidad con estilos inline existentes; debe retirarse tras migrar esos estilos a hojas CSS y verificar visualmente todas las páginas.
+- La CSP no permite JavaScript inline, `eval` ni estilos inline. `script-src 'self'`, `script-src-attr 'none'`, `style-src 'self'`, `style-src-attr 'none'` y `style-src-elem 'self'` restringen la ejecución y aplicación de código y estilos a recursos locales.
 - La política se entrega mediante meta CSP. Es una defensa útil, pero no equivale a una cabecera HTTP CSP; `frame-ancestors` no se puede aplicar desde una meta CSP.
 - El iframe de la wiki usa `sandbox="allow-scripts"` sin `allow-same-origin`.
 - La comunicación entre la wiki y el iframe utiliza mensajes explícitos. El padre valida la ventana emisora exacta, el origen opaco `null`, el tipo y los datos; las rutas se seleccionan mediante índices de una lista permitida y se vuelven a validar en el router.
@@ -31,7 +31,7 @@ No se exige aprobación adicional, una decisión razonable para un repositorio m
 1. Revisar en Settings → Code security and analysis el estado de Secret scanning, Push protection y Dependabot alerts. Su estado no se da por confirmado por el mero hecho de que los workflows pasen.
 2. Revisar periódicamente las alertas abiertas de CodeQL y Dependabot, incluidas las que no estén relacionadas con la PR actual.
 3. GitHub Pages no permite configurar desde este repositorio todas las cabeceras HTTP de seguridad. La meta CSP no configura HSTS, `X-Content-Type-Options`, `Permissions-Policy` ni una cabecera HTTP `Referrer-Policy`. Verificar las cabeceras efectivas del sitio publicado y documentar las limitaciones del alojamiento.
-4. Evaluar la retirada de `'unsafe-inline'` de `style-src` después de eliminar los atributos `style` y cualquier estilo inline generado dinámicamente.
+4. Si se incorporan nuevas páginas o componentes, comprobar que no introducen atributos `style`, bloques `<style>` ni estilos generados inline; el validador y las pruebas de navegador deben seguir rechazándolos.
 
 ## Alcance y límites
 
