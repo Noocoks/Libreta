@@ -1,0 +1,197 @@
+/*******************************************************************************
+ * SISTEMA DE MOVIMIENTO — LIBRETA
+ * Animaciones ambientales, entradas y transiciones compartidas.
+ * Mantener efectos breves, discretos y respetuosos con reduced motion.
+ ******************************************************************************/
+
+:root {
+    --motion-fast: 160ms;
+    --motion-base: 260ms;
+    --motion-slow: 420ms;
+    --motion-ease: cubic-bezier(.22, 1, .36, 1);
+    --motion-enter-distance: 12px;
+}
+
+/* Entradas reutilizables */
+@keyframes libreta-enter {
+    from {
+        opacity: 0;
+        transform: translate3d(0, var(--motion-enter-distance), 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes libreta-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes libreta-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(162, 29, 59, 0); }
+    50% { box-shadow: 0 0 0 7px rgba(162, 29, 59, .07); }
+}
+
+@keyframes libreta-float {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -5px, 0); }
+}
+
+/* Portada: aparición progresiva, sin bloquear la interacción */
+.home-topbar {
+    animation: libreta-fade var(--motion-slow) var(--motion-ease) both;
+}
+
+.home-copy .home-eyebrow {
+    animation: libreta-enter var(--motion-slow) var(--motion-ease) both;
+    animation-delay: 70ms;
+}
+
+.home-copy .home-title {
+    animation: libreta-enter var(--motion-slow) var(--motion-ease) both;
+    animation-delay: 130ms;
+}
+
+.home-copy .home-lead {
+    animation: libreta-enter var(--motion-slow) var(--motion-ease) both;
+    animation-delay: 190ms;
+}
+
+.home-copy .home-actions {
+    animation: libreta-enter var(--motion-slow) var(--motion-ease) both;
+    animation-delay: 250ms;
+}
+
+.home-visual {
+    animation: libreta-fade 700ms var(--motion-ease) both;
+    animation-delay: 180ms;
+}
+
+.home-visual-core {
+    animation: libreta-glow 5.5s ease-in-out 900ms infinite;
+}
+
+.home-visual-card {
+    animation: libreta-enter 600ms var(--motion-ease) both;
+}
+
+.home-visual-card--top { animation-delay: 360ms; }
+.home-visual-card--right { animation-delay: 460ms; }
+.home-visual-card--bottom { animation-delay: 560ms; }
+
+.home-bottom {
+    animation: libreta-fade 700ms ease both;
+    animation-delay: 420ms;
+}
+
+/* Índice: entrada ligera al terminar la carga del árbol */
+.tree.ready .index-title,
+.tree.ready .index-controls,
+.tree.ready .index-search {
+    animation: libreta-enter var(--motion-slow) var(--motion-ease) both;
+}
+
+.tree.ready .index-controls { animation-delay: 45ms; }
+.tree.ready .index-search { animation-delay: 90ms; }
+
+.tree.ready #tree_root > li {
+    animation: libreta-enter 360ms var(--motion-ease) both;
+}
+
+.tree.ready #tree_root > li:nth-child(1) { animation-delay: 80ms; }
+.tree.ready #tree_root > li:nth-child(2) { animation-delay: 140ms; }
+.tree.ready #tree_root > li:nth-child(3) { animation-delay: 200ms; }
+.tree.ready .tree-footer {
+    animation: libreta-fade 420ms ease both;
+    animation-delay: 240ms;
+}
+
+/* Contenido: transición entre documentos mediante estados CSS, no estilos inline */
+.page-panel iframe {
+    transition:
+        opacity var(--motion-base) ease,
+        transform var(--motion-base) var(--motion-ease);
+    transform-origin: center top;
+}
+
+.page-panel.is-loading iframe {
+    opacity: .28;
+    transform: scale(.995);
+}
+
+.page-panel.is-entering iframe {
+    animation: libreta-enter 360ms var(--motion-ease) both;
+}
+
+/* Microinteracciones coherentes en ratón/teclado */
+@media (hover: hover) and (pointer: fine) {
+    .home-brand-mark,
+    .home-source,
+    .home-cta,
+    .project-stats-trigger {
+        transition:
+            transform var(--motion-fast) var(--motion-ease),
+            box-shadow var(--motion-fast) ease,
+            border-color var(--motion-fast) ease;
+    }
+
+    .home-brand:hover .home-brand-mark,
+    .project-stats-trigger:hover {
+        transform: translateY(-2px);
+    }
+
+    .tree a,
+    .index-controls button,
+    .accordion summary,
+    .code-header {
+        transition:
+            color var(--motion-fast) ease,
+            background-color var(--motion-fast) ease,
+            border-color var(--motion-fast) ease,
+            transform var(--motion-fast) var(--motion-ease);
+    }
+}
+
+/* Pantallas táctiles: sin flotación ambiental ni efectos hover */
+@media (hover: none), (pointer: coarse) {
+    .home-visual-core {
+        animation: none;
+    }
+
+    .home-visual-card {
+        backdrop-filter: none;
+    }
+}
+
+/* Móvil: entradas más breves y sin animaciones ambientales continuas */
+@media (max-width: 900px) {
+    .home-visual-core {
+        animation-duration: 7s;
+    }
+
+    .home-visual-orbit--outer {
+        animation-duration: 90s;
+    }
+
+    .tree.ready #tree_root > li {
+        animation-duration: 260ms;
+    }
+}
+
+/* Accesibilidad: eliminar movimiento, no solo acelerarlo */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+
+    .page-panel iframe {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
