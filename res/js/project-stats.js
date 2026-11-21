@@ -10,6 +10,7 @@
     var MAX_LANGUAGES = 20;
     var MAX_LABEL_LENGTH = 60;
     var MAX_LINE_COUNT = 100000000;
+    var MAX_FILE_COUNT = 1000000;
 
     function formatNumber(value) {
         return new Intl.NumberFormat("es-ES").format(value);
@@ -60,6 +61,11 @@
             !data ||
             typeof data !== "object" ||
             Array.isArray(data) ||
+            Object.keys(data).sort().join(",") !== "counting,generated_at,languages,total_files,total_lines" ||
+            data.counting !== "non-empty lines" ||
+            !Number.isSafeInteger(data.total_files) ||
+            data.total_files < 0 ||
+            data.total_files > MAX_FILE_COUNT ||
             !Array.isArray(data.languages) ||
             data.languages.length === 0 ||
             data.languages.length > MAX_LANGUAGES ||
@@ -73,15 +79,31 @@
                 return !language ||
                     typeof language !== "object" ||
                     Array.isArray(language) ||
+                    Object.keys(language).sort().join(",") !== "files,key,label,lines" ||
+                    typeof language.key !== "string" ||
+                    !/^[a-z][a-z0-9-]{0,39}$/.test(language.key) ||
                     typeof language.label !== "string" ||
                     !language.label.trim() ||
                     language.label.length > MAX_LABEL_LENGTH ||
+                    !Number.isSafeInteger(language.files) ||
+                    language.files < 0 ||
+                    language.files > MAX_FILE_COUNT ||
                     !Number.isSafeInteger(language.lines) ||
                     language.lines < 0 ||
                     language.lines > MAX_LINE_COUNT;
             })
         ) {
             throw new Error("Formato de estadísticas no válido");
+        }
+
+        var summedLines = data.languages.reduce(function (sum, language) {
+            return sum + language.lines;
+        }, 0);
+        var summedFiles = data.languages.reduce(function (sum, language) {
+            return sum + language.files;
+        }, 0);
+        if (summedLines !== data.total_lines || summedFiles !== data.total_files) {
+            throw new Error("Los totales de estadísticas no coinciden");
         }
 
         var labels = data.languages.map(function (language) {
