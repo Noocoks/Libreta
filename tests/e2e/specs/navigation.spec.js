@@ -62,8 +62,12 @@ test("iframe sandbox isolates documentation without allow-same-origin", async ({
 test.describe("Validación de mensajes del iframe", () => {
     test("rechaza índices de navegación inválidos y mensajes desconocidos", async ({ page }) => {
         await page.goto("wiki.html");
+        const firstSection = page.locator("#tree_root > li").first();
+        await expect(firstSection).toBeVisible();
+        await firstSection.locator(":scope > a").click();
         const iframe = page.locator("#page_frame");
-        await expect(iframe).toBeVisible();
+        const content = page.frameLocator("#page_frame");
+        await expect(content.locator("h1").first()).toBeVisible();
 
         const before = await iframe.getAttribute("src");
         const frame = page.frameLocator("#page_frame");
@@ -85,7 +89,12 @@ test.describe("Validación de mensajes del iframe", () => {
 
     test("ignora mensajes falsificados desde la ventana principal", async ({ page }) => {
         await page.goto("wiki.html");
+        const firstSection = page.locator("#tree_root > li").first();
+        await expect(firstSection).toBeVisible();
+        await firstSection.locator(":scope > a").click();
         const iframe = page.locator("#page_frame");
+        const content = page.frameLocator("#page_frame");
+        await expect(content.locator("h1").first()).toBeVisible();
         const before = await iframe.getAttribute("src");
 
         await page.evaluate(() => {
