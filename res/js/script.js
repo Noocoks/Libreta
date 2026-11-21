@@ -1,5 +1,3 @@
-var right_arrow_heavy = '&#129090;';
-var left_arrow_heavy = '&#129088;';
 
 var treeData = null;
 var activeNavigationPath = null;
@@ -493,7 +491,7 @@ function loadTree() {
 
             var root = document.getElementById("tree_root");
             if (root) {
-                root.innerHTML = "";
+                root.replaceChildren();
                 var message = document.createElement("li");
                 message.className = "tree-load-error";
                 message.textContent = "No se pudo cargar el índice. Recarga la página o inténtalo más tarde.";
@@ -900,7 +898,7 @@ window.addEventListener("load", function () {
         var btn = document.createElement("button");
 
         btn.onclick = toggle_tree_panel;
-        btn.innerHTML = left_arrow_heavy;
+        btn.textContent = "❮";
         btn.id = "tree_panel_toggle_btn";
         btn.type = "button";
         btn.setAttribute("aria-label", "Ocultar índice");
