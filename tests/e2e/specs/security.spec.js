@@ -67,9 +67,11 @@ test.describe("Política CSP", () => {
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({
+                total_files: 1,
                 total_lines: 10,
+                counting: "non-empty lines",
                 generated_at: "2026-11-20T18:42:13+00:00",
-                languages: [{ label: hostileLabel, lines: 10 }]
+                languages: [{ key: "test", label: hostileLabel, files: 1, lines: 10 }]
             })
             });
         });
@@ -97,9 +99,11 @@ test.describe("Política CSP", () => {
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({
+                total_files: 1,
                 total_lines: 1,
+                counting: "non-empty lines",
                 generated_at: "2026-11-20T18:42:13+00:00",
-                languages: [{ label: "HTML", lines: 1 }],
+                languages: [{ key: "html", label: "HTML", files: 1, lines: 1 }],
                 padding: "x".repeat(40 * 1024)
             })
             });
