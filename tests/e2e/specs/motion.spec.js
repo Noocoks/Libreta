@@ -22,21 +22,32 @@ test.describe("Sistema de movimiento", () => {
         await expect(page.locator(".page-panel")).not.toHaveClass(/is-loading/);
     });
 
-    test("respeta prefers-reduced-motion", async ({ page }) => {
+    test("respeta prefers-reduced-motion en portada y wiki", async ({ page }) => {
         await page.emulateMedia({ reducedMotion: "reduce" });
-        await page.goto("wiki.html");
-        const durations = await page.evaluate(() => {
-            const selectors = [".tree.ready #tree_root > li", ".page-panel iframe", ".home-visual-core"];
-            return selectors.map((selector) => {
-                const element = document.querySelector(selector);
-                if (!element) return null;
-                const style = getComputedStyle(element);
+        await page.goto("index.html");
+        const homeDurations = await page.evaluate(() => {
+            return [".home-title", ".home-visual-core"].map((selector) => {
+                const style = getComputedStyle(document.querySelector(selector));
                 return { animation: style.animationDuration, transition: style.transitionDuration };
             });
         });
-        for (const duration of durations.filter(Boolean)) {
+        for (const duration of homeDurations) {
+            expect(duration.animation.split(",").every((value) => parseFloat(value) === 0)).toBeTruthy();
+            expect(duration.transition.split(",").every((value) => parseFloat(value) === 0)).toBeTruthy();
+        }
+
+        await page.goto("wiki.html");
+        await expect(page.locator(".tree.ready #tree_root > li")).toHaveCount(3);
+        const wikiDurations = await page.evaluate(() => {
+            return [".tree.ready #tree_root > li", ".page-panel iframe"].map((selector) => {
+                const style = getComputedStyle(document.querySelector(selector));
+                return { animation: style.animationDuration, transition: style.transitionDuration };
+            });
+        });
+        for (const duration of wikiDurations) {
             expect(duration.animation.split(",").every((value) => parseFloat(value) === 0)).toBeTruthy();
             expect(duration.transition.split(",").every((value) => parseFloat(value) === 0)).toBeTruthy();
         }
     });
+});
 });
