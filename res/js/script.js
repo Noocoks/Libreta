@@ -787,8 +787,13 @@ window.addEventListener("message", function (event) {
     if (!iframe || event.source !== iframe.contentWindow ||
         event.origin !== "null" || !data || typeof data !== "object") return;
 
-    if (data.type === "navigate" && typeof data.path === "string" && data.path.length <= 500) {
-        navigate(data.path, true);
+    if (data.type === "navigate" && Number.isSafeInteger(data.pathIndex)) {
+        if (treeData && Array.isArray(treeData.sections)) {
+            var allowedPaths = collectAllowedPaths(treeData.sections);
+            if (data.pathIndex >= 0 && data.pathIndex < allowedPaths.length) {
+                navigate(allowedPaths[data.pathIndex], true);
+            }
+        }
     } else if (data.type === "search-tag" && typeof data.tag === "string" &&
         data.tag.length > 0 && data.tag.length <= 100) {
         searchByTag(data.tag);
