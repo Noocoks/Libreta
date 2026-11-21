@@ -60,7 +60,10 @@ test.describe("Política CSP", () => {
 
     test("renderiza estadísticas como texto, nunca como HTML", async ({ page }) => {
         const hostileLabel = '<img src=x onerror="window.__statsInjected = true">';
-        await page.route("**/res/json/project-stats.json*", (route) => route.fulfill({
+        let intercepted = false;
+        await page.route(/project-stats\\.json/, (route) => {
+            intercepted = true;
+            return route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({
@@ -68,8 +71,10 @@ test.describe("Política CSP", () => {
                 generated_at: "2026-11-20T18:42:13+00:00",
                 languages: [{ label: hostileLabel, lines: 10 }]
             })
-        }));
+            });
+        });
         await page.goto("wiki.html");
+        await expect.poll(() => intercepted).toBe(true);
         await expect(page.locator(".project-stats-data")).toBeVisible();
         await expect(page.locator(".project-stats-languages")).toContainText(hostileLabel);
         await expect(page.locator(".project-stats-languages img")).toHaveCount(0);
@@ -77,7 +82,10 @@ test.describe("Política CSP", () => {
     });
 
     test("rechaza respuestas de estadísticas demasiado grandes", async ({ page }) => {
-        await page.route("**/res/json/project-stats.json*", (route) => route.fulfill({
+        let intercepted = false;
+        await page.route(/project-stats\\.json/, (route) => {
+            intercepted = true;
+            return route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({
@@ -86,8 +94,10 @@ test.describe("Política CSP", () => {
                 languages: [{ label: "HTML", lines: 1 }],
                 padding: "x".repeat(40 * 1024)
             })
-        }));
+            });
+        });
         await page.goto("wiki.html");
+        await expect.poll(() => intercepted).toBe(true);
         await expect(page.locator(".project-stats-error")).toBeVisible();
         await expect(page.locator(".project-stats-loading")).toBeHidden();
     });
