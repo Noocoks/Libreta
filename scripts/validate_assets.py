@@ -82,9 +82,10 @@ EXPECTED_CSP = {
     "img-src": ["'self'", "data:", "https://noocoks.github.io"],
     "font-src": ["'self'", "https://noocoks.github.io"],
     "connect-src": ["'self'", "https://noocoks.github.io"],
-    "frame-src": ["'self'"],
     "form-action": ["'self'"],
 }
+# frame-src puede omitirse: default-src 'self' aplica como fallback equivalente.
+OPTIONAL_CSP = {"frame-src": ["'self'"]}
 
 
 def validate_csp_policy(policy: str) -> list[str]:
@@ -101,8 +102,14 @@ def validate_csp_policy(policy: str) -> list[str]:
             continue
         directives[name] = parts[1:]
 
-    for name in sorted(set(directives) - set(EXPECTED_CSP)):
+    allowed_names = set(EXPECTED_CSP) | set(OPTIONAL_CSP)
+    for name in sorted(set(directives) - allowed_names):
         errors.append(f"directiva no autorizada: {name}")
+    for name, expected_sources in OPTIONAL_CSP.items():
+        if name in directives and directives[name] != expected_sources:
+            errors.append(
+                f"{name}: valores esperados {expected_sources!r}, recibidos {directives[name]!r}"
+            )
     for name, expected_sources in EXPECTED_CSP.items():
         actual_sources = directives.get(name)
         if actual_sources is None:
