@@ -58,3 +58,43 @@ test("iframe sandbox isolates documentation without allow-same-origin", async ({
  // Firefox may report the URL origin here; the security boundary is proved by denied DOM access.
  expect(isolation).toBe("SecurityError");
 });
+
+test.describe("Validación de mensajes del iframe", () => {
+    test("rechaza índices de navegación inválidos y mensajes desconocidos", async ({ page }) => {
+        await page.goto("wiki.html");
+        const iframe = page.locator("#page_frame");
+        await expect(iframe).toBeVisible();
+
+        const before = await iframe.getAttribute("src");
+        const frame = page.frameLocator("#page_frame");
+        await frame.locator("body").evaluate(() => {
+            const invalidMessages = [
+                { type: "navigate", pathIndex: -1 },
+                { type: "navigate", pathIndex: 999999 },
+                { type: "navigate", pathIndex: 1.5 },
+                { type: "navigate", pathIndex: "0" },
+                { type: "navigate", pathIndex: null },
+                { type: "navigate", path: "https://attacker.invalid/" },
+                { type: "unknown-command", pathIndex: 0 }
+            ];
+            invalidMessages.forEach((message) => window.parent.postMessage(message, "*"));
+        });
+        await page.waitForTimeout(150);
+        await expect(iframe).toHaveAttribute("src", before);
+    });
+
+    test("ignora mensajes falsificados desde la ventana principal", async ({ page }) => {
+        await page.goto("wiki.html");
+        const iframe = page.locator("#page_frame");
+        const before = await iframe.getAttribute("src");
+
+        await page.evaluate(() => {
+            window.dispatchEvent(new MessageEvent("message", {
+                data: { type: "navigate", pathIndex: 0 },
+                origin: "null"
+            }));
+        });
+        await page.waitForTimeout(100);
+        await expect(iframe).toHaveAttribute("src", before);
+    });
+});
