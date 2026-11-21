@@ -66,8 +66,9 @@ jobs:
       - name: Lanzar Quality checks, E2E y CodeQL
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
           PR_BRANCH: ${{ needs.update-stats.outputs.pr_branch }}
         run: |
-          gh workflow run quality-checks.yml --ref "$PR_BRANCH"
-          gh workflow run e2e-tests.yml --ref "$PR_BRANCH"
-          gh workflow run codeql.yml --ref "$PR_BRANCH"
+          gh workflow run quality-checks.yml --repo "$GH_REPO" --ref "$PR_BRANCH"
+          gh workflow run e2e-tests.yml --repo "$GH_REPO" --ref "$PR_BRANCH"
+          gh workflow run codeql.yml --repo "$GH_REPO" --ref "$PR_BRANCH"
