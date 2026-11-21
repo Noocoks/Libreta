@@ -143,6 +143,9 @@
                 headers: { "Accept": "application/json" }
             });
             if (!response.ok) throw new Error("No se pudieron cargar las estadísticas");
+            if (response.redirected || new URL(response.url).origin !== window.location.origin) {
+                throw new Error("Origen de estadísticas no permitido");
+            }
             var contentType = response.headers.get("content-type") || "";
             if (!contentType.toLowerCase().includes("application/json")) {
                 throw new Error("Tipo de contenido inesperado en estadísticas");
