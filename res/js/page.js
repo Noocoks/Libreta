@@ -46,7 +46,7 @@ window.addEventListener("message", function (e) {
         }
     }
 
-    breadcrumb.innerHTML = "";
+    breadcrumb.replaceChildren();
 
     window.allowedTreePaths = Array.isArray(e.data.allowedPaths) ? e.data.allowedPaths : [];
     var nodes = e.data.breadcrumb;
