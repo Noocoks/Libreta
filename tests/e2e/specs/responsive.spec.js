@@ -19,6 +19,9 @@ for (const viewport of viewports) {
 
         const toggle = page.locator("#tree_panel_toggle_btn");
         await expect(toggle).toBeVisible();
+        // En móvil/tablet la wiki debe abrir con el contenido visible y el índice cerrado.
+        await expect(toggle).toHaveAttribute("aria-expanded", "false");
+        await expect(page.locator(".tree-panel")).toHaveClass(/hidden/);
 
         const bounds = await toggle.boundingBox();
         expect(bounds).not.toBeNull();
@@ -28,8 +31,10 @@ for (const viewport of viewports) {
         expect(bounds.y + bounds.height).toBeLessThanOrEqual(viewport.height);
 
         await toggle.click();
-        await expect(toggle).toHaveAttribute("aria-expanded", "false");
-        await toggle.click();
         await expect(toggle).toHaveAttribute("aria-expanded", "true");
+        await expect(page.locator(".tree-panel")).not.toHaveClass(/hidden/);
+        await toggle.click();
+        await expect(toggle).toHaveAttribute("aria-expanded", "false");
+        await expect(page.locator(".tree-panel")).toHaveClass(/hidden/);
     });
 }
