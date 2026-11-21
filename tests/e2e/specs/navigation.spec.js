@@ -135,6 +135,12 @@ test.describe("Enlaces del contenido", () => {
         const originalSrc = await iframe.getAttribute("src");
         const originalUrl = page.url();
 
+        await page.route("https://example.org/**", (route) => route.fulfill({
+            status: 200,
+            contentType: "text/html",
+            body: "<h1>External destination</h1>"
+        }));
+
         await content.locator("body").evaluate((body) => {
             const link = document.createElement("a");
             link.id = "external-link-security-test";
