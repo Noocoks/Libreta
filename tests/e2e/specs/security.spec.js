@@ -61,6 +61,11 @@ test.describe("Política CSP", () => {
     test("renderiza estadísticas como texto, nunca como HTML", async ({ page }) => {
         const hostileLabel = '<img src=x onerror="window.__statsInjected = true">';
         let intercepted = false;
+        const consoleErrors = [];
+        page.on("console", (message) => {
+            if (message.type() === "error") consoleErrors.push(message.text());
+        });
+        page.on("pageerror", (error) => consoleErrors.push(error.message));
         await page.route(/project-stats\.json/, (route) => {
             intercepted = true;
             return route.fulfill({
@@ -73,9 +78,12 @@ test.describe("Política CSP", () => {
             })
             });
         });
+        const statsResponse = page.waitForResponse(/project-stats\.json/);
         await page.goto("wiki.html");
+        await statsResponse;
         await expect.poll(() => intercepted).toBe(true);
         await expect(page.locator(".project-stats-data")).toBeVisible();
+        console.log("STATS_DIAGNOSTIC", JSON.stringify(consoleErrors));
         await expect(page.locator(".project-stats-languages")).toContainText(hostileLabel);
         await expect(page.locator(".project-stats-languages img")).toHaveCount(0);
         expect(await page.evaluate(() => window.__statsInjected === true)).toBe(false);
@@ -83,6 +91,11 @@ test.describe("Política CSP", () => {
 
     test("rechaza respuestas de estadísticas demasiado grandes", async ({ page }) => {
         let intercepted = false;
+        const consoleErrors = [];
+        page.on("console", (message) => {
+            if (message.type() === "error") consoleErrors.push(message.text());
+        });
+        page.on("pageerror", (error) => consoleErrors.push(error.message));
         await page.route(/project-stats\.json/, (route) => {
             intercepted = true;
             return route.fulfill({
@@ -96,9 +109,12 @@ test.describe("Política CSP", () => {
             })
             });
         });
+        const statsResponse = page.waitForResponse(/project-stats\.json/);
         await page.goto("wiki.html");
+        await statsResponse;
         await expect.poll(() => intercepted).toBe(true);
         await expect(page.locator(".project-stats-error")).toBeVisible();
+        console.log("STATS_SIZE_DIAGNOSTIC", JSON.stringify(consoleErrors));
         await expect(page.locator(".project-stats-loading")).toBeHidden();
     });
 
