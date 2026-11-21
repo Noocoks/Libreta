@@ -71,6 +71,50 @@ def local_target(source: Path, raw_url: str) -> tuple[Path, str] | None:
     return target, unquote(parsed.fragment)
 
 
+# Allowlist deliberada: no se admiten comodines, hosts adicionales ni directivas desconocidas.
+EXPECTED_CSP = {
+    "default-src": ["'self'"],
+    "base-uri": ["'self'"],
+    "object-src": ["'none'"],
+    "script-src": ["'self'", "https://noocoks.github.io"],
+    # unsafe-inline se conserva solo para estilos existentes; nunca se permite en scripts.
+    "style-src": ["'self'", "'unsafe-inline'", "https://noocoks.github.io"],
+    "img-src": ["'self'", "data:", "https://noocoks.github.io"],
+    "font-src": ["'self'", "https://noocoks.github.io"],
+    "connect-src": ["'self'", "https://noocoks.github.io"],
+    "frame-src": ["'self'"],
+    "form-action": ["'self'"],
+}
+
+
+def validate_csp_policy(policy: str) -> list[str]:
+    """Valida la CSP contra una allowlist exacta, incluidos orígenes y directivas."""
+    errors: list[str] = []
+    directives: dict[str, list[str]] = {}
+    for raw_directive in policy.split(";"):
+        parts = raw_directive.strip().split()
+        if not parts:
+            continue
+        name = parts[0].lower()
+        if name in directives:
+            errors.append(f"directiva duplicada: {name}")
+            continue
+        directives[name] = parts[1:]
+
+    for name in sorted(set(directives) - set(EXPECTED_CSP)):
+        errors.append(f"directiva no autorizada: {name}")
+    for name, expected_sources in EXPECTED_CSP.items():
+        actual_sources = directives.get(name)
+        if actual_sources is None:
+            errors.append(f"falta directiva: {name}")
+            continue
+        if actual_sources != expected_sources:
+            errors.append(
+                f"{name}: valores esperados {expected_sources!r}, recibidos {actual_sources!r}"
+            )
+    return errors
+
+
 def is_google_fonts_reference(reference: str) -> bool:
     """Detecta Google Fonts comparando el hostname analizado, no subcadenas."""
     try:
@@ -136,19 +180,8 @@ def check_html_fragments() -> tuple[int, int]:
         if not parser.csp:
             ERRORS.append(f"Falta Content-Security-Policy en {relative}")
         else:
-            directives = {}
-            for directive in parser.csp.split(";"):
-                parts = directive.strip().split()
-                if parts:
-                    directives[parts[0].lower()] = parts[1:]
-            for name, expected in (("default-src", "'self'"), ("base-uri", "'self'"), ("object-src", "'none'")):
-                if expected not in directives.get(name, []):
-                    ERRORS.append(f"CSP sin {name} {expected} en {relative}")
-            script_sources = directives.get("script-src", [])
-            if "'self'" not in script_sources or "https://noocoks.github.io" not in script_sources:
-                ERRORS.append(f"CSP script-src no permite únicamente los orígenes esperados en {relative}")
-            if "'unsafe-inline'" in script_sources:
-                ERRORS.append(f"CSP permite scripts inline en {relative}")
+            for policy_error in validate_csp_policy(parser.csp):
+                ERRORS.append(f"CSP inválida en {relative}: {policy_error}")
         if parser.inline_handlers:
             ERRORS.append(f"Eventos inline no permitidos en {relative}: {', '.join(parser.inline_handlers)}")
         for sandbox in parser.iframes:
