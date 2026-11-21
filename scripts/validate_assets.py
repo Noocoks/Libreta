@@ -71,6 +71,23 @@ def local_target(source: Path, raw_url: str) -> tuple[Path, str] | None:
     return target, unquote(parsed.fragment)
 
 
+def is_google_fonts_reference(reference: str) -> bool:
+    """Detecta Google Fonts comparando el hostname analizado, no subcadenas."""
+    try:
+        hostname = urlsplit(reference.strip()).hostname
+    except ValueError:
+        return False
+
+    if hostname is None:
+        return False
+
+    normalized_hostname = hostname.lower().rstrip(".")
+    return (
+        normalized_hostname == "fonts.googleapis.com"
+        or normalized_hostname == "fonts.gstatic.com"
+    )
+
+
 def check_css_resources() -> int:
     checked = 0
     for css_file in sorted((ROOT / "res").rglob("*.css")):
@@ -80,11 +97,11 @@ def check_css_resources() -> int:
             ERRORS.append(f"No se pudo leer {css_file.relative_to(ROOT)}: {error}")
             continue
 
-        if "fonts.googleapis.com" in source or "fonts.gstatic.com" in source:
-            ERRORS.append(f"Dependencia de Google Fonts no permitida en {css_file.relative_to(ROOT)}")
-
         references = [match.group(2).strip() for match in URL_PATTERN.finditer(source)]
         references.extend(match.group(2).strip() for match in IMPORT_PATTERN.finditer(source))
+
+        if any(is_google_fonts_reference(reference) for reference in references):
+            ERRORS.append(f"Dependencia de Google Fonts no permitida en {css_file.relative_to(ROOT)}")
 
         for reference in references:
             if not reference or reference.startswith("#"):
