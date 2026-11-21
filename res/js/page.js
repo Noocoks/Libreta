@@ -75,7 +75,17 @@ window.addEventListener("message", function (e) {
 
                     ev.preventDefault();
 
-                    window.parent.postMessage({ type: "navigate", path: path }, "*");
+                    var normalizedPath = typeof path === "string"
+                        ? path.replace(/^\\/+/, "")
+                        : "";
+                    var pathIndex = window.allowedTreePaths.indexOf(normalizedPath);
+
+                    if (pathIndex !== -1) {
+                        window.parent.postMessage({
+                            type: "navigate",
+                            pathIndex: pathIndex
+                        }, "*");
+                    }
 
                 };
 
@@ -187,8 +197,16 @@ document.addEventListener("click", function (e) {
         return;
     }
 
+    var pathIndex = window.allowedTreePaths.indexOf(allowedPath);
+    if (pathIndex === -1) {
+        return;
+    }
+
     e.preventDefault();
-    window.parent.postMessage({ type: "navigate", path: allowedPath }, "*");
+    window.parent.postMessage({
+        type: "navigate",
+        pathIndex: pathIndex
+    }, "*");
 
 });
 
