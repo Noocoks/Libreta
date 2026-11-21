@@ -76,7 +76,7 @@ window.addEventListener("message", function (e) {
                     ev.preventDefault();
 
                     var normalizedPath = typeof path === "string"
-                        ? path.replace(/^\\/+/, "")
+                        ? path.replace(/^\/+/, "")
                         : "";
                     var pathIndex = window.allowedTreePaths.indexOf(normalizedPath);
 
