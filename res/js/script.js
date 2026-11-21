@@ -119,7 +119,11 @@ function navigate(file_path, push = true) {
     }
 
     activeNavigationPath = allowedPath;
-    iframe.style.opacity = 0;
+    var pagePanel = iframe.closest(".page-panel");
+    if (pagePanel) {
+        pagePanel.classList.remove("is-entering");
+        pagePanel.classList.add("is-loading");
+    }
 
     iframe.onload = function () {
 
@@ -127,7 +131,10 @@ function navigate(file_path, push = true) {
             return;
         }
 
-        iframe.style.opacity = 1;
+        if (pagePanel) {
+            pagePanel.classList.remove("is-loading");
+            pagePanel.classList.add("is-entering");
+        }
 
         try {
 
@@ -154,7 +161,9 @@ function navigate(file_path, push = true) {
     };
 
     iframe.onerror = function () {
-        iframe.style.opacity = 1;
+        if (pagePanel) {
+            pagePanel.classList.remove("is-loading", "is-entering");
+        }
     };
 
     iframe.src = new URL(
