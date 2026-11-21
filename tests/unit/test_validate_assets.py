@@ -29,6 +29,12 @@ class ContentSecurityPolicyTests(unittest.TestCase):
         self.assertTrue(any("img-src" in error for error in errors))
         self.assertTrue(any("report-uri" in error for error in errors))
 
+    def test_frame_src_may_use_default_src_fallback_but_not_widen_policy(self):
+        policy = policy_from(EXPECTED_CSP)
+        self.assertEqual(validate_csp_policy(policy), [])
+        self.assertTrue(validate_csp_policy(policy + "; frame-src *"))
+
+
     def test_rejects_missing_and_duplicate_directives(self):
         sources = {key: list(value) for key, value in EXPECTED_CSP.items() if key != "object-src"}
         policy = policy_from(sources) + "; default-src 'self'"
