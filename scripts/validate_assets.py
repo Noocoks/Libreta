@@ -23,7 +23,10 @@ class HtmlDocument(HTMLParser):
         self.fragments: list[str] = []
         self.csp: str | None = None
         self.inline_handlers: list[str] = []
+        self.inline_scripts: list[str] = []
         self.inline_styles: list[str] = []
+        self.unsafe_links: list[str] = []
+        self.unsafe_blank_links: list[str] = []
         self.style_blocks = 0
         self.in_style = False
         self.iframes: list[set[str]] = []
@@ -39,9 +42,24 @@ class HtmlDocument(HTMLParser):
                 self.inline_handlers.append(name)
             if name.lower() == "style":
                 self.inline_styles.append(name)
+        if tag == "script" and not values.get("src"):
+            script_type = (values.get("type") or "").lower()
+            if script_type not in {"application/json", "application/ld+json"}:
+                self.inline_scripts.append("script inline")
         if tag == "style":
             self.style_blocks += 1
             self.in_style = True
+        if tag == "a" and values.get("href"):
+            try:
+                scheme = urlsplit(values["href"].strip()).scheme.lower()
+            except ValueError:
+                scheme = "invalid"
+            if scheme in {"javascript", "vbscript", "data"}:
+                self.unsafe_links.append(values["href"])
+            if (values.get("target") or "").lower() == "_blank":
+                rel = set((values.get("rel") or "").lower().split())
+                if not {"noopener", "noreferrer"}.issubset(rel):
+                    self.unsafe_blank_links.append(values["href"])
         if tag == "meta" and (values.get("http-equiv") or "").lower() == "content-security-policy":
             self.csp = values.get("content") or ""
         if tag == "iframe":
@@ -205,6 +223,12 @@ def check_html_fragments() -> tuple[int, int]:
                 ERRORS.append(f"CSP inválida en {relative}: {policy_error}")
         if parser.inline_handlers:
             ERRORS.append(f"Eventos inline no permitidos en {relative}: {', '.join(parser.inline_handlers)}")
+        if parser.inline_scripts:
+            ERRORS.append(f"Scripts inline no permitidos en {relative}")
+        if parser.unsafe_links:
+            ERRORS.append(f"Protocolos peligrosos en enlaces de {relative}: {parser.unsafe_links}")
+        if parser.unsafe_blank_links:
+            ERRORS.append(f"Enlaces target=_blank sin noopener noreferrer en {relative}: {parser.unsafe_blank_links}")
         if parser.inline_styles:
             ERRORS.append(f"Estilos inline no permitidos en {relative}: {', '.join(parser.inline_styles)}")
         if parser.style_blocks:
