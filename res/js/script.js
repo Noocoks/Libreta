@@ -469,6 +469,14 @@ function loadTree() {
             treeData = data;
             buildTree(data);
 
+            // En móvil y tablet, priorizar el contenido y dejar el índice como drawer.
+            // El botón ya está creado por el evento load antes de que termine este fetch.
+            var panelToggle = document.getElementById("tree_panel_toggle_btn");
+            if (window.matchMedia("(max-width: 900px)").matches &&
+                panelToggle && panelToggle.getAttribute("aria-expanded") === "true") {
+                toggle_tree_panel();
+            }
+
             var page = window.location.hash.replace(/^#/, "");
 
             if (page) {
