@@ -61,11 +61,6 @@ test.describe("Política CSP", () => {
     test("renderiza estadísticas como texto, nunca como HTML", async ({ page }) => {
         const hostileLabel = '<img src=x onerror="window.__statsInjected = true">';
         let intercepted = false;
-        const consoleErrors = [];
-        page.on("console", (message) => {
-            if (message.type() === "error") consoleErrors.push(message.text());
-        });
-        page.on("pageerror", (error) => consoleErrors.push(error.message));
         await page.route(/project-stats\.json/, (route) => {
             intercepted = true;
             return route.fulfill({
@@ -82,8 +77,7 @@ test.describe("Política CSP", () => {
         await page.goto("wiki.html");
         await statsResponse;
         await expect.poll(() => intercepted).toBe(true);
-        await page.waitForTimeout(100);
-        console.log("STATS_DIAGNOSTIC", JSON.stringify(consoleErrors));
+        await page.locator(".project-stats-trigger").hover();
         await expect(page.locator(".project-stats-data")).toBeVisible();
         await expect(page.locator(".project-stats-languages")).toContainText(hostileLabel);
         await expect(page.locator(".project-stats-languages img")).toHaveCount(0);
@@ -114,8 +108,7 @@ test.describe("Política CSP", () => {
         await page.goto("wiki.html");
         await statsResponse;
         await expect.poll(() => intercepted).toBe(true);
-        await page.waitForTimeout(100);
-        console.log("STATS_SIZE_DIAGNOSTIC", JSON.stringify(consoleErrors));
+        await page.locator(".project-stats-trigger").hover();
         await expect(page.locator(".project-stats-error")).toBeVisible();
         await expect(page.locator(".project-stats-loading")).toBeHidden();
     });
