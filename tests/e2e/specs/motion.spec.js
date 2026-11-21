@@ -10,6 +10,11 @@ test.describe("Sistema de movimiento", () => {
     test("la navegación de documentos usa estados CSS y no estilos inline", async ({ page }) => {
         await page.goto("wiki.html");
         await expect(page.locator("#tree_root > li")).toHaveCount(3);
+        const indexToggle = page.locator("#tree_panel_toggle_btn");
+        if (await indexToggle.getAttribute("aria-expanded") !== "true") {
+            await indexToggle.click();
+            await expect(indexToggle).toHaveAttribute("aria-expanded", "true");
+        }
         const iframe = page.locator("#page_frame");
         await page.locator("#tree_root > li").first().locator(":scope > a").click();
         await expect(page.frameLocator("#page_frame").locator("h1").first()).toBeVisible();
