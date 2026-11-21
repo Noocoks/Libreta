@@ -120,6 +120,11 @@ EXPECTED_CSP = {
 OPTIONAL_CSP = {"frame-src": ["'self'"]}
 
 
+def has_exact_iframe_sandbox_permissions(sandbox: set[str]) -> bool:
+    """El iframe de documentación solo puede ejecutar scripts aislados."""
+    return sandbox == {"allow-scripts"}
+
+
 def validate_csp_policy(policy: str) -> list[str]:
     """Valida la CSP contra una allowlist exacta, incluidos orígenes y directivas."""
     errors: list[str] = []
@@ -234,8 +239,10 @@ def check_html_fragments() -> tuple[int, int]:
         if parser.style_blocks:
             ERRORS.append(f"Bloques <style> inline no permitidos en {relative}")
         for sandbox in parser.iframes:
-            if "allow-scripts" not in sandbox or "allow-same-origin" in sandbox:
-                ERRORS.append(f"iframe sin aislamiento adecuado en {relative}: sandbox={sorted(sandbox)}")
+            if not has_exact_iframe_sandbox_permissions(sandbox):
+                ERRORS.append(
+                    f"iframe con permisos sandbox no autorizados en {relative}: {sorted(sandbox)}"
+                )
 
         for duplicate in sorted(parser.duplicates):
             ERRORS.append(
