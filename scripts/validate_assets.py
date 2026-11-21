@@ -23,13 +23,25 @@ class HtmlDocument(HTMLParser):
         self.fragments: list[str] = []
         self.csp: str | None = None
         self.inline_handlers: list[str] = []
+        self.inline_styles: list[str] = []
+        self.style_blocks = 0
+        self.in_style = False
         self.iframes: list[set[str]] = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "style":
+            self.in_style = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
         for name in values:
             if name.lower().startswith("on"):
                 self.inline_handlers.append(name)
+            if name.lower() == "style":
+                self.inline_styles.append(name)
+        if tag == "style":
+            self.style_blocks += 1
+            self.in_style = True
         if tag == "meta" and (values.get("http-equiv") or "").lower() == "content-security-policy":
             self.csp = values.get("content") or ""
         if tag == "iframe":
@@ -76,12 +88,14 @@ EXPECTED_CSP = {
     "default-src": ["'self'"],
     "base-uri": ["'self'"],
     "object-src": ["'none'"],
-    "script-src": ["'self'", "https://noocoks.github.io"],
-    # unsafe-inline se conserva solo para estilos existentes; nunca se permite en scripts.
-    "style-src": ["'self'", "'unsafe-inline'", "https://noocoks.github.io"],
-    "img-src": ["'self'", "data:", "https://noocoks.github.io"],
-    "font-src": ["'self'", "https://noocoks.github.io"],
-    "connect-src": ["'self'", "https://noocoks.github.io"],
+    "script-src": ["'self'"],
+    "script-src-attr": ["'none'"],
+    "style-src": ["'self'"],
+    "style-src-attr": ["'none'"],
+    "style-src-elem": ["'self'"],
+    "img-src": ["'self'", "data:"],
+    "font-src": ["'self'"],
+    "connect-src": ["'self'"],
     "form-action": ["'self'"],
 }
 # frame-src puede omitirse: default-src 'self' aplica como fallback equivalente.
@@ -191,6 +205,10 @@ def check_html_fragments() -> tuple[int, int]:
                 ERRORS.append(f"CSP inválida en {relative}: {policy_error}")
         if parser.inline_handlers:
             ERRORS.append(f"Eventos inline no permitidos en {relative}: {', '.join(parser.inline_handlers)}")
+        if parser.inline_styles:
+            ERRORS.append(f"Estilos inline no permitidos en {relative}: {', '.join(parser.inline_styles)}")
+        if parser.style_blocks:
+            ERRORS.append(f"Bloques <style> inline no permitidos en {relative}")
         for sandbox in parser.iframes:
             if "allow-scripts" not in sandbox or "allow-same-origin" in sandbox:
                 ERRORS.append(f"iframe sin aislamiento adecuado en {relative}: sandbox={sorted(sandbox)}")
