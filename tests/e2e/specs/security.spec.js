@@ -61,7 +61,7 @@ test.describe("Política CSP", () => {
     test("renderiza estadísticas como texto, nunca como HTML", async ({ page }) => {
         const hostileLabel = '<img src=x onerror="window.__statsInjected = true">';
         let intercepted = false;
-        await page.route(/project-stats\\.json/, (route) => {
+        await page.route(/project-stats\.json/, (route) => {
             intercepted = true;
             return route.fulfill({
             status: 200,
@@ -83,7 +83,7 @@ test.describe("Política CSP", () => {
 
     test("rechaza respuestas de estadísticas demasiado grandes", async ({ page }) => {
         let intercepted = false;
-        await page.route(/project-stats\\.json/, (route) => {
+        await page.route(/project-stats\.json/, (route) => {
             intercepted = true;
             return route.fulfill({
             status: 200,
