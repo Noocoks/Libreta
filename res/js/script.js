@@ -119,7 +119,8 @@ function navigate(file_path, push = true) {
     }
 
     activeNavigationPath = allowedPath;
-    iframe.style.opacity = 0;
+    var pagePanel = iframe.closest(".page-panel");
+    if (pagePanel) pagePanel.classList.add("is-loading");
 
     iframe.onload = function () {
 
@@ -127,7 +128,10 @@ function navigate(file_path, push = true) {
             return;
         }
 
-        iframe.style.opacity = 1;
+        if (pagePanel) {
+            pagePanel.classList.remove("is-loading");
+            pagePanel.classList.add("is-entering");
+        }
 
         try {
 
@@ -154,7 +158,7 @@ function navigate(file_path, push = true) {
     };
 
     iframe.onerror = function () {
-        iframe.style.opacity = 1;
+        if (pagePanel) pagePanel.classList.remove("is-loading", "is-entering");
     };
 
     iframe.src = new URL(
@@ -283,13 +287,13 @@ function toggle_tree_panel() {
     if (tree.classList.contains("hidden")) {
         tree.classList.remove("hidden");
         document.body.classList.remove("tree-hidden");
-        btn.innerHTML = left_arrow_heavy;
+        btn.textContent = "❮";
         btn.setAttribute("aria-expanded", "true");
         btn.setAttribute("aria-label", "Ocultar índice");
     } else {
         tree.classList.add("hidden");
         document.body.classList.add("tree-hidden");
-        btn.innerHTML = right_arrow_heavy;
+        btn.textContent = "❯";
         btn.setAttribute("aria-expanded", "false");
         btn.setAttribute("aria-label", "Mostrar índice");
     }
@@ -435,7 +439,7 @@ function buildTree(data) {
 
     if (!root) return;
 
-    root.innerHTML = "";
+    root.replaceChildren();
 
     if (!isValidTree(data)) return;
 
@@ -552,12 +556,12 @@ function normalizeSearchText(text) {
 
 function showAllChildren(li) {
 
-    li.style.display = "";
+    li.classList.remove("search-hidden");
 
     var children = li.querySelectorAll("li");
 
     for (var i = 0; i < children.length; i++) {
-        children[i].style.display = "";
+        children[i].classList.remove("search-hidden");
     }
 
     var subtrees = li.querySelectorAll("ul.subtree");
@@ -664,7 +668,7 @@ function filterTreeNode(li, search) {
 
     var visible = selfMatch || childMatch;
 
-    li.style.display = visible ? "" : "none";
+    li.classList.toggle("search-hidden", !visible);
 
     if (search !== "") {
 
