@@ -18,13 +18,16 @@ test.describe("Sistema de movimiento", () => {
                 cardSweepLayer: getComputedStyle(card, "::after").zIndex,
                 corePulse: getComputedStyle(core, "::before").animationName,
                 outerOrbit: getComputedStyle(document.querySelector(".home-visual-orbit--outer")).animationName,
-                titleAnimation: getComputedStyle(document.querySelector(".home-title span")).animationName
+                titleAnimation: getComputedStyle(document.querySelector(".home-title span")).animationName,
+                compactViewport: window.matchMedia("(max-width: 600px)").matches
             };
         });
 
         expect(motion.cardAnimation).toContain("libreta-enter");
         expect(motion.cardAnimation).toContain("libreta-card-drift");
-        expect(motion.cardSweep).toBe("libreta-scan");
+        // En móvil se desactiva deliberadamente el barrido para reducir
+        // movimiento decorativo y trabajo de composición en pantallas pequeñas.
+        expect(motion.cardSweep).toBe(motion.compactViewport ? "none" : "libreta-scan");
         expect(motion.cardSweepLayer).toBe("0");
         expect(motion.corePulse).toBe("libreta-ring-pulse");
         expect(motion.outerOrbit).toBe("home-orbit");
