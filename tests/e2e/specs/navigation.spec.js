@@ -110,6 +110,7 @@ test.describe("Validación de mensajes del iframe", () => {
 
     test("ignora mensajes falsificados desde la ventana principal", async ({ page }) => {
         await page.goto("wiki.html");
+        await openIndex(page);
         const firstSection = page.locator("#tree_root > li").first();
         await expect(firstSection).toBeVisible();
         await firstSection.locator(":scope > a").click();
@@ -174,7 +175,7 @@ test.describe("Enlaces del contenido", () => {
             body.appendChild(link);
         });
 
-        await content.locator("#external-link-security-test").click({ force: true });
+        await content.locator("#external-link-security-test").click();
         await expect(iframe).toHaveAttribute("src", originalSrc);
         await expect(page).toHaveURL(originalUrl);
     });
