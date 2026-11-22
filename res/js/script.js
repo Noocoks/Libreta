@@ -118,7 +118,10 @@ function navigate(file_path, push = true) {
 
     activeNavigationPath = allowedPath;
     var pagePanel = iframe.closest(".page-panel");
-    if (pagePanel) pagePanel.classList.add("is-loading");
+    if (pagePanel) {
+        pagePanel.classList.remove("is-entering");
+        pagePanel.classList.add("is-loading");
+    }
 
     iframe.onload = function () {
 
