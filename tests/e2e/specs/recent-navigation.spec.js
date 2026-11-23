@@ -71,11 +71,11 @@ test.describe("Historial y navegación inteligente", () => {
         await navigateRootSection(page, 0, "Ciberseguridad");
         await navigateRootSection(page, 1, "Android");
 
-        await page.goBack();
+        await page.evaluate(() => window.history.back());
         await expect(page).toHaveURL(/#subpags\/ciberseguridad\/index\.html$/);
         await expect(page.frameLocator("#page_frame").locator("h1").first()).toHaveText("Ciberseguridad");
 
-        await page.goForward();
+        await page.evaluate(() => window.history.forward());
         await expect(page).toHaveURL(/#subpags\/android\/index\.html$/);
         await expect(page.frameLocator("#page_frame").locator("h1").first()).toHaveText("Android");
     });
