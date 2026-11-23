@@ -59,11 +59,16 @@ test.describe("Índice dinámico de lectura", () => {
         await expect(progress).toHaveAttribute("role", "progressbar");
         await expect(progress).toHaveAttribute("aria-valuenow", /\\d+/);
         await frame.locator(".page").evaluate(element => {
-            element.style.minHeight = "2400px";
+            for (let i = 0; i < 80; i++) {
+                const paragraph = document.createElement("p");
+                paragraph.textContent = "Contenido de prueba para ampliar la altura del documento y comprobar el progreso de lectura.";
+                element.appendChild(paragraph);
+            }
+            document.documentElement.scrollTop = document.documentElement.scrollHeight;
             window.dispatchEvent(new Event("scroll"));
         });
         await expect(progress).toBeVisible();
-        await expect(progress.locator(".reading-progress-fill")).toHaveCSS("transform", /matrix/);
+        await expect(progress).toHaveAttribute("aria-valuenow", "100");
     });
 
     test("no crea controles si el documento no contiene encabezados útiles", async ({ page }) => {
