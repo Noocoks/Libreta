@@ -80,7 +80,7 @@
     function collectKnowledge(tree) {
         if (!tree || typeof tree !== "object" || Array.isArray(tree) ||
             typeof tree.title !== "string" || !Array.isArray(tree.sections) ||
-            tree.sections.length === 0 || tree.sections.length > 30) {
+            tree.sections.length > 30) {
             throw new Error("La estructura del índice no es válida");
         }
 
