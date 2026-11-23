@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="/Libreta/res/css/styles.css" type="text/css">
     <script src="/Libreta/res/js/project-stats.js" defer></script>
+    <script src="/Libreta/res/js/reader-preferences.js" defer></script>
     <script src="/Libreta/res/js/script.js"></script>
 </head>
 
@@ -30,6 +31,34 @@
                 <div class="index-title">
                     <h1>Índice</h1>
                 </div>
+
+                <details class="reader-settings" id="reader-settings">
+                    <summary>Preferencias de lectura</summary>
+                    <div class="reader-settings-content">
+                        <label for="reader-textSize">Tamaño del texto</label>
+                        <select id="reader-textSize">
+                            <option value="small">Pequeño</option>
+                            <option value="normal">Normal</option>
+                            <option value="large">Grande</option>
+                        </select>
+                        <label for="reader-readingWidth">Ancho de lectura</label>
+                        <select id="reader-readingWidth">
+                            <option value="compact">Compacto</option>
+                            <option value="normal">Normal</option>
+                            <option value="wide">Amplio</option>
+                        </select>
+                        <label for="reader-spacing">Espaciado</label>
+                        <select id="reader-spacing">
+                            <option value="compact">Reducido</option>
+                            <option value="normal">Normal</option>
+                            <option value="relaxed">Cómodo</option>
+                        </select>
+                        <div class="reader-settings-actions">
+                            <button id="reader-settings-reset" type="button">Restablecer</button>
+                            <span id="reader-settings-status" role="status" aria-live="polite"></span>
+                        </div>
+                    </div>
+                </details>
 
                 <!-- Botones de control -->
                 <div class="index-controls">
