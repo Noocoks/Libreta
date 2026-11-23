@@ -84,6 +84,25 @@
                     </div>
                 </details>
 
+                <details class="knowledge-dashboard" id="knowledge-dashboard">
+                    <summary>Panel de conocimiento</summary>
+                    <div class="knowledge-dashboard-content">
+                        <p class="knowledge-dashboard-loading" id="knowledge-dashboard-loading" role="status">Calculando métricas del contenido...</p>
+                        <div id="knowledge-dashboard-content" hidden>
+                            <div class="knowledge-dashboard-metrics" id="knowledge-dashboard-metrics"
+                                aria-label="Resumen de la documentación"></div>
+                            <section class="knowledge-dashboard-areas" id="knowledge-dashboard-areas"
+                                aria-label="Distribución por área"></section>
+                            <section class="knowledge-dashboard-tags" id="knowledge-dashboard-tags"
+                                aria-label="Temas más documentados"></section>
+                        </div>
+                        <div class="knowledge-dashboard-error" id="knowledge-dashboard-error" role="alert" hidden>
+                            <span>No se han podido calcular las métricas del contenido.</span>
+                            <button id="knowledge-dashboard-retry" type="button">Reintentar</button>
+                        </div>
+                    </div>
+                </details>
+
                 <!-- Arbol de contenido -->
                 <ul id="tree_root" class="outermost"></ul>
 
@@ -135,6 +154,7 @@
         </div>
 
     </div>
+    <script src="/Libreta/res/js/knowledge-dashboard.js" defer></script>
     <script src="/Libreta/res/js/wiki-controls.js" defer></script>
 </body>
 
