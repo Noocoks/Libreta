@@ -98,7 +98,8 @@ test.describe("Bloques de código avanzados", () => {
             });
             document.execCommand = (command) => {
                 if (command !== "copy") return false;
-                const fallback = document.querySelector(".code-copy-fallback");
+                const fallback = document.querySelector("textarea.code-copy-fallback");
+                window.__libretaFallbackWasTextarea = Boolean(fallback && fallback.tagName === "TEXTAREA");
                 window.__libretaFallbackCopied = fallback ? fallback.value : null;
                 return true;
             };
@@ -107,6 +108,7 @@ test.describe("Bloques de código avanzados", () => {
 
         const toolbar = page.locator(".page .code-block-toolbar").last();
         await toolbar.locator(".code-block-copy").click();
+        await expect.poll(() => page.evaluate(() => window.__libretaFallbackWasTextarea)).toBe(true);
         await expect.poll(() => page.evaluate(() => window.__libretaFallbackCopied)).toBe(source);
         await expect(toolbar.locator(".code-block-copy")).toHaveText("Copiado");
         await expect(page.locator(".code-copy-fallback")).toHaveCount(0);
