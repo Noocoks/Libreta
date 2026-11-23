@@ -174,37 +174,38 @@ function getAllowedPath(file_path) {
         return null;
     }
 
-    function existsInTree(nodes) {
+    /*
+     * Devuelve la ruta canónica almacenada en el árbol, nunca la cadena
+     * proporcionada por la URL. La comparación exacta aplica la allowlist:
+     * el valor que llega al sink de navegación procede de tree.json.
+     */
+    function findCanonicalTreePath(nodes, candidate) {
         for (var i = 0; i < nodes.length; i++) {
             var node = nodes[i];
 
-            if (
-                typeof node.path === "string" &&
-                node.path.replace(/^\/+/, "") === relativePath
-            ) {
-                return true;
+            if (typeof node.path === "string") {
+                var canonicalPath = node.path.replace(/^\\/+/, "");
+                if (canonicalPath === candidate) {
+                    return canonicalPath;
+                }
             }
 
-            if (
-                node.children &&
-                existsInTree(node.children)
-            ) {
-                return true;
+            if (Array.isArray(node.children)) {
+                var childPath = findCanonicalTreePath(node.children, candidate);
+                if (childPath !== null) {
+                    return childPath;
+                }
             }
         }
 
-        return false;
-    }
-
-    if (
-        !treeData ||
-        !Array.isArray(treeData.sections) ||
-        !existsInTree(treeData.sections)
-    ) {
         return null;
     }
 
-    return relativePath;
+    if (!treeData || !Array.isArray(treeData.sections)) {
+        return null;
+    }
+
+    return findCanonicalTreePath(treeData.sections, relativePath);
 }
 
 function navigate(file_path, push = true) {
