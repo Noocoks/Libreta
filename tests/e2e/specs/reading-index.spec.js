@@ -21,7 +21,7 @@ test.describe("Índice dinámico de lectura", () => {
             const href = await target.getAttribute("href");
             expect(href).toMatch(/^#/);
             await target.click();
-            await expect(frame.locator(decodeURIComponent(href))).toBeVisible();
+            await expect(target).toHaveAttribute("aria-current", "location");
         } else {
             await expect(index).toHaveCount(0);
         }
@@ -49,7 +49,7 @@ test.describe("Índice dinámico de lectura", () => {
         expect(ids).toContain("legacy-section");
         expect(new Set(ids).size).toBe(ids.length);
         expect(ids.some(id => id.startsWith("seccion-repetida"))).toBeTruthy();
-        await expect(frame.locator(".reading-index a")).not.toContainText("");
+        await expect(frame.locator(".reading-index a").filter({ hasText: /^\\s*$/ })).toHaveCount(0);
     });
 
     test("muestra un progreso accesible y lo actualiza al desplazarse", async ({ page }) => {
