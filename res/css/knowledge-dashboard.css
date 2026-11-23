@@ -53,6 +53,11 @@
     gap: .55rem;
 }
 
+/* La regla display:grid no debe anular el atributo HTML hidden. */
+.knowledge-dashboard-error[hidden] {
+    display: none;
+}
+
 .knowledge-dashboard-error button {
     justify-self: start;
     min-height: 32px;
