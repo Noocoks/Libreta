@@ -76,7 +76,6 @@ test.describe("Historial y navegación inteligente", () => {
             hash: window.location.hash,
             state: window.history.state
         }));
-        console.log("LIBRETA_HISTORY_DEBUG", JSON.stringify({ initialHistoryLength, navigationState }));
         expect(navigationState.length).toBeGreaterThanOrEqual(initialHistoryLength + 2);
 
         await page.evaluate(() => window.history.back());
@@ -116,5 +115,46 @@ test.describe("Historial y navegación inteligente", () => {
         await openRecentPanel(page);
         await expect(page.locator("#recent-pages-empty")).toBeVisible();
         await expect(page.locator("#recent-pages-list li")).toHaveCount(0);
+    });
+
+    test("limita el historial a ocho páginas y no duplica visitas repetidas", async ({ page }) => {
+        await openWiki(page);
+        const paths = [
+            "subpags/ciberseguridad/index.html",
+            "subpags/android/index.html",
+            "subpags/ia/index.html",
+            "subpags/ciberseguridad/adfb/index.html",
+            "subpags/ciberseguridad/adfb/hydra/index.html",
+            "subpags/ciberseguridad/adfb/medusa/index.html",
+            "subpags/ciberseguridad/efrp/index.html",
+            "subpags/ciberseguridad/osint/index.html",
+            "subpags/ciberseguridad/phishing/index.html"
+        ];
+        await page.evaluate(items => {
+            items.forEach(path => window.navigate(path, true));
+            window.navigate(items[items.length - 1], true);
+        }, paths);
+        await openRecentPanel(page);
+
+        const entries = page.locator("#recent-pages-list .recent-page-link");
+        await expect(entries).toHaveCount(8);
+        await expect(entries.first()).toHaveText("Phishing");
+        await expect(entries.filter({ hasText: "Ciberseguridad" })).toHaveCount(0);
+    });
+
+    test("mantiene la navegación funcional si localStorage está bloqueado", async ({ page }) => {
+        await page.addInitScript(() => {
+            ["getItem", "setItem", "removeItem"].forEach(method => {
+                Object.defineProperty(Storage.prototype, method, {
+                    configurable: true,
+                    value() { throw new DOMException("Almacenamiento bloqueado", "SecurityError"); }
+                });
+            });
+        });
+        await openWiki(page);
+        await navigateRootSection(page, 0, "Ciberseguridad");
+        await openRecentPanel(page);
+        await expect(page.locator("#recent-pages-list .recent-page-link")).toHaveCount(1);
+        await expect(page.locator("#recent-pages-list .recent-page-link").first()).toHaveText("Ciberseguridad");
     });
 });
