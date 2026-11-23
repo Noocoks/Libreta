@@ -11,6 +11,7 @@ async function openKnowledgePanel(page) {
     const drawer = page.locator("#tree_panel_toggle_btn");
     const isMobile = await page.evaluate(() => window.matchMedia("(max-width: 900px)").matches);
     if (isMobile) {
+        // Esperar a que loadTree aplique el cierre automático del drawer.
         await expect(drawer).toHaveAttribute("aria-expanded", "false");
         await drawer.click();
         await expect(drawer).toHaveAttribute("aria-expanded", "true");
