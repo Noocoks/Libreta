@@ -442,16 +442,15 @@ document.addEventListener("click", function (ev) {
 
         if (!entries.length) return;
 
-        var progress = document.createElement("div");
+        var progress = document.createElement("progress");
         progress.className = "reading-progress";
+        progress.max = 100;
+        progress.value = 0;
         progress.setAttribute("role", "progressbar");
         progress.setAttribute("aria-label", "Progreso de lectura");
         progress.setAttribute("aria-valuemin", "0");
         progress.setAttribute("aria-valuemax", "100");
         progress.setAttribute("aria-valuenow", "0");
-        var progressFill = document.createElement("span");
-        progressFill.className = "reading-progress-fill";
-        progress.appendChild(progressFill);
         document.body.appendChild(progress);
 
         var nav = document.createElement("nav");
@@ -514,7 +513,7 @@ document.addEventListener("click", function (ev) {
                 ? Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100))
                 : 100;
             var value = Math.round(percent);
-            progressFill.style.transform = "scaleX(" + (percent / 100) + ")";
+            progress.value = value;
             progress.setAttribute("aria-valuenow", String(value));
             progress.setAttribute("aria-valuetext", value + "% leído");
         }
