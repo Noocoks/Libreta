@@ -14,8 +14,8 @@ on:
 permissions: {}
 
 concurrency:
-  group: e2e-${{ github.ref }}
-  cancel-in-progress: true
+  group: e2e-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
 
 jobs:
   firefox:

@@ -1,6 +1,107 @@
 
 var treeData = null;
 var activeNavigationPath = null;
+var recentPages = [];
+var RECENT_PAGES_KEY = "libreta.recent-pages.v1";
+var RECENT_PAGES_LIMIT = 8;
+
+function findTreeNode(nodes, targetPath) {
+    if (!Array.isArray(nodes)) return null;
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        if (node && typeof node.path === "string" &&
+            node.path.replace(/^\/+/, "") === targetPath) return node;
+        var child = findTreeNode(node && node.children, targetPath);
+        if (child) return child;
+    }
+    return null;
+}
+
+function renderRecentPages() {
+    var list = document.getElementById("recent-pages-list");
+    var empty = document.getElementById("recent-pages-empty");
+    var clear = document.getElementById("recent-pages-clear");
+    if (!list || !empty || !clear) return;
+
+    list.replaceChildren();
+    empty.hidden = recentPages.length > 0;
+    clear.disabled = recentPages.length === 0;
+
+    recentPages.forEach(function (entry) {
+        var item = document.createElement("li");
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "recent-page-link";
+        button.textContent = entry.title;
+        button.title = entry.path;
+        button.addEventListener("click", function () {
+            navigate(entry.path, true);
+        });
+        item.appendChild(button);
+        list.appendChild(item);
+    });
+}
+
+function loadRecentPages() {
+    recentPages = [];
+    try {
+        var stored = window.localStorage.getItem(RECENT_PAGES_KEY);
+        if (stored) {
+            var parsed = JSON.parse(stored);
+            if (parsed && parsed.version === 1 && Array.isArray(parsed.items)) {
+                var allowed = collectAllowedPaths(treeData.sections);
+                parsed.items.forEach(function (entry) {
+                    if (!entry || typeof entry.path !== "string" ||
+                        allowed.indexOf(entry.path) === -1 ||
+                        recentPages.some(function (item) { return item.path === entry.path; })) return;
+                    var node = findTreeNode(treeData.sections, entry.path);
+                    if (!node || typeof node.name !== "string") return;
+                    recentPages.push({ path: entry.path, title: node.name });
+                });
+                recentPages = recentPages.slice(0, RECENT_PAGES_LIMIT);
+            }
+        }
+    } catch (error) {
+        recentPages = [];
+    }
+    renderRecentPages();
+}
+
+function saveRecentPages() {
+    try {
+        window.localStorage.setItem(RECENT_PAGES_KEY, JSON.stringify({
+            version: 1,
+            items: recentPages
+        }));
+    } catch (error) {
+        /* El historial sigue disponible durante la sesión si el almacenamiento está bloqueado. */
+    }
+}
+
+function rememberRecentPage(path) {
+    var node = findTreeNode(treeData.sections, path);
+    if (!node) return;
+
+    recentPages = recentPages.filter(function (entry) {
+        return entry.path !== path;
+    });
+    recentPages.unshift({ path: path, title: node.name });
+    recentPages = recentPages.slice(0, RECENT_PAGES_LIMIT);
+    saveRecentPages();
+    renderRecentPages();
+}
+
+function clearRecentPages() {
+    recentPages = [];
+    try {
+        window.localStorage.removeItem(RECENT_PAGES_KEY);
+    } catch (error) {
+        /* El estado en memoria se limpia aunque el almacenamiento no esté disponible. */
+    }
+    renderRecentPages();
+    var status = document.getElementById("recent-pages-status");
+    if (status) status.textContent = "Historial limpiado";
+}
 
 /* ==============================
    ROUTER / IFRAME NAVIGATION
@@ -73,37 +174,38 @@ function getAllowedPath(file_path) {
         return null;
     }
 
-    function existsInTree(nodes) {
+    /*
+     * Devuelve la ruta canónica almacenada en el árbol, nunca la cadena
+     * proporcionada por la URL. La comparación exacta aplica la allowlist:
+     * el valor que llega al sink de navegación procede de tree.json.
+     */
+    function findCanonicalTreePath(nodes, candidate) {
         for (var i = 0; i < nodes.length; i++) {
             var node = nodes[i];
 
-            if (
-                typeof node.path === "string" &&
-                node.path.replace(/^\/+/, "") === relativePath
-            ) {
-                return true;
+            if (typeof node.path === "string") {
+                var canonicalPath = node.path.replace(/^\/+/, "");
+                if (canonicalPath === candidate) {
+                    return canonicalPath;
+                }
             }
 
-            if (
-                node.children &&
-                existsInTree(node.children)
-            ) {
-                return true;
+            if (Array.isArray(node.children)) {
+                var childPath = findCanonicalTreePath(node.children, candidate);
+                if (childPath !== null) {
+                    return childPath;
+                }
             }
         }
 
-        return false;
-    }
-
-    if (
-        !treeData ||
-        !Array.isArray(treeData.sections) ||
-        !existsInTree(treeData.sections)
-    ) {
         return null;
     }
 
-    return relativePath;
+    if (!treeData || !Array.isArray(treeData.sections)) {
+        return null;
+    }
+
+    return findCanonicalTreePath(treeData.sections, relativePath);
 }
 
 function navigate(file_path, push = true) {
@@ -117,6 +219,7 @@ function navigate(file_path, push = true) {
     }
 
     activeNavigationPath = allowedPath;
+    rememberRecentPage(allowedPath);
     var pagePanel = iframe.closest(".page-panel");
     if (pagePanel) {
         pagePanel.classList.remove("is-entering");
@@ -162,13 +265,24 @@ function navigate(file_path, push = true) {
         if (pagePanel) pagePanel.classList.remove("is-loading", "is-entering");
     };
 
-    iframe.src = new URL(
-        allowedPath,
-        window.location.href
-    ).href;
+    var targetUrl = new URL(allowedPath, window.location.href).href;
+    if (iframe.hasAttribute("src") && iframe.contentWindow) {
+        /* Reemplazar el documento hijo evita que sus cargas contaminen atrás/adelante del padre. */
+        try {
+            iframe.contentWindow.location.replace(targetUrl);
+        } catch (error) {
+            iframe.src = targetUrl;
+        }
+    } else {
+        iframe.src = targetUrl;
+    }
 
     if (push) {
-        window.location.hash = allowedPath;
+        var nextUrl = new URL(window.location.href);
+        nextUrl.hash = allowedPath;
+        if (nextUrl.href !== window.location.href) {
+            window.history.pushState({ libretaPath: allowedPath }, "", nextUrl.href);
+        }
     }
 
     return true;
@@ -473,6 +587,7 @@ function loadTree() {
 
             treeData = data;
             buildTree(data);
+            loadRecentPages();
 
             // En móvil y tablet, priorizar el contenido y dejar el índice como drawer.
             // El botón ya está creado por el evento load antes de que termine este fetch.
@@ -482,11 +597,9 @@ function loadTree() {
                 toggle_tree_panel();
             }
 
-            var page = window.location.hash.replace(/^#/, "");
-
-            if (page) {
-                navigate(page, false);
-            }
+            // Reutiliza la validación del historial también en la carga inicial.
+            // Los fragmentos manipulados se eliminan antes de cualquier navegación.
+            syncNavigationFromLocation();
         })
 
         .catch(function (error) {
@@ -850,15 +963,54 @@ function syncFrameTags(tag) {
 /* ==============================
    BROWSER HISTORY NAVIGATION
 ============================== */
-window.addEventListener("hashchange", function () {
-    var path = window.location.hash.replace(/^#/, "");
-
-    if (path && path !== activeNavigationPath) {
-        navigate(path, false);
+function syncNavigationFromLocation() {
+    var path = window.location.hash.slice(1);
+    try {
+        path = decodeURIComponent(path);
+    } catch (error) {
+        path = "";
     }
-});
+
+    path = (path || "").trim().replace(/^\/+/, "");
+
+    if (!path) {
+        activeNavigationPath = null;
+        var iframe = getIframe();
+        if (iframe && iframe.hasAttribute("src")) iframe.removeAttribute("src");
+        return;
+    }
+
+    /*
+     * Convierte el fragmento externo en una ruta canónica del árbol autorizado
+     * antes de entregarlo al router. Nunca se pasa el fragmento original a
+     * navigate ni al destino del iframe.
+     */
+    var canonicalPath = getAllowedPath(path);
+    if (!canonicalPath) {
+        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+        activeNavigationPath = null;
+        var blockedIframe = getIframe();
+        if (blockedIframe && blockedIframe.hasAttribute("src")) blockedIframe.removeAttribute("src");
+        return;
+    }
+
+    if (canonicalPath !== activeNavigationPath && !navigate(canonicalPath, false)) {
+        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+        activeNavigationPath = null;
+        var invalidIframe = getIframe();
+        if (invalidIframe && invalidIframe.hasAttribute("src")) invalidIframe.removeAttribute("src");
+    }
+}
+
+window.addEventListener("popstate", syncNavigationFromLocation);
+window.addEventListener("hashchange", syncNavigationFromLocation);
 
 window.addEventListener("load", function () {
+
+    var clearRecentButton = document.getElementById("recent-pages-clear");
+    if (clearRecentButton) {
+        clearRecentButton.addEventListener("click", clearRecentPages);
+    }
 
     loadTree();
 
