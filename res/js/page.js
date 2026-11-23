@@ -709,7 +709,6 @@ document.addEventListener("click", function (ev) {
         });
 
         shell.appendChild(gutter);
-        shell.appendChild(pre);
         shell.dataset.lineCount = String(lineCount);
         return { shell: shell, gutter: gutter };
     }
@@ -853,9 +852,11 @@ document.addEventListener("click", function (ev) {
             details.appendChild(summary);
             details.appendChild(toolbar);
             details.appendChild(built.shell);
+            built.shell.appendChild(pre);
         } else {
             pre.parentNode.insertBefore(toolbar, pre);
             pre.parentNode.replaceChild(built.shell, pre);
+            built.shell.appendChild(pre);
         }
     }
 
