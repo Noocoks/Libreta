@@ -85,4 +85,15 @@ test.describe("Índice dinámico de lectura", () => {
         await expect(frame.locator(".reading-index")).toHaveCount(0);
         await expect(frame.locator(".reading-progress")).toHaveCount(0);
     });
+
+    test("reinicializa el índice sin duplicar controles ni mantener instancias anteriores", async ({ page }) => {
+        await openDocument(page);
+        const frame = page.frameLocator("#page_frame");
+        await frame.locator(".page").evaluate(() => {
+            window.initReadingIndex();
+            window.initReadingIndex();
+        });
+        await expect(frame.locator(".reading-index")).toHaveCount(1);
+        await expect(frame.locator(".reading-progress")).toHaveCount(1);
+    });
 });
