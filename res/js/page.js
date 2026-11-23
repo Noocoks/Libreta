@@ -685,7 +685,7 @@ document.addEventListener("click", function (ev) {
         if (cursor < line.length) container.appendChild(document.createTextNode(line.slice(cursor)));
     }
 
-    function createCodeShell(pre, code, source, lineCount) {
+    function createCodeShell(pre, code, source, lineCount, language) {
         var shell = document.createElement("div");
         shell.className = "code-block-shell";
 
@@ -701,7 +701,7 @@ document.addEventListener("click", function (ev) {
         lines.forEach(function (line, index) {
             var lineElement = document.createElement("span");
             lineElement.className = "code-line";
-            appendTokenizedLine(lineElement, line, code.dataset.detectedLanguage || "");
+            appendTokenizedLine(lineElement, line, language);
             code.appendChild(lineElement);
             if (index < lines.length - 1 || hasTrailingNewline) {
                 code.appendChild(document.createTextNode("\n"));
@@ -830,10 +830,9 @@ document.addEventListener("click", function (ev) {
         var lines = normalized.split("\n");
         var lineCount = Math.max(1, lines.length - (lines.length > 1 && lines[lines.length - 1] === "" ? 1 : 0));
 
-        code.dataset.detectedLanguage = language;
         code.replaceChildren();
 
-        var built = createCodeShell(pre, code, source, lineCount);
+        var built = createCodeShell(pre, code, source, lineCount, language);
         var toolbar = createToolbar(language, lineCount, built.shell, built.gutter, source);
 
         var existingCard = pre.closest(".code-card");
