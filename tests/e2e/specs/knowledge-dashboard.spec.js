@@ -69,7 +69,7 @@ test.describe("Panel de conocimiento", () => {
         await expect(metrics.nth(2)).toContainText("Páginas etiquetadas");
         await expect(metrics.nth(2)).toContainText(String(expected.taggedPages));
         await expect(metrics.nth(3)).toContainText("Etiquetas únicas");
-        await expect(metrics.nth(3)).toContainText(String(expected.tags));
+        await expect(metrics.nth(3)).toContainText(String(expected.tags.length));
 
         const areaRows = page.locator("#knowledge-dashboard-areas .knowledge-area-row");
         await expect(areaRows).toHaveCount(expected.areas);
