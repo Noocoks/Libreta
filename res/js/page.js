@@ -696,12 +696,16 @@ document.addEventListener("click", function (ev) {
 
         var normalized = source.replace(/\r\n?/g, "\n");
         var lines = normalized.split("\n");
+        var hasTrailingNewline = lines.length > 1 && lines[lines.length - 1] === "";
+        if (hasTrailingNewline) lines.pop();
         lines.forEach(function (line, index) {
             var lineElement = document.createElement("span");
             lineElement.className = "code-line";
             appendTokenizedLine(lineElement, line, code.dataset.detectedLanguage || "");
             code.appendChild(lineElement);
-            if (index < lines.length - 1) code.appendChild(document.createTextNode("\n"));
+            if (index < lines.length - 1 || hasTrailingNewline) {
+                code.appendChild(document.createTextNode("\n"));
+            }
 
             var number = document.createElement("li");
             number.textContent = String(index + 1);
