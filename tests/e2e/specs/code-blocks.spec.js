@@ -39,22 +39,20 @@ test.describe("Bloques de código avanzados", () => {
         }, source);
 
         const block = page.locator(".page .code-block-shell").last();
-        await expect(block.locator(".code-block-language")).toHaveText("JavaScript");
+        const toolbar = page.locator(".page .code-block-toolbar").last();
+        await expect(toolbar.locator(".code-block-language")).toHaveText("JavaScript");
         await expect(block.locator(".code-token-keyword").first()).toHaveText("const");
         await expect(block.locator(".code-token-string")).toContainText("<img");
         await expect(block.locator("img, script")).toHaveCount(0);
 
-        const toggle = block.locator("xpath=preceding-sibling::div[contains(@class,'code-block-toolbar')]")
-            .locator(".code-block-lines-toggle");
+        const toggle = toolbar.locator(".code-block-lines-toggle");
         await toggle.click();
         await expect(toggle).toHaveAttribute("aria-pressed", "true");
         await expect(block.locator(".code-block-line-gutter li")).toHaveCount(2);
 
-        await block.locator("xpath=preceding-sibling::div[contains(@class,'code-block-toolbar')]")
-            .locator(".code-block-copy").click();
+        await toolbar.locator(".code-block-copy").click();
         await expect.poll(() => page.evaluate(() => window.__libretaCopiedCode)).toBe(source);
-        await expect(block.locator("xpath=preceding-sibling::div[contains(@class,'code-block-toolbar')] .code-block-copy"))
-            .toHaveText("Copiado");
+        await expect(toolbar.locator(".code-block-copy")).toHaveText("Copiado");
     });
 
     test("pliega bloques largos y permite desplegarlos con teclado o ratón", async ({ page }) => {
@@ -100,7 +98,8 @@ test.describe("Bloques de código avanzados", () => {
             });
             document.execCommand = (command) => {
                 if (command !== "copy") return false;
-                window.__libretaFallbackCopied = document.activeElement.value;
+                const fallback = document.querySelector(".code-copy-fallback");
+                window.__libretaFallbackCopied = fallback ? fallback.value : null;
                 return true;
             };
             window.initCodeBlocks();
