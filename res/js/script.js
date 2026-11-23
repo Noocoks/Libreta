@@ -597,11 +597,9 @@ function loadTree() {
                 toggle_tree_panel();
             }
 
-            var page = window.location.hash.replace(/^#/, "");
-
-            if (page) {
-                navigate(page, false);
-            }
+            // Reutiliza la validación del historial también en la carga inicial.
+            // Los fragmentos manipulados se eliminan antes de cualquier navegación.
+            syncNavigationFromLocation();
         })
 
         .catch(function (error) {
