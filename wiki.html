@@ -72,6 +72,18 @@
                     <button id="tree_search_clear" type="button" aria-label="Limpiar búsqueda" title="Limpiar búsqueda">✘</button>
                 </div>
 
+                <details class="recent-pages" id="recent-pages">
+                    <summary>Páginas recientes</summary>
+                    <div class="recent-pages-content">
+                        <p id="recent-pages-empty">Todavía no has visitado ninguna página.</p>
+                        <ul id="recent-pages-list" aria-label="Páginas visitadas recientemente"></ul>
+                        <div class="recent-pages-actions">
+                            <button id="recent-pages-clear" type="button" disabled>Limpiar historial</button>
+                            <span id="recent-pages-status" role="status" aria-live="polite"></span>
+                        </div>
+                    </div>
+                </details>
+
                 <!-- Arbol de contenido -->
                 <ul id="tree_root" class="outermost"></ul>
 
