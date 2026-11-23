@@ -410,7 +410,12 @@ document.addEventListener("click", function (ev) {
 
     function initReadingIndex() {
         var page = document.querySelector(".page");
-        if (!page || page.querySelector(".reading-index")) return;
+        if (!page) return;
+
+        var previousIndex = page.querySelector(".reading-index");
+        if (previousIndex) previousIndex.remove();
+        var previousProgress = document.querySelector(".reading-progress");
+        if (previousProgress) previousProgress.remove();
 
         var headings = Array.prototype.slice.call(
             page.querySelectorAll("h2, h3, h4")
@@ -422,9 +427,10 @@ document.addEventListener("click", function (ev) {
 
         if (!headings.length) return;
 
+        var headingSet = new Set(headings);
         var usedIds = new Set(
             Array.prototype.map.call(document.querySelectorAll("[id]"), function (element) {
-                return element.id;
+                return !headingSet.has(element) ? element.id : "";
             }).filter(Boolean)
         );
         var entries = [];
@@ -554,8 +560,9 @@ document.addEventListener("click", function (ev) {
             }
         }
 
-        window.initReadingIndex = initReadingIndex;
     }
+
+    window.initReadingIndex = initReadingIndex;
 
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", initReadingIndex, { once: true });
