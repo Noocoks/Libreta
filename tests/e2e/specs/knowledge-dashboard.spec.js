@@ -80,12 +80,44 @@ test.describe("Panel de conocimiento", () => {
         const renderedTagNames = await page.locator(
             "#knowledge-dashboard-tags .knowledge-tag-name"
         ).allTextContents();
-        // Se valida el contenido real y el orden de relevancia, sin fijar un total de etiquetas.
-        expect(renderedTagNames.length).toBeGreaterThan(0);
-        expect(renderedTagNames.length).toBeLessThanOrEqual(expected.tags.length);
+        // El panel puede no tener etiquetas: en ese caso debe mostrar el estado vacío.
+        expect(renderedTagNames.length).toBe(Math.min(expected.tags.length, 12));
         expect(renderedTagNames).toEqual(
-            expected.tags.slice(0, renderedTagNames.length).map(tag => tag.name)
+            expected.tags.slice(0, 12).map(tag => tag.name)
         );
+        if (expected.tags.length === 0) {
+            await expect(page.locator("#knowledge-dashboard-tags .knowledge-empty"))
+                .toHaveText("Todavía no hay etiquetas.");
+        } else {
+            await expect(page.locator("#knowledge-dashboard-tags .knowledge-empty"))
+                .toHaveCount(0);
+        }
+    });
+
+    test("mantiene el panel operativo cuando el árbol todavía no tiene etiquetas", async ({ page }) => {
+        await page.route("**/res/json/tree.json", route => route.fulfill({
+            status: 200,
+            contentType: "application/json",
+            body: JSON.stringify({
+                title: "Prueba sin etiquetas",
+                sections: [{
+                    name: "Área inicial",
+                    path: "subpags/inicial/index.html"
+                }]
+            })
+        }));
+
+        await openKnowledgeDashboard(page);
+
+        const metrics = page.locator("#knowledge-dashboard-metrics .knowledge-metric");
+        await expect(metrics).toHaveCount(4);
+        await expect(metrics.nth(0)).toContainText("1");
+        await expect(metrics.nth(1)).toContainText("1");
+        await expect(metrics.nth(2)).toContainText("0");
+        await expect(metrics.nth(3)).toContainText("0");
+        await expect(page.locator("#knowledge-dashboard-tags .knowledge-empty"))
+            .toHaveText("Todavía no hay etiquetas.");
+        await expect(page.locator("#knowledge-dashboard-error")).toBeHidden();
     });
 
     test("rechaza un árbol manipulado y no inserta etiquetas como HTML", async ({ page }) => {
