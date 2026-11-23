@@ -69,10 +69,11 @@
             path.length > 0 &&
             path.length <= 240 &&
             !path.startsWith("/") &&
-            !/[\\\\\u0000-\u001f?#]/.test(path) &&
-            !/%2f|%5c/i.test(path) &&
+            !/[\\\\\u0000-\u001f?#%]/.test(path) &&
+            path.endsWith("/index.html") &&
             path.split("/").every(function (segment) {
-                return segment && segment !== "." && segment !== "..";
+                return /^[A-Za-z0-9._-]+$/.test(segment) &&
+                    segment !== "." && segment !== "..";
             });
     }
 
