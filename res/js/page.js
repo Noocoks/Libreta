@@ -378,7 +378,9 @@ document.addEventListener("click", function (ev) {
 (function () {
     "use strict";
 
-    function createUniqueHeadingId(heading, usedIds, index) {
+    var cleanupReadingIndex = null;
+
+    function createUniqueHeadingId(heading, usedIds) {
         var existing = heading.id;
         if (existing && !usedIds.has(existing)) {
             usedIds.add(existing);
@@ -409,6 +411,11 @@ document.addEventListener("click", function (ev) {
     }
 
     function initReadingIndex() {
+        if (cleanupReadingIndex) {
+            cleanupReadingIndex();
+            cleanupReadingIndex = null;
+        }
+
         var page = document.querySelector(".page");
         if (!page) return;
 
@@ -436,7 +443,7 @@ document.addEventListener("click", function (ev) {
         var entries = [];
 
         headings.forEach(function (heading, index) {
-            var id = createUniqueHeadingId(heading, usedIds, index);
+            var id = createUniqueHeadingId(heading, usedIds);
             if (id) entries.push({ heading: heading, id: id });
         });
 
@@ -518,8 +525,11 @@ document.addEventListener("click", function (ev) {
             progress.setAttribute("aria-valuetext", value + "% leído");
         }
 
+        var observer = null;
+        var fallbackScrollHandler = null;
+
         if ("IntersectionObserver" in window) {
-            var observer = new IntersectionObserver(function (observations) {
+            observer = new IntersectionObserver(function (observations) {
                 var visible = observations.filter(function (item) {
                     return item.isIntersecting;
                 }).sort(function (a, b) {
@@ -534,17 +544,26 @@ document.addEventListener("click", function (ev) {
                 observer.observe(entry.heading);
             });
         } else {
-            window.addEventListener("scroll", function () {
+            fallbackScrollHandler = function () {
                 var current = entries[0];
                 entries.forEach(function (entry) {
                     if (entry.heading.getBoundingClientRect().top <= 140) current = entry;
                 });
                 if (current) setActive(current.id);
-            }, { passive: true });
+            };
+            window.addEventListener("scroll", fallbackScrollHandler, { passive: true });
         }
 
         window.addEventListener("scroll", updateProgress, { passive: true });
         window.addEventListener("resize", updateProgress);
+        cleanupReadingIndex = function () {
+            if (observer) observer.disconnect();
+            if (fallbackScrollHandler) {
+                window.removeEventListener("scroll", fallbackScrollHandler);
+            }
+            window.removeEventListener("scroll", updateProgress);
+            window.removeEventListener("resize", updateProgress);
+        };
         updateProgress();
 
         if (window.location.hash) {
