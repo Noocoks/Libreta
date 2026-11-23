@@ -2,12 +2,16 @@ const { test, expect } = require("@playwright/test");
 
 async function openKnowledgePanel(page) {
     await page.goto("wiki.html");
-    await expect(page.locator("#tree_root > li")).toHaveCount(3);
+    // Esperar a que el árbol termine de cargar sin asumir cuántas entradas contiene:
+    // algunos casos sustituyen tree.json por un árbol de prueba.
+    await expect.poll(() => page.locator("#tree_root > li").count()).toBeGreaterThan(0);
 
     // En móvil el índice es un drawer y se cierra automáticamente al cargar.
     // Abrirlo antes de interactuar con sus controles evita clics fuera del viewport.
     const drawer = page.locator("#tree_panel_toggle_btn");
-    if (await drawer.getAttribute("aria-expanded") === "false") {
+    const isMobile = await page.evaluate(() => window.matchMedia("(max-width: 900px)").matches);
+    if (isMobile) {
+        await expect(drawer).toHaveAttribute("aria-expanded", "false");
         await drawer.click();
         await expect(drawer).toHaveAttribute("aria-expanded", "true");
     }
