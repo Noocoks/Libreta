@@ -17,6 +17,10 @@ test.describe("Índice dinámico de lectura", () => {
         if (await headings.count()) {
             await expect(index).toBeVisible();
             await expect(index.locator("a")).toHaveCount(await headings.count());
+            const details = index.locator("details");
+            if (!(await details.evaluate(element => element.open))) {
+                await index.locator("summary").click();
+            }
             const target = index.locator("a").last();
             const href = await target.getAttribute("href");
             expect(href).toMatch(/^#/);
