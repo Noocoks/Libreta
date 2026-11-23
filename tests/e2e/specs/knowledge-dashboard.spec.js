@@ -72,7 +72,6 @@ test.describe("Panel de conocimiento", () => {
             .toContainText("<svg onload=alert(1)>");
         await expect(page.locator("#knowledge-dashboard-content img, #knowledge-dashboard-content svg"))
             .toHaveCount(0);
-        await expect(page.locator("body")).not.toContainText("alert(1)");
     });
 
     test("muestra un error controlado si el índice contiene rutas no permitidas", async ({ page }) => {
