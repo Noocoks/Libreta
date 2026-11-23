@@ -68,8 +68,16 @@ test.describe("Historial y navegación inteligente", () => {
 
     test("atrás y adelante sincronizan el iframe con la ruta del navegador", async ({ page }) => {
         await openWiki(page);
+        const initialHistoryLength = await page.evaluate(() => window.history.length);
         await navigateRootSection(page, 0, "Ciberseguridad");
         await navigateRootSection(page, 1, "Android");
+        const navigationState = await page.evaluate(() => ({
+            length: window.history.length,
+            hash: window.location.hash,
+            state: window.history.state
+        }));
+        console.log("LIBRETA_HISTORY_DEBUG", JSON.stringify({ initialHistoryLength, navigationState }));
+        expect(navigationState.length).toBeGreaterThanOrEqual(initialHistoryLength + 2);
 
         await page.evaluate(() => window.history.back());
         await expect(page).toHaveURL(/#subpags\/ciberseguridad\/index\.html$/);
