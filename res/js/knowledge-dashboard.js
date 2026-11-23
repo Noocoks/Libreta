@@ -239,6 +239,8 @@
         }
         tags.appendChild(tagList);
 
+        var previousNote = root.querySelector(".knowledge-dashboard-note");
+        if (previousNote) previousNote.remove();
         var note = createElement("p", "knowledge-dashboard-note",
             "Datos calculados automáticamente desde el árbol de documentación. Profundidad máxima: " +
             formatNumber(stats.maxDepth) + " niveles.");
