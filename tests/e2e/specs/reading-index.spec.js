@@ -57,7 +57,7 @@ test.describe("Índice dinámico de lectura", () => {
         const frame = page.frameLocator("#page_frame");
         const progress = frame.locator(".reading-progress");
         await expect(progress).toHaveAttribute("role", "progressbar");
-        await expect(progress).toHaveAttribute("aria-valuenow", /\\d+/);
+        await expect(progress).toHaveAttribute("aria-valuenow", /\d+/);
         await frame.locator(".page").evaluate(element => {
             for (let i = 0; i < 80; i++) {
                 const paragraph = document.createElement("p");
