@@ -327,3 +327,46 @@ document.addEventListener("click", function (ev) {
 
     window.parent.postMessage({ type: "search-tag", tag: tag }, "*");
 });
+
+
+/* ==============================
+   PREFERENCIAS DE LECTURA
+   El documento hijo no accede al almacenamiento del padre.
+   Solo acepta valores enumerados enviados por la ventana contenedora.
+============================== */
+(function () {
+    "use strict";
+
+    var allowed = {
+        textSize: ["small", "normal", "large"],
+        readingWidth: ["compact", "normal", "wide"],
+        spacing: ["compact", "normal", "relaxed"]
+    };
+
+    window.addEventListener("message", function (event) {
+        if (event.source !== window.parent ||
+            event.origin !== parentOrigin ||
+            !event.data ||
+            typeof event.data !== "object" ||
+            event.data.type !== "reader-preferences") {
+            return;
+        }
+
+        var values = event.data.preferences;
+        if (!values || typeof values !== "object" || Array.isArray(values)) return;
+
+        var normalized = {};
+        Object.keys(allowed).forEach(function (key) {
+            if (allowed[key].indexOf(values[key]) === -1) return;
+            normalized[key] = values[key];
+        });
+
+        var page = document.querySelector(".page");
+        if (!page) return;
+
+        Object.keys(normalized).forEach(function (key) {
+            page.dataset[key === "textSize" ? "textSize" :
+                key === "readingWidth" ? "readingWidth" : "spacing"] = normalized[key];
+        });
+    });
+})();
