@@ -1,10 +1,13 @@
 const { test, expect } = require("@playwright/test");
 
 async function openKnowledgePanel(page) {
+    const treeResponse = page.waitForResponse(response =>
+        response.url().includes("/res/json/tree.json")
+    );
     await page.goto("wiki.html");
-    // Esperar a que el árbol termine de cargar sin asumir cuántas entradas contiene:
-    // algunos casos sustituyen tree.json por un árbol de prueba.
-    await expect.poll(() => page.locator("#tree_root > li").count()).toBeGreaterThan(0);
+    // La respuesta confirma que el árbol se ha cargado; no exigimos nodos,
+    // porque un árbol vacío también es una entrada válida para el panel.
+    await treeResponse;
 
     // En móvil el índice es un drawer y se cierra automáticamente al cargar.
     // Abrirlo antes de interactuar con sus controles evita clics fuera del viewport.
@@ -94,16 +97,13 @@ test.describe("Panel de conocimiento", () => {
         }
     });
 
-    test("mantiene el panel operativo cuando el árbol todavía no tiene etiquetas", async ({ page }) => {
+    test("mantiene el panel operativo cuando el árbol todavía no tiene hojas", async ({ page }) => {
         await page.route("**/res/json/tree.json", route => route.fulfill({
             status: 200,
             contentType: "application/json",
             body: JSON.stringify({
-                title: "Prueba sin etiquetas",
-                sections: [{
-                    name: "Área inicial",
-                    path: "subpags/inicial/index.html"
-                }]
+                title: "Árbol inicial",
+                sections: []
             })
         }));
 
@@ -111,10 +111,12 @@ test.describe("Panel de conocimiento", () => {
 
         const metrics = page.locator("#knowledge-dashboard-metrics .knowledge-metric");
         await expect(metrics).toHaveCount(4);
-        await expect(metrics.nth(0)).toContainText("1");
-        await expect(metrics.nth(1)).toContainText("1");
+        await expect(metrics.nth(0)).toContainText("0");
+        await expect(metrics.nth(1)).toContainText("0");
         await expect(metrics.nth(2)).toContainText("0");
         await expect(metrics.nth(3)).toContainText("0");
+        await expect(page.locator("#knowledge-dashboard-areas .knowledge-area-row"))
+            .toHaveCount(0);
         await expect(page.locator("#knowledge-dashboard-tags .knowledge-empty"))
             .toHaveText("Todavía no hay etiquetas.");
         await expect(page.locator("#knowledge-dashboard-error")).toBeHidden();
