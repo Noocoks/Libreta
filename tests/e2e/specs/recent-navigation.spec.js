@@ -175,7 +175,7 @@ test.describe("Historial y navegación inteligente", () => {
     test("un fragmento externo manipulado no carga contenido en el iframe", async ({ page }) => {
         await page.goto("wiki.html#https%3A%2F%2Fattacker.invalid%2Fpayload");
         await expect(page.locator("#tree_root > li")).toHaveCount(3);
-        await expect(page.locator("#page_frame")).not.toHaveAttribute("src", /attacker\\.invalid/);
+        await expect(page.locator("#page_frame")).not.toHaveAttribute("src", /attacker\.invalid/);
         expect(await page.locator("#page_frame").getAttribute("src")).toBeNull();
         await expect(page).toHaveURL(/wiki\.html$/);
     });
