@@ -976,6 +976,11 @@ window.addEventListener("hashchange", function () {
 
 window.addEventListener("load", function () {
 
+    var clearRecentButton = document.getElementById("recent-pages-clear");
+    if (clearRecentButton) {
+        clearRecentButton.addEventListener("click", clearRecentPages);
+    }
+
     loadTree();
 
     document.addEventListener("keydown", function (ev) {
