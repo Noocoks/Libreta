@@ -1,9 +1,24 @@
 const { test, expect } = require("@playwright/test");
 
-async function openKnowledgeDashboard(page) {
+async function openKnowledgePanel(page) {
     await page.goto("wiki.html");
+    await expect(page.locator("#tree_root > li")).toHaveCount(3);
+
+    // En móvil el índice es un drawer y se cierra automáticamente al cargar.
+    // Abrirlo antes de interactuar con sus controles evita clics fuera del viewport.
+    const drawer = page.locator("#tree_panel_toggle_btn");
+    if (await drawer.getAttribute("aria-expanded") === "false") {
+        await drawer.click();
+        await expect(drawer).toHaveAttribute("aria-expanded", "true");
+    }
+
     const panel = page.locator("#knowledge-dashboard");
     await expect(panel).toBeAttached();
+    return panel;
+}
+
+async function openKnowledgeDashboard(page) {
+    const panel = await openKnowledgePanel(page);
     await panel.locator("summary").click();
     await expect(page.locator("#knowledge-dashboard-loading")).toBeHidden();
     return panel;
@@ -93,8 +108,8 @@ test.describe("Panel de conocimiento", () => {
             })
         }));
 
-        await page.goto("wiki.html");
-        await page.locator("#knowledge-dashboard summary").click();
+        const panel = await openKnowledgePanel(page);
+        await panel.locator("summary").click();
         await expect(page.locator("#knowledge-dashboard-error")).toBeVisible();
         await expect(page.locator("#knowledge-dashboard-content")).toBeHidden();
         await expect(page.locator("#knowledge-dashboard-retry")).toBeEnabled();
