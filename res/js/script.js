@@ -184,7 +184,7 @@ function getAllowedPath(file_path) {
             var node = nodes[i];
 
             if (typeof node.path === "string") {
-                var canonicalPath = node.path.replace(/^\\/+/, "");
+                var canonicalPath = node.path.replace(/^\/+/, "");
                 if (canonicalPath === candidate) {
                     return canonicalPath;
                 }
