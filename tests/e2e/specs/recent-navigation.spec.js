@@ -3,9 +3,19 @@ const { test, expect } = require("@playwright/test");
 async function openWiki(page) {
     await page.goto("wiki.html");
     await expect(page.locator("#tree_root > li")).toHaveCount(3);
+    const drawer = page.locator("#tree_panel_toggle_btn");
+    if (await drawer.getAttribute("aria-expanded") === "false") {
+        await drawer.click();
+        await expect(drawer).toHaveAttribute("aria-expanded", "true");
+    }
 }
 
 async function openRecentPanel(page) {
+    const drawer = page.locator("#tree_panel_toggle_btn");
+    if (await drawer.getAttribute("aria-expanded") === "false") {
+        await drawer.click();
+        await expect(drawer).toHaveAttribute("aria-expanded", "true");
+    }
     const panel = page.locator("#recent-pages");
     if (!(await panel.evaluate(element => element.open))) {
         await panel.locator("summary").click();
@@ -21,6 +31,7 @@ async function navigateRootSection(page, index, title) {
 test.describe("Historial y navegación inteligente", () => {
     test("registra páginas visitadas y permite volver a ellas", async ({ page }) => {
         await openWiki(page);
+        await openRecentPanel(page);
         await expect(page.locator("#recent-pages-empty")).toBeVisible();
         await expect(page.locator("#recent-pages-clear")).toBeDisabled();
 
@@ -94,6 +105,7 @@ test.describe("Historial y navegación inteligente", () => {
             localStorage.setItem("libreta.recent-pages.v1", "{json roto");
         });
         await openWiki(page);
+        await openRecentPanel(page);
         await expect(page.locator("#recent-pages-empty")).toBeVisible();
         await expect(page.locator("#recent-pages-list li")).toHaveCount(0);
     });
