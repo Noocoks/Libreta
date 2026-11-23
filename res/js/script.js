@@ -270,7 +270,11 @@ function navigate(file_path, push = true) {
     ).href;
 
     if (push) {
-        window.location.hash = allowedPath;
+        var nextUrl = new URL(window.location.href);
+        nextUrl.hash = allowedPath;
+        if (nextUrl.href !== window.location.href) {
+            window.history.pushState({ libretaPath: allowedPath }, "", nextUrl.href);
+        }
     }
 
     return true;
@@ -953,7 +957,7 @@ function syncFrameTags(tag) {
 /* ==============================
    BROWSER HISTORY NAVIGATION
 ============================== */
-window.addEventListener("hashchange", function () {
+function syncNavigationFromLocation() {
     var path = window.location.hash.slice(1);
     try {
         path = decodeURIComponent(path);
@@ -971,8 +975,13 @@ window.addEventListener("hashchange", function () {
     if (path !== activeNavigationPath && !navigate(path, false)) {
         window.history.replaceState(null, "", window.location.pathname + window.location.search);
         activeNavigationPath = null;
+        var invalidIframe = getIframe();
+        if (invalidIframe && invalidIframe.hasAttribute("src")) invalidIframe.removeAttribute("src");
     }
-});
+}
+
+window.addEventListener("popstate", syncNavigationFromLocation);
+window.addEventListener("hashchange", syncNavigationFromLocation);
 
 window.addEventListener("load", function () {
 
