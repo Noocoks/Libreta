@@ -10,7 +10,7 @@ function findTreeNode(nodes, targetPath) {
     for (var i = 0; i < nodes.length; i++) {
         var node = nodes[i];
         if (node && typeof node.path === "string" &&
-            node.path.replace(/^\\/+/, "") === targetPath) return node;
+            node.path.replace(/^\/+/, "") === targetPath) return node;
         var child = findTreeNode(node && node.children, targetPath);
         if (child) return child;
     }
