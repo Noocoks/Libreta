@@ -129,7 +129,7 @@ Este documento es la hoja de ruta del PR. Las funcionalidades se implementarán 
 
 ## Seguimiento
 
-- [ ] Fase 0 — Base común y preferencias de lectura
+- [x] Fase 0 — Base común y preferencias de lectura
 - [ ] Fase 1 — Índice dinámico de lectura
 - [ ] Fase 2 — Historial y navegación inteligente
 - [ ] Fase 3 — Panel de conocimiento y estadísticas
@@ -148,4 +148,4 @@ Este documento es la hoja de ruta del PR. Las funcionalidades se implementarán 
 
 ## Forma de trabajo
 
-El PR permanecerá abierto mientras se desarrolla la hoja de ruta. Se avanzará fase por fase, con cambios pequeños y pruebas asociadas. Antes de empezar una fase nueva se revisarán los resultados de la anterior. La integración en `master` se decidirá cuando el conjunto esté completo y validado.
+Cada fase se desarrolla en una PR independiente, creada desde `master` actualizado y limitada a su alcance. La PR se mantiene abierta hasta completar las comprobaciones automatizadas y la revisión manual. Solo después de aprobar e integrar una fase se inicia la siguiente. La hoja de ruta sirve como visión global, pero no implica mezclar varias fases en una misma PR.
