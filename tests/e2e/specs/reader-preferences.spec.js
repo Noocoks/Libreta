@@ -1,11 +1,20 @@
 const { test, expect } = require("@playwright/test");
 
+async function openFirstDocument(page) {
+    await page.goto("wiki.html");
+    await expect(page.locator("#tree_root > li")).toHaveCount(3);
+
+    // Trigger the actual navigation handler without relying on the tree's
+    // entrance animation or the link's viewport position.
+    await page.locator("#tree_root > li").first().locator(":scope > a")
+        .evaluate(element => element.click());
+
+    await expect(page.frameLocator("#page_frame").locator(".page")).toBeVisible();
+}
+
 test.describe("Preferencias de lectura", () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(3);
-        await page.locator("#tree_root > li").first().locator(":scope > a").click();
-        await expect(page.frameLocator("#page_frame").locator(".page")).toBeVisible();
+        await openFirstDocument(page);
     });
 
     test("permite ajustar texto, anchura y espaciado en el documento", async ({ page }) => {
@@ -27,7 +36,8 @@ test.describe("Preferencias de lectura", () => {
         await page.locator("#reader-readingWidth").selectOption("wide");
         await page.locator("#reader-spacing").selectOption("compact");
 
-        await page.reload();
+        await openFirstDocument(page);
+
         await expect(page.locator("#reader-textSize")).toHaveValue("large");
         await expect(page.locator("#reader-readingWidth")).toHaveValue("wide");
         await expect(page.locator("#reader-spacing")).toHaveValue("compact");
@@ -62,7 +72,7 @@ test.describe("Preferencias de lectura", () => {
             }));
         });
 
-        await page.reload();
+        await openFirstDocument(page);
         await expect(page.locator("#reader-textSize")).toHaveValue("normal");
         await expect(page.locator("#reader-readingWidth")).toHaveValue("normal");
         await expect(page.locator("#reader-spacing")).toHaveValue("normal");
