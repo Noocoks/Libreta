@@ -131,7 +131,7 @@ Este documento es la hoja de ruta del PR. Las funcionalidades se implementarán 
 
 - [x] Fase 0 — Base común y preferencias de lectura
 - [x] Fase 1 — Índice dinámico de lectura
-- [x] Fase 2 — Historial y navegación inteligente
+- [ ] Fase 2 — Historial y navegación inteligente
 - [ ] Fase 3 — Panel de conocimiento y estadísticas
 - [ ] Fase 4 — Bloques de código avanzados
 - [ ] Fase 5 — Exportación a PDF
