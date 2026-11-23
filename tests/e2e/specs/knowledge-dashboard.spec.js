@@ -69,25 +69,18 @@ test.describe("Panel de conocimiento", () => {
         await expect(metrics.nth(2)).toContainText("Páginas etiquetadas");
         await expect(metrics.nth(2)).toContainText(String(expected.taggedPages));
         await expect(metrics.nth(3)).toContainText("Etiquetas únicas");
-        await expect(metrics.nth(3)).toContainText(String(expected.tags.length));
+        await expect(metrics.nth(3)).toContainText(String(expected.tags));
 
         const areaRows = page.locator("#knowledge-dashboard-areas .knowledge-area-row");
         await expect(areaRows).toHaveCount(expected.areas);
-        await expect(areaRows).toHaveText(expected.areaNames.map((name, index) =>
-            new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, "\\        for (let index = 0; index < expected.areas; index++) {
-            await expect(areaRows.nth(index)).toContainText(["Ciberseguridad", "Android", "IA"][index]);
+        for (let index = 0; index < expected.areas; index++) {
+            await expect(areaRows.nth(index)).toContainText(expected.areaNames[index]);
         }
-        await expect(page.locator("#knowledge-dashboard-tags .knowledge-tag"))
-            .toHaveCount(12);
-        await expect(page.locator("#knowledge-dashboard-tags .knowledge-tag").first())
-            .toBeVisible();")).source
-        ));
 
         const renderedTagNames = await page.locator(
             "#knowledge-dashboard-tags .knowledge-tag-name"
         ).allTextContents();
-        // La cantidad visible depende de las etiquetas reales y del límite de presentación.
-        // Se compara el contenido y orden, sin fijar un total concreto de etiquetas.
+        // Se valida el contenido real y el orden de relevancia, sin fijar un total de etiquetas.
         expect(renderedTagNames.length).toBeGreaterThan(0);
         expect(renderedTagNames.length).toBeLessThanOrEqual(expected.tags.length);
         expect(renderedTagNames).toEqual(
