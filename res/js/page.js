@@ -385,12 +385,12 @@ document.addEventListener("click", function (ev) {
             return existing;
         }
 
-        var label = (heading.textContent || "").replace(/\\s+/g, " ").trim();
+        var label = (heading.textContent || "").replace(/\s+/g, " ").trim();
         if (!label) return null;
 
         var slug = label.toLowerCase()
             .normalize("NFD")
-            .replace(/[\\u0300-\\u036f]/g, "")
+            .replace(/[\u0300-\u036f]/g, "")
             .replace(/[^a-z0-9]+/g, "-")
             .replace(/^-+|-+$/g, "") || "seccion";
         var candidate = existing && usedIds.has(existing)
@@ -476,7 +476,7 @@ document.addEventListener("click", function (ev) {
 
             var link = document.createElement("a");
             link.href = "#" + encodeURIComponent(entry.id);
-            link.textContent = entry.heading.textContent.replace(/\\s+/g, " ").trim();
+            link.textContent = entry.heading.textContent.replace(/\s+/g, " ").trim();
             link.addEventListener("click", function () {
                 setActive(entry.id);
                 if (window.matchMedia("(max-width: 700px)").matches) {
