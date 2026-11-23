@@ -177,7 +177,7 @@ test.describe("Historial y navegación inteligente", () => {
         await expect(page.locator("#tree_root > li")).toHaveCount(3);
         await expect(page.locator("#page_frame")).not.toHaveAttribute("src", /attacker\\.invalid/);
         expect(await page.locator("#page_frame").getAttribute("src")).toBeNull();
-        await expect(page).toHaveURL(/wiki\\.html$/);
+        await expect(page).toHaveURL(/wiki\.html$/);
     });
 
     test("mantiene la navegación funcional si localStorage está bloqueado", async ({ page }) => {
