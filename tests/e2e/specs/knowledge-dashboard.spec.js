@@ -40,17 +40,23 @@ test.describe("Panel de conocimiento", () => {
                 sum + 1 + count(node.children || []), 0);
             const tagged = nodes => nodes.reduce((sum, node) =>
                 sum + ((node.tags || []).length ? 1 : 0) + tagged(node.children || []), 0);
-            const allTags = new Set();
+            const tagCounts = new Map();
             const collectTags = nodes => nodes.forEach(node => {
-                (node.tags || []).forEach(tag => allTags.add(tag));
+                (node.tags || []).forEach(tag => {
+                    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+                });
                 collectTags(node.children || []);
             });
             collectTags(tree.sections);
+            const rankedTags = Array.from(tagCounts.entries())
+                .map(([name, count]) => ({ name, count }))
+                .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, "es"));
             return {
                 pages: count(tree.sections),
                 areas: tree.sections.length,
+                areaNames: tree.sections.map(section => section.name),
                 taggedPages: tagged(tree.sections),
-                tags: allTags.size
+                tags: rankedTags
             };
         });
 
@@ -63,17 +69,30 @@ test.describe("Panel de conocimiento", () => {
         await expect(metrics.nth(2)).toContainText("Páginas etiquetadas");
         await expect(metrics.nth(2)).toContainText(String(expected.taggedPages));
         await expect(metrics.nth(3)).toContainText("Etiquetas únicas");
-        await expect(metrics.nth(3)).toContainText(String(expected.tags));
+        await expect(metrics.nth(3)).toContainText(String(expected.tags.length));
 
         const areaRows = page.locator("#knowledge-dashboard-areas .knowledge-area-row");
         await expect(areaRows).toHaveCount(expected.areas);
-        for (let index = 0; index < expected.areas; index++) {
+        await expect(areaRows).toHaveText(expected.areaNames.map((name, index) =>
+            new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, "\\        for (let index = 0; index < expected.areas; index++) {
             await expect(areaRows.nth(index)).toContainText(["Ciberseguridad", "Android", "IA"][index]);
         }
         await expect(page.locator("#knowledge-dashboard-tags .knowledge-tag"))
             .toHaveCount(12);
         await expect(page.locator("#knowledge-dashboard-tags .knowledge-tag").first())
-            .toBeVisible();
+            .toBeVisible();")).source
+        ));
+
+        const renderedTagNames = await page.locator(
+            "#knowledge-dashboard-tags .knowledge-tag-name"
+        ).allTextContents();
+        // La cantidad visible depende de las etiquetas reales y del límite de presentación.
+        // Se compara el contenido y orden, sin fijar un total concreto de etiquetas.
+        expect(renderedTagNames.length).toBeGreaterThan(0);
+        expect(renderedTagNames.length).toBeLessThanOrEqual(expected.tags.length);
+        expect(renderedTagNames).toEqual(
+            expected.tags.slice(0, renderedTagNames.length).map(tag => tag.name)
+        );
     });
 
     test("rechaza un árbol manipulado y no inserta etiquetas como HTML", async ({ page }) => {
