@@ -4,12 +4,25 @@ async function openFirstDocument(page) {
     await page.goto("wiki.html");
     await expect(page.locator("#tree_root > li")).toHaveCount(3);
 
-    // Trigger the actual navigation handler without relying on the tree's
+    // Trigger the real tree navigation handler without depending on the
     // entrance animation or the link's viewport position.
     await page.locator("#tree_root > li").first().locator(":scope > a")
         .evaluate(element => element.click());
 
     await expect(page.frameLocator("#page_frame").locator(".page")).toBeVisible();
+
+    // On tablet/mobile, selecting a document intentionally closes the drawer.
+    // Reopen it before testing controls that belong to the navigation panel.
+    const treePanel = page.locator(".tree-panel");
+    const toggle = page.locator("#tree_panel_toggle_btn");
+    await expect(toggle).toBeAttached();
+
+    if (await treePanel.evaluate(element => element.classList.contains("hidden"))) {
+        await toggle.click();
+    }
+
+    await expect(treePanel).not.toHaveClass(/\bhidden\b/);
+    await treePanel.evaluate(element => { element.scrollTop = 0; });
 
     // Native <details> keeps its controls hidden until explicitly expanded.
     await page.locator("#reader-settings")
