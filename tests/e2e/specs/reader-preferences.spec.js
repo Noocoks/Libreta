@@ -10,6 +10,12 @@ async function openFirstDocument(page) {
         .evaluate(element => element.click());
 
     await expect(page.frameLocator("#page_frame").locator(".page")).toBeVisible();
+
+    // The controls live inside a native <details>; open it before interacting.
+    await page.locator("#reader-settings")
+        .evaluate(details => { details.open = true; });
+    await expect(page.locator("#reader-settings-content")).toBeVisible().catch(() => {});
+    await expect(page.locator("#reader-textSize")).toBeVisible();
 }
 
 test.describe("Preferencias de lectura", () => {
@@ -20,7 +26,6 @@ test.describe("Preferencias de lectura", () => {
     test("permite ajustar texto, anchura y espaciado en el documento", async ({ page }) => {
         const content = page.frameLocator("#page_frame").locator(".page");
 
-        await page.locator("#reader-settings").locator("summary").click();
         await page.locator("#reader-textSize").selectOption("large");
         await page.locator("#reader-readingWidth").selectOption("compact");
         await page.locator("#reader-spacing").selectOption("relaxed");
