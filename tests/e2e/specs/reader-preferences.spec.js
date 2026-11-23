@@ -11,10 +11,9 @@ async function openFirstDocument(page) {
 
     await expect(page.frameLocator("#page_frame").locator(".page")).toBeVisible();
 
-    // The controls live inside a native <details>; open it before interacting.
+    // Native <details> keeps its controls hidden until explicitly expanded.
     await page.locator("#reader-settings")
         .evaluate(details => { details.open = true; });
-    await expect(page.locator("#reader-settings-content")).toBeVisible().catch(() => {});
     await expect(page.locator("#reader-textSize")).toBeVisible();
 }
 
