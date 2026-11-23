@@ -264,10 +264,17 @@ function navigate(file_path, push = true) {
         if (pagePanel) pagePanel.classList.remove("is-loading", "is-entering");
     };
 
-    iframe.src = new URL(
-        allowedPath,
-        window.location.href
-    ).href;
+    var targetUrl = new URL(allowedPath, window.location.href).href;
+    if (iframe.hasAttribute("src") && iframe.contentWindow) {
+        /* Reemplazar el documento hijo evita que sus cargas contaminen atrás/adelante del padre. */
+        try {
+            iframe.contentWindow.location.replace(targetUrl);
+        } catch (error) {
+            iframe.src = targetUrl;
+        }
+    } else {
+        iframe.src = targetUrl;
+    }
 
     if (push) {
         var nextUrl = new URL(window.location.href);
