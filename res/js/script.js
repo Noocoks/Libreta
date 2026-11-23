@@ -963,17 +963,6 @@ function syncFrameTags(tag) {
 /* ==============================
    BROWSER HISTORY NAVIGATION
 ============================== */
-function isSafeNavigationPath(path) {
-    if (typeof path !== "string") return false;
-    var normalized = path.trim().replace(/^\/+/, "");
-    if (!normalized) return false;
-    if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(normalized)) return false;
-    if (normalized.indexOf("//") === 0) return false;
-    if (normalized.indexOf("\\") !== -1) return false;
-    if (normalized.indexOf("..") !== -1) return false;
-    return /^[\w\-./%]+$/.test(normalized);
-}
-
 function syncNavigationFromLocation() {
     var path = window.location.hash.slice(1);
     try {
@@ -991,8 +980,13 @@ function syncNavigationFromLocation() {
         return;
     }
 
-    var isKnownPath = !!findTreeNode(treeData, path);
-    if (!isSafeNavigationPath(path) || !isKnownPath) {
+    /*
+     * Convierte el fragmento externo en una ruta canónica del árbol autorizado
+     * antes de entregarlo al router. Nunca se pasa el fragmento original a
+     * navigate ni al destino del iframe.
+     */
+    var canonicalPath = getAllowedPath(path);
+    if (!canonicalPath) {
         window.history.replaceState(null, "", window.location.pathname + window.location.search);
         activeNavigationPath = null;
         var blockedIframe = getIframe();
@@ -1000,7 +994,7 @@ function syncNavigationFromLocation() {
         return;
     }
 
-    if (path !== activeNavigationPath && !navigate(path, false)) {
+    if (canonicalPath !== activeNavigationPath && !navigate(canonicalPath, false)) {
         window.history.replaceState(null, "", window.location.pathname + window.location.search);
         activeNavigationPath = null;
         var invalidIframe = getIframe();
