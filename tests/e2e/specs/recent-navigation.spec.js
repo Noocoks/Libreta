@@ -142,6 +142,44 @@ test.describe("Historial y navegación inteligente", () => {
         await expect(entries.filter({ hasText: "Ciberseguridad" })).toHaveCount(0);
     });
 
+
+    test("rechaza destinos manipulados antes de tocar el iframe", async ({ page }) => {
+        await openWiki(page);
+
+        const rejected = await page.evaluate(() => {
+            const payloads = [
+                "https://attacker.invalid/",
+                "//attacker.invalid/path",
+                "javascript:alert(1)",
+                "../outside.html",
+                "%2e%2e/outside.html",
+                "subpags%2fandroid/index.html",
+                "subpags/android/index.html?next=https://attacker.invalid",
+                "subpags/android/index.html#redirect"
+            ];
+            return payloads.map(path => ({
+                path,
+                accepted: window.navigate(path, false)
+            }));
+        });
+
+        expect(rejected.every(result => result.accepted === false)).toBe(true);
+        expect(await page.locator("#page_frame").getAttribute("src")).toBeNull();
+
+        const canonical = await page.evaluate(() =>
+            window.getAllowedPath("subpags/android/index.html")
+        );
+        expect(canonical).toBe("subpags/android/index.html");
+    });
+
+    test("un fragmento externo manipulado no carga contenido en el iframe", async ({ page }) => {
+        await page.goto("wiki.html#https%3A%2F%2Fattacker.invalid%2Fpayload");
+        await expect(page.locator("#tree_root > li")).toHaveCount(3);
+        await expect(page.locator("#page_frame")).not.toHaveAttribute("src", /attacker\\.invalid/);
+        expect(await page.locator("#page_frame").getAttribute("src")).toBeNull();
+        await expect(page).toHaveURL(/wiki\\.html$/);
+    });
+
     test("mantiene la navegación funcional si localStorage está bloqueado", async ({ page }) => {
         await page.addInitScript(() => {
             ["getItem", "setItem", "removeItem"].forEach(method => {
