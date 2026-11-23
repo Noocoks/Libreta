@@ -1,0 +1,217 @@
+/* Panel de conocimiento: distribución y métricas del árbol documental. */
+.knowledge-dashboard {
+    margin: .7rem 10px 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(121, 0, 24, .1), rgba(255, 255, 255, .012));
+    color: var(--text);
+}
+
+.knowledge-dashboard > summary {
+    display: flex;
+    align-items: center;
+    min-height: 42px;
+    padding: .55rem .75rem;
+    color: var(--text);
+    cursor: pointer;
+    font-size: .82rem;
+    font-weight: 700;
+    list-style: none;
+    user-select: none;
+}
+
+.knowledge-dashboard > summary::-webkit-details-marker { display: none; }
+
+.knowledge-dashboard > summary::before {
+    content: "›";
+    margin-right: .55rem;
+    color: #c34a62;
+    font-size: 1.1rem;
+    transition: transform .18s ease;
+}
+
+.knowledge-dashboard[open] > summary::before { transform: rotate(90deg); }
+
+.knowledge-dashboard-content {
+    display: grid;
+    gap: .9rem;
+    padding: 0 .75rem .8rem;
+}
+
+.knowledge-dashboard-loading,
+.knowledge-dashboard-error,
+.knowledge-dashboard-note,
+.knowledge-empty {
+    margin: 0;
+    color: var(--muted);
+    font-size: .74rem;
+    line-height: 1.5;
+}
+
+.knowledge-dashboard-error {
+    display: grid;
+    gap: .55rem;
+}
+
+/* La regla display:grid no debe anular el atributo HTML hidden. */
+.knowledge-dashboard-error[hidden] {
+    display: none;
+}
+
+.knowledge-dashboard-error button {
+    justify-self: start;
+    min-height: 32px;
+    padding: .35rem .65rem;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--panel-2);
+    color: var(--text);
+    font: inherit;
+    font-size: .72rem;
+    cursor: pointer;
+}
+
+.knowledge-dashboard-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .45rem;
+}
+
+.knowledge-metric {
+    display: grid;
+    gap: .25rem;
+    min-width: 0;
+    padding: .55rem;
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, .18);
+}
+
+.knowledge-metric-label {
+    color: var(--muted);
+    font-size: .66rem;
+    line-height: 1.35;
+}
+
+.knowledge-metric-value {
+    color: #f1e9eb;
+    font-size: 1.05rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.knowledge-section-title {
+    margin: 0 0 .55rem;
+    color: #d9dfe4;
+    font-size: .73rem;
+    font-weight: 700;
+    letter-spacing: .025em;
+}
+
+.knowledge-dashboard-areas {
+    display: grid;
+    gap: .55rem;
+}
+
+.knowledge-area-row {
+    display: grid;
+    gap: .3rem;
+}
+
+.knowledge-area-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .5rem;
+    color: var(--muted);
+    font-size: .72rem;
+}
+
+.knowledge-area-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.knowledge-area-count {
+    flex: 0 0 auto;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+
+.knowledge-area-progress {
+    display: block;
+    width: 100%;
+    height: 6px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .09);
+    accent-color: #9e1835;
+}
+
+.knowledge-area-progress::-webkit-progress-bar {
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .09);
+}
+
+.knowledge-area-progress::-webkit-progress-value {
+    border-radius: 999px;
+    background: linear-gradient(90deg, #790018, #bd3b58);
+}
+
+.knowledge-area-progress::-moz-progress-bar {
+    border-radius: 999px;
+    background: linear-gradient(90deg, #790018, #bd3b58);
+}
+
+.knowledge-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+}
+
+.knowledge-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    max-width: 100%;
+    padding: .25rem .45rem;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, .2);
+    color: var(--muted);
+    font-size: .66rem;
+}
+
+.knowledge-tag-name {
+    overflow-wrap: anywhere;
+}
+
+.knowledge-tag-count {
+    color: #d9a3ad;
+    font-variant-numeric: tabular-nums;
+}
+
+.knowledge-dashboard-note {
+    padding-top: .55rem;
+    border-top: 1px solid rgba(255, 255, 255, .07);
+    font-size: .66rem;
+}
+
+.knowledge-dashboard button:focus-visible,
+.knowledge-dashboard summary:focus-visible {
+    outline: 2px solid var(--accent-light);
+    outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+    .knowledge-dashboard { margin-inline: 8px; }
+    .knowledge-dashboard > summary { min-height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .knowledge-dashboard > summary::before { transition: none; }
+}
+
+@media print {
+    .knowledge-dashboard { display: none !important; }
+}
