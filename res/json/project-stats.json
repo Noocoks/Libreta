@@ -1,26 +1,26 @@
 {
-    "generated_at": "2026-11-21T15:52:16+00:00",
-    "total_files": 85,
-    "total_lines": 11876,
+    "generated_at": "2026-11-24T15:16:49+00:00",
+    "total_files": 100,
+    "total_lines": 14856,
     "counting": "non-empty lines",
     "languages": [
         {
             "key": "html",
             "label": "HTML",
             "files": 49,
-            "lines": 5768
+            "lines": 5826
         },
         {
             "key": "css",
             "label": "CSS",
-            "files": 7,
-            "lines": 2484
+            "files": 13,
+            "lines": 3623
         },
         {
             "key": "javascript",
             "label": "JavaScript",
-            "files": 10,
-            "lines": 1588
+            "files": 18,
+            "lines": 3267
         },
         {
             "key": "python",
@@ -43,8 +43,8 @@
         {
             "key": "markdown",
             "label": "Markdown",
-            "files": 3,
-            "lines": 219
+            "files": 4,
+            "lines": 323
         }
     ]
 }
