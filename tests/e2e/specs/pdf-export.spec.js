@@ -35,17 +35,17 @@ test.describe("Exportación a PDF", () => {
         });
 
         await frame.locator("body").evaluate(() => {
-            window.parent.postMessage({ type: "print-document", height: 1000001 }, "*");
+            window.parent.postMessage({ type: "print-document", height: 5000001 }, "*");
         });
         await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(1);
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
         await expect(page.locator("#pdf-print-confirmation")).toBeHidden();
 
+        await exportButton.click();
         const expectedHeight = await frame.locator(".page").evaluate(() => document.documentElement.scrollHeight);
         expect(expectedHeight).toBeGreaterThan(0);
-        expect(expectedHeight).toBeLessThanOrEqual(1000000);
-
-        await exportButton.click();
+        expect(expectedHeight).toBeLessThanOrEqual(5000000);
+        await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(2);
         const confirmPrint = page.locator("#pdf-print-confirmation .pdf-print-confirm");
         await expect(confirmPrint).toBeVisible();
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
