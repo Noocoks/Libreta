@@ -931,25 +931,75 @@ window.addEventListener("message", function (event) {
         var input = document.getElementById("tree_search");
         if (input) { input.focus(); input.select(); }
     } else if (data.type === "print-document") {
-        if (data.userActivation !== true ||
-            !Number.isSafeInteger(data.height) || data.height <= 0 || data.height > 200000) {
+        if (!Number.isSafeInteger(data.height) || data.height <= 0 || data.height > 200000) {
             iframe.contentWindow.postMessage({ type: "print-finished" }, "*");
             return;
         }
-        iframe.setAttribute("height", String(data.height));
-        document.body.classList.add("printing-document");
-        window.print();
+
+        pendingPrintHeight = data.height;
+        showPrintConfirmation();
     }
 });
 
-window.addEventListener("afterprint", function () {
+var pendingPrintHeight = null;
+
+function showPrintConfirmation() {
+    var panel = document.getElementById("pdf-print-confirmation");
+    if (!panel) {
+        panel = document.createElement("div");
+        panel.id = "pdf-print-confirmation";
+        panel.className = "pdf-print-confirmation";
+        panel.setAttribute("role", "group");
+        panel.setAttribute("aria-label", "Confirmar impresión");
+        panel.setAttribute("aria-live", "polite");
+
+        var message = document.createElement("span");
+        message.textContent = "El documento está preparado para imprimir.";
+        panel.appendChild(message);
+
+        var confirmButton = document.createElement("button");
+        confirmButton.type = "button";
+        confirmButton.className = "pdf-print-confirm";
+        confirmButton.textContent = "Continuar e imprimir";
+        confirmButton.addEventListener("click", function () {
+            var iframe = getIframe();
+            if (!iframe || !iframe.contentWindow || !Number.isSafeInteger(pendingPrintHeight)) {
+                finishPrintRequest();
+                return;
+            }
+
+            iframe.setAttribute("height", String(pendingPrintHeight));
+            document.body.classList.add("printing-document");
+            window.print();
+        });
+        panel.appendChild(confirmButton);
+
+        var cancelButton = document.createElement("button");
+        cancelButton.type = "button";
+        cancelButton.className = "pdf-print-cancel";
+        cancelButton.textContent = "Cancelar";
+        cancelButton.addEventListener("click", finishPrintRequest);
+        panel.appendChild(cancelButton);
+
+        document.body.appendChild(panel);
+    }
+    panel.hidden = false;
+    panel.querySelector(".pdf-print-confirm").focus();
+}
+
+function finishPrintRequest() {
     var iframe = getIframe();
     if (iframe && iframe.contentWindow) {
         iframe.contentWindow.postMessage({ type: "print-finished" }, "*");
         iframe.removeAttribute("height");
     }
+    pendingPrintHeight = null;
     document.body.classList.remove("printing-document");
-});
+    var panel = document.getElementById("pdf-print-confirmation");
+    if (panel) panel.hidden = true;
+}
+
+window.addEventListener("afterprint", finishPrintRequest);
 
 /* ==============================
    TAGS SYNC
