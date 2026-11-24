@@ -554,8 +554,21 @@ document.addEventListener("click", function (ev) {
             window.addEventListener("scroll", fallbackScrollHandler, { passive: true });
         }
 
+        function handleHashChange() {
+            var targetId;
+            try {
+                targetId = decodeURIComponent(window.location.hash.slice(1));
+            } catch (error) {
+                targetId = "";
+            }
+            if (entries.some(function (entry) { return entry.id === targetId; })) {
+                setActive(targetId);
+            }
+        }
+
         window.addEventListener("scroll", updateProgress, { passive: true });
         window.addEventListener("resize", updateProgress);
+        window.addEventListener("hashchange", handleHashChange);
         cleanupReadingIndex = function () {
             if (observer) observer.disconnect();
             if (fallbackScrollHandler) {
@@ -563,6 +576,7 @@ document.addEventListener("click", function (ev) {
             }
             window.removeEventListener("scroll", updateProgress);
             window.removeEventListener("resize", updateProgress);
+            window.removeEventListener("hashchange", handleHashChange);
         };
         updateProgress();
 
