@@ -107,6 +107,28 @@ test.describe("Exportación a PDF", () => {
         await expect(page.locator("body")).not.toHaveClass(/printing-document/);
     });
 
+    test("aborta la impresión si no puede preparar el contenido", async ({ page }) => {
+        await openDocument(page);
+        await page.evaluate(() => {
+            window.__libretaPrintMessages = 0;
+            window.addEventListener("message", (event) => {
+                if (event.data && event.data.type === "print-document") {
+                    window.__libretaPrintMessages += 1;
+                }
+            });
+        });
+        await page.locator(".page").evaluate((pageElement) => {
+            pageElement.querySelectorAll = function () {
+                throw new Error("Fallo de preparación simulado");
+            };
+        });
+
+        await page.locator(".page-export-button").click();
+
+        expect(await page.evaluate(() => window.__libretaPrintMessages)).toBe(0);
+        await expect(page.locator("#pdf-print-confirmation")).toBeHidden();
+    });
+
     test("oculta controles y prepara documentos plegados para impresión", async ({ page }) => {
         await openDocument(page);
 
