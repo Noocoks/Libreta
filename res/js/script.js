@@ -930,9 +930,12 @@ window.addEventListener("message", function (event) {
     } else if (data.type === "focus-search") {
         var input = document.getElementById("tree_search");
         if (input) { input.focus(); input.select(); }
-    } else if (data.type === "print-document" &&
-        navigator.userActivation && navigator.userActivation.isActive &&
-        Number.isSafeInteger(data.height) && data.height > 0 && data.height <= 200000) {
+    } else if (data.type === "print-document") {
+        if (!navigator.userActivation || !navigator.userActivation.isActive ||
+            !Number.isSafeInteger(data.height) || data.height <= 0 || data.height > 200000) {
+            iframe.contentWindow.postMessage({ type: "print-finished" }, "*");
+            return;
+        }
         iframe.setAttribute("height", String(data.height));
         document.body.classList.add("printing-document");
         window.print();
@@ -941,7 +944,10 @@ window.addEventListener("message", function (event) {
 
 window.addEventListener("afterprint", function () {
     var iframe = getIframe();
-    if (iframe) iframe.removeAttribute("height");
+    if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ type: "print-finished" }, "*");
+        iframe.removeAttribute("height");
+    }
     document.body.classList.remove("printing-document");
 });
 
