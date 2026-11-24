@@ -29,7 +29,6 @@ test.describe("Exportación a PDF", () => {
             });
         });
 
-        const expectedHeight = await frame.locator(".page").evaluate(() => document.documentElement.scrollHeight);
         await frame.evaluate(() => {
             window.parent.postMessage({ type: "print-document", height: 1200 }, "*");
         });
@@ -38,6 +37,7 @@ test.describe("Exportación a PDF", () => {
 
         await exportButton.click();
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(1);
+        const expectedHeight = await frame.locator(".page").evaluate(() => document.documentElement.scrollHeight);
         await expect(page.locator("#page_frame")).toHaveAttribute("height", String(expectedHeight));
         await expect(page.locator("#page_frame")).toHaveAttribute("sandbox", "allow-scripts");
 
@@ -73,6 +73,10 @@ test.describe("Exportación a PDF", () => {
         const folded = page.locator(".page .code-block-fold").last();
         await expect(folded).toBeAttached();
         await expect(folded).not.toHaveAttribute("open", "");
+        await page.evaluate(() => { window.print = () => {}; });
+        await page.locator(".page-export-button").click();
+        await expect(folded).toHaveAttribute("open", "");
+        await expect(page.locator(".print-details-content")).toBeVisible();
 
         await page.emulateMedia({ media: "print" });
 
@@ -100,6 +104,10 @@ test.describe("Exportación a PDF", () => {
         expect(printRules.rowBreakInside).toBe("avoid");
         expect(printRules.codeWhiteSpace).toBe("pre-wrap");
         expect(printRules.pagePadding).toBe("0px");
+
+        await page.evaluate(() => window.dispatchEvent(new Event("afterprint")));
+        await expect(folded).not.toHaveAttribute("open", "");
+        await expect(page.locator(".print-details-content")).toBeHidden();
     });
 
     test("mantiene la acción accesible en móvil y no introduce estilos inline", async ({ page }) => {
