@@ -942,8 +942,7 @@ document.addEventListener("click", function (ev) {
             if (window.parent !== window) {
                 window.parent.postMessage({
                     type: "print-document",
-                    height: Math.ceil(document.documentElement.scrollHeight),
-                    userActivation: Boolean(navigator.userActivation && navigator.userActivation.isActive)
+                    height: Math.ceil(document.documentElement.scrollHeight)
                 }, "*");
             } else {
                 window.print();
