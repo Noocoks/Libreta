@@ -913,7 +913,14 @@ document.addEventListener("click", function (ev) {
         button.type = "button";
         button.textContent = "Imprimir / Guardar como PDF";
         button.addEventListener("click", function () {
-            window.print();
+            if (window.parent !== window) {
+                window.parent.postMessage({
+                    type: "print-document",
+                    height: Math.ceil(document.documentElement.scrollHeight)
+                }, "*");
+            } else {
+                window.print();
+            }
         });
 
         toolbar.appendChild(button);
