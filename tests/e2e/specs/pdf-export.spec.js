@@ -39,8 +39,13 @@ test.describe("Exportación a PDF", () => {
         });
         await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(1);
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
+        await expect(page.locator("#pdf-print-confirmation")).toBeHidden();
 
         await exportButton.click();
+        const confirmPrint = page.locator("#pdf-print-confirmation .pdf-print-confirm");
+        await expect(confirmPrint).toBeVisible();
+        await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
+        await confirmPrint.click();
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(1);
         const expectedHeight = await frame.locator(".page").evaluate(() => document.documentElement.scrollHeight);
         await expect(page.locator("#page_frame")).toHaveAttribute("height", String(expectedHeight));
