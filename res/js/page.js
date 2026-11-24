@@ -554,8 +554,21 @@ document.addEventListener("click", function (ev) {
             window.addEventListener("scroll", fallbackScrollHandler, { passive: true });
         }
 
+        function handleHashChange() {
+            var targetId;
+            try {
+                targetId = decodeURIComponent(window.location.hash.slice(1));
+            } catch (error) {
+                targetId = "";
+            }
+            if (entries.some(function (entry) { return entry.id === targetId; })) {
+                setActive(targetId);
+            }
+        }
+
         window.addEventListener("scroll", updateProgress, { passive: true });
         window.addEventListener("resize", updateProgress);
+        window.addEventListener("hashchange", handleHashChange);
         cleanupReadingIndex = function () {
             if (observer) observer.disconnect();
             if (fallbackScrollHandler) {
@@ -563,6 +576,7 @@ document.addEventListener("click", function (ev) {
             }
             window.removeEventListener("scroll", updateProgress);
             window.removeEventListener("resize", updateProgress);
+            window.removeEventListener("hashchange", handleHashChange);
         };
         updateProgress();
 
@@ -586,5 +600,293 @@ document.addEventListener("click", function (ev) {
         document.addEventListener("DOMContentLoaded", initReadingIndex, { once: true });
     } else {
         initReadingIndex();
+    }
+})();
+
+
+/* ==============================
+   BLOQUES DE CÓDIGO AVANZADOS
+   Copia limpia, lenguaje, líneas y plegado sin dependencias externas.
+============================== */
+(function () {
+    "use strict";
+
+    var LANGUAGE_LABELS = {
+        bash: "Bash", shell: "Shell", sh: "Shell",
+        javascript: "JavaScript", js: "JavaScript",
+        python: "Python", py: "Python", json: "JSON", css: "CSS"
+    };
+
+    var KEYWORDS = {
+        javascript: "const let var function return if else for while switch case break continue class new this async await try catch throw import export from default true false null undefined typeof instanceof",
+        js: "const let var function return if else for while switch case break continue class new this async await try catch throw import export from default true false null undefined typeof instanceof",
+        python: "def class return if elif else for while in break continue import from as try except finally raise with lambda yield async await pass True False None and or not is",
+        py: "def class return if elif else for while in break continue import from as try except finally raise with lambda yield async await pass True False None and or not is",
+        json: "true false null",
+        bash: "if then else elif fi for while do done case esac function export local readonly sudo",
+        sh: "if then else elif fi for while do done case esac function export local readonly sudo",
+        shell: "if then else elif fi for while do done case esac function export local readonly sudo",
+        css: "important"
+    };
+
+    function normalizeLanguage(value) {
+        if (typeof value !== "string") return "";
+        var language = value.trim().toLowerCase().replace(/^language-/, "").replace(/^lang-/, "");
+        if (language === "zsh") return "shell";
+        return Object.prototype.hasOwnProperty.call(LANGUAGE_LABELS, language) ? language : "";
+    }
+
+    function inferLanguage(pre, code, source) {
+        var candidates = [
+            code.getAttribute("data-language"),
+            pre.getAttribute("data-language"),
+            code.className,
+            pre.className
+        ];
+
+        for (var i = 0; i < candidates.length; i += 1) {
+            var candidate = candidates[i] || "";
+            var match = candidate.match(/(?:^|\s)(?:language|lang)-([a-z0-9+#.-]+)/i);
+            var normalized = normalizeLanguage(match ? match[1] : candidate);
+            if (normalized) return normalized;
+        }
+
+        var filename = pre.closest(".code-card");
+        var title = filename && filename.querySelector(".code-header strong");
+        var extension = title && title.textContent.match(/\.([a-z0-9]+)\s*$/i);
+        if (extension) {
+            var byExtension = {
+                sh: "bash", bash: "bash", js: "javascript", mjs: "javascript",
+                py: "python", json: "json", css: "css"
+            };
+            if (byExtension[extension[1].toLowerCase()]) return byExtension[extension[1].toLowerCase()];
+        }
+
+        if (/^#!.*\b(?:python|python3)\b/.test(source)) return "python";
+        if (/^#!.*\b(?:bash|sh)\b/.test(source)) return "bash";
+        return "";
+    }
+
+    function appendTokenizedLine(container, line, language) {
+        var keywords = (KEYWORDS[language] || "").split(/\s+/);
+        var pattern = /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\x60(?:\\.|[^\x60\\])*\x60|\/\/.*|#.*|\b\d+(?:\.\d+)?\b|\b[A-Za-z_$][\w$]*\b)/g;
+        var cursor = 0;
+        var match;
+
+        while ((match = pattern.exec(line))) {
+            if (match.index > cursor) {
+                container.appendChild(document.createTextNode(line.slice(cursor, match.index)));
+            }
+
+            var token = match[0];
+            var className = "";
+            if (/^(["'\x60])/.test(token)) className = "code-token-string";
+            else if (/^(\/\/|#)/.test(token)) className = "code-token-comment";
+            else if (/^\d/.test(token)) className = "code-token-number";
+            else if (keywords.indexOf(token) !== -1) className = "code-token-keyword";
+
+            if (className) {
+                var span = document.createElement("span");
+                span.className = className;
+                span.textContent = token;
+                container.appendChild(span);
+            } else {
+                container.appendChild(document.createTextNode(token));
+            }
+            cursor = pattern.lastIndex;
+        }
+
+        if (cursor < line.length) container.appendChild(document.createTextNode(line.slice(cursor)));
+    }
+
+    function createCodeShell(pre, code, source, lineCount, language) {
+        var shell = document.createElement("div");
+        shell.className = "code-block-shell";
+
+        var gutter = document.createElement("ol");
+        gutter.className = "code-block-line-gutter";
+        gutter.setAttribute("aria-hidden", "true");
+        gutter.hidden = true;
+
+        var normalized = source.replace(/\r\n?/g, "\n");
+        var lines = normalized.split("\n");
+        var hasTrailingNewline = lines.length > 1 && lines[lines.length - 1] === "";
+        if (hasTrailingNewline) lines.pop();
+        lines.forEach(function (line, index) {
+            var lineElement = document.createElement("span");
+            lineElement.className = "code-line";
+            appendTokenizedLine(lineElement, line, language);
+            code.appendChild(lineElement);
+            if (index < lines.length - 1 || hasTrailingNewline) {
+                code.appendChild(document.createTextNode("\n"));
+            }
+
+            var number = document.createElement("li");
+            number.textContent = String(index + 1);
+            gutter.appendChild(number);
+        });
+
+        shell.appendChild(gutter);
+        shell.dataset.lineCount = String(lineCount);
+        return { shell: shell, gutter: gutter };
+    }
+
+    function copyWithFallback(text) {
+        var textarea = document.createElement("textarea");
+        textarea.className = "code-copy-fallback";
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        var copied = false;
+        try {
+            copied = document.execCommand("copy");
+        } catch (error) {
+            copied = false;
+        }
+        textarea.remove();
+        return copied;
+    }
+
+    function copyText(text) {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+            return navigator.clipboard.writeText(text).then(function () {
+                return true;
+            }).catch(function () {
+                return copyWithFallback(text);
+            });
+        }
+        return Promise.resolve(copyWithFallback(text));
+    }
+
+    function createToolbar(language, lineCount, shell, gutter, source) {
+        var toolbar = document.createElement("div");
+        toolbar.className = "code-block-toolbar";
+
+        var metadata = document.createElement("div");
+        metadata.className = "code-block-metadata";
+
+        if (language) {
+            var languageLabel = document.createElement("span");
+            languageLabel.className = "code-block-language";
+            languageLabel.textContent = LANGUAGE_LABELS[language];
+            metadata.appendChild(languageLabel);
+        }
+
+        var count = document.createElement("span");
+        count.className = "code-block-line-count";
+        count.textContent = lineCount + (lineCount === 1 ? " línea" : " líneas");
+        metadata.appendChild(count);
+
+        var actions = document.createElement("div");
+        actions.className = "code-block-actions";
+
+        var lineButton = document.createElement("button");
+        lineButton.className = "code-block-lines-toggle";
+        lineButton.type = "button";
+        lineButton.textContent = "N.º líneas";
+        lineButton.setAttribute("aria-pressed", "false");
+        lineButton.addEventListener("click", function () {
+            var active = lineButton.getAttribute("aria-pressed") !== "true";
+            lineButton.setAttribute("aria-pressed", String(active));
+            shell.classList.toggle("has-line-numbers", active);
+            gutter.hidden = !active;
+        });
+
+        var copyButton = document.createElement("button");
+        copyButton.className = "code-block-copy";
+        copyButton.type = "button";
+        copyButton.textContent = "Copiar";
+        var status = document.createElement("span");
+        status.className = "code-block-copy-status";
+        status.setAttribute("role", "status");
+        status.setAttribute("aria-live", "polite");
+
+        copyButton.addEventListener("click", function () {
+            copyButton.disabled = true;
+            copyText(source).then(function (success) {
+                copyButton.textContent = success ? "Copiado" : "Error al copiar";
+                status.textContent = success
+                    ? "Código copiado al portapapeles."
+                    : "No se ha podido copiar el código. Selecciónalo manualmente.";
+            }).catch(function () {
+                copyButton.textContent = "Error al copiar";
+                status.textContent = "No se ha podido copiar el código. Selecciónalo manualmente.";
+            }).finally(function () {
+                copyButton.disabled = false;
+            });
+        });
+
+        actions.appendChild(lineButton);
+        actions.appendChild(copyButton);
+        toolbar.appendChild(metadata);
+        toolbar.appendChild(actions);
+        toolbar.appendChild(status);
+        return toolbar;
+    }
+
+    function enhanceCodeBlock(pre) {
+        if (pre.dataset.codeEnhanced === "true") return;
+        pre.dataset.codeEnhanced = "true";
+
+        var code = pre.querySelector(":scope > code");
+        if (!code) {
+            code = document.createElement("code");
+            while (pre.firstChild) code.appendChild(pre.firstChild);
+            pre.appendChild(code);
+        }
+
+        var source = code.textContent || "";
+        var language = inferLanguage(pre, code, source);
+        var normalized = source.replace(/\r\n?/g, "\n");
+        var lines = normalized.split("\n");
+        var lineCount = Math.max(1, lines.length - (lines.length > 1 && lines[lines.length - 1] === "" ? 1 : 0));
+
+        code.replaceChildren();
+
+        var built = createCodeShell(pre, code, source, lineCount, language);
+        var toolbar = createToolbar(language, lineCount, built.shell, built.gutter, source);
+
+        var existingCard = pre.closest(".code-card");
+        var existingDetails = pre.closest("details");
+        if (existingCard) {
+            var descriptor = existingCard.querySelector(".code-header span");
+            if (descriptor) {
+                descriptor.textContent = (language ? LANGUAGE_LABELS[language] : "Código") +
+                    " · " + lineCount + (lineCount === 1 ? " línea" : " líneas");
+            }
+        }
+
+        if (!existingDetails && lineCount >= 18) {
+            var details = document.createElement("details");
+            details.className = "code-block-fold";
+            var summary = document.createElement("summary");
+            summary.textContent = (language ? LANGUAGE_LABELS[language] : "Código") +
+                " · " + lineCount + " líneas";
+            pre.parentNode.replaceChild(details, pre);
+            details.appendChild(summary);
+            details.appendChild(toolbar);
+            details.appendChild(built.shell);
+            built.shell.appendChild(pre);
+        } else {
+            pre.parentNode.insertBefore(toolbar, pre);
+            pre.parentNode.replaceChild(built.shell, pre);
+            built.shell.appendChild(pre);
+        }
+    }
+
+    function initCodeBlocks() {
+        var page = document.querySelector(".page");
+        if (!page) return;
+        page.querySelectorAll("pre").forEach(enhanceCodeBlock);
+    }
+
+    window.initCodeBlocks = initCodeBlocks;
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initCodeBlocks, { once: true });
+    } else {
+        initCodeBlocks();
     }
 })();
