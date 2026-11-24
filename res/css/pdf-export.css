@@ -221,3 +221,58 @@
         border-color: #aaa !important;
     }
 }
+
+
+/* La ventana contenedora imprime únicamente el documento activo del iframe. */
+@media print {
+    html,
+    body {
+        width: auto !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        background: #fff !important;
+    }
+
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .two-panels {
+        position: static !important;
+        inset: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        background: #fff !important;
+    }
+
+    .tree-panel,
+    #tree_panel_toggle_btn {
+        display: none !important;
+    }
+
+    .page-panel {
+        display: block !important;
+        flex: none !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+        background: #fff !important;
+    }
+
+    .page-panel iframe {
+        display: block !important;
+        width: 100% !important;
+        border: 0 !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
