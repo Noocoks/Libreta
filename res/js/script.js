@@ -931,6 +931,7 @@ window.addEventListener("message", function (event) {
         var input = document.getElementById("tree_search");
         if (input) { input.focus(); input.select(); }
     } else if (data.type === "print-document" &&
+        navigator.userActivation && navigator.userActivation.isActive &&
         Number.isSafeInteger(data.height) && data.height > 0 && data.height <= 200000) {
         iframe.setAttribute("height", String(data.height));
         document.body.classList.add("printing-document");
