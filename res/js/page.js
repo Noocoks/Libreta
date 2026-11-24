@@ -903,6 +903,31 @@ document.addEventListener("click", function (ev) {
         var page = document.querySelector(".page");
         if (!page || page.querySelector(".page-export-toolbar")) return;
 
+        var collapsedDetails = [];
+
+        function preparePrintDetails() {
+            collapsedDetails = [];
+            page.querySelectorAll("details:not([open])").forEach(function (details) {
+                collapsedDetails.push(details);
+                details.open = true;
+            });
+        }
+
+        function restorePrintDetails() {
+            collapsedDetails.forEach(function (details) {
+                details.open = false;
+            });
+            collapsedDetails = [];
+        }
+
+        window.addEventListener("afterprint", restorePrintDetails);
+        window.addEventListener("message", function (event) {
+            if (event.source === window.parent && event.origin === parentOrigin &&
+                event.data && event.data.type === "print-finished") {
+                restorePrintDetails();
+            }
+        });
+
         var toolbar = document.createElement("div");
         toolbar.className = "page-export-toolbar";
         toolbar.setAttribute("role", "group");
@@ -913,6 +938,7 @@ document.addEventListener("click", function (ev) {
         button.type = "button";
         button.textContent = "Imprimir / Guardar como PDF";
         button.addEventListener("click", function () {
+            preparePrintDetails();
             if (window.parent !== window) {
                 window.parent.postMessage({
                     type: "print-document",
