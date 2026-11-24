@@ -289,19 +289,7 @@ function navigate(file_path, push = true) {
 }
 
 function changeFrame(file_path) {
-    var navigated = navigate(file_path, true);
-
-    // En pantallas pequeñas el índice es un drawer superpuesto al documento.
-    // Cerrar el drawer tras elegir una página evita que cubra el iframe y
-    // permite interactuar con sus controles, incluida la exportación PDF.
-    if (navigated && window.matchMedia("(max-width: 900px)").matches) {
-        var treePanel = get_tree_panel();
-        if (treePanel && !treePanel.classList.contains("hidden")) {
-            toggle_tree_panel();
-        }
-    }
-
-    return navigated;
+    return navigate(file_path, true);
 }
 
 /* ==============================
