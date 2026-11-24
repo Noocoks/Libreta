@@ -19,11 +19,22 @@ test.describe("Exportación a PDF", () => {
 
         await page.evaluate(() => {
             window.__libretaPrintCalls = 0;
+            window.__libretaPrintMessages = 0;
             window.print = () => { window.__libretaPrintCalls += 1; };
+            window.addEventListener("message", (event) => {
+                if (event.data && event.data.type === "print-document") {
+                    window.__libretaPrintMessages += 1;
+                }
+            });
         });
 
         const expectedHeight = await frame.locator(".page").evaluate(() => document.documentElement.scrollHeight);
+        await frame.evaluate(() => {
+            window.parent.postMessage({ type: "print-document", height: 1200 }, "*");
+        });
+        await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(1);
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
+
         await exportButton.click();
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(1);
         await expect(page.locator("#page_frame")).toHaveAttribute("height", String(expectedHeight));
