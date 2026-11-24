@@ -907,10 +907,12 @@ document.addEventListener("click", function (ev) {
 
         function preparePrintDetails() {
             collapsedDetails = [];
-            page.querySelectorAll("details:not([open])").forEach(function (details) {
+            var detailsElements = page.querySelectorAll("details:not([open])");
+            for (var i = 0; i < detailsElements.length; i++) {
+                var details = detailsElements[i];
                 collapsedDetails.push(details);
                 details.open = true;
-            });
+            }
         }
 
         function restorePrintDetails() {
@@ -938,11 +940,21 @@ document.addEventListener("click", function (ev) {
         button.type = "button";
         button.textContent = "Imprimir / Guardar como PDF";
         button.addEventListener("click", function () {
-            preparePrintDetails();
+            try {
+                preparePrintDetails();
+            } catch (error) {
+                restorePrintDetails();
+                console.error("No se pudo preparar el contenido desplegable para imprimir.", error);
+            }
+
             if (window.parent !== window) {
+                var documentHeight = Math.ceil(Math.max(
+                    document.documentElement.scrollHeight,
+                    document.body ? document.body.scrollHeight : 0
+                ));
                 window.parent.postMessage({
                     type: "print-document",
-                    height: Math.ceil(document.documentElement.scrollHeight)
+                    height: documentHeight
                 }, "*");
             } else {
                 window.print();
