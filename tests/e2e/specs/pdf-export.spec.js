@@ -18,7 +18,11 @@ async function openHydraFromWiki(page) {
     await expect(documentLink).toBeVisible();
     await documentLink.click();
 
-    if (await page.evaluate(() => window.matchMedia("(max-width: 900px)").matches)) {
+    // En móvil el índice sigue siendo un drawer persistente: se cierra
+    // explícitamente para que el documento y sus controles queden accesibles.
+    if (await page.evaluate(() => window.matchMedia("(max-width: 900px)").matches) &&
+        await drawer.getAttribute("aria-expanded") === "true") {
+        await drawer.click();
         await expect(drawer).toHaveAttribute("aria-expanded", "false");
     }
 }
