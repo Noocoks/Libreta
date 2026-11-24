@@ -276,3 +276,54 @@
         transition: none !important;
     }
 }
+
+
+/* La impresión desde un iframe sandbox requiere confirmación en el contexto padre. */
+.pdf-print-confirmation {
+    position: fixed;
+    z-index: 10000;
+    right: 1rem;
+    bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .65rem;
+    max-width: min(34rem, calc(100vw - 2rem));
+    padding: .9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--text);
+    box-shadow: 0 8px 28px rgb(0 0 0 / 35%);
+}
+
+.pdf-print-confirmation[hidden] {
+    display: none;
+}
+
+.pdf-print-confirmation span {
+    flex: 1 1 100%;
+    font-size: .9rem;
+}
+
+.pdf-print-confirmation button {
+    min-height: 38px;
+    padding: .45rem .75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel-2);
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+}
+
+.pdf-print-confirmation button:focus-visible {
+    outline: 2px solid var(--accent-light);
+    outline-offset: 3px;
+}
+
+@media print {
+    .pdf-print-confirmation {
+        display: none !important;
+    }
+}
