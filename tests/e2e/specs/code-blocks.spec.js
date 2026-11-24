@@ -22,13 +22,13 @@ test.describe("Bloques de código avanzados", () => {
         await openCodeDocument(page);
 
         const source = 'const value = "<img src=x onerror=alert(1)>";\nreturn value;\n';
-        await page.locator(".page").evaluate((text) => {
+        await page.locator(".page").evaluate((pageElement, text) => {
             const pre = document.createElement("pre");
             const code = document.createElement("code");
             code.className = "language-javascript";
             code.textContent = text;
             pre.appendChild(code);
-            document.querySelector(".page").appendChild(pre);
+            pageElement.appendChild(pre);
             Object.defineProperty(navigator, "clipboard", {
                 configurable: true,
                 value: {
