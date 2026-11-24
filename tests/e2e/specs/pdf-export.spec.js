@@ -35,11 +35,15 @@ test.describe("Exportación a PDF", () => {
         });
 
         await frame.locator("body").evaluate(() => {
-            window.parent.postMessage({ type: "print-document", height: 200001 }, "*");
+            window.parent.postMessage({ type: "print-document", height: 1000001 }, "*");
         });
         await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(1);
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
         await expect(page.locator("#pdf-print-confirmation")).toBeHidden();
+
+        const expectedHeight = await frame.locator(".page").evaluate(() => document.documentElement.scrollHeight);
+        expect(expectedHeight).toBeGreaterThan(0);
+        expect(expectedHeight).toBeLessThanOrEqual(1000000);
 
         await exportButton.click();
         const confirmPrint = page.locator("#pdf-print-confirmation .pdf-print-confirm");
@@ -47,7 +51,6 @@ test.describe("Exportación a PDF", () => {
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
         await confirmPrint.click();
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(1);
-        const expectedHeight = await frame.locator(".page").evaluate(() => document.documentElement.scrollHeight);
         await expect(page.locator("#page_frame")).toHaveAttribute("height", String(expectedHeight));
         await expect(page.locator("#page_frame")).toHaveAttribute("sandbox", "allow-scripts");
 
