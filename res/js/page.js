@@ -890,3 +890,45 @@ document.addEventListener("click", function (ev) {
         initCodeBlocks();
     }
 })();
+
+
+/* ==============================
+   EXPORTACIÓN A PDF
+   Utiliza el diálogo nativo del navegador; no transmite el documento.
+============================== */
+(function () {
+    "use strict";
+
+    function initPdfExport() {
+        var page = document.querySelector(".page");
+        if (!page || page.querySelector(".page-export-toolbar")) return;
+
+        var toolbar = document.createElement("div");
+        toolbar.className = "page-export-toolbar";
+        toolbar.setAttribute("role", "group");
+        toolbar.setAttribute("aria-label", "Exportar documentación");
+
+        var button = document.createElement("button");
+        button.className = "page-export-button";
+        button.type = "button";
+        button.textContent = "Imprimir / Guardar como PDF";
+        button.addEventListener("click", function () {
+            window.print();
+        });
+
+        toolbar.appendChild(button);
+
+        var breadcrumb = page.querySelector("#auto-breadcrumb");
+        if (breadcrumb && breadcrumb.parentNode === page) {
+            breadcrumb.insertAdjacentElement("afterend", toolbar);
+        } else {
+            page.insertBefore(toolbar, page.firstChild);
+        }
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initPdfExport, { once: true });
+    } else {
+        initPdfExport();
+    }
+})();
