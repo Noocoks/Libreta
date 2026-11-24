@@ -17,6 +17,10 @@ async function openHydraFromWiki(page) {
     const documentLink = page.locator("#tree_root a").filter({ hasText: "Hydra" }).first();
     await expect(documentLink).toBeVisible();
     await documentLink.click();
+
+    if (await page.evaluate(() => window.matchMedia("(max-width: 900px)").matches)) {
+        await expect(drawer).toHaveAttribute("aria-expanded", "false");
+    }
 }
 
 test.describe("Exportación a PDF", () => {
