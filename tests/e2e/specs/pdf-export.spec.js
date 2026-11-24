@@ -7,18 +7,32 @@ async function openDocument(page) {
 }
 
 test.describe("Exportación a PDF", () => {
-    test("abre el diálogo nativo únicamente tras una acción explícita", async ({ page }) => {
-        await openDocument(page);
+    test("solicita la impresión a la ventana principal sin relajar la sandbox", async ({ page }) => {
+        await page.goto("wiki.html");
+        const documentLink = page.locator("#tree_root a").filter({ hasText: "Hydra" }).first();
+        await expect(documentLink).toBeVisible();
+        await documentLink.click();
+
+        const frame = page.frameLocator("#page_frame");
+        const exportButton = frame.locator(".page-export-button");
+        await expect(exportButton).toBeVisible();
 
         await page.evaluate(() => {
             window.__libretaPrintCalls = 0;
             window.print = () => { window.__libretaPrintCalls += 1; };
         });
 
+        const expectedHeight = await frame.locator(".page").evaluate(() => document.documentElement.scrollHeight);
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
-        await page.locator(".page-export-button").click();
+        await exportButton.click();
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(1);
-        await expect(page.locator(".page-export-button")).toHaveText("Imprimir / Guardar como PDF");
+        await expect(page.locator("#page_frame")).toHaveAttribute("height", String(expectedHeight));
+        await expect(page.locator("#page_frame")).toHaveAttribute("sandbox", "allow-scripts");
+
+        await page.emulateMedia({ media: "print" });
+        await expect(page.locator(".tree-panel")).toBeHidden();
+        await expect(page.locator("#tree_panel_toggle_btn")).toBeHidden();
+        await expect(page.locator("#page_frame")).toBeVisible();
     });
 
     test("oculta controles y prepara documentos plegados para impresión", async ({ page }) => {
