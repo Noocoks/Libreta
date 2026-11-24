@@ -931,7 +931,7 @@ window.addEventListener("message", function (event) {
         var input = document.getElementById("tree_search");
         if (input) { input.focus(); input.select(); }
     } else if (data.type === "print-document") {
-        if (!navigator.userActivation || !navigator.userActivation.isActive ||
+        if (data.userActivation !== true ||
             !Number.isSafeInteger(data.height) || data.height <= 0 || data.height > 200000) {
             iframe.contentWindow.postMessage({ type: "print-finished" }, "*");
             return;
