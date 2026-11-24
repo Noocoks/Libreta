@@ -34,6 +34,9 @@ test.describe("Exportación a PDF", () => {
             });
         });
 
+        await page.waitForFunction(() =>
+            !navigator.userActivation || !navigator.userActivation.isActive
+        );
         await frame.locator("body").evaluate(() => {
             window.parent.postMessage({ type: "print-document", height: 1200 }, "*");
         });
