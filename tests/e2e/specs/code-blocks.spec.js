@@ -84,13 +84,13 @@ test.describe("Bloques de código avanzados", () => {
         await openCodeDocument(page);
 
         const source = "echo 'fallback seguro'";
-        await page.locator(".page").evaluate((text) => {
+        await page.locator(".page").evaluate((pageElement, text) => {
             const pre = document.createElement("pre");
             const code = document.createElement("code");
             code.className = "language-bash";
             code.textContent = text;
             pre.appendChild(code);
-            document.querySelector(".page").appendChild(pre);
+            pageElement.appendChild(pre);
 
             Object.defineProperty(navigator, "clipboard", {
                 configurable: true,
