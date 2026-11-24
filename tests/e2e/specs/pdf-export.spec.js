@@ -55,6 +55,19 @@ test.describe("Exportación a PDF", () => {
         const exportButton = frame.locator(".page-export-button");
         await expect(exportButton).toBeVisible();
 
+        await frame.locator(".page").evaluate((pageElement) => {
+            const details = document.createElement("details");
+            details.className = "pdf-export-integration-details";
+            const summary = document.createElement("summary");
+            summary.textContent = "Contenido plegado para la prueba integrada";
+            const paragraph = document.createElement("p");
+            paragraph.textContent = "Este contenido debe expandirse antes de calcular la altura de impresión.";
+            details.append(summary, paragraph);
+            pageElement.appendChild(details);
+        });
+        const printDetails = frame.locator(".pdf-export-integration-details");
+        await expect(printDetails).not.toHaveAttribute("open", "");
+
         await page.evaluate(() => {
             window.__libretaPrintCalls = 0;
             window.__libretaPrintMessages = 0;
@@ -67,7 +80,11 @@ test.describe("Exportación a PDF", () => {
         });
 
         await exportButton.click();
-        const expectedHeight = await frame.locator(".page").evaluate(() => document.documentElement.scrollHeight);
+        await expect(printDetails).toHaveAttribute("open", "");
+        const expectedHeight = await frame.locator(".page").evaluate(() => Math.ceil(Math.max(
+            document.documentElement.scrollHeight,
+            document.body ? document.body.scrollHeight : 0
+        )));
         expect(expectedHeight).toBeGreaterThan(0);
         expect(expectedHeight).toBeLessThanOrEqual(5000000);
         await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(1);
@@ -83,6 +100,11 @@ test.describe("Exportación a PDF", () => {
         await expect(page.locator(".tree-panel")).toBeHidden();
         await expect(page.locator("#tree_panel_toggle_btn")).toBeHidden();
         await expect(page.locator("#page_frame")).toBeVisible();
+
+        await page.evaluate(() => window.dispatchEvent(new Event("afterprint")));
+        await expect(printDetails).not.toHaveAttribute("open", "");
+        await expect(page.locator("#page_frame")).not.toHaveAttribute("height");
+        await expect(page.locator("body")).not.toHaveClass(/printing-document/);
     });
 
     test("oculta controles y prepara documentos plegados para impresión", async ({ page }) => {
