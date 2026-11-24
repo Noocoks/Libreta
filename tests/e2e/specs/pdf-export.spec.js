@@ -34,8 +34,8 @@ test.describe("Exportación a PDF", () => {
             });
         });
 
-        await page.locator("#page_frame").evaluate((iframe) => {
-            iframe.contentWindow.postMessage({ type: "print-document", height: 1200 }, "*");
+        await frame.locator("body").evaluate(() => {
+            window.parent.postMessage({ type: "print-document", height: 1200 }, "*");
         });
         await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(1);
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
