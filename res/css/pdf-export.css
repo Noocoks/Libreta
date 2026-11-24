@@ -1,0 +1,223 @@
+/* Exportación mediante el diálogo de impresión nativo. */
+.page-export-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 1rem;
+}
+
+.page-export-button {
+    min-height: 36px;
+    padding: .45rem .8rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel-2);
+    color: var(--text);
+    font: inherit;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.page-export-button:hover {
+    border-color: var(--accent-light);
+    background: var(--panel-3);
+    color: #fff;
+}
+
+.page-export-button:focus-visible {
+    outline: 2px solid var(--accent-light);
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    .page-export-toolbar {
+        justify-content: stretch;
+    }
+
+    .page-export-button {
+        width: 100%;
+        min-height: 42px;
+    }
+}
+
+@page {
+    size: auto;
+    margin: 16mm 14mm;
+}
+
+@media print {
+    html,
+    body {
+        width: auto !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        background: #fff !important;
+        color: #111 !important;
+    }
+
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 10pt !important;
+        print-color-adjust: economy;
+        -webkit-print-color-adjust: economy;
+    }
+
+    .page {
+        width: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        background: #fff !important;
+        color: #111 !important;
+        font-size: 10pt !important;
+        line-height: 1.5 !important;
+    }
+
+    .page-export-toolbar,
+    #auto-breadcrumb,
+    .reading-progress,
+    .reading-index,
+    .code-block-toolbar,
+    .code-block-line-gutter,
+    .code-copy-fallback {
+        display: none !important;
+    }
+
+    .page h1,
+    .page h2,
+    .page h3,
+    .page h4,
+    .page h5,
+    .page h6 {
+        color: #111 !important;
+        break-after: avoid-page;
+        page-break-after: avoid;
+    }
+
+    .page h1 {
+        font-size: 22pt !important;
+    }
+
+    .page h2 {
+        font-size: 16pt !important;
+    }
+
+    .page h3 {
+        font-size: 12pt !important;
+    }
+
+    .page p,
+    .page li {
+        color: #222 !important;
+        orphans: 3;
+        widows: 3;
+    }
+
+    .page a,
+    .page a:visited {
+        color: #111 !important;
+        text-decoration: underline;
+        overflow-wrap: anywhere;
+    }
+
+    .page .tag {
+        border-color: #aaa !important;
+        background: transparent !important;
+        color: #333 !important;
+        transform: none !important;
+    }
+
+    .page table {
+        width: 100%;
+        max-width: 100%;
+        border-collapse: collapse;
+        break-inside: auto;
+    }
+
+    .page thead {
+        display: table-header-group;
+    }
+
+    .page tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .page th,
+    .page td {
+        border: 1px solid #999 !important;
+        background: #fff !important;
+        color: #111 !important;
+        padding: .35rem .45rem;
+        overflow-wrap: anywhere;
+    }
+
+    .page img,
+    .page svg,
+    .page video {
+        max-width: 100% !important;
+        height: auto !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .page figure,
+    .page blockquote {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .page .box,
+    .page .accordion,
+    .page .code-block-fold,
+    .page .code-block-shell {
+        border-color: #aaa !important;
+        background: #fff !important;
+        color: #111 !important;
+        box-shadow: none !important;
+    }
+
+    .page details:not([open]) > :not(summary) {
+        display: block !important;
+    }
+
+    .page details > summary {
+        color: #111 !important;
+        background: transparent !important;
+    }
+
+    .page pre,
+    .page code,
+    .page .code-block-shell pre {
+        max-width: 100% !important;
+        overflow: visible !important;
+        border-color: #aaa !important;
+        background: #f5f5f5 !important;
+        color: #111 !important;
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+        tab-size: 4;
+    }
+
+    .page .code-line {
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    .page .code-token-keyword,
+    .page .code-token-string,
+    .page .code-token-comment,
+    .page .code-token-number {
+        color: #111 !important;
+        font-style: normal !important;
+        font-weight: normal !important;
+    }
+
+    .page hr {
+        border-color: #aaa !important;
+    }
+}
