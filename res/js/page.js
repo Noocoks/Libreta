@@ -945,6 +945,7 @@ document.addEventListener("click", function (ev) {
             } catch (error) {
                 restorePrintDetails();
                 console.error("No se pudo preparar el contenido desplegable para imprimir.", error);
+                return;
             }
 
             if (window.parent !== window) {
