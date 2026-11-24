@@ -6,18 +6,42 @@ async function openDocument(page) {
     await expect(page.locator(".page-export-button")).toBeVisible();
 }
 
+async function openHydraFromWiki(page) {
+    await page.goto("wiki.html");
+    const drawer = page.locator("#tree_panel_toggle_btn");
+    if (await drawer.getAttribute("aria-expanded") === "false") {
+        await drawer.click();
+        await expect(drawer).toHaveAttribute("aria-expanded", "true");
+    }
+    await page.locator("#tree_search").fill("Hydra");
+    const documentLink = page.locator("#tree_root a").filter({ hasText: "Hydra" }).first();
+    await expect(documentLink).toBeVisible();
+    await documentLink.click();
+}
+
 test.describe("Exportación a PDF", () => {
+    test("rechaza solicitudes de impresión con una altura fuera de límite", async ({ page }) => {
+        await openHydraFromWiki(page);
+        await page.evaluate(() => {
+            window.__libretaPrintCalls = 0;
+            window.__libretaPrintMessages = 0;
+            window.print = () => { window.__libretaPrintCalls += 1; };
+            window.addEventListener("message", (event) => {
+                if (event.data && event.data.type === "print-document") {
+                    window.__libretaPrintMessages += 1;
+                }
+            });
+        });
+        const frame = page.frameLocator("#page_frame");
+        await frame.locator("body").evaluate(() => {
+            window.parent.postMessage({ type: "print-document", height: 5000001 }, "*");
+        });
+        await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(1);
+        await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
+        await expect(page.locator("#pdf-print-confirmation")).toBeHidden();
+    });
     test("solicita la impresión a la ventana principal sin relajar la sandbox", async ({ page }) => {
-        await page.goto("wiki.html");
-        const drawer = page.locator("#tree_panel_toggle_btn");
-        if (await drawer.getAttribute("aria-expanded") === "false") {
-            await drawer.click();
-            await expect(drawer).toHaveAttribute("aria-expanded", "true");
-        }
-        await page.locator("#tree_search").fill("Hydra");
-        const documentLink = page.locator("#tree_root a").filter({ hasText: "Hydra" }).first();
-        await expect(documentLink).toBeVisible();
-        await documentLink.click();
+        await openHydraFromWiki(page);
 
         const frame = page.frameLocator("#page_frame");
         const exportButton = frame.locator(".page-export-button");
@@ -34,18 +58,11 @@ test.describe("Exportación a PDF", () => {
             });
         });
 
-        await frame.locator("body").evaluate(() => {
-            window.parent.postMessage({ type: "print-document", height: 5000001 }, "*");
-        });
-        await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(1);
-        await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
-        await expect(page.locator("#pdf-print-confirmation")).toBeHidden();
-
         await exportButton.click();
         const expectedHeight = await frame.locator(".page").evaluate(() => document.documentElement.scrollHeight);
         expect(expectedHeight).toBeGreaterThan(0);
         expect(expectedHeight).toBeLessThanOrEqual(5000000);
-        await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(2);
+        await expect.poll(() => page.evaluate(() => window.__libretaPrintMessages)).toBe(1);
         const confirmPrint = page.locator("#pdf-print-confirmation .pdf-print-confirm");
         await expect(confirmPrint).toBeVisible();
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(0);
