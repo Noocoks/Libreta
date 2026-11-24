@@ -930,7 +930,18 @@ window.addEventListener("message", function (event) {
     } else if (data.type === "focus-search") {
         var input = document.getElementById("tree_search");
         if (input) { input.focus(); input.select(); }
+    } else if (data.type === "print-document" &&
+        Number.isSafeInteger(data.height) && data.height > 0 && data.height <= 200000) {
+        iframe.setAttribute("height", String(data.height));
+        document.body.classList.add("printing-document");
+        window.print();
     }
+});
+
+window.addEventListener("afterprint", function () {
+    var iframe = getIframe();
+    if (iframe) iframe.removeAttribute("height");
+    document.body.classList.remove("printing-document");
 });
 
 /* ==============================
