@@ -9,6 +9,7 @@ async function openDocument(page) {
 test.describe("Exportación a PDF", () => {
     test("solicita la impresión a la ventana principal sin relajar la sandbox", async ({ page }) => {
         await page.goto("wiki.html");
+        await page.locator("#tree_search").fill("Hydra");
         const documentLink = page.locator("#tree_root a").filter({ hasText: "Hydra" }).first();
         await expect(documentLink).toBeVisible();
         await documentLink.click();
