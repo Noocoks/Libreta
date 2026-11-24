@@ -33,7 +33,13 @@ test.describe("Exportación a PDF", () => {
             pageElement.appendChild(pre);
 
             const details = document.createElement("details");
-            details.innerHTML = "<summary>Contenido desplegable de prueba</summary><p class='print-details-content'>Este contenido debe aparecer en el documento impreso.</p>";
+            const summary = document.createElement("summary");
+            summary.textContent = "Contenido desplegable de prueba";
+            const paragraph = document.createElement("p");
+            paragraph.className = "print-details-content";
+            paragraph.textContent = "Este contenido debe aparecer en el documento impreso.";
+            details.appendChild(summary);
+            details.appendChild(paragraph);
             pageElement.appendChild(details);
             window.initCodeBlocks();
         });
