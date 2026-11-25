@@ -890,3 +890,91 @@ document.addEventListener("click", function (ev) {
         initCodeBlocks();
     }
 })();
+
+
+/* ==============================
+   EXPORTACIÓN A PDF
+   Utiliza el diálogo nativo del navegador; no transmite el documento.
+============================== */
+(function () {
+    "use strict";
+
+    function initPdfExport() {
+        var page = document.querySelector(".page");
+        if (!page || page.querySelector(".page-export-toolbar")) return;
+
+        var collapsedDetails = [];
+
+        function preparePrintDetails() {
+            collapsedDetails = [];
+            var detailsElements = page.querySelectorAll("details:not([open])");
+            for (var i = 0; i < detailsElements.length; i++) {
+                var details = detailsElements[i];
+                collapsedDetails.push(details);
+                details.open = true;
+            }
+        }
+
+        function restorePrintDetails() {
+            collapsedDetails.forEach(function (details) {
+                details.open = false;
+            });
+            collapsedDetails = [];
+        }
+
+        window.addEventListener("afterprint", restorePrintDetails);
+        window.addEventListener("message", function (event) {
+            if (event.source === window.parent && event.origin === parentOrigin &&
+                event.data && event.data.type === "print-finished") {
+                restorePrintDetails();
+            }
+        });
+
+        var toolbar = document.createElement("div");
+        toolbar.className = "page-export-toolbar";
+        toolbar.setAttribute("role", "group");
+        toolbar.setAttribute("aria-label", "Exportar documentación");
+
+        var button = document.createElement("button");
+        button.className = "page-export-button";
+        button.type = "button";
+        button.textContent = "Imprimir / Guardar como PDF";
+        button.addEventListener("click", function () {
+            try {
+                preparePrintDetails();
+            } catch (error) {
+                restorePrintDetails();
+                console.error("No se pudo preparar el contenido desplegable para imprimir.", error);
+                return;
+            }
+
+            if (window.parent !== window) {
+                var documentHeight = Math.ceil(Math.max(
+                    document.documentElement.scrollHeight,
+                    document.body ? document.body.scrollHeight : 0
+                ));
+                window.parent.postMessage({
+                    type: "print-document",
+                    height: documentHeight
+                }, "*");
+            } else {
+                window.print();
+            }
+        });
+
+        toolbar.appendChild(button);
+
+        var breadcrumb = page.querySelector("#auto-breadcrumb");
+        if (breadcrumb && breadcrumb.parentNode === page) {
+            breadcrumb.insertAdjacentElement("afterend", toolbar);
+        } else {
+            page.insertBefore(toolbar, page.firstChild);
+        }
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initPdfExport, { once: true });
+    } else {
+        initPdfExport();
+    }
+})();
