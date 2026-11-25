@@ -37,7 +37,7 @@ test.describe("Exportación a PDF", () => {
             const expectedFrame = document.querySelector("#page_frame");
             window.addEventListener("message", (event) => {
                 if (event.source === expectedFrame.contentWindow && event.origin === "null" &&
-                    event.data && event.data.type === "print-document")
+                    event.data && event.data.type === "print-document") {
                     window.__libretaPrintMessages += 1;
                 }
             });
@@ -77,7 +77,7 @@ test.describe("Exportación a PDF", () => {
             const expectedFrame = document.querySelector("#page_frame");
             window.addEventListener("message", (event) => {
                 if (event.source === expectedFrame.contentWindow && event.origin === "null" &&
-                    event.data && event.data.type === "print-document")
+                    event.data && event.data.type === "print-document") {
                     window.__libretaPrintMessages += 1;
                 }
             });
@@ -118,7 +118,7 @@ test.describe("Exportación a PDF", () => {
             const expectedFrame = document.querySelector("#page_frame");
             window.addEventListener("message", (event) => {
                 if (event.source === expectedFrame.contentWindow && event.origin === "null" &&
-                    event.data && event.data.type === "print-document")
+                    event.data && event.data.type === "print-document") {
                     window.__libretaPrintMessages += 1;
                 }
             });
