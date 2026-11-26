@@ -19,5 +19,6 @@ test("Windows aparece en el árbol y la guía se abre correctamente", async ({ p
     const frame = page.frameLocator("#page_frame");
     await expect(frame.getByRole("heading", { name: "Guía de aplicaciones imprescindibles para Windows" })).toBeVisible();
     await expect(frame.locator(".windows-category")).toHaveCount(14);
+    await frame.getByText("DESARROLLO, PROGRAMACIÓN Y ENTORNOS DE TRABAJO", { exact: true }).click();
     await expect(frame.getByRole("heading", { name: /Responsively App/ })).toBeVisible();
 });
