@@ -38,7 +38,9 @@ test.describe("Controles del árbol", () => {
             await panelToggle.click();
             await expect(panelToggle).toHaveAttribute("aria-expanded", "true");
         }
-        const windows = page.locator("#tree_root > li").filter({ has: page.getByRole("link", { name: "Windows", exact: true }) });
+        const windowsLink = page.getByRole("link", { name: "Windows", exact: true });
+        await expect(windowsLink).toHaveCount(1);
+        const windows = windowsLink.locator("xpath=..");
         await expect(windows).toHaveCount(1);
         await windows.locator("button[aria-expanded]").click();
         await windows.getByRole("link", { name: "Guía de aplicaciones", exact: true }).click();
