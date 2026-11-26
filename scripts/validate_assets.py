@@ -117,12 +117,12 @@ EXPECTED_CSP = {
     "form-action": ["'self'"],
 }
 SANDBOXED_DOCUMENT_CSP = {
-    "script-src": ["'self'", "https://noocoks.github.io"],
-    "style-src": ["'self'", "https://noocoks.github.io"],
-    "style-src-elem": ["'self'", "https://noocoks.github.io"],
-    "img-src": ["'self'", "https://noocoks.github.io", "data:"],
-    "font-src": ["'self'", "https://noocoks.github.io"],
-    "connect-src": ["'self'", "https://noocoks.github.io"],
+    "script-src": ["'self'", "https://noocoks.github.io/Libreta/"],
+    "style-src": ["'self'", "https://noocoks.github.io/Libreta/"],
+    "style-src-elem": ["'self'", "https://noocoks.github.io/Libreta/"],
+    "img-src": ["'self'", "https://noocoks.github.io/Libreta/", "data:"],
+    "font-src": ["'self'", "https://noocoks.github.io/Libreta/"],
+    "connect-src": ["'self'", "https://noocoks.github.io/Libreta/"],
 }
 # frame-src puede omitirse: default-src 'self' aplica como fallback equivalente.
 OPTIONAL_CSP = {"frame-src": ["'self'"]}
