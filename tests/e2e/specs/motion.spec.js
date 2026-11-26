@@ -64,6 +64,7 @@ test.describe("Sistema de movimiento", () => {
         }
 
         await page.goto("wiki.html");
+        // El árbol de la PR incluye las cuatro categorías raíz, incluida Windows.
         await expect(page.locator(".tree.ready #tree_root > li")).toHaveCount(4);
         const wikiDurations = await page.evaluate(() => {
             return [".tree.ready #tree_root > li", ".page-panel iframe"].map((selector) => {
