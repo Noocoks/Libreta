@@ -16,6 +16,7 @@ test.describe("Índice dinámico de lectura", () => {
 
         if (await headings.count()) {
             await expect(index).toBeVisible();
+            await expect(index.locator("details")).toHaveJSProperty("open", false);
             await expect(index.locator("a")).toHaveCount(await headings.count());
             const details = index.locator("details");
             if (!(await details.evaluate(element => element.open))) {

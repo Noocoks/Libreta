@@ -14,7 +14,7 @@
 .windows-category { margin: 1rem 0; border: 1px solid var(--border); border-radius: 10px; overflow: clip; background: rgba(255,255,255,.018); }
 .windows-category details > summary { display: flex; align-items: center; gap: .75rem; min-height: 3.2rem; padding: .8rem 1rem; cursor: pointer; list-style: none; background: linear-gradient(100deg,rgba(121,0,24,.17),transparent 75%); }
 .windows-category details > summary::-webkit-details-marker { display: none; }
-.windows-category details > summary::after { content: "+"; margin-left: auto; color: #b94b63; font-size: 1.35rem; font-weight: 700; }
+.windows-category details > summary::after { content: "+"; margin-left: 0; flex: 0 0 auto; color: #b94b63; font-size: 1.35rem; font-weight: 700; }
 .windows-category details[open] > summary::after { content: "−"; }
 .windows-category-number { color: #c34a62; font-weight: 800; font-variant-numeric: tabular-nums; }
 .windows-category-title { font-weight: 700; }
@@ -32,5 +32,5 @@
 @media (max-width: 700px) {
  .windows-guide-index ol { columns: 1; }
  .windows-category details > summary { flex-wrap: wrap; gap: .5rem; }
- .windows-category-count { margin-left: 0; }
+ .windows-category-count { margin-left: auto; }
 }

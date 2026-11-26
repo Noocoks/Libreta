@@ -466,7 +466,7 @@ document.addEventListener("click", function (ev) {
 
         var details = document.createElement("details");
         details.className = "reading-index-details";
-        details.open = !window.matchMedia("(max-width: 700px)").matches;
+        details.open = false;
 
         var summary = document.createElement("summary");
         summary.textContent = "En esta página";
@@ -1011,4 +1011,43 @@ document.addEventListener("click", function (ev) {
             path: window.location.pathname
         }, "*");
     });
+})();
+
+
+/* ==============================
+   RECUENTO AUTOMÁTICO DE APLICACIONES
+   Mantiene sincronizados los totales de la guía
+   con las entradas reales de cada categoría.
+============================== */
+(function () {
+    "use strict";
+
+    function initWindowsCategoryCounts() {
+        var categories = document.querySelectorAll(".windows-category");
+
+        categories.forEach(function (category) {
+            var details = category.querySelector(":scope > details");
+            var summaryCount = details && details.querySelector(".windows-category-count");
+            var categoryId = category.id;
+            var appCount = category.querySelectorAll(".windows-app").length;
+
+            if (summaryCount) {
+                summaryCount.textContent = appCount + (appCount === 1 ? " aplicación" : " aplicaciones");
+            }
+
+            if (categoryId) {
+                var indexLink = document.querySelector(
+                    '.windows-guide-index a[href="#' + CSS.escape(categoryId) + '"]'
+                );
+                var indexCount = indexLink && indexLink.parentElement.querySelector("span");
+                if (indexCount) indexCount.textContent = "(" + appCount + ")";
+            }
+        });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initWindowsCategoryCounts, { once: true });
+    } else {
+        initWindowsCategoryCounts();
+    }
 })();
