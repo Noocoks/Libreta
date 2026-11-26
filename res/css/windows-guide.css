@@ -1,0 +1,36 @@
+/* Estilos específicos de la guía de aplicaciones Windows */
+.windows-guide-index {
+    margin: 1rem 0 1.5rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-left: 3px solid #790018;
+    border-radius: 8px;
+    background: rgba(255,255,255,.025);
+}
+.windows-guide-index ol { margin: 0; padding-left: 1.4rem; columns: 2; column-gap: 2rem; }
+.windows-guide-index li { break-inside: avoid; margin: .25rem 0; }
+.windows-guide-index a { color: var(--text); text-decoration-color: #9b344b; }
+.windows-guide-index span { color: var(--muted); font-size: .85em; }
+.windows-category { margin: 1rem 0; border: 1px solid var(--border); border-radius: 10px; overflow: clip; background: rgba(255,255,255,.018); }
+.windows-category details > summary { display: flex; align-items: center; gap: .75rem; min-height: 3.2rem; padding: .8rem 1rem; cursor: pointer; list-style: none; background: linear-gradient(100deg,rgba(121,0,24,.17),transparent 75%); }
+.windows-category details > summary::-webkit-details-marker { display: none; }
+.windows-category details > summary::after { content: "+"; margin-left: auto; color: #b94b63; font-size: 1.35rem; font-weight: 700; }
+.windows-category details[open] > summary::after { content: "−"; }
+.windows-category-number { color: #c34a62; font-weight: 800; font-variant-numeric: tabular-nums; }
+.windows-category-title { font-weight: 700; }
+.windows-category-count { margin-left: auto; color: var(--muted); font-size: .78rem; white-space: nowrap; }
+.windows-category-body { padding: .9rem clamp(.8rem,2.5vw,1.4rem) 1.2rem; }
+.windows-category-intro { margin: .2rem 0 1rem; color: var(--muted); }
+.windows-app { padding: 1rem 0; border-top: 1px solid var(--border); }
+.windows-app h3 { margin: 0 0 .65rem; font-size: 1.05rem; }
+.windows-app h3 span { color: #b94b63; font-size: .85em; font-variant-numeric: tabular-nums; }
+.windows-app p { margin: .45rem 0; }
+.windows-app-link { display: inline-flex; gap: .35rem; align-items: center; margin-top: .5rem; color: var(--text); font-weight: 650; text-decoration-color: #9b344b; overflow-wrap: anywhere; }
+.windows-app-link:hover { color: #d66b83; }
+.windows-app-pending { color: var(--muted); font-size: .9rem; }
+.windows-guide-ending { margin: 1.5rem 0; padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 8px; background: rgba(255,255,255,.025); }
+@media (max-width: 700px) {
+ .windows-guide-index ol { columns: 1; }
+ .windows-category details > summary { flex-wrap: wrap; gap: .5rem; }
+ .windows-category-count { margin-left: 0; }
+}
