@@ -444,6 +444,11 @@ details[open] .arrow {
     --icon: var(--icon-android);
 }
 
+[data-cat~="windows"] {
+    --active: var(--accent);
+    --icon: var(--icon-windows);
+}
+
 /* Subcat CS */
 [data-cat~="fuerza-bruta"] {
     --active: var(--cat-fuerza-bruta);
