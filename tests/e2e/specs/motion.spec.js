@@ -64,7 +64,7 @@ test.describe("Sistema de movimiento", () => {
         }
 
         await page.goto("wiki.html");
-        await expect(page.locator(".tree.ready #tree_root > li")).toHaveCount(3);
+        await expect(page.locator(".tree.ready #tree_root > li")).toHaveCount(4);
         const wikiDurations = await page.evaluate(() => {
             return [".tree.ready #tree_root > li", ".page-panel iframe"].map((selector) => {
                 const style = getComputedStyle(document.querySelector(selector));
