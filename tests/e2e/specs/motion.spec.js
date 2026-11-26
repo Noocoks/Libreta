@@ -36,7 +36,7 @@ test.describe("Sistema de movimiento", () => {
 
     test("la navegación de documentos usa estados CSS y no estilos inline", async ({ page }) => {
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(3);
+        await expect(page.locator("#tree_root > li")).toHaveCount(4);
         const indexToggle = page.locator("#tree_panel_toggle_btn");
         if (await indexToggle.getAttribute("aria-expanded") !== "true") {
             await indexToggle.click();
