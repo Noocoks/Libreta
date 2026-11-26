@@ -433,6 +433,32 @@
         "python",
         "automatizacion"
       ]
+    },
+    {
+      "name": "Windows",
+      "cat": "windows",
+      "path": "subpags/windows/index.html",
+      "tags": [
+        "windows",
+        "aplicaciones",
+        "personalización",
+        "mantenimiento",
+        "productividad"
+      ],
+      "children": [
+        {
+          "name": "Guía de aplicaciones",
+          "cat": "apps",
+          "path": "subpags/windows/apps/index.html",
+          "tags": [
+            "windows",
+            "software",
+            "herramientas",
+            "descargas",
+            "guía"
+          ]
+        }
+      ]
     }
   ]
 }
