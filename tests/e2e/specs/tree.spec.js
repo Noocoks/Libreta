@@ -3,7 +3,7 @@ const { test, expect } = require("@playwright/test");
 test.describe("Controles del árbol", () => {
     test.beforeEach(async ({ page }) => {
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(3);
+        await expect(page.locator("#tree_root > li")).toHaveCount(4);
     });
 
     test("abrir y cerrar todas las ramas actualiza su estado accesible", async ({ page }) => {
@@ -32,4 +32,13 @@ test.describe("Controles del árbol", () => {
         await toggle.click();
         await expect(toggle).toHaveAttribute("aria-expanded", initialExpanded);
     });
+    test("Windows aparece en el árbol y abre la guía desde el enrutador", async ({ page }) => {
+        const windows = page.locator("#tree_root > li").filter({ has: page.getByRole("link", { name: "Windows", exact: true }) });
+        await expect(windows).toHaveCount(1);
+        await windows.locator("button[aria-expanded]").click();
+        await windows.getByRole("link", { name: "Guía de aplicaciones", exact: true }).click();
+        await expect(page.frameLocator("#page_frame").getByRole("heading", { name: "Guía de aplicaciones imprescindibles para Windows" })).toBeVisible();
+        await expect(page.frameLocator("#page_frame").locator(".windows-category")).toHaveCount(14);
+    });
+
 });
