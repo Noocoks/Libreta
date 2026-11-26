@@ -2,6 +2,11 @@ const { test, expect } = require("@playwright/test");
 
 test("Windows aparece en el árbol y la guía se abre correctamente", async ({ page }) => {
     await page.goto("wiki.html");
+    const panelToggle = page.locator("#tree_panel_toggle_btn");
+    if (await panelToggle.getAttribute("aria-expanded") !== "true") {
+        await panelToggle.click();
+        await expect(panelToggle).toHaveAttribute("aria-expanded", "true");
+    }
     const windows = page.locator("#tree_root > li").filter({ has: page.getByRole("link", { name: "Windows", exact: true }) });
     await expect(windows).toHaveCount(1);
     await windows.locator("button[aria-expanded]").click();
