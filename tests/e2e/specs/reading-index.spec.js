@@ -24,8 +24,25 @@ test.describe("Índice dinámico de lectura", () => {
             const target = index.locator("a").last();
             const href = await target.getAttribute("href");
             expect(href).toMatch(/^#/);
+            const targetId = decodeURIComponent(href.slice(1));
+            const targetHeading = frame.locator(`[id="${targetId}"]`);
+
             await target.click();
-            await expect(target).toHaveAttribute("aria-current", "location");
+
+            // La navegación por ancla debe cambiar el fragmento y llevar
+            // el encabezado al viewport. aria-current representa la sección
+            // situada en la zona de lectura, que no siempre coincide con el
+            // último enlace pulsado en pantallas pequeñas.
+            await expect.poll(() =>
+                frame.locator(".page").evaluate(() => window.location.hash)
+            ).toBe(href);
+            await expect(targetHeading).toBeInViewport();
+            const currentLinks = index.locator('a[aria-current="location"]');
+            await expect(currentLinks).toHaveCount(1);
+            const currentHref = await currentLinks.getAttribute("href");
+            expect(currentHref).toMatch(/^#/);
+            const currentId = decodeURIComponent(currentHref.slice(1));
+            await expect(frame.locator(`[id="${currentId}"]`)).toHaveCount(1);
         } else {
             await expect(index).toHaveCount(0);
         }
