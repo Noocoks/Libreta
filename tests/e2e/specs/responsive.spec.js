@@ -15,7 +15,7 @@ for (const viewport of viewports) {
         });
 
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(3);
+        await expect(page.locator("#tree_root > li")).toHaveCount(4);
 
         const toggle = page.locator("#tree_panel_toggle_btn");
         await expect(toggle).toBeVisible();
