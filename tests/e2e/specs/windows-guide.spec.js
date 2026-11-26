@@ -1,5 +1,28 @@
 const { test, expect } = require("@playwright/test");
 
+
+test("el índice de lectura empieza cerrado y los recuentos de aplicaciones se calculan automáticamente", async ({ page }) => {
+    await page.goto("subpags/windows/apps/index.html");
+    const frame = page.locator("body");
+    const readingIndex = frame.locator(".reading-index details");
+    await expect(readingIndex).toHaveJSProperty("open", false);
+
+    const categories = frame.locator(".windows-category");
+    await expect(categories).toHaveCount(14);
+
+    for (let i = 0; i < await categories.count(); i++) {
+        const category = categories.nth(i);
+        const count = await category.locator(".windows-app").count();
+        await expect(category.locator(".windows-category-count")).toHaveText(
+            count + (count === 1 ? " aplicación" : " aplicaciones")
+        );
+        const categoryId = await category.getAttribute("id");
+        await expect(frame.locator('.windows-guide-index a[href="#' + categoryId + '"]')
+            .locator("xpath=..").locator(".windows-guide-index-count"))
+            .toHaveText("(" + count + ")");
+    }
+});
+
 test("Windows aparece en el árbol y la guía se abre correctamente", async ({ page }) => {
     await page.goto("wiki.html");
     await expect(page.locator(".tree.ready")).toBeVisible();
