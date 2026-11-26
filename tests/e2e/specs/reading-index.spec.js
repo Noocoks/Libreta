@@ -2,7 +2,7 @@ const { test, expect } = require("@playwright/test");
 
 async function openDocument(page) {
     await page.goto("wiki.html");
-    await expect(page.locator("#tree_root > li")).toHaveCount(3);
+    await expect(page.locator("#tree_root > li")).toHaveCount(4);
     await page.locator("#tree_root > li").first().locator(":scope > a").evaluate(link => link.click());
     await expect(page.frameLocator("#page_frame").locator(".page")).toBeVisible();
 }

@@ -2,7 +2,7 @@ const { test, expect } = require("@playwright/test");
 
 async function openWiki(page) {
     await page.goto("wiki.html");
-    await expect(page.locator("#tree_root > li")).toHaveCount(3);
+    await expect(page.locator("#tree_root > li")).toHaveCount(4);
     const drawer = page.locator("#tree_panel_toggle_btn");
     if (await drawer.getAttribute("aria-expanded") === "false") {
         await drawer.click();
@@ -53,7 +53,7 @@ test.describe("Historial y navegación inteligente", () => {
         await navigateRootSection(page, 0, "Ciberseguridad");
         await navigateRootSection(page, 1, "Android");
         await page.reload();
-        await expect(page.locator("#tree_root > li")).toHaveCount(3);
+        await expect(page.locator("#tree_root > li")).toHaveCount(4);
         await expect(page.frameLocator("#page_frame").locator("h1").first()).toHaveText("Android");
         await openRecentPanel(page);
 
@@ -174,7 +174,7 @@ test.describe("Historial y navegación inteligente", () => {
 
     test("un fragmento externo manipulado no carga contenido en el iframe", async ({ page }) => {
         await page.goto("wiki.html#https%3A%2F%2Fattacker.invalid%2Fpayload");
-        await expect(page.locator("#tree_root > li")).toHaveCount(3);
+        await expect(page.locator("#tree_root > li")).toHaveCount(4);
         await expect(page.locator("#page_frame")).not.toHaveAttribute("src", /attacker\.invalid/);
         expect(await page.locator("#page_frame").getAttribute("src")).toBeNull();
         await expect(page).toHaveURL(/wiki\.html$/);

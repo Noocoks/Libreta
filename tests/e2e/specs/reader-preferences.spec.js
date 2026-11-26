@@ -2,7 +2,7 @@ const { test, expect } = require("@playwright/test");
 
 async function openFirstDocument(page) {
     await page.goto("wiki.html");
-    await expect(page.locator("#tree_root > li")).toHaveCount(3);
+    await expect(page.locator("#tree_root > li")).toHaveCount(4);
 
     // Trigger the real tree navigation handler without depending on the
     // entrance animation or the link's viewport position.
