@@ -33,6 +33,11 @@ test.describe("Controles del árbol", () => {
         await expect(toggle).toHaveAttribute("aria-expanded", initialExpanded);
     });
     test("Windows aparece en el árbol y abre la guía desde el enrutador", async ({ page }) => {
+        const panelToggle = page.locator("#tree_panel_toggle_btn");
+        if (await panelToggle.getAttribute("aria-expanded") !== "true") {
+            await panelToggle.click();
+            await expect(panelToggle).toHaveAttribute("aria-expanded", "true");
+        }
         const windows = page.locator("#tree_root > li").filter({ has: page.getByRole("link", { name: "Windows", exact: true }) });
         await expect(windows).toHaveCount(1);
         await windows.locator("button[aria-expanded]").click();
