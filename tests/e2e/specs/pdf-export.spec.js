@@ -18,6 +18,11 @@ async function openHydraFromWiki(page) {
     await expect(documentLink).toBeVisible();
     await documentLink.click();
 
+    // Esperar a que la navegación real del iframe termine antes de cerrar
+    // el drawer móvil evita competir con la transición/carga del documento.
+    const documentFrame = page.frameLocator("#page_frame");
+    await expect(documentFrame.locator(".page-export-button")).toBeVisible({ timeout: 15000 });
+
     // En móvil el índice sigue siendo un drawer persistente: se cierra
     // explícitamente para que el documento y sus controles queden accesibles.
     if (await page.evaluate(() => window.matchMedia("(max-width: 900px)").matches) &&

@@ -208,8 +208,110 @@ function getAllowedPath(file_path) {
     return findCanonicalTreePath(treeData.sections, relativePath);
 }
 
-function navigate(file_path, push = true) {
+var navigationLoadTimer = null;
+var navigationRequestId = 0;
+var NAVIGATION_LOAD_TIMEOUT = 12000;
 
+function challengeLoadedDocument() {
+    var iframe = getIframe();
+    if (!iframe || !activeNavigationPath || !iframe.contentWindow) return;
+
+    iframe.contentWindow.postMessage({
+        type: "libreta:ready-challenge",
+        requestId: navigationRequestId
+    }, "*");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    var iframe = getIframe();
+    if (iframe) iframe.addEventListener("load", challengeLoadedDocument);
+});
+
+function setPagePanelState(state) {
+    var iframe = getIframe();
+    var panel = iframe && iframe.closest(".page-panel");
+    if (!panel) return;
+
+    panel.classList.remove("is-loading", "is-entering", "is-error");
+    if (state === "loading") panel.classList.add("is-loading");
+    if (state === "loaded") panel.classList.add("is-entering");
+    if (state === "error") panel.classList.add("is-error");
+
+    var overlay = document.getElementById("page-load-overlay");
+    var loadingMessage = document.getElementById("page-load-message");
+    var errorMessage = document.getElementById("page-load-error");
+    var retryButton = document.getElementById("page-load-retry");
+    var spinner = document.querySelector(".page-load-spinner");
+
+    if (overlay) overlay.setAttribute("aria-hidden", state === "loading" || state === "error" ? "false" : "true");
+    if (loadingMessage) loadingMessage.hidden = state !== "loading";
+    if (spinner) spinner.hidden = state !== "loading";
+    if (errorMessage) errorMessage.hidden = state !== "error";
+    if (retryButton) retryButton.hidden = state !== "error";
+}
+
+function cancelPendingNavigation() {
+    if (navigationLoadTimer !== null) {
+        window.clearTimeout(navigationLoadTimer);
+        navigationLoadTimer = null;
+    }
+    navigationRequestId += 1;
+    setPagePanelState("idle");
+}
+
+function sendActiveBreadcrumb(iframe, path) {
+    try {
+        var breadcrumbData = findNodePath(treeData.sections, path);
+        iframe.contentWindow.postMessage({
+            type: "breadcrumb",
+            path: path,
+            breadcrumb: breadcrumbData,
+            allowedPaths: collectAllowedPaths(treeData.sections)
+        }, "*");
+    } catch (error) {
+        console.warn("No se pudo enviar breadcrumb", error);
+    }
+}
+
+/* El origen del iframe es deliberadamente "null" por sandbox="allow-scripts".
+   Se valida también la ventana emisora y la ruta contra la allowlist del árbol. */
+window.addEventListener("message", function (event) {
+    var iframe = getIframe();
+    if (!iframe || event.source !== iframe.contentWindow || event.origin !== "null" ||
+        !event.data || typeof event.data !== "object") {
+        return;
+    }
+
+    if (event.data.type !== "libreta:page-ready" ||
+        !Number.isSafeInteger(event.data.requestId) ||
+        event.data.requestId !== navigationRequestId ||
+        typeof event.data.path !== "string" ||
+        !activeNavigationPath) {
+        return;
+    }
+
+    var expectedPath;
+    try {
+        expectedPath = new URL(activeNavigationPath, window.location.href).pathname;
+    } catch (error) {
+        return;
+    }
+
+    if (event.data.path !== expectedPath) return;
+
+    var readyPath = getAllowedPath(activeNavigationPath);
+    if (!readyPath) return;
+
+    if (navigationLoadTimer !== null) {
+        window.clearTimeout(navigationLoadTimer);
+        navigationLoadTimer = null;
+    }
+
+    setPagePanelState("loaded");
+    sendActiveBreadcrumb(iframe, readyPath);
+});
+
+function navigate(file_path, push = true) {
     var iframe = getIframe();
     var allowedPath = getAllowedPath(file_path);
 
@@ -218,56 +320,24 @@ function navigate(file_path, push = true) {
         return false;
     }
 
-    activeNavigationPath = allowedPath;
-    rememberRecentPage(allowedPath);
-    var pagePanel = iframe.closest(".page-panel");
-    if (pagePanel) {
-        pagePanel.classList.remove("is-entering");
-        pagePanel.classList.add("is-loading");
+    if (navigationLoadTimer !== null) {
+        window.clearTimeout(navigationLoadTimer);
+        navigationLoadTimer = null;
     }
 
-    iframe.onload = function () {
+    activeNavigationPath = allowedPath;
+    var requestId = ++navigationRequestId;
+    rememberRecentPage(allowedPath);
+    setPagePanelState("loading");
 
-        if (activeNavigationPath !== allowedPath) {
-            return;
-        }
-
-        if (pagePanel) {
-            pagePanel.classList.remove("is-loading");
-            pagePanel.classList.add("is-entering");
-        }
-
-        try {
-
-            var breadcrumbData = findNodePath(
-                treeData.sections,
-                allowedPath
-            );
-
-            iframe.contentWindow.postMessage({
-                type: "breadcrumb",
-                path: allowedPath,
-                breadcrumb: breadcrumbData,
-                allowedPaths: collectAllowedPaths(treeData.sections)
-            }, "*");
-
-        } catch (e) {
-
-            console.warn(
-                "No se pudo enviar breadcrumb",
-                e
-            );
-
-        }
-    };
-
-    iframe.onerror = function () {
-        if (pagePanel) pagePanel.classList.remove("is-loading", "is-entering");
-    };
+    navigationLoadTimer = window.setTimeout(function () {
+        if (requestId !== navigationRequestId || activeNavigationPath !== allowedPath) return;
+        navigationLoadTimer = null;
+        setPagePanelState("error");
+    }, NAVIGATION_LOAD_TIMEOUT);
 
     var targetUrl = new URL(allowedPath, window.location.href).href;
     if (iframe.hasAttribute("src") && iframe.contentWindow) {
-        /* Reemplazar el documento hijo evita que sus cargas contaminen atrás/adelante del padre. */
         try {
             iframe.contentWindow.location.replace(targetUrl);
         } catch (error) {
@@ -1043,6 +1113,7 @@ function syncNavigationFromLocation() {
 
     if (!path) {
         activeNavigationPath = null;
+        cancelPendingNavigation();
         var iframe = getIframe();
         if (iframe && iframe.hasAttribute("src")) iframe.removeAttribute("src");
         return;
@@ -1057,6 +1128,7 @@ function syncNavigationFromLocation() {
     if (!canonicalPath) {
         window.history.replaceState(null, "", window.location.pathname + window.location.search);
         activeNavigationPath = null;
+        cancelPendingNavigation();
         var blockedIframe = getIframe();
         if (blockedIframe && blockedIframe.hasAttribute("src")) blockedIframe.removeAttribute("src");
         return;
@@ -1074,6 +1146,13 @@ window.addEventListener("popstate", syncNavigationFromLocation);
 window.addEventListener("hashchange", syncNavigationFromLocation);
 
 window.addEventListener("load", function () {
+    var retryButton = document.getElementById("page-load-retry");
+    if (retryButton) {
+        retryButton.addEventListener("click", function () {
+            if (activeNavigationPath) navigate(activeNavigationPath, false);
+        });
+    }
+
 
     var clearRecentButton = document.getElementById("recent-pages-clear");
     if (clearRecentButton) {
