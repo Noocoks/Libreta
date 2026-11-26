@@ -458,6 +458,1136 @@
             "categorías",
             "fichas",
             "recomendaciones"
+          ],
+          "children": [
+            {
+              "name": "Personalización y escritorio",
+              "cat": "personalizacion-y-escritorio",
+              "path": "subpags/software/categories/personalizacion-y-escritorio/index.html",
+              "tags": [
+                "aplicaciones",
+                "personalizacion-y-escritorio"
+              ],
+              "children": [
+                {
+                  "name": "Nilesoft Shell",
+                  "cat": "nilesoft-shell",
+                  "path": "subpags/software/apps/nilesoft-shell.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "TranslucentTB",
+                  "cat": "translucenttb",
+                  "path": "subpags/software/apps/translucenttb.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "Windhawk",
+                  "cat": "windhawk",
+                  "path": "subpags/software/apps/windhawk.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "Lively Wallpaper",
+                  "cat": "lively-wallpaper",
+                  "path": "subpags/software/apps/lively-wallpaper.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "Wallpaper Engine",
+                  "cat": "wallpaper-engine",
+                  "path": "subpags/software/apps/wallpaper-engine.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "Rainmeter",
+                  "cat": "rainmeter",
+                  "path": "subpags/software/apps/rainmeter.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "MyDockFinder",
+                  "cat": "mydockfinder",
+                  "path": "subpags/software/apps/mydockfinder.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "Twinkle Tray",
+                  "cat": "twinkle-tray",
+                  "path": "subpags/software/apps/twinkle-tray.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "FluentFlyout",
+                  "cat": "fluentflyout",
+                  "path": "subpags/software/apps/fluentflyout.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "Winstep Nexus Dock",
+                  "cat": "winstep-nexus-dock",
+                  "path": "subpags/software/apps/winstep-nexus-dock.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "Seelen UI",
+                  "cat": "seelen-ui",
+                  "path": "subpags/software/apps/seelen-ui.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                },
+                {
+                  "name": "Anima Engine",
+                  "cat": "anima-engine",
+                  "path": "subpags/software/apps/anima-engine.html",
+                  "tags": [
+                    "software",
+                    "personalizacion-y-escritorio"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Administración y mantenimiento del sistema",
+              "cat": "administracion-y-mantenimiento-del-sistema",
+              "path": "subpags/software/categories/administracion-y-mantenimiento-del-sistema/index.html",
+              "tags": [
+                "aplicaciones",
+                "administracion-y-mantenimiento-del-sistema"
+              ],
+              "children": [
+                {
+                  "name": "Wintoys",
+                  "cat": "wintoys",
+                  "path": "subpags/software/apps/wintoys.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "WinUtil (Chris Titus Tech)",
+                  "cat": "winutil-chris-titus-tech",
+                  "path": "subpags/software/apps/winutil-chris-titus-tech.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "O&O ShutUp10++",
+                  "cat": "o-o-shutup10",
+                  "path": "subpags/software/apps/o-o-shutup10.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "Autoruns",
+                  "cat": "autoruns",
+                  "path": "subpags/software/apps/autoruns.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "System Informer",
+                  "cat": "system-informer",
+                  "path": "subpags/software/apps/system-informer.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "Process Explorer (Procexp)",
+                  "cat": "process-explorer-procexp",
+                  "path": "subpags/software/apps/process-explorer-procexp.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "RAMMap",
+                  "cat": "rammap",
+                  "path": "subpags/software/apps/rammap.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "Revo Uninstaller",
+                  "cat": "revo-uninstaller",
+                  "path": "subpags/software/apps/revo-uninstaller.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "Geek Uninstaller",
+                  "cat": "geek-uninstaller",
+                  "path": "subpags/software/apps/geek-uninstaller.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "Bulk Crap Uninstaller",
+                  "cat": "bulk-crap-uninstaller",
+                  "path": "subpags/software/apps/bulk-crap-uninstaller.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "Display Driver Uninstaller (DDU)",
+                  "cat": "display-driver-uninstaller-ddu",
+                  "path": "subpags/software/apps/display-driver-uninstaller-ddu.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                },
+                {
+                  "name": "UniGetUI",
+                  "cat": "unigetui",
+                  "path": "subpags/software/apps/unigetui.html",
+                  "tags": [
+                    "software",
+                    "administracion-y-mantenimiento-del-sistema"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Archivos, compresión y gestión documental",
+              "cat": "archivos-compresion-y-gestion-documental",
+              "path": "subpags/software/categories/archivos-compresion-y-gestion-documental/index.html",
+              "tags": [
+                "aplicaciones",
+                "archivos-compresion-y-gestion-documental"
+              ],
+              "children": [
+                {
+                  "name": "WizTree",
+                  "cat": "wiztree",
+                  "path": "subpags/software/apps/wiztree.html",
+                  "tags": [
+                    "software",
+                    "archivos-compresion-y-gestion-documental"
+                  ]
+                },
+                {
+                  "name": "QuickLook",
+                  "cat": "quicklook",
+                  "path": "subpags/software/apps/quicklook.html",
+                  "tags": [
+                    "software",
+                    "archivos-compresion-y-gestion-documental"
+                  ]
+                },
+                {
+                  "name": "Bulk Rename Utility",
+                  "cat": "bulk-rename-utility",
+                  "path": "subpags/software/apps/bulk-rename-utility.html",
+                  "tags": [
+                    "software",
+                    "archivos-compresion-y-gestion-documental"
+                  ]
+                },
+                {
+                  "name": "FreeFileSync",
+                  "cat": "freefilesync",
+                  "path": "subpags/software/apps/freefilesync.html",
+                  "tags": [
+                    "software",
+                    "archivos-compresion-y-gestion-documental"
+                  ]
+                },
+                {
+                  "name": "Ditto",
+                  "cat": "ditto",
+                  "path": "subpags/software/apps/ditto.html",
+                  "tags": [
+                    "software",
+                    "archivos-compresion-y-gestion-documental"
+                  ]
+                },
+                {
+                  "name": "Everything",
+                  "cat": "everything",
+                  "path": "subpags/software/apps/everything.html",
+                  "tags": [
+                    "software",
+                    "archivos-compresion-y-gestion-documental"
+                  ]
+                },
+                {
+                  "name": "Files",
+                  "cat": "files",
+                  "path": "subpags/software/apps/files.html",
+                  "tags": [
+                    "software",
+                    "archivos-compresion-y-gestion-documental"
+                  ]
+                },
+                {
+                  "name": "File Pilot",
+                  "cat": "file-pilot",
+                  "path": "subpags/software/apps/file-pilot.html",
+                  "tags": [
+                    "software",
+                    "archivos-compresion-y-gestion-documental"
+                  ]
+                },
+                {
+                  "name": "Recuva",
+                  "cat": "recuva",
+                  "path": "subpags/software/apps/recuva.html",
+                  "tags": [
+                    "software",
+                    "archivos-compresion-y-gestion-documental"
+                  ]
+                },
+                {
+                  "name": "7-Zip",
+                  "cat": "7-zip",
+                  "path": "subpags/software/apps/7-zip.html",
+                  "tags": [
+                    "software",
+                    "archivos-compresion-y-gestion-documental"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Redes, transferencia y acceso remoto",
+              "cat": "redes-transferencia-y-acceso-remoto",
+              "path": "subpags/software/categories/redes-transferencia-y-acceso-remoto/index.html",
+              "tags": [
+                "aplicaciones",
+                "redes-transferencia-y-acceso-remoto"
+              ],
+              "children": [
+                {
+                  "name": "LocalSend",
+                  "cat": "localsend",
+                  "path": "subpags/software/apps/localsend.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
+                  ]
+                },
+                {
+                  "name": "RustDesk",
+                  "cat": "rustdesk",
+                  "path": "subpags/software/apps/rustdesk.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
+                  ]
+                },
+                {
+                  "name": "Tailscale",
+                  "cat": "tailscale",
+                  "path": "subpags/software/apps/tailscale.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
+                  ]
+                },
+                {
+                  "name": "scrcpy",
+                  "cat": "scrcpy",
+                  "path": "subpags/software/apps/scrcpy.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
+                  ]
+                },
+                {
+                  "name": "Vysor",
+                  "cat": "vysor",
+                  "path": "subpags/software/apps/vysor.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
+                  ]
+                },
+                {
+                  "name": "Sunshine",
+                  "cat": "sunshine",
+                  "path": "subpags/software/apps/sunshine.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
+                  ]
+                },
+                {
+                  "name": "DroidCam",
+                  "cat": "droidcam",
+                  "path": "subpags/software/apps/droidcam.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
+                  ]
+                },
+                {
+                  "name": "LittleBigMouse",
+                  "cat": "littlebigmouse",
+                  "path": "subpags/software/apps/littlebigmouse.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
+                  ]
+                },
+                {
+                  "name": "WinSCP",
+                  "cat": "winscp",
+                  "path": "subpags/software/apps/winscp.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Navegación, privacidad y credenciales",
+              "cat": "navegacion-privacidad-y-credenciales",
+              "path": "subpags/software/categories/navegacion-privacidad-y-credenciales/index.html",
+              "tags": [
+                "aplicaciones",
+                "navegacion-privacidad-y-credenciales"
+              ],
+              "children": [
+                {
+                  "name": "Brave",
+                  "cat": "brave",
+                  "path": "subpags/software/apps/brave.html",
+                  "tags": [
+                    "software",
+                    "navegacion-privacidad-y-credenciales"
+                  ]
+                },
+                {
+                  "name": "Firefox",
+                  "cat": "firefox",
+                  "path": "subpags/software/apps/firefox.html",
+                  "tags": [
+                    "software",
+                    "navegacion-privacidad-y-credenciales"
+                  ]
+                },
+                {
+                  "name": "LibreWolf",
+                  "cat": "librewolf",
+                  "path": "subpags/software/apps/librewolf.html",
+                  "tags": [
+                    "software",
+                    "navegacion-privacidad-y-credenciales"
+                  ]
+                },
+                {
+                  "name": "Bitwarden",
+                  "cat": "bitwarden",
+                  "path": "subpags/software/apps/bitwarden.html",
+                  "tags": [
+                    "software",
+                    "navegacion-privacidad-y-credenciales"
+                  ]
+                },
+                {
+                  "name": "Proton VPN",
+                  "cat": "proton-vpn",
+                  "path": "subpags/software/apps/proton-vpn.html",
+                  "tags": [
+                    "software",
+                    "navegacion-privacidad-y-credenciales"
+                  ]
+                },
+                {
+                  "name": "Portmaster",
+                  "cat": "portmaster",
+                  "path": "subpags/software/apps/portmaster.html",
+                  "tags": [
+                    "software",
+                    "navegacion-privacidad-y-credenciales"
+                  ]
+                },
+                {
+                  "name": "KeePassXC",
+                  "cat": "keepassxc",
+                  "path": "subpags/software/apps/keepassxc.html",
+                  "tags": [
+                    "software",
+                    "navegacion-privacidad-y-credenciales"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Audio, música y producción sonora",
+              "cat": "audio-musica-y-produccion-sonora",
+              "path": "subpags/software/categories/audio-musica-y-produccion-sonora/index.html",
+              "tags": [
+                "aplicaciones",
+                "audio-musica-y-produccion-sonora"
+              ],
+              "children": [
+                {
+                  "name": "EarTrumpet",
+                  "cat": "eartrumpet",
+                  "path": "subpags/software/apps/eartrumpet.html",
+                  "tags": [
+                    "software",
+                    "audio-musica-y-produccion-sonora"
+                  ]
+                },
+                {
+                  "name": "Peace",
+                  "cat": "peace",
+                  "path": "subpags/software/apps/peace.html",
+                  "tags": [
+                    "software",
+                    "audio-musica-y-produccion-sonora"
+                  ]
+                },
+                {
+                  "name": "VoiceMeeter",
+                  "cat": "voicemeeter",
+                  "path": "subpags/software/apps/voicemeeter.html",
+                  "tags": [
+                    "software",
+                    "audio-musica-y-produccion-sonora"
+                  ]
+                },
+                {
+                  "name": "Spicetify",
+                  "cat": "spicetify",
+                  "path": "subpags/software/apps/spicetify.html",
+                  "tags": [
+                    "software",
+                    "audio-musica-y-produccion-sonora"
+                  ]
+                },
+                {
+                  "name": "Winamp",
+                  "cat": "winamp",
+                  "path": "subpags/software/apps/winamp.html",
+                  "tags": [
+                    "software",
+                    "audio-musica-y-produccion-sonora"
+                  ]
+                },
+                {
+                  "name": "Audacity",
+                  "cat": "audacity",
+                  "path": "subpags/software/apps/audacity.html",
+                  "tags": [
+                    "software",
+                    "audio-musica-y-produccion-sonora"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Captura, streaming y comunicación audiovisual",
+              "cat": "captura-streaming-y-comunicacion-audiovisual",
+              "path": "subpags/software/categories/captura-streaming-y-comunicacion-audiovisual/index.html",
+              "tags": [
+                "aplicaciones",
+                "captura-streaming-y-comunicacion-audiovisual"
+              ],
+              "children": [
+                {
+                  "name": "ScreenToGif",
+                  "cat": "screentogif",
+                  "path": "subpags/software/apps/screentogif.html",
+                  "tags": [
+                    "software",
+                    "captura-streaming-y-comunicacion-audiovisual"
+                  ]
+                },
+                {
+                  "name": "ShareX",
+                  "cat": "sharex",
+                  "path": "subpags/software/apps/sharex.html",
+                  "tags": [
+                    "software",
+                    "captura-streaming-y-comunicacion-audiovisual"
+                  ]
+                },
+                {
+                  "name": "Lightshot",
+                  "cat": "lightshot",
+                  "path": "subpags/software/apps/lightshot.html",
+                  "tags": [
+                    "software",
+                    "captura-streaming-y-comunicacion-audiovisual"
+                  ]
+                },
+                {
+                  "name": "Text Grab",
+                  "cat": "text-grab",
+                  "path": "subpags/software/apps/text-grab.html",
+                  "tags": [
+                    "software",
+                    "captura-streaming-y-comunicacion-audiovisual"
+                  ]
+                },
+                {
+                  "name": "OBS Studio",
+                  "cat": "obs-studio",
+                  "path": "subpags/software/apps/obs-studio.html",
+                  "tags": [
+                    "software",
+                    "captura-streaming-y-comunicacion-audiovisual"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Diseño, ilustración y creación visual",
+              "cat": "diseno-ilustracion-y-creacion-visual",
+              "path": "subpags/software/categories/diseno-ilustracion-y-creacion-visual/index.html",
+              "tags": [
+                "aplicaciones",
+                "diseno-ilustracion-y-creacion-visual"
+              ],
+              "children": [
+                {
+                  "name": "Upscayl",
+                  "cat": "upscayl",
+                  "path": "subpags/software/apps/upscayl.html",
+                  "tags": [
+                    "software",
+                    "diseno-ilustracion-y-creacion-visual"
+                  ]
+                },
+                {
+                  "name": "Blender",
+                  "cat": "blender",
+                  "path": "subpags/software/apps/blender.html",
+                  "tags": [
+                    "software",
+                    "diseno-ilustracion-y-creacion-visual"
+                  ]
+                },
+                {
+                  "name": "GIMP",
+                  "cat": "gimp",
+                  "path": "subpags/software/apps/gimp.html",
+                  "tags": [
+                    "software",
+                    "diseno-ilustracion-y-creacion-visual"
+                  ]
+                },
+                {
+                  "name": "Krita",
+                  "cat": "krita",
+                  "path": "subpags/software/apps/krita.html",
+                  "tags": [
+                    "software",
+                    "diseno-ilustracion-y-creacion-visual"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Vídeo, edición y posproducción",
+              "cat": "video-edicion-y-posproduccion",
+              "path": "subpags/software/categories/video-edicion-y-posproduccion/index.html",
+              "tags": [
+                "aplicaciones",
+                "video-edicion-y-posproduccion"
+              ],
+              "children": [
+                {
+                  "name": "HandBrake",
+                  "cat": "handbrake",
+                  "path": "subpags/software/apps/handbrake.html",
+                  "tags": [
+                    "software",
+                    "video-edicion-y-posproduccion"
+                  ]
+                },
+                {
+                  "name": "LosslessCut",
+                  "cat": "losslesscut",
+                  "path": "subpags/software/apps/losslesscut.html",
+                  "tags": [
+                    "software",
+                    "video-edicion-y-posproduccion"
+                  ]
+                },
+                {
+                  "name": "DaVinci Resolve",
+                  "cat": "davinci-resolve",
+                  "path": "subpags/software/apps/davinci-resolve.html",
+                  "tags": [
+                    "software",
+                    "video-edicion-y-posproduccion"
+                  ]
+                },
+                {
+                  "name": "VLC",
+                  "cat": "vlc",
+                  "path": "subpags/software/apps/vlc.html",
+                  "tags": [
+                    "software",
+                    "video-edicion-y-posproduccion"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Descargas y medios de instalación",
+              "cat": "descargas-y-medios-de-instalacion",
+              "path": "subpags/software/categories/descargas-y-medios-de-instalacion/index.html",
+              "tags": [
+                "aplicaciones",
+                "descargas-y-medios-de-instalacion"
+              ],
+              "children": [
+                {
+                  "name": "Rufus",
+                  "cat": "rufus",
+                  "path": "subpags/software/apps/rufus.html",
+                  "tags": [
+                    "software",
+                    "descargas-y-medios-de-instalacion"
+                  ]
+                },
+                {
+                  "name": "Ventoy",
+                  "cat": "ventoy",
+                  "path": "subpags/software/apps/ventoy.html",
+                  "tags": [
+                    "software",
+                    "descargas-y-medios-de-instalacion"
+                  ]
+                },
+                {
+                  "name": "JDownloader",
+                  "cat": "jdownloader",
+                  "path": "subpags/software/apps/jdownloader.html",
+                  "tags": [
+                    "software",
+                    "descargas-y-medios-de-instalacion"
+                  ]
+                },
+                {
+                  "name": "qBittorrent",
+                  "cat": "qbittorrent",
+                  "path": "subpags/software/apps/qbittorrent.html",
+                  "tags": [
+                    "software",
+                    "descargas-y-medios-de-instalacion"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Hardware, diagnóstico y periféricos",
+              "cat": "hardware-diagnostico-y-perifericos",
+              "path": "subpags/software/categories/hardware-diagnostico-y-perifericos/index.html",
+              "tags": [
+                "aplicaciones",
+                "hardware-diagnostico-y-perifericos"
+              ],
+              "children": [
+                {
+                  "name": "CrystalDiskInfo",
+                  "cat": "crystaldiskinfo",
+                  "path": "subpags/software/apps/crystaldiskinfo.html",
+                  "tags": [
+                    "software",
+                    "hardware-diagnostico-y-perifericos"
+                  ]
+                },
+                {
+                  "name": "CPU-Z",
+                  "cat": "cpu-z",
+                  "path": "subpags/software/apps/cpu-z.html",
+                  "tags": [
+                    "software",
+                    "hardware-diagnostico-y-perifericos"
+                  ]
+                },
+                {
+                  "name": "Fan Control",
+                  "cat": "fan-control",
+                  "path": "subpags/software/apps/fan-control.html",
+                  "tags": [
+                    "software",
+                    "hardware-diagnostico-y-perifericos"
+                  ]
+                },
+                {
+                  "name": "OpenRGB",
+                  "cat": "openrgb",
+                  "path": "subpags/software/apps/openrgb.html",
+                  "tags": [
+                    "software",
+                    "hardware-diagnostico-y-perifericos"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Videojuegos y experiencia gaming",
+              "cat": "videojuegos-y-experiencia-gaming",
+              "path": "subpags/software/categories/videojuegos-y-experiencia-gaming/index.html",
+              "tags": [
+                "aplicaciones",
+                "videojuegos-y-experiencia-gaming"
+              ],
+              "children": [
+                {
+                  "name": "MSI Afterburner",
+                  "cat": "msi-afterburner",
+                  "path": "subpags/software/apps/msi-afterburner.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "CapFrameX",
+                  "cat": "capframex",
+                  "path": "subpags/software/apps/capframex.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "NVIDIA Profile Inspector",
+                  "cat": "nvidia-profile-inspector",
+                  "path": "subpags/software/apps/nvidia-profile-inspector.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "PlexusX",
+                  "cat": "plexusx",
+                  "path": "subpags/software/apps/plexusx.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "Heroic Games Launcher",
+                  "cat": "heroic-games-launcher",
+                  "path": "subpags/software/apps/heroic-games-launcher.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "Playnite",
+                  "cat": "playnite",
+                  "path": "subpags/software/apps/playnite.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "Lossless Scaling",
+                  "cat": "lossless-scaling",
+                  "path": "subpags/software/apps/lossless-scaling.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "Magpie",
+                  "cat": "magpie",
+                  "path": "subpags/software/apps/magpie.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "CurseForge",
+                  "cat": "curseforge",
+                  "path": "subpags/software/apps/curseforge.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "Epic Games Store",
+                  "cat": "epic-games-store",
+                  "path": "subpags/software/apps/epic-games-store.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "Steam",
+                  "cat": "steam",
+                  "path": "subpags/software/apps/steam.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "Ubisoft Connect",
+                  "cat": "ubisoft-connect",
+                  "path": "subpags/software/apps/ubisoft-connect.html",
+                  "tags": [
+                    "software",
+                    "videojuegos-y-experiencia-gaming"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Productividad, organización y oficina",
+              "cat": "productividad-organizacion-y-oficina",
+              "path": "subpags/software/categories/productividad-organizacion-y-oficina/index.html",
+              "tags": [
+                "aplicaciones",
+                "productividad-organizacion-y-oficina"
+              ],
+              "children": [
+                {
+                  "name": "DeepL",
+                  "cat": "deepl",
+                  "path": "subpags/software/apps/deepl.html",
+                  "tags": [
+                    "software",
+                    "productividad-organizacion-y-oficina"
+                  ]
+                },
+                {
+                  "name": "Obsidian",
+                  "cat": "obsidian",
+                  "path": "subpags/software/apps/obsidian.html",
+                  "tags": [
+                    "software",
+                    "productividad-organizacion-y-oficina"
+                  ]
+                },
+                {
+                  "name": "Flow Launcher",
+                  "cat": "flow-launcher",
+                  "path": "subpags/software/apps/flow-launcher.html",
+                  "tags": [
+                    "software",
+                    "productividad-organizacion-y-oficina"
+                  ]
+                },
+                {
+                  "name": "LibreOffice",
+                  "cat": "libreoffice",
+                  "path": "subpags/software/apps/libreoffice.html",
+                  "tags": [
+                    "software",
+                    "productividad-organizacion-y-oficina"
+                  ]
+                },
+                {
+                  "name": "AutoHotkey",
+                  "cat": "autohotkey",
+                  "path": "subpags/software/apps/autohotkey.html",
+                  "tags": [
+                    "software",
+                    "productividad-organizacion-y-oficina"
+                  ]
+                },
+                {
+                  "name": "PowerToys",
+                  "cat": "powertoys",
+                  "path": "subpags/software/apps/powertoys.html",
+                  "tags": [
+                    "software",
+                    "productividad-organizacion-y-oficina"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Inteligencia artificial y automatización",
+              "cat": "inteligencia-artificial-y-automatizacion",
+              "path": "subpags/software/categories/inteligencia-artificial-y-automatizacion/index.html",
+              "tags": [
+                "aplicaciones",
+                "inteligencia-artificial-y-automatizacion"
+              ],
+              "children": [
+                {
+                  "name": "Buzz",
+                  "cat": "buzz",
+                  "path": "subpags/software/apps/buzz.html",
+                  "tags": [
+                    "software",
+                    "inteligencia-artificial-y-automatizacion"
+                  ]
+                },
+                {
+                  "name": "NeuralAgent",
+                  "cat": "neuralagent",
+                  "path": "subpags/software/apps/neuralagent.html",
+                  "tags": [
+                    "software",
+                    "inteligencia-artificial-y-automatizacion"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Desarrollo y herramientas para programadores",
+              "cat": "desarrollo-y-herramientas-para-programadores",
+              "path": "subpags/software/categories/desarrollo-y-herramientas-para-programadores/index.html",
+              "tags": [
+                "aplicaciones",
+                "desarrollo-y-herramientas-para-programadores"
+              ],
+              "children": [
+                {
+                  "name": "Docker Desktop",
+                  "cat": "docker-desktop",
+                  "path": "subpags/software/apps/docker-desktop.html",
+                  "tags": [
+                    "software",
+                    "desarrollo-y-herramientas-para-programadores"
+                  ]
+                },
+                {
+                  "name": "Java (JDK)",
+                  "cat": "java-jdk",
+                  "path": "subpags/software/apps/java-jdk.html",
+                  "tags": [
+                    "software",
+                    "desarrollo-y-herramientas-para-programadores"
+                  ]
+                },
+                {
+                  "name": "Apache NetBeans",
+                  "cat": "apache-netbeans",
+                  "path": "subpags/software/apps/apache-netbeans.html",
+                  "tags": [
+                    "software",
+                    "desarrollo-y-herramientas-para-programadores"
+                  ]
+                },
+                {
+                  "name": "Visual Studio Code",
+                  "cat": "visual-studio-code",
+                  "path": "subpags/software/apps/visual-studio-code.html",
+                  "tags": [
+                    "software",
+                    "desarrollo-y-herramientas-para-programadores"
+                  ]
+                },
+                {
+                  "name": "Responsively App",
+                  "cat": "responsively-app",
+                  "path": "subpags/software/apps/responsively-app.html",
+                  "tags": [
+                    "software",
+                    "desarrollo-y-herramientas-para-programadores"
+                  ]
+                },
+                {
+                  "name": "Notepad++",
+                  "cat": "notepad",
+                  "path": "subpags/software/apps/notepad.html",
+                  "tags": [
+                    "software",
+                    "desarrollo-y-herramientas-para-programadores"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Documentos y PDF",
+              "cat": "documentos-y-pdf",
+              "path": "subpags/software/categories/documentos-y-pdf/index.html",
+              "tags": [
+                "aplicaciones",
+                "documentos-y-pdf"
+              ],
+              "children": [
+                {
+                  "name": "PDFgear",
+                  "cat": "pdfgear",
+                  "path": "subpags/software/apps/pdfgear.html",
+                  "tags": [
+                    "software",
+                    "documentos-y-pdf"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Accesos heredados",
+          "cat": "legacy",
+          "path": "subpags/windows/index.html",
+          "tags": [
+            "rutas",
+            "compatibilidad"
+          ],
+          "children": [
+            {
+              "name": "Antiguo catálogo de Windows",
+              "cat": "legacy-apps",
+              "path": "subpags/windows/apps/index.html"
+            }
           ]
         }
       ]
