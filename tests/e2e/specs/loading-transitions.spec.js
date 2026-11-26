@@ -1,17 +1,26 @@
 const { test, expect } = require("@playwright/test");
 
-async function fulfillDocumentWithTestOrigin(route, response) {
+async function fulfillDocumentForLocalTest(route, response) {
     const documentResponse = response || await route.fetch();
     const body = (await documentResponse.text()).replaceAll(
-        "https://noocoks.github.io",
-        "http://127.0.0.1:4173"
+        '="/Libreta/',
+        '="https://noocoks.github.io/Libreta/'
     );
     await route.fulfill({ response: documentResponse, body });
 }
 
 test.beforeEach(async ({ page }) => {
+    // Conserva la CSP de producción y simula sus recursos HTTPS contra el
+    // servidor local; no se añade localhost a la allowlist publicada.
+    await page.route("https://noocoks.github.io/Libreta/**", async (route) => {
+        const url = new URL(route.request().url());
+        const localUrl = `http://127.0.0.1:4173${url.pathname}${url.search}`;
+        const response = await route.fetch({ url: localUrl });
+        await route.fulfill({ response });
+    });
+
     await page.route("**/subpags/**/*.html", async (route) => {
-        await fulfillDocumentWithTestOrigin(route);
+        await fulfillDocumentForLocalTest(route);
     });
 });
 
@@ -59,7 +68,7 @@ test.describe("Carga y transiciones de documentos", () => {
         await page.route("**/subpags/ciberseguridad/index.html", async (route) => {
             const response = await route.fetch();
             await responseGate;
-            await fulfillDocumentWithTestOrigin(route, response);
+            await fulfillDocumentForLocalTest(route, response);
         });
 
         await page.evaluate(() => window.navigate("subpags/ciberseguridad/index.html", true));
@@ -111,7 +120,7 @@ test.describe("Carga y transiciones de documentos", () => {
                 await route.abort();
                 return;
             }
-            await fulfillDocumentWithTestOrigin(route);
+            await fulfillDocumentForLocalTest(route);
         });
         await page.evaluate(() => { window.NAVIGATION_LOAD_TIMEOUT = 250; });
         await page.evaluate(() => window.navigate("subpags/ciberseguridad/index.html", true));
