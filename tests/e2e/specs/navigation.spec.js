@@ -26,7 +26,7 @@ test.describe("Navegación principal", () => {
         await page.getByRole("link", { name: /Explorar Libreta/ }).click();
 
         await expect(page).toHaveURL(/\/Libreta\/wiki\.html$/);
-        await expect(page.locator("#tree_root > li")).toHaveCount(3);
+        await expect(page.locator("#tree_root > li")).toHaveCount(4);
         await expect(page.locator("#page_frame")).toBeVisible();
     });
 
