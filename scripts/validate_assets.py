@@ -116,6 +116,14 @@ EXPECTED_CSP = {
     "connect-src": ["'self'"],
     "form-action": ["'self'"],
 }
+SANDBOXED_DOCUMENT_CSP = {
+    "script-src": ["'self'", "https://noocoks.github.io"],
+    "style-src": ["'self'", "https://noocoks.github.io"],
+    "style-src-elem": ["'self'", "https://noocoks.github.io"],
+    "img-src": ["'self'", "https://noocoks.github.io", "data:"],
+    "font-src": ["'self'", "https://noocoks.github.io"],
+    "connect-src": ["'self'", "https://noocoks.github.io"],
+}
 # frame-src puede omitirse: default-src 'self' aplica como fallback equivalente.
 OPTIONAL_CSP = {"frame-src": ["'self'"]}
 
@@ -125,9 +133,12 @@ def has_exact_iframe_sandbox_permissions(sandbox: set[str]) -> bool:
     return sandbox == {"allow-scripts"}
 
 
-def validate_csp_policy(policy: str) -> list[str]:
-    """Valida la CSP contra una allowlist exacta, incluidos orígenes y directivas."""
+def validate_csp_policy(policy: str, sandboxed_document: bool = False) -> list[str]:
+    """Valida la CSP con allowlists exactas según el contexto del documento."""
     errors: list[str] = []
+    expected_csp = dict(EXPECTED_CSP)
+    if sandboxed_document:
+        expected_csp.update(SANDBOXED_DOCUMENT_CSP)
     directives: dict[str, list[str]] = {}
     for raw_directive in policy.split(";"):
         parts = raw_directive.strip().split()
@@ -139,7 +150,7 @@ def validate_csp_policy(policy: str) -> list[str]:
             continue
         directives[name] = parts[1:]
 
-    allowed_names = set(EXPECTED_CSP) | set(OPTIONAL_CSP)
+    allowed_names = set(expected_csp) | set(OPTIONAL_CSP)
     for name in sorted(set(directives) - allowed_names):
         errors.append(f"directiva no autorizada: {name}")
     for name, expected_sources in OPTIONAL_CSP.items():
@@ -147,7 +158,7 @@ def validate_csp_policy(policy: str) -> list[str]:
             errors.append(
                 f"{name}: valores esperados {expected_sources!r}, recibidos {directives[name]!r}"
             )
-    for name, expected_sources in EXPECTED_CSP.items():
+    for name, expected_sources in expected_csp.items():
         actual_sources = directives.get(name)
         if actual_sources is None:
             errors.append(f"falta directiva: {name}")
@@ -224,7 +235,8 @@ def check_html_fragments() -> tuple[int, int]:
         if not parser.csp:
             ERRORS.append(f"Falta Content-Security-Policy en {relative}")
         else:
-            for policy_error in validate_csp_policy(parser.csp):
+            sandboxed_document = relative == "Template/template.html" or relative.startswith("subpags/")
+            for policy_error in validate_csp_policy(parser.csp, sandboxed_document):
                 ERRORS.append(f"CSP inválida en {relative}: {policy_error}")
         if parser.inline_handlers:
             ERRORS.append(f"Eventos inline no permitidos en {relative}: {', '.join(parser.inline_handlers)}")

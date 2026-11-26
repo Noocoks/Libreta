@@ -523,6 +523,13 @@ document.addEventListener("click", function (ev) {
             progress.value = value;
             progress.setAttribute("aria-valuenow", String(value));
             progress.setAttribute("aria-valuetext", value + "% leído");
+
+            /* Al final del documento el margen de IntersectionObserver puede
+               dejar el último encabezado fuera de su zona activa. En ese caso,
+               el último apartado es el contexto de lectura actual. */
+            if (window.scrollY >= maxScroll - 2) {
+                setActive(entries[entries.length - 1].id);
+            }
         }
 
         var observer = null;
@@ -977,4 +984,31 @@ document.addEventListener("click", function (ev) {
     } else {
         initPdfExport();
     }
+})();
+
+
+/* ==============================
+   CONFIRMACIÓN DE DOCUMENTO LISTO
+   El padre solo desafía al documento después del evento load del iframe.
+   Así se evita que una respuesta antigua de la misma ruta cierre una carga nueva.
+============================== */
+(function () {
+    "use strict";
+
+    window.addEventListener("message", function (event) {
+        if (event.source !== window.parent ||
+            !event.data || typeof event.data !== "object" ||
+            event.data.type !== "libreta:ready-challenge" ||
+            !Number.isSafeInteger(event.data.requestId) ||
+            event.data.requestId < 1 ||
+            document.readyState !== "complete") {
+            return;
+        }
+
+        window.parent.postMessage({
+            type: "libreta:page-ready",
+            requestId: event.data.requestId,
+            path: window.location.pathname
+        }, "*");
+    });
 })();

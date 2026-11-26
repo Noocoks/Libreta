@@ -134,7 +134,7 @@ Este documento es la hoja de ruta del PR. Las funcionalidades se implementarán 
 - [x] Fase 2 — Historial y navegación inteligente
 - [x] Fase 3 — Panel de conocimiento y estadísticas
 - [x] Fase 4 — Bloques de código avanzados
-- [ ] Fase 5 — Exportación a PDF
+- [x] Fase 5 — Exportación a PDF
 - [ ] Fase 6 — Transiciones y pantalla de carga
 - [ ] Fase 7 — Sistema de notificaciones
 - [ ] Fase 8 — Integración y revisión final

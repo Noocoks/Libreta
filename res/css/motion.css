@@ -504,3 +504,130 @@ button:focus-visible {
         box-shadow: none !important;
     }
 }
+
+/* --------------------------------------------------------------------------
+   CARGA DE DOCUMENTOS — ESTADOS REALES Y RECUPERACIÓN
+   -------------------------------------------------------------------------- */
+
+.page-panel {
+    position: relative;
+    isolation: isolate;
+}
+
+.page-panel iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: var(--color-background, #101114);
+}
+
+.page-load-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    background: rgba(10, 11, 14, .94);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity var(--motion-fast) ease,
+        visibility var(--motion-fast) ease;
+}
+
+.page-panel.is-loading .page-load-overlay,
+.page-panel.is-error .page-load-overlay {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.page-load-card {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    max-width: 28rem;
+    text-align: center;
+    color: #e8e8eb;
+}
+
+.page-load-card p {
+    margin: 0;
+    line-height: 1.55;
+}
+
+.page-load-spinner {
+    display: block;
+    width: 2.4rem;
+    height: 2.4rem;
+    border: 2px solid rgba(208, 59, 93, .2);
+    border-top-color: #d03b5d;
+    border-radius: 50%;
+    animation: libreta-loading-spin 850ms linear infinite;
+}
+
+@keyframes libreta-loading-spin {
+    to { transform: rotate(360deg); }
+}
+
+#page-load-retry {
+    min-height: 2.6rem;
+    padding: .65rem 1.1rem;
+    border: 1px solid rgba(208, 59, 93, .65);
+    border-radius: .45rem;
+    background: rgba(121, 0, 24, .24);
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+#page-load-retry:hover {
+    background: rgba(121, 0, 24, .42);
+}
+
+#page-load-retry:focus-visible {
+    outline: 2px solid #e66a86;
+    outline-offset: 3px;
+}
+
+.page-panel.is-loading iframe {
+    opacity: .16;
+    pointer-events: none;
+}
+
+.page-panel.is-entering iframe {
+    animation: libreta-enter 300ms var(--motion-ease) both;
+}
+
+.page-panel.is-error iframe {
+    opacity: .12;
+}
+
+.page-load-error {
+    color: #f0a2b2;
+}
+
+.page-load-spinner[hidden],
+.page-load-card [hidden] {
+    display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-load-overlay {
+        transition: none;
+    }
+
+    .page-load-spinner {
+        animation: none;
+        border-top-color: #d03b5d;
+        border-right-color: #d03b5d;
+    }
+
+    .page-panel.is-entering iframe {
+        animation: none;
+    }
+}
+
