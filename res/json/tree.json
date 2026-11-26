@@ -435,27 +435,29 @@
       ]
     },
     {
-      "name": "Windows",
-      "cat": "windows",
-      "path": "subpags/windows/index.html",
+      "name": "Biblioteca de aplicaciones",
+      "cat": "software",
+      "path": "subpags/software/index.html",
       "tags": [
-        "windows",
+        "software",
         "aplicaciones",
-        "personalización",
-        "mantenimiento",
-        "productividad"
+        "herramientas",
+        "productividad",
+        "diseño",
+        "videojuegos",
+        "desarrollo"
       ],
       "children": [
         {
-          "name": "Guía de aplicaciones",
+          "name": "Catálogo de aplicaciones",
           "cat": "apps",
-          "path": "subpags/windows/apps/index.html",
+          "path": "subpags/software/apps/index.html",
           "tags": [
-            "windows",
             "software",
-            "herramientas",
-            "descargas",
-            "guía"
+            "aplicaciones",
+            "categorías",
+            "fichas",
+            "recomendaciones"
           ]
         }
       ]
