@@ -30,3 +30,25 @@ Revisar enlaces, actividad, compatibilidad, licencia y modelo de distribución. 
 - `res/js/application-library.js`: búsqueda y filtros.
 
 Las fichas de esta primera migración son una base de referencia. La información específica de versiones, funciones, requisitos y licencia debe completarse y verificarse con documentación oficial antes de considerarse definitiva.
+
+
+## Categorías de la primera versión
+
+1. Personalización y escritorio
+2. Administración y mantenimiento del sistema
+3. Archivos, compresión y gestión documental
+4. Redes, transferencia y acceso remoto
+5. Navegación, privacidad y credenciales
+6. Audio, música y producción sonora
+7. Captura, streaming y comunicación audiovisual
+8. Diseño, ilustración y creación visual
+9. Vídeo, edición y posproducción
+10. Descargas y medios de instalación
+11. Hardware, diagnóstico y periféricos
+12. Videojuegos y experiencia gaming
+13. Productividad, organización y oficina
+14. Inteligencia artificial y automatización
+15. Desarrollo y herramientas para programadores
+16. Documentos y PDF
+
+Las categorías pueden revisarse a medida que el catálogo crezca. No se deben mantener por inercia si el contenido real demuestra que conviene reagruparlas.
