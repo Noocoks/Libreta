@@ -33,7 +33,12 @@ test("Windows aparece en el árbol y la guía se abre correctamente", async ({ p
     const summary = details.locator(":scope > summary");
 
     await summary.scrollIntoViewIfNeeded();
-    await summary.click();
+
+    // En viewport estrecho el clic de puntero sobre el summary no activa
+    // consistentemente el comportamiento nativo de <details> en los tres
+    // motores. La activación por teclado es el mecanismo nativo y accesible.
+    await summary.focus();
+    await summary.press("Enter");
     await expect(details).toHaveJSProperty("open", true);
 
     const responsivelyHeading = developmentCategory.locator(
