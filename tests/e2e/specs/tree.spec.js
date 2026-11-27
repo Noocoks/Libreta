@@ -55,12 +55,19 @@ test.describe("Controles del árbol", () => {
         await catalogLink.click();
 
         const catalog = page.frameLocator("#page_frame");
-        await expect(catalog.getByRole("heading", { name: "Biblioteca de aplicaciones", exact: true })).toBeVisible();
+        await expect(catalog.locator("h1").first()).toHaveText("Biblioteca de aplicaciones");
         await expect(catalog.locator(".library-category")).toHaveCount(16);
     });
 
     test("Modding aparece como sección independiente y ofrece sus plataformas", async ({ page }) => {
         await expectTreeReady(page);
+
+        const panelToggle = page.locator("#tree_panel_toggle_btn");
+        const treePanel = page.locator(".tree-panel");
+        if (await treePanel.evaluate(el => el.classList.contains("hidden"))) {
+            await panelToggle.click();
+        }
+        await expect(treePanel).not.toHaveClass(/hidden/);
 
         const moddingNode = page.locator('#tree_root > li[data-cat="modding"]');
         await expect(moddingNode).toHaveCount(1);
@@ -75,8 +82,12 @@ test.describe("Controles del árbol", () => {
         }
 
         await moddingNode.locator(":scope > a").click();
+        if (await panelToggle.getAttribute("aria-expanded") === "true") {
+            await panelToggle.click();
+        }
+
         const content = page.frameLocator("#page_frame");
-        await expect(content.getByRole("heading", { name: "Modding", exact: true })).toBeVisible();
+        await expect(content.locator("h1").first()).toHaveText("Modding");
 
         const cards = content.locator(".modding-card");
         await expect(cards).toHaveCount(14);
