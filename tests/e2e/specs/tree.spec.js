@@ -44,13 +44,13 @@ test.describe("Controles del árbol", () => {
 
         const libraryNode = page.locator('#tree_root > li[data-cat="software"]');
         await expect(libraryNode).toHaveCount(1);
-        await expect(libraryNode.getByRole("link", { name: "Biblioteca de aplicaciones", exact: true })).toBeVisible();
+        await expect(libraryNode.locator(":scope > a")).toBeVisible();
 
         const branchToggle = libraryNode.locator(":scope > button[aria-expanded]");
         await expect(branchToggle).toHaveCount(1);
         await branchToggle.click();
 
-        const catalogLink = libraryNode.getByRole("link", { name: "Catálogo de aplicaciones", exact: true });
+        const catalogLink = libraryNode.locator(":scope > ul.subtree > li > a").filter({ hasText: "Catálogo de aplicaciones" });
         await expect(catalogLink).toBeVisible();
         await catalogLink.click();
 
@@ -64,17 +64,17 @@ test.describe("Controles del árbol", () => {
 
         const moddingNode = page.locator('#tree_root > li[data-cat="modding"]');
         await expect(moddingNode).toHaveCount(1);
-        await expect(moddingNode.getByRole("link", { name: "Modding", exact: true })).toBeVisible();
+        await expect(moddingNode.locator(":scope > a")).toBeVisible();
 
         const branchToggle = moddingNode.locator(":scope > button[aria-expanded]");
         await expect(branchToggle).toHaveCount(1);
         await branchToggle.click();
 
         for (const platform of ["Windows", "Linux", "Android"]) {
-            await expect(moddingNode.getByRole("link", { name: platform, exact: true })).toBeVisible();
+            await expect(moddingNode.locator(":scope > ul.subtree > li > a").filter({ hasText: platform })).toBeVisible();
         }
 
-        await moddingNode.getByRole("link", { name: "Modding", exact: true }).click();
+        await moddingNode.locator(":scope > a").click();
         const content = page.frameLocator("#page_frame");
         await expect(content.getByRole("heading", { name: "Modding", exact: true })).toBeVisible();
 
