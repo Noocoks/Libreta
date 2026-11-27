@@ -81,13 +81,15 @@ test.describe("Bloques de código avanzados", () => {
 
         const alignment = await block.evaluate(shell => {
             const gutter = shell.querySelector(".code-block-line-gutter");
-            const code = shell.querySelector("pre > code");
+            const pre = shell.querySelector("pre");
+            const code = pre.querySelector(":scope > code");
             const numbers = Array.from(gutter.children);
             const lines = Array.from(code.querySelectorAll(":scope > .code-line"));
 
             return {
                 numberCount: numbers.length,
                 lineCount: lines.length,
+                codeMarginBlock: getComputedStyle(pre).marginBlock,
                 rows: numbers.map((number, index) => {
                     const numberRect = number.getBoundingClientRect();
                     const lineRect = lines[index].getBoundingClientRect();
@@ -101,6 +103,7 @@ test.describe("Bloques de código avanzados", () => {
 
         expect(alignment.numberCount).toBe(4);
         expect(alignment.lineCount).toBe(4);
+        expect(alignment.codeMarginBlock).toBe("0px");
         for (const row of alignment.rows) {
             expect(row.topDifference).toBeLessThanOrEqual(1);
             expect(row.heightDifference).toBeLessThanOrEqual(1);
