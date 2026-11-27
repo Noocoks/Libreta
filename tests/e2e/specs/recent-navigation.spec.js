@@ -1,8 +1,9 @@
 const { test, expect } = require("@playwright/test");
+const { expectTreeReady } = require("../helpers/tree");
 
 async function openWiki(page) {
     await page.goto("wiki.html");
-    await expect(page.locator("#tree_root > li")).toHaveCount(4);
+    await expectTreeReady(page);
     const drawer = page.locator("#tree_panel_toggle_btn");
     if (await drawer.getAttribute("aria-expanded") === "false") {
         await drawer.click();
@@ -22,8 +23,8 @@ async function openRecentPanel(page) {
     }
 }
 
-async function navigateRootSection(page, index, title) {
-    const node = page.locator("#tree_root > li").nth(index);
+async function navigateRootSection(page, category, title) {
+    const node = page.locator(`#tree_root > li[data-cat="${category}"]`);
     await node.locator(":scope > a").click();
     await expect(page.frameLocator("#page_frame").locator("h1").first()).toHaveText(title);
 }
@@ -35,8 +36,8 @@ test.describe("Historial y navegación inteligente", () => {
         await expect(page.locator("#recent-pages-empty")).toBeVisible();
         await expect(page.locator("#recent-pages-clear")).toBeDisabled();
 
-        await navigateRootSection(page, 0, "Ciberseguridad");
-        await navigateRootSection(page, 1, "Android");
+        await navigateRootSection(page, "ciberseguridad", "Ciberseguridad");
+        await navigateRootSection(page, "android", "Android");
         await openRecentPanel(page);
 
         const entries = page.locator("#recent-pages-list .recent-page-link");
@@ -50,10 +51,10 @@ test.describe("Historial y navegación inteligente", () => {
 
     test("persiste el historial al recargar y permite limpiarlo", async ({ page }) => {
         await openWiki(page);
-        await navigateRootSection(page, 0, "Ciberseguridad");
-        await navigateRootSection(page, 1, "Android");
+        await navigateRootSection(page, "ciberseguridad", "Ciberseguridad");
+        await navigateRootSection(page, "android", "Android");
         await page.reload();
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         await expect(page.frameLocator("#page_frame").locator("h1").first()).toHaveText("Android");
         await openRecentPanel(page);
 
@@ -68,12 +69,12 @@ test.describe("Historial y navegación inteligente", () => {
 
     test("atrás y adelante sincronizan el iframe con la ruta del navegador", async ({ page }) => {
         await openWiki(page);
-        await navigateRootSection(page, 0, "Ciberseguridad");
+        await navigateRootSection(page, "ciberseguridad", "Ciberseguridad");
         await expect(page).toHaveURL(/#subpags\/ciberseguridad\/index\.html$/);
         const firstPath = await page.evaluate(() => window.history.state && window.history.state.libretaPath);
         expect(firstPath).toBe("subpags/ciberseguridad/index.html");
 
-        await navigateRootSection(page, 1, "Android");
+        await navigateRootSection(page, "android", "Android");
         await expect(page).toHaveURL(/#subpags\/android\/index\.html$/);
         const secondPath = await page.evaluate(() => window.history.state && window.history.state.libretaPath);
         expect(secondPath).toBe("subpags/android/index.html");
@@ -176,7 +177,7 @@ test.describe("Historial y navegación inteligente", () => {
 
     test("un fragmento externo manipulado no carga contenido en el iframe", async ({ page }) => {
         await page.goto("wiki.html#https%3A%2F%2Fattacker.invalid%2Fpayload");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         await expect(page.locator("#page_frame")).not.toHaveAttribute("src", /attacker\.invalid/);
         expect(await page.locator("#page_frame").getAttribute("src")).toBeNull();
         await expect(page).toHaveURL(/wiki\.html$/);
@@ -192,7 +193,7 @@ test.describe("Historial y navegación inteligente", () => {
             });
         });
         await openWiki(page);
-        await navigateRootSection(page, 0, "Ciberseguridad");
+        await navigateRootSection(page, "ciberseguridad", "Ciberseguridad");
         await openRecentPanel(page);
         await expect(page.locator("#recent-pages-list .recent-page-link")).toHaveCount(1);
         await expect(page.locator("#recent-pages-list .recent-page-link").first()).toHaveText("Ciberseguridad");
