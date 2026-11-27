@@ -4,6 +4,7 @@ from scripts.validate_assets import (
     EXPECTED_CSP,
     has_exact_iframe_sandbox_permissions,
     validate_csp_policy,
+    HtmlDocument,
 )
 
 
@@ -52,6 +53,22 @@ class ContentSecurityPolicyTests(unittest.TestCase):
     def test_rejects_style_src_attr_override(self):
         policy = policy_from(EXPECTED_CSP) + "; style-src-attr 'unsafe-inline'"
         self.assertTrue(validate_csp_policy(policy))
+
+    def test_html_parser_records_duplicate_attributes(self):
+        parser = HtmlDocument()
+        parser.feed('<a href="/safe" href="javascript:alert(1)">link</a>')
+        parser.close()
+        self.assertIn("href", parser.duplicate_attributes)
+        self.assertIn("javascript:alert(1)", parser.unsafe_links)
+
+    def test_html_parser_counts_repeated_csp_meta_policies(self):
+        parser = HtmlDocument()
+        parser.feed(
+            '<meta http-equiv="Content-Security-Policy" content="default-src \'self\'">'
+            '<meta http-equiv="Content-Security-Policy" content="default-src *">'
+        )
+        parser.close()
+        self.assertEqual(parser.csp_count, 2)
 
 
 if __name__ == "__main__":
