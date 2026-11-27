@@ -1730,16 +1730,6 @@
               ]
             },
             {
-              "name": "CatchyOS",
-              "cat": "catchyos",
-              "path": "subpags/modding/linux/catchyos/index.html",
-              "tags": [
-                "catchyos",
-                "arch",
-                "rolling-release"
-              ]
-            },
-            {
               "name": "SteamOS",
               "cat": "steamos",
               "path": "subpags/modding/linux/steamos/index.html",
