@@ -157,11 +157,15 @@ def validate_tree_data(data: object, root: Path | None = None) -> tuple[set[str]
     return paths, errors
 
 
-def resolve_local_reference(html_file: Path, reference: str) -> Path | None:
+def resolve_local_reference(
+    html_file: Path, reference: str, root: Path | None = None
+) -> Path | None:
+    project_root = (root or ROOT).resolve()
+    invalid_reference = project_root / "__invalid_reference__"
     try:
         parsed = urlsplit(reference.strip())
     except ValueError:
-        return ROOT / "__invalid_reference__"
+        return invalid_reference
 
     if parsed.scheme or parsed.netloc or not parsed.path or reference.strip().startswith("//"):
         return None
@@ -169,26 +173,30 @@ def resolve_local_reference(html_file: Path, reference: str) -> Path | None:
     if ("\\" in decoded
             or any(ord(char) < 32 or ord(char) == 127 for char in decoded)
             or re.search(r"%(?![0-9A-Fa-f]{2})", parsed.path)):
-        return ROOT / "__invalid_reference__"
+        return invalid_reference
 
     if decoded.startswith("/Libreta/"):
         relative = decoded[len("/Libreta/"):]
     elif decoded.startswith("/"):
         relative = decoded.lstrip("/")
     else:
-        relative = posixpath.join(html_file.parent.relative_to(ROOT).as_posix(), decoded)
+        try:
+            source_parent = html_file.resolve().parent.relative_to(project_root).as_posix()
+        except ValueError:
+            return invalid_reference
+        relative = posixpath.join(source_parent, decoded)
 
     normalized = posixpath.normpath(relative)
     if normalized in {"", "."}:
         normalized = "index.html"
     if normalized == ".." or normalized.startswith("../"):
-        return ROOT / "__invalid_reference__"
+        return invalid_reference
 
-    target = (ROOT / normalized).resolve()
+    target = (project_root / normalized).resolve()
     try:
-        target.relative_to(ROOT)
+        target.relative_to(project_root)
     except ValueError:
-        return ROOT / "__invalid_reference__"
+        return invalid_reference
     if target.is_dir():
         target = target / "index.html"
     if not target.suffix and not target.exists():
