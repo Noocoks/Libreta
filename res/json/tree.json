@@ -259,30 +259,6 @@
           "path": "subpags/android/herramientas_adb/index.html"
         },
         {
-          "name": "S.O's",
-          "cat": "so",
-          "path": "subpags/android/so/index.html",
-          "children": [
-            {
-              "name": "Lineage OS",
-              "cat": "so",
-              "path": "subpags/android/so/lineage/index.html"
-            },
-            {
-              "name": "crDroid",
-              "cat": "so",
-              "path": "subpags/android/so/crdroid/index.html"
-            }
-          ],
-          "tags": [
-            "android",
-            "roms",
-            "lineageos",
-            "crdroid",
-            "personalizacion"
-          ]
-        },
-        {
           "name": "Magisk",
           "cat": "magisk",
           "path": "subpags/android/magisk/index.html"
@@ -1587,6 +1563,231 @@
               "name": "Antiguo catálogo de Windows",
               "cat": "legacy-apps",
               "path": "subpags/windows/apps/index.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Modding",
+      "cat": "modding",
+      "path": "subpags/modding/index.html",
+      "tags": [
+        "modding",
+        "windows",
+        "linux",
+        "android",
+        "sistemas-operativos",
+        "roms"
+      ],
+      "children": [
+        {
+          "name": "Windows",
+          "cat": "modding-windows",
+          "path": "subpags/modding/windows/index.html",
+          "tags": [
+            "windows",
+            "atlasos",
+            "playbook"
+          ],
+          "children": [
+            {
+              "name": "AtlasOS",
+              "cat": "atlasos",
+              "path": "subpags/modding/windows/atlasos/index.html",
+              "tags": [
+                "atlas",
+                "windows-11",
+                "playbook",
+                "optimización",
+                "privacidad"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Linux",
+          "cat": "modding-linux",
+          "path": "subpags/modding/linux/index.html",
+          "tags": [
+            "linux",
+            "distribuciones",
+            "gnu-linux"
+          ],
+          "children": [
+            {
+              "name": "Ubuntu y variantes",
+              "cat": "ubuntu",
+              "path": "subpags/modding/linux/ubuntu/index.html",
+              "tags": [
+                "ubuntu",
+                "kubuntu",
+                "lubuntu",
+                "gnome",
+                "kde",
+                "lxqt"
+              ]
+            },
+            {
+              "name": "Linux Mint",
+              "cat": "linux-mint",
+              "path": "subpags/modding/linux/linux-mint/index.html",
+              "tags": [
+                "linux-mint",
+                "cinnamon",
+                "mate",
+                "xfce"
+              ]
+            },
+            {
+              "name": "Kali Linux",
+              "cat": "kali-linux",
+              "path": "subpags/modding/linux/kali-linux/index.html",
+              "tags": [
+                "kali",
+                "debian",
+                "seguridad",
+                "pentesting"
+              ]
+            },
+            {
+              "name": "Arch Linux",
+              "cat": "arch-linux",
+              "path": "subpags/modding/linux/arch-linux/index.html",
+              "tags": [
+                "arch",
+                "rolling-release",
+                "pacman",
+                "aur"
+              ]
+            },
+            {
+              "name": "BlackArch",
+              "cat": "blackarch",
+              "path": "subpags/modding/linux/blackarch/index.html",
+              "tags": [
+                "blackarch",
+                "arch",
+                "seguridad",
+                "pentesting"
+              ]
+            },
+            {
+              "name": "Fedora",
+              "cat": "fedora",
+              "path": "subpags/modding/linux/fedora/index.html",
+              "tags": [
+                "fedora",
+                "rpm",
+                "dnf",
+                "workstation",
+                "server"
+              ]
+            },
+            {
+              "name": "Red Hat Enterprise Linux",
+              "cat": "redhat",
+              "path": "subpags/modding/linux/red-hat-enterprise-linux/index.html",
+              "tags": [
+                "rhel",
+                "red-hat",
+                "empresa",
+                "servidores"
+              ]
+            },
+            {
+              "name": "Debian",
+              "cat": "debian",
+              "path": "subpags/modding/linux/debian/index.html",
+              "tags": [
+                "debian",
+                "apt",
+                "stable",
+                "testing",
+                "sid"
+              ]
+            },
+            {
+              "name": "Parrot OS",
+              "cat": "parrot",
+              "path": "subpags/modding/linux/parrot-os/index.html",
+              "tags": [
+                "parrot",
+                "debian",
+                "security",
+                "home"
+              ]
+            },
+            {
+              "name": "CachyOS",
+              "cat": "cachyos",
+              "path": "subpags/modding/linux/cachyos/index.html",
+              "tags": [
+                "cachyos",
+                "arch",
+                "rendimiento",
+                "rolling-release"
+              ]
+            },
+            {
+              "name": "SteamOS",
+              "cat": "steamos",
+              "path": "subpags/modding/linux/steamos/index.html",
+              "tags": [
+                "steamos",
+                "valve",
+                "gaming",
+                "proton",
+                "steam-deck"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Android",
+          "cat": "modding-android",
+          "path": "subpags/modding/android/index.html",
+          "tags": [
+            "android",
+            "roms",
+            "custom-rom",
+            "bootloader"
+          ],
+          "children": [
+            {
+              "name": "Sistemas operativos Android",
+              "cat": "so",
+              "path": "subpags/android/so/index.html",
+              "tags": [
+                "android",
+                "roms",
+                "lineageos",
+                "crdroid"
+              ],
+              "children": [
+                {
+                  "name": "LineageOS",
+                  "cat": "lineage",
+                  "path": "subpags/android/so/lineage/index.html",
+                  "tags": [
+                    "lineageos",
+                    "android",
+                    "rom",
+                    "actualizaciones"
+                  ]
+                },
+                {
+                  "name": "crDroid",
+                  "cat": "crdroid",
+                  "path": "subpags/android/so/crdroid/index.html",
+                  "tags": [
+                    "crdroid",
+                    "android",
+                    "rom",
+                    "personalización"
+                  ]
+                }
+              ]
             }
           ]
         }

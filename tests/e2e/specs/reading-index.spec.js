@@ -1,9 +1,10 @@
 const { test, expect } = require("@playwright/test");
+const { expectTreeReady } = require("../helpers/tree");
 
 async function openDocument(page) {
     await page.goto("wiki.html");
-    await expect(page.locator("#tree_root > li")).toHaveCount(4);
-    await page.locator("#tree_root > li").first().locator(":scope > a").evaluate(link => link.click());
+    await expectTreeReady(page);
+    await page.locator('#tree_root > li[data-cat="ciberseguridad"]').locator(":scope > a").evaluate(link => link.click());
     await expect(page.frameLocator("#page_frame").locator(".page")).toBeVisible();
 }
 
