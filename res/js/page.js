@@ -139,11 +139,7 @@ document.addEventListener("click", function (e) {
         ? e.target.closest("a")
         : null;
 
-    if (
-        !link ||
-        link.hasAttribute("download") ||
-        (link.target && link.target.toLowerCase() !== "_self")
-    ) {
+    if (!link || link.hasAttribute("download")) {
         return;
     }
 
@@ -159,13 +155,37 @@ document.addEventListener("click", function (e) {
         return;
     }
 
-    /* Bloquear protocolos ejecutables; conservar mailto:, tel: y enlaces externos. */
+    /* Bloquear protocolos ejecutables antes de decidir el destino del enlace. */
     if (
         target.protocol === "javascript:" ||
         target.protocol === "data:" ||
         target.protocol === "vbscript:"
     ) {
         e.preventDefault();
+        return;
+    }
+
+    /*
+     * Los enlaces HTTP(S) externos deben salir del iframe de documentación.
+     * Se conserva la navegación nativa del navegador, pero se fuerza una
+     * pestaña independiente y se evita que la página externa controle window.opener.
+     */
+    if (
+        (target.protocol === "http:" || target.protocol === "https:") &&
+        target.origin !== window.location.origin
+    ) {
+        link.target = "_blank";
+        var relTokens = (link.getAttribute("rel") || "")
+            .split(/\\s+/)
+            .filter(Boolean);
+        ["noopener", "noreferrer"].forEach(function (token) {
+            if (relTokens.indexOf(token) === -1) relTokens.push(token);
+        });
+        link.setAttribute("rel", relTokens.join(" "));
+        return;
+    }
+
+    if (link.target && link.target.toLowerCase() !== "_self") {
         return;
     }
 
