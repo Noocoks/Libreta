@@ -122,6 +122,62 @@ test.describe("Panel de conocimiento", () => {
         await expect(page.locator("#knowledge-dashboard-error")).toBeHidden();
     });
 
+    test("acepta fichas HTML individuales de la biblioteca sin permitir rutas externas", async ({ page }) => {
+        await page.route("**/res/json/tree.json", route => route.fulfill({
+            status: 200,
+            contentType: "application/json",
+            body: JSON.stringify({
+                title: "Biblioteca de aplicaciones",
+                sections: [{
+                    name: "Software",
+                    path: "subpags/software/index.html",
+                    children: [{
+                        name: "Ficha individual",
+                        path: "subpags/software/apps/example-app.html"
+                    }, {
+                        name: "Categoría",
+                        path: "subpags/software/categories/utilidades/index.html"
+                    }]
+                }]
+            })
+        }));
+
+        await openKnowledgeDashboard(page);
+
+        const metrics = page.locator("#knowledge-dashboard-metrics .knowledge-metric");
+        await expect(metrics).toHaveCount(4);
+        await expect(metrics.nth(0)).toContainText("3");
+        await expect(page.locator("#knowledge-dashboard-areas .knowledge-area-row"))
+            .toContainText("Software");
+        await expect(page.locator("#knowledge-dashboard-error")).toBeHidden();
+    });
+
+    test("rechaza rutas que salen de subpags o no son páginas HTML", async ({ page }) => {
+        for (const invalidPath of [
+            "../externo/index.html",
+            "https://example.invalid/index.html",
+            "subpags/software/apps/example.js",
+            "subpags/software/apps/%2e%2e/index.html",
+            "subpags/software\\\\apps/example.html"
+        ]) {
+            await page.route("**/res/json/tree.json", route => route.fulfill({
+                status: 200,
+                contentType: "application/json",
+                body: JSON.stringify({
+                    title: "Prueba",
+                    sections: [{ name: "Ruta manipulada", path: invalidPath }]
+                })
+            }));
+
+            const panel = await openKnowledgePanel(page);
+            await panel.locator("summary").click();
+            await expect(page.locator("#knowledge-dashboard-error")).toBeVisible();
+            await expect(page.locator("#knowledge-dashboard-content")).toBeHidden();
+            await page.unroute("**/res/json/tree.json");
+            await page.reload();
+        }
+    });
+
     test("rechaza un árbol manipulado y no inserta etiquetas como HTML", async ({ page }) => {
         await page.route("**/res/json/tree.json", route => route.fulfill({
             status: 200,
