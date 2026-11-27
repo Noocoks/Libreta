@@ -68,23 +68,25 @@ test.describe("Historial y navegación inteligente", () => {
 
     test("atrás y adelante sincronizan el iframe con la ruta del navegador", async ({ page }) => {
         await openWiki(page);
-        const initialHistoryLength = await page.evaluate(() => window.history.length);
         await navigateRootSection(page, 0, "Ciberseguridad");
+        await expect(page).toHaveURL(/#subpags\\/ciberseguridad\\/index\\.html$/);
+        const firstPath = await page.evaluate(() => window.history.state && window.history.state.libretaPath);
+        expect(firstPath).toBe("subpags/ciberseguridad/index.html");
+
         await navigateRootSection(page, 1, "Android");
-        const navigationState = await page.evaluate(() => ({
-            length: window.history.length,
-            hash: window.location.hash,
-            state: window.history.state
-        }));
-        expect(navigationState.length).toBeGreaterThanOrEqual(initialHistoryLength + 2);
+        await expect(page).toHaveURL(/#subpags\\/android\\/index\\.html$/);
+        const secondPath = await page.evaluate(() => window.history.state && window.history.state.libretaPath);
+        expect(secondPath).toBe("subpags/android/index.html");
+        expect(secondPath).not.toBe(firstPath);
 
         await page.evaluate(() => window.history.back());
-        await expect(page).toHaveURL(/#subpags\/ciberseguridad\/index\.html$/);
+        await expect(page).toHaveURL(/#subpags\\/ciberseguridad\\/index\\.html$/);
         await expect(page.frameLocator("#page_frame").locator("h1").first()).toHaveText("Ciberseguridad");
 
         await page.evaluate(() => window.history.forward());
-        await expect(page).toHaveURL(/#subpags\/android\/index\.html$/);
+        await expect(page).toHaveURL(/#subpags\\/android\\/index\\.html$/);
         await expect(page.frameLocator("#page_frame").locator("h1").first()).toHaveText("Android");
+
     });
 
     test("valida las rutas guardadas y reconstruye los títulos desde el árbol autorizado", async ({ page }) => {
