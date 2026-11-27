@@ -104,6 +104,12 @@ test.describe("Bloques de código avanzados", () => {
         expect(alignment.numberCount).toBe(4);
         expect(alignment.lineCount).toBe(4);
         expect(alignment.codeMarginBlock).toBe("0px");
+        const whitespace = await block.locator("pre > code").evaluate(code => ({
+            code: getComputedStyle(code).whiteSpace,
+            line: getComputedStyle(code.querySelector(".code-line")).whiteSpace
+        }));
+        expect(whitespace.code).toBe("normal");
+        expect(whitespace.line).toBe("pre");
         const gutterStyle = await block.locator(".code-block-line-gutter").evaluate(element => ({
             listStyle: getComputedStyle(element).listStyleType,
             itemListStyle: getComputedStyle(element.firstElementChild).listStyleType
