@@ -166,7 +166,9 @@ def resolve_local_reference(html_file: Path, reference: str) -> Path | None:
     if parsed.scheme or parsed.netloc or not parsed.path or reference.strip().startswith("//"):
         return None
     decoded = unquote(parsed.path)
-    if "\\" in decoded or any(ord(char) < 32 for char in decoded):
+    if ("\\" in decoded
+            or any(ord(char) < 32 or ord(char) == 127 for char in decoded)
+            or re.search(r"%(?![0-9A-Fa-f]{2})", parsed.path)):
         return ROOT / "__invalid_reference__"
 
     if decoded.startswith("/Libreta/"):
@@ -194,14 +196,38 @@ def resolve_local_reference(html_file: Path, reference: str) -> Path | None:
     return target
 
 
+def reject_duplicate_json_keys(pairs: list[tuple[str, object]]) -> dict:
+    """Rechaza claves repetidas para evitar interpretaciones JSON ambiguas."""
+    result: dict = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"clave JSON duplicada: {key!r}")
+        result[key] = value
+    return result
+
+
+def reject_json_constant(value: str) -> None:
+    """JSON estándar no admite NaN ni Infinity."""
+    raise ValueError(f"constante JSON no estándar: {value}")
+
+
+def strict_json_loads(source: str) -> object:
+    """Carga JSON rechazando claves duplicadas y constantes no estándar."""
+    return json.loads(
+        source,
+        object_pairs_hook=reject_duplicate_json_keys,
+        parse_constant=reject_json_constant,
+    )
+
+
 def check_json() -> dict:
     try:
         raw = TREE_FILE.read_bytes()
         if len(raw) > MAX_TREE_BYTES:
             ERRORS.append(f"tree.json supera el límite de {MAX_TREE_BYTES} bytes.")
             return {}
-        data = json.loads(raw.decode("utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        data = strict_json_loads(raw.decode("utf-8"))
+    except (OSError, UnicodeDecodeError, ValueError) as error:
         ERRORS.append(f"tree.json no es válido: {error}")
         return {}
     if not isinstance(data, dict):
