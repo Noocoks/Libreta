@@ -149,7 +149,7 @@ document.addEventListener("click", function (e) {
      */
     if (
         (target.protocol === "http:" || target.protocol === "https:") &&
-        target.origin !== window.location.origin
+        target.origin !== parentOrigin
     ) {
         link.target = "_blank";
         var relTokens = (link.getAttribute("rel") || "")
