@@ -153,7 +153,7 @@ test.describe("Enlaces del contenido", () => {
         await expect(page).toHaveURL(/#subpags\/ciberseguridad\/osint\/index\.html$/);
     });
 
-    test("conserva enlaces externos sin secuestrar la navegación principal", async ({ page }) => {
+    test("abre enlaces HTTP(S) externos en una pestaña nueva y conserva la wiki", async ({ page, context }) => {
         await page.goto("wiki.html");
         await openIndex(page);
         const firstSection = page.locator('#tree_root > li[data-cat="ciberseguridad"]');
@@ -182,8 +182,33 @@ test.describe("Enlaces del contenido", () => {
             body.appendChild(link);
         });
 
+        const popupPromise = context.waitForEvent("page");
         await content.locator("#external-link-security-test").click();
+        const popup = await popupPromise;
+        await expect(popup).toHaveURL("https://example.org/");
+        await expect(popup.locator("h1")).toHaveText("External destination");
+
         await expect(iframe).toHaveAttribute("src", originalSrc);
         await expect(page).toHaveURL(originalUrl);
+        await expect(content.locator("#external-link-security-test")).toHaveAttribute("target", "_blank");
+        await expect(content.locator("#external-link-security-test")).toHaveAttribute("rel", /noopener/);
+        await expect(content.locator("#external-link-security-test")).toHaveAttribute("rel", /noreferrer/);
+    });
+
+    test("no altera la navegación de enlaces internos ni los enlaces de anclaje", async ({ page }) => {
+        await page.goto("wiki.html");
+        await openIndex(page);
+        const firstSection = page.locator('#tree_root > li[data-cat="ciberseguridad"]');
+        await firstSection.locator(":scope > a").click();
+        await closeIndex(page);
+
+        const content = page.frameLocator("#page_frame");
+        await expect(content.locator("h1").first()).toBeVisible();
+        const internalLink = content.locator('a[href*="osint/index.html"]').first();
+        await expect(internalLink).toHaveAttribute("target", /^(?!_blank$).*$/);
+        const anchor = content.locator('a[href^="#"]').first();
+        if (await anchor.count()) {
+            await expect(anchor).not.toHaveAttribute("target", "_blank");
+        }
     });
 });
