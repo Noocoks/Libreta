@@ -22,6 +22,8 @@ class HtmlDocument(HTMLParser):
         self.duplicates: set[str] = set()
         self.fragments: list[str] = []
         self.csp: str | None = None
+        self.csp_count = 0
+        self.duplicate_attributes: list[str] = []
         self.inline_handlers: list[str] = []
         self.inline_scripts: list[str] = []
         self.inline_styles: list[str] = []
@@ -36,6 +38,12 @@ class HtmlDocument(HTMLParser):
             self.in_style = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attribute_names = [name.lower() for name, _ in attrs]
+        seen_attributes: set[str] = set()
+        for name in attribute_names:
+            if name in seen_attributes:
+                self.duplicate_attributes.append(name)
+            seen_attributes.add(name)
         values = dict(attrs)
         for name in values:
             if name.lower().startswith("on"):
@@ -54,13 +62,14 @@ class HtmlDocument(HTMLParser):
                 scheme = urlsplit(values["href"].strip()).scheme.lower()
             except ValueError:
                 scheme = "invalid"
-            if scheme in {"javascript", "vbscript", "data"}:
+            if scheme in {"javascript", "vbscript", "data", "file"}:
                 self.unsafe_links.append(values["href"])
             if (values.get("target") or "").lower() == "_blank":
                 rel = set((values.get("rel") or "").lower().split())
                 if not {"noopener", "noreferrer"}.issubset(rel):
                     self.unsafe_blank_links.append(values["href"])
         if tag == "meta" and (values.get("http-equiv") or "").lower() == "content-security-policy":
+            self.csp_count += 1
             self.csp = values.get("content") or ""
         if tag == "iframe":
             self.iframes.append(set((values.get("sandbox") or "").split()))
@@ -75,8 +84,15 @@ class HtmlDocument(HTMLParser):
 
 
 def local_target(source: Path, raw_url: str) -> tuple[Path, str] | None:
-    parsed = urlsplit(raw_url.strip())
-    if parsed.scheme or parsed.netloc or raw_url.strip().startswith("//"):
+    raw_reference = raw_url.strip()
+    invalid_target = ROOT / "__invalid_local_reference__"
+    if any(ord(char) < 32 or ord(char) == 127 for char in raw_reference) or "\\" in raw_reference:
+        return invalid_target, ""
+    try:
+        parsed = urlsplit(raw_reference)
+    except ValueError:
+        return invalid_target, ""
+    if parsed.scheme or parsed.netloc or raw_reference.startswith("//"):
         return None
     if parsed.path.startswith("data:") or parsed.path.startswith("blob:"):
         return None
@@ -94,7 +110,7 @@ def local_target(source: Path, raw_url: str) -> tuple[Path, str] | None:
     try:
         target.relative_to(ROOT)
     except ValueError:
-        return None
+        return invalid_target, unquote(parsed.fragment)
 
     if target.is_dir():
         target = target / "index.html"
@@ -232,6 +248,11 @@ def check_html_fragments() -> tuple[int, int]:
         documents[html_file.resolve()] = parser
 
         relative = html_file.relative_to(ROOT).as_posix()
+        if parser.duplicate_attributes:
+            duplicates = sorted(set(parser.duplicate_attributes))
+            ERRORS.append(f"Atributos HTML duplicados en {relative}: {', '.join(duplicates)}")
+        if parser.csp_count > 1:
+            ERRORS.append(f"Política Content-Security-Policy repetida en {relative}")
         if not parser.csp:
             ERRORS.append(f"Falta Content-Security-Policy en {relative}")
         else:
