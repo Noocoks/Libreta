@@ -59,4 +59,30 @@ test.describe("Controles del árbol", () => {
         await expect(catalog.locator(".library-category")).toHaveCount(16);
     });
 
+    test("Modding aparece como sección independiente y ofrece sus plataformas", async ({ page }) => {
+        await expectTreeReady(page);
+
+        const moddingNode = page.locator('#tree_root > li[data-cat="modding"]');
+        await expect(moddingNode).toHaveCount(1);
+        await expect(moddingNode.getByRole("link", { name: "Modding", exact: true })).toBeVisible();
+
+        const branchToggle = moddingNode.locator(":scope > button[aria-expanded]");
+        await expect(branchToggle).toHaveCount(1);
+        await branchToggle.click();
+
+        for (const platform of ["Windows", "Linux", "Android"]) {
+            await expect(moddingNode.getByRole("link", { name: platform, exact: true })).toBeVisible();
+        }
+
+        await moddingNode.getByRole("link", { name: "Modding", exact: true }).click();
+        const content = page.frameLocator("#page_frame");
+        await expect(content.getByRole("heading", { name: "Modding", exact: true })).toBeVisible();
+
+        const cards = content.locator(".modding-card");
+        await expect(cards).toHaveCount(14);
+        for (const project of ["AtlasOS", "Ubuntu", "Linux Mint", "Kali Linux", "Arch Linux", "BlackArch", "Fedora", "Red Hat Enterprise Linux", "Debian", "Parrot OS", "CachyOS", "SteamOS", "LineageOS", "crDroid"]) {
+            await expect(cards.filter({ hasText: project })).toHaveCount(1);
+        }
+    });
+
 });
