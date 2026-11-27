@@ -104,6 +104,9 @@
     color: var(--text);
     font-size: inherit;
     line-height: inherit;
+    /* Los saltos entre spans conservan el texto original, pero no deben
+       crear líneas visuales adicionales: cada .code-line ya es un bloque. */
+    white-space: normal;
 }
 
 .code-block-shell .code-line {
