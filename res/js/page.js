@@ -153,7 +153,7 @@ document.addEventListener("click", function (e) {
     ) {
         link.target = "_blank";
         var relTokens = (link.getAttribute("rel") || "")
-            .split(/\\s+/)
+            .split(/\s+/)
             .filter(Boolean);
         ["noopener", "noreferrer"].forEach(function (token) {
             if (relTokens.indexOf(token) === -1) relTokens.push(token);
