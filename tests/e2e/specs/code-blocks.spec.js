@@ -63,7 +63,7 @@ test.describe("Bloques de código avanzados", () => {
             "",
             "    const indented = 2;",
             "return first + indented;"
-        ].join("\\n");
+        ].join("\n");
 
         await page.locator(".page").evaluate((pageElement, text) => {
             const pre = document.createElement("pre");
