@@ -71,6 +71,19 @@ test.describe("Exportación a PDF", () => {
             paragraph.textContent = "Este contenido debe expandirse antes de calcular la altura de impresión.";
             details.append(summary, paragraph);
             pageElement.appendChild(details);
+
+            const longSection = document.createElement("section");
+            longSection.className = "pdf-export-long-content";
+            for (let index = 0; index < 80; index += 1) {
+                const line = document.createElement("p");
+                line.textContent = "Contenido de prueba para verificar que la exportación conserva todas las páginas. Bloque " + (index + 1) + ".";
+                longSection.appendChild(line);
+            }
+            const finalMarker = document.createElement("p");
+            finalMarker.id = "pdf-export-final-marker";
+            finalMarker.textContent = "FIN DEL DOCUMENTO — ESTE TEXTO DEBE APARECER EN EL PDF";
+            longSection.appendChild(finalMarker);
+            pageElement.appendChild(longSection);
         });
         const printDetails = frame.locator(".pdf-export-integration-details");
         await expect(printDetails).not.toHaveAttribute("open", "");
@@ -109,6 +122,18 @@ test.describe("Exportación a PDF", () => {
         await expect(page.locator(".tree-panel")).toBeHidden();
         await expect(page.locator("#tree_panel_toggle_btn")).toBeHidden();
         await expect(page.locator("#page_frame")).toBeVisible();
+
+        const printedFrameHeight = await page.locator("#page_frame").evaluate((iframe) =>
+            Math.ceil(parseFloat(getComputedStyle(iframe).height))
+        );
+        expect(printedFrameHeight).toBeGreaterThanOrEqual(expectedHeight - 1);
+        await expect(frame.locator("#pdf-export-final-marker")).toHaveText(
+            "FIN DEL DOCUMENTO — ESTE TEXTO DEBE APARECER EN EL PDF"
+        );
+        const finalContentBottom = await frame.locator("#pdf-export-final-marker").evaluate((element) =>
+            Math.ceil(element.getBoundingClientRect().bottom + window.scrollY)
+        );
+        expect(finalContentBottom).toBeLessThanOrEqual(printedFrameHeight + 2);
 
         await page.evaluate(() => window.dispatchEvent(new Event("afterprint")));
         await expect(printDetails).not.toHaveAttribute("open", "");
@@ -201,6 +226,33 @@ test.describe("Exportación a PDF", () => {
         await page.evaluate(() => window.dispatchEvent(new Event("afterprint")));
         await expect(folded).not.toHaveAttribute("open", "");
         await expect(page.locator(".print-details-content")).toBeHidden();
+    });
+
+    test("restringe la selección en pantalla sin bloquear código ni texto del PDF", async ({ page }) => {
+        await openDocument(page);
+
+        const selectionRules = await page.locator(".page").evaluate(pageElement => {
+            const paragraph = pageElement.querySelector("p");
+            const inlineCode = pageElement.querySelector("code");
+            const blockCode = pageElement.querySelector("pre code");
+            return {
+                paragraph: getComputedStyle(paragraph).userSelect,
+                inlineCode: getComputedStyle(inlineCode).userSelect,
+                blockCode: getComputedStyle(blockCode).userSelect
+            };
+        });
+
+        expect(selectionRules.paragraph).toBe("none");
+        expect(selectionRules.inlineCode).toBe("text");
+        expect(selectionRules.blockCode).toBe("text");
+
+        await page.emulateMedia({ media: "print" });
+        const printSelection = await page.locator(".page").evaluate(pageElement => ({
+            paragraph: getComputedStyle(pageElement.querySelector("p")).userSelect,
+            code: getComputedStyle(pageElement.querySelector("pre code")).userSelect
+        }));
+        expect(printSelection.paragraph).toBe("text");
+        expect(printSelection.code).toBe("text");
     });
 
     test("mantiene la acción accesible en móvil y no introduce estilos inline", async ({ page }) => {

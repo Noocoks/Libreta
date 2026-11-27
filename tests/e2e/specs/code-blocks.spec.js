@@ -55,6 +55,73 @@ test.describe("Bloques de código avanzados", () => {
         await expect(toolbar.locator(".code-block-copy")).toHaveText("Copiado");
     });
 
+    test("alinea cada número con su línea real de código, incluidos los saltos vacíos", async ({ page }) => {
+        await openCodeDocument(page);
+
+        const source = [
+            "const first = 1;",
+            "",
+            "    const indented = 2;",
+            "return first + indented;"
+        ].join("\n");
+
+        await page.locator(".page").evaluate((pageElement, text) => {
+            const pre = document.createElement("pre");
+            const code = document.createElement("code");
+            code.className = "language-javascript";
+            code.textContent = text;
+            pre.appendChild(code);
+            pageElement.appendChild(pre);
+            window.initCodeBlocks();
+        }, source);
+
+        const block = page.locator(".page .code-block-shell").last();
+        const toolbar = page.locator(".page .code-block-toolbar").last();
+        await toolbar.locator(".code-block-lines-toggle").click();
+
+        const alignment = await block.evaluate(shell => {
+            const gutter = shell.querySelector(".code-block-line-gutter");
+            const pre = shell.querySelector("pre");
+            const code = pre.querySelector(":scope > code");
+            const numbers = Array.from(gutter.children);
+            const lines = Array.from(code.querySelectorAll(":scope > .code-line"));
+
+            return {
+                numberCount: numbers.length,
+                lineCount: lines.length,
+                codeMarginBlock: getComputedStyle(pre).marginBlock,
+                rows: numbers.map((number, index) => {
+                    const numberRect = number.getBoundingClientRect();
+                    const lineRect = lines[index].getBoundingClientRect();
+                    return {
+                        topDifference: Math.abs(numberRect.top - lineRect.top),
+                        heightDifference: Math.abs(numberRect.height - lineRect.height)
+                    };
+                })
+            };
+        });
+
+        expect(alignment.numberCount).toBe(4);
+        expect(alignment.lineCount).toBe(4);
+        expect(alignment.codeMarginBlock).toBe("0px");
+        const whitespace = await block.locator("pre > code").evaluate(code => ({
+            code: getComputedStyle(code).whiteSpace,
+            line: getComputedStyle(code.querySelector(".code-line")).whiteSpace
+        }));
+        expect(whitespace.code).toBe("normal");
+        expect(whitespace.line).toBe("pre");
+        const gutterStyle = await block.locator(".code-block-line-gutter").evaluate(element => ({
+            listStyle: getComputedStyle(element).listStyleType,
+            itemListStyle: getComputedStyle(element.firstElementChild).listStyleType
+        }));
+        expect(gutterStyle.listStyle).toBe("none");
+        expect(gutterStyle.itemListStyle).toBe("none");
+        for (const row of alignment.rows) {
+            expect(row.topDifference).toBeLessThanOrEqual(1);
+            expect(row.heightDifference).toBeLessThanOrEqual(1);
+        }
+    });
+
     test("pliega bloques largos y permite desplegarlos con teclado o ratón", async ({ page }) => {
         await openCodeDocument(page);
 

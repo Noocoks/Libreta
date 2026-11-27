@@ -63,7 +63,7 @@ hashes o comandos largos rompan el layout */
 /* ============================================================================
    TABLET
    ============================================================================ */
-@media (max-width: 900px) {
+@media screen and (max-width: 900px) {
 
     /*
      * El contenedor ocupa exactamente el viewport.

@@ -65,16 +65,23 @@
     }
 
     function isValidPath(path) {
-        return typeof path === "string" &&
-            path.length > 0 &&
-            path.length <= 240 &&
-            !path.startsWith("/") &&
-            !/[\\\\\u0000-\u001f?#%]/.test(path) &&
-            path.endsWith("/index.html") &&
-            path.split("/").every(function (segment) {
+        if (typeof path !== "string" ||
+            path.length === 0 ||
+            path.length > 240 ||
+            !path.startsWith("subpags/") ||
+            /[\\\\\u0000-\u001f?#%]/.test(path)) {
+            return false;
+        }
+
+        var segments = path.split("/");
+        var fileName = segments[segments.length - 1];
+
+        return segments.length >= 2 &&
+            segments.every(function (segment) {
                 return /^[A-Za-z0-9._-]+$/.test(segment) &&
                     segment !== "." && segment !== "..";
-            });
+            }) &&
+            /^[A-Za-z0-9._-]+\.html$/.test(fileName);
     }
 
     function collectKnowledge(tree) {

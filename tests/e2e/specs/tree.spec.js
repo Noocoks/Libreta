@@ -32,7 +32,7 @@ test.describe("Controles del árbol", () => {
         await toggle.click();
         await expect(toggle).toHaveAttribute("aria-expanded", initialExpanded);
     });
-    test("Windows aparece en el árbol y abre la guía desde el enrutador", async ({ page }) => {
+    test("Biblioteca de aplicaciones aparece en el árbol y abre su catálogo", async ({ page }) => {
         await expect(page.locator(".tree.ready")).toBeVisible();
         const panelToggle = page.locator("#tree_panel_toggle_btn");
         const treePanel = page.locator(".tree-panel");
@@ -40,15 +40,22 @@ test.describe("Controles del árbol", () => {
             await panelToggle.click();
         }
         await expect(treePanel).not.toHaveClass(/hidden/);
-        const windowsLink = page.locator('#tree_root > li[data-cat="windows"] > a');
-        await expect(windowsLink).toHaveCount(1);
-        await expect(windowsLink).toBeVisible();
-        const windows = windowsLink.locator("xpath=..");
-        await expect(windows).toHaveCount(1);
-        await windows.locator("button[aria-expanded]").click();
-        await windows.getByRole("link", { name: "Guía de aplicaciones", exact: true }).click();
-        await expect(page.frameLocator("#page_frame").getByRole("heading", { name: "Guía de aplicaciones imprescindibles para Windows" })).toBeVisible();
-        await expect(page.frameLocator("#page_frame").locator(".windows-category")).toHaveCount(14);
+
+        const libraryNode = page.locator('#tree_root > li[data-cat="software"]');
+        await expect(libraryNode).toHaveCount(1);
+        await expect(libraryNode.getByRole("link", { name: "Biblioteca de aplicaciones", exact: true })).toBeVisible();
+
+        const branchToggle = libraryNode.locator(":scope > button[aria-expanded]");
+        await expect(branchToggle).toHaveCount(1);
+        await branchToggle.click();
+
+        const catalogLink = libraryNode.getByRole("link", { name: "Catálogo de aplicaciones", exact: true });
+        await expect(catalogLink).toBeVisible();
+        await catalogLink.click();
+
+        const catalog = page.frameLocator("#page_frame");
+        await expect(catalog.getByRole("heading", { name: "Biblioteca de aplicaciones", exact: true })).toBeVisible();
+        await expect(catalog.locator(".library-category")).toHaveCount(16);
     });
 
 });
