@@ -82,13 +82,13 @@ class TreeValidationTests(unittest.TestCase):
             "http://[invalid-ipv6",
         ):
             with self.subTest(reference=reference):
-                target = resolve_local_reference(source, reference)
+                target = resolve_local_reference(source, reference, self.root)
                 self.assertIsNotNone(target)
                 self.assertFalse(target.is_file())
 
     def test_local_reference_allows_external_http_urls(self):
         source = self.root / "subpags" / "example" / "index.html"
-        self.assertIsNone(resolve_local_reference(source, "https://example.com/page"))
+        self.assertIsNone(resolve_local_reference(source, "https://example.com/page", self.root))
 
     def test_strict_json_accepts_standard_json(self):
         self.assertEqual(
