@@ -275,18 +275,28 @@ div.tree a:hover {
    DOCUMENTACIÓN Y JERARQUÍA TIPOGRÁFICA
    -------------------------------------------------------------------------- */
 
+/* La lectura no permite seleccionar texto; los bloques de código son la excepción. */
+div.page,
+div.page * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 div.page {
     color: #d4d9de;
     font-size: 13.5px;
     line-height: 1.75;
-    -webkit-user-select: none;
-    user-select: none;
 }
 
-/* El texto normal no se selecciona; el código sigue siendo seleccionable. */
 div.page pre,
-div.page code {
+div.page pre *,
+div.page code,
+div.page code * {
     -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
     user-select: text;
 }
 
