@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.validate_project import strict_json_loads, validate_tree_data
+from scripts.validate_project import strict_json_loads, resolve_local_reference, validate_tree_data
 
 
 class TreeValidationTests(unittest.TestCase):
@@ -72,6 +72,23 @@ class TreeValidationTests(unittest.TestCase):
             with self.subTest(constant=constant):
                 with self.assertRaisesRegex(ValueError, "constante JSON no estándar"):
                     strict_json_loads('{"title":"Libreta","sections":[],"value":' + constant + '}')
+
+    def test_local_reference_rejects_encoded_traversal_and_malformed_urls(self):
+        source = self.root / "subpags" / "example" / "index.html"
+        for reference in (
+            "../../../outside.html",
+            "%2e%2e/%2e%2e/outside.html",
+            "bad%2",
+            "http://[invalid-ipv6",
+        ):
+            with self.subTest(reference=reference):
+                target = resolve_local_reference(source, reference)
+                self.assertIsNotNone(target)
+                self.assertFalse(target.is_file())
+
+    def test_local_reference_allows_external_http_urls(self):
+        source = self.root / "subpags" / "example" / "index.html"
+        self.assertIsNone(resolve_local_reference(source, "https://example.com/page"))
 
     def test_strict_json_accepts_standard_json(self):
         self.assertEqual(
