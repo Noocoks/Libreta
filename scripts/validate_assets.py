@@ -24,6 +24,7 @@ class HtmlDocument(HTMLParser):
         self.csp: str | None = None
         self.csp_count = 0
         self.duplicate_attributes: list[str] = []
+        self.unsafe_urls: list[str] = []
         self.inline_handlers: list[str] = []
         self.inline_scripts: list[str] = []
         self.inline_styles: list[str] = []
@@ -45,6 +46,15 @@ class HtmlDocument(HTMLParser):
                 self.duplicate_attributes.append(name)
             seen_attributes.add(name)
         values = dict(attrs)
+        for name, value in attrs:
+            if value is None or name.lower() not in {"href", "src", "action", "formaction", "xlink:href"}:
+                continue
+            try:
+                scheme = urlsplit(value.strip()).scheme.lower()
+            except ValueError:
+                scheme = "invalid"
+            if scheme in {"javascript", "vbscript", "data", "file"}:
+                self.unsafe_urls.append(value)
         for name in values:
             if name.lower().startswith("on"):
                 self.inline_handlers.append(name)
@@ -58,12 +68,6 @@ class HtmlDocument(HTMLParser):
             self.style_blocks += 1
             self.in_style = True
         if tag == "a" and values.get("href"):
-            try:
-                scheme = urlsplit(values["href"].strip()).scheme.lower()
-            except ValueError:
-                scheme = "invalid"
-            if scheme in {"javascript", "vbscript", "data", "file"}:
-                self.unsafe_links.append(values["href"])
             if (values.get("target") or "").lower() == "_blank":
                 rel = set((values.get("rel") or "").lower().split())
                 if not {"noopener", "noreferrer"}.issubset(rel):
@@ -263,8 +267,8 @@ def check_html_fragments() -> tuple[int, int]:
             ERRORS.append(f"Eventos inline no permitidos en {relative}: {', '.join(parser.inline_handlers)}")
         if parser.inline_scripts:
             ERRORS.append(f"Scripts inline no permitidos en {relative}")
-        if parser.unsafe_links:
-            ERRORS.append(f"Protocolos peligrosos en enlaces de {relative}: {parser.unsafe_links}")
+        if parser.unsafe_urls:
+            ERRORS.append(f"Protocolos peligrosos en atributos URL de {relative}: {parser.unsafe_urls}")
         if parser.unsafe_blank_links:
             ERRORS.append(f"Enlaces target=_blank sin noopener noreferrer en {relative}: {parser.unsafe_blank_links}")
         if parser.inline_styles:
