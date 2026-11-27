@@ -228,6 +228,33 @@ test.describe("Exportación a PDF", () => {
         await expect(page.locator(".print-details-content")).toBeHidden();
     });
 
+    test("restringe la selección en pantalla sin bloquear código ni texto del PDF", async ({ page }) => {
+        await openDocument(page);
+
+        const selectionRules = await page.locator(".page").evaluate(pageElement => {
+            const paragraph = pageElement.querySelector("p");
+            const inlineCode = pageElement.querySelector("code");
+            const blockCode = pageElement.querySelector("pre code");
+            return {
+                paragraph: getComputedStyle(paragraph).userSelect,
+                inlineCode: getComputedStyle(inlineCode).userSelect,
+                blockCode: getComputedStyle(blockCode).userSelect
+            };
+        });
+
+        expect(selectionRules.paragraph).toBe("none");
+        expect(selectionRules.inlineCode).toBe("text");
+        expect(selectionRules.blockCode).toBe("text");
+
+        await page.emulateMedia({ media: "print" });
+        const printSelection = await page.locator(".page").evaluate(pageElement => ({
+            paragraph: getComputedStyle(pageElement.querySelector("p")).userSelect,
+            code: getComputedStyle(pageElement.querySelector("pre code")).userSelect
+        }));
+        expect(printSelection.paragraph).toBe("text");
+        expect(printSelection.code).toBe("text");
+    });
+
     test("mantiene la acción accesible en móvil y no introduce estilos inline", async ({ page }) => {
         await page.setViewportSize({ width: 390, height: 844 });
         await openDocument(page);
