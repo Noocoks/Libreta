@@ -1,9 +1,10 @@
 const { test, expect } = require("@playwright/test");
+const { expectTreeReady } = require("../helpers/tree");
 
 test.describe("Controles del árbol", () => {
     test.beforeEach(async ({ page }) => {
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
     });
 
     test("abrir y cerrar todas las ramas actualiza su estado accesible", async ({ page }) => {
