@@ -90,6 +90,12 @@
     line-height: 1.65;
 }
 
+/* Las preferencias de lectura aplican margen a todos los <pre>.
+   El contador debe empezar exactamente a la altura de la primera línea. */
+.page[data-spacing] .code-block-shell pre {
+    margin-block: 0;
+}
+
 .code-block-shell pre code {
     display: block;
     padding: 0;
