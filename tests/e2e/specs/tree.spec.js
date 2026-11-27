@@ -92,7 +92,10 @@ test.describe("Controles del árbol", () => {
         const cards = content.locator(".modding-card");
         await expect(cards).toHaveCount(14);
         for (const project of ["AtlasOS", "Ubuntu", "Linux Mint", "Kali Linux", "Arch Linux", "BlackArch", "Fedora", "Red Hat Enterprise Linux", "Debian", "Parrot OS", "CachyOS", "SteamOS", "LineageOS", "crDroid"]) {
-            await expect(cards.filter({ hasText: project })).toHaveCount(1);
+            // Match the exact project title, not descriptive text (e.g. "Debian-based").
+            const projectTitle = content.locator(".modding-card-copy h3").getByRole("link", { name: project, exact: true });
+            await expect(projectTitle).toHaveCount(1);
+            await expect(projectTitle).toBeVisible();
         }
     });
 
