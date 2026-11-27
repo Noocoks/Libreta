@@ -1,4 +1,5 @@
 const { test, expect } = require("@playwright/test");
+const { expectTreeReady } = require("../helpers/tree");
 
 async function openIndex(page) {
     const toggle = page.locator("#tree_panel_toggle_btn");
@@ -26,7 +27,7 @@ test.describe("Navegación principal", () => {
         await page.getByRole("link", { name: /Explorar Libreta/ }).click();
 
         await expect(page).toHaveURL(/\/Libreta\/wiki\.html$/);
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         await expect(page.locator("#page_frame")).toBeVisible();
     });
 
@@ -36,7 +37,7 @@ test.describe("Navegación principal", () => {
         await openIndex(page);
 
         // La primera sección del JSON es Ciberseguridad; el enlace lleva un emoji decorativo.
-        const cyberSecurity = page.locator("#tree_root > li").first();
+        const cyberSecurity = page.locator('#tree_root > li[data-cat="ciberseguridad"]');
         await expect(cyberSecurity.locator(":scope > a")).toContainText("Ciberseguridad");
         await cyberSecurity.locator(":scope > button").click();
 
@@ -64,7 +65,7 @@ test("iframe sandbox isolates documentation without allow-same-origin", async ({
         await openIndex(page); await openIndex(page); const frame=page.locator("#page_frame");
  await expect(frame).toHaveAttribute("sandbox","allow-scripts");
  await expect(frame).toHaveAttribute("referrerpolicy","same-origin");
- const cyberSecurity=page.locator("#tree_root > li").first();
+ const cyberSecurity=page.locator('#tree_root > li[data-cat="ciberseguridad"]');
  await cyberSecurity.locator(":scope > button").click();
  await page.getByRole("link",{name:/Ataques de fuerza bruta/}).click();
  const content=page.frameLocator("#page_frame");
@@ -85,7 +86,7 @@ test.describe("Validación de mensajes del iframe", () => {
         await page.goto("wiki.html");
         await openIndex(page);
         await openIndex(page);
-        const firstSection = page.locator("#tree_root > li").first();
+        const firstSection = page.locator('#tree_root > li[data-cat="ciberseguridad"]');
         await expect(firstSection).toBeVisible();
         await firstSection.locator(":scope > a").click();
         await closeIndex(page);
@@ -115,7 +116,7 @@ test.describe("Validación de mensajes del iframe", () => {
         await page.goto("wiki.html");
         await openIndex(page);
         await openIndex(page);
-        const firstSection = page.locator("#tree_root > li").first();
+        const firstSection = page.locator('#tree_root > li[data-cat="ciberseguridad"]');
         await expect(firstSection).toBeVisible();
         await firstSection.locator(":scope > a").click();
         const iframe = page.locator("#page_frame");
@@ -138,7 +139,7 @@ test.describe("Enlaces del contenido", () => {
     test("redirige enlaces internos permitidos a través del router", async ({ page }) => {
         await page.goto("wiki.html");
         await openIndex(page);
-        const firstSection = page.locator("#tree_root > li").first();
+        const firstSection = page.locator('#tree_root > li[data-cat="ciberseguridad"]');
         await expect(firstSection).toBeVisible();
         await firstSection.locator(":scope > a").click();
         await closeIndex(page);
@@ -155,7 +156,7 @@ test.describe("Enlaces del contenido", () => {
     test("conserva enlaces externos sin secuestrar la navegación principal", async ({ page }) => {
         await page.goto("wiki.html");
         await openIndex(page);
-        const firstSection = page.locator("#tree_root > li").first();
+        const firstSection = page.locator('#tree_root > li[data-cat="ciberseguridad"]');
         await expect(firstSection).toBeVisible();
         await firstSection.locator(":scope > a").click();
         await closeIndex(page);
