@@ -97,7 +97,7 @@ def validate_tree_data(data: object, root: Path | None = None) -> tuple[set[str]
 
             name = node.get("name")
             if (not isinstance(name, str) or not name.strip() or len(name) > 120
-                    or any(ord(char) < 32 for char in name)):
+                    or any(ord(char) < 32 or ord(char) == 127 for char in name)):
                 errors.append(f"{location}.name debe ser texto válido de hasta 120 caracteres.")
 
             path = node.get("path")
@@ -139,7 +139,7 @@ def validate_tree_data(data: object, root: Path | None = None) -> tuple[set[str]
                 normalized_tags: set[str] = set()
                 for tag in tags:
                     if (not isinstance(tag, str) or not tag.strip() or len(tag) > 60
-                            or any(ord(char) < 32 for char in tag)):
+                            or any(ord(char) < 32 or ord(char) == 127 for char in tag)):
                         errors.append(f"{location}.tags contiene una etiqueta no válida.")
                         continue
                     normalized = tag.casefold()
@@ -159,7 +159,7 @@ def validate_tree_data(data: object, root: Path | None = None) -> tuple[set[str]
 
 def resolve_local_reference(html_file: Path, reference: str) -> Path | None:
     try:
-        parsed = urlsplit(reference)
+        parsed = urlsplit(reference.strip())
     except ValueError:
         return ROOT / "__invalid_reference__"
 
@@ -227,7 +227,7 @@ def check_json() -> dict:
             ERRORS.append(f"tree.json supera el límite de {MAX_TREE_BYTES} bytes.")
             return {}
         data = strict_json_loads(raw.decode("utf-8"))
-    except (OSError, UnicodeDecodeError, ValueError) as error:
+    except (OSError, UnicodeDecodeError, ValueError, RecursionError) as error:
         ERRORS.append(f"tree.json no es válido: {error}")
         return {}
     if not isinstance(data, dict):
