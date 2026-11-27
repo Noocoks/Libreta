@@ -109,7 +109,9 @@
     border-right: 1px solid var(--border);
     background: rgba(255, 255, 255, .025);
     color: #65717c;
-    font: 13px/1.5 "Courier New", monospace;
+    font-family: "DM Mono", "Consolas", monospace;
+    font-size: .92em;
+    line-height: 1.65;
     text-align: right;
     user-select: none;
 }
@@ -119,9 +121,9 @@
 }
 
 .code-block-line-gutter li {
-    min-height: 1.5em;
+    min-height: 1.65em;
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.65;
 }
 
 .code-token-keyword {
