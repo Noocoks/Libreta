@@ -59,7 +59,7 @@ class ContentSecurityPolicyTests(unittest.TestCase):
         parser.feed('<a href="/safe" href="javascript:alert(1)">link</a>')
         parser.close()
         self.assertIn("href", parser.duplicate_attributes)
-        self.assertIn("javascript:alert(1)", parser.unsafe_links)
+        self.assertIn("javascript:alert(1)", parser.unsafe_urls)
 
     def test_html_parser_counts_repeated_csp_meta_policies(self):
         parser = HtmlDocument()
