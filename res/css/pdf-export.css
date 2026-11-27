@@ -46,6 +46,15 @@
 }
 
 @media print {
+    /* El PDF conserva texto seleccionable, aunque la lectura web lo restrinja. */
+    .page,
+    .page * {
+        -webkit-user-select: text !important;
+        user-select: text !important;
+    }
+}
+
+@media print {
     html,
     body {
         width: auto !important;
