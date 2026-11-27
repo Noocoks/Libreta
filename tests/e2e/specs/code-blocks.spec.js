@@ -104,6 +104,12 @@ test.describe("Bloques de código avanzados", () => {
         expect(alignment.numberCount).toBe(4);
         expect(alignment.lineCount).toBe(4);
         expect(alignment.codeMarginBlock).toBe("0px");
+        const gutterStyle = await block.locator(".code-block-line-gutter").evaluate(element => ({
+            listStyle: getComputedStyle(element).listStyleType,
+            itemListStyle: getComputedStyle(element.firstElementChild).listStyleType
+        }));
+        expect(gutterStyle.listStyle).toBe("none");
+        expect(gutterStyle.itemListStyle).toBe("none");
         for (const row of alignment.rows) {
             expect(row.topDifference).toBeLessThanOrEqual(1);
             expect(row.heightDifference).toBeLessThanOrEqual(1);
