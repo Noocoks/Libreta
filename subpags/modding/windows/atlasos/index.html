@@ -1,11 +1,108 @@
 <!doctype html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="author" content="Nooko"><meta name="description" content="Documentación de AtlasOS, proyecto abierto que aplica ajustes de privacidad, usabilidad y rendimiento sobre Windows."><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://noocoks.github.io/Libreta/; script-src-attr 'none'; style-src 'self' https://noocoks.github.io/Libreta/; style-src-attr 'none'; style-src-elem 'self' https://noocoks.github.io/Libreta/; img-src 'self' https://noocoks.github.io/Libreta/ data:; font-src 'self' https://noocoks.github.io/Libreta/; connect-src 'self' https://noocoks.github.io/Libreta/; frame-src 'self'; form-action 'self';"><title>AtlasOS · Modding</title><link rel="stylesheet" href="/Libreta/res/css/styles.css"><link rel="stylesheet" href="/Libreta/res/css/modding.css"><script src="/Libreta/res/js/page.js"></script></head><body><div class="page modding-page" data-cat="modding windows atlasos"><div id="breadcrumb"></div>
-<header class="modding-subhero"><p class="modding-kicker">MODDING / WINDOWS / CONFIGURACIÓN</p><h1>AtlasOS</h1><p>Un proyecto de configuración de Windows orientado a reducir actividad en segundo plano y distracciones, ajustar privacidad y ofrecer más control sobre determinadas funciones del sistema.</p></header>
-<div class="modding-callout"><strong>Qué es y qué no es:</strong> Atlas no es una distribución independiente. Es un proyecto abierto que aplica una configuración (playbook) sobre una instalación compatible de Windows. El código y los cambios se publican para que puedan revisarse.</div>
-<section class="modding-content"><h2>Versiones y compatibilidad: importante</h2><p>Atlas ha cambiado de requisitos y método de instalación con el tiempo. La documentación vigente de Atlas Manager se centra en versiones públicas compatibles de <strong>Windows 11</strong>; Windows 10 y versiones antiguas de Atlas siguen procedimientos distintos y no deben tratarse como si fueran la misma instalación.</p><p>En particular, Atlas 0.4.1 pertenece a una generación anterior del proyecto. Si administras un equipo con esa versión, consulta su guía histórica y la ruta de actualización específica antes de aplicar instrucciones actuales. No intentes instalar la versión vigente encima de una instalación antigua siguiendo pasos genéricos.</p><p>La documentación actual indica restricciones por edición: Windows 11 Home, LTSC y Server no están admitidos para el flujo actual. También recomienda una instalación limpia, copia de seguridad, cuenta administradora compatible, UAC activo y requisitos de hardware de Windows 11. Comprueba siempre la tabla de compilaciones admitidas antes de empezar.</p></section>
-<section class="modding-content"><h2>Objetivo y enfoque</h2><p>AtlasOS —también denominado Atlas— busca mejorar la experiencia de Windows para usuarios entusiastas mediante ajustes de privacidad, usabilidad y rendimiento. Entre sus áreas de trabajo están la reducción de telemetría seleccionada, la eliminación de aplicaciones preinstaladas concretas, cambios en servicios y procesos en segundo plano y controles para revertir o modificar determinadas decisiones.</p><ul><li><strong>Privacidad:</strong> configura políticas y opciones para limitar parte de la recopilación de datos.</li><li><strong>Actividad en segundo plano:</strong> ajusta servicios, aplicaciones y tareas seleccionadas.</li><li><strong>Control:</strong> permite configurar individualmente distintos ajustes después de instalarlo.</li><li><strong>Transparencia:</strong> el proyecto publica sus playbooks, scripts y documentación.</li></ul></section>
-<section class="modding-content"><h2>Instalación y mantenimiento</h2><p>La documentación actual del proyecto sitúa <strong>Atlas Manager</strong> como método de instalación. El asistente comprueba el equipo, gestiona actualizaciones de Windows y Microsoft Store, permite elegir el flujo adecuado y aplica Atlas. También ofrece crear un medio de instalación con Atlas integrado.</p><ol><li>Lee la guía oficial y confirma que la versión, compilación y edición de Windows están dentro de los requisitos publicados para la versión de Atlas que vas a instalar.</li><li>Realiza una copia de seguridad de los archivos del usuario y conserva instaladores, controladores y claves de recuperación necesarios.</li><li>Para el flujo actual de Atlas Manager, prepara una instalación limpia de una edición compatible de Windows 11. No presupongas que una instalación de Windows 10 o una edición Home, LTSC o Server es compatible.</li><li>Descarga Atlas Manager únicamente desde la web oficial o las publicaciones oficiales del repositorio. Es el método de instalación indicado por la documentación actual.</li><li>Completa las decisiones del asistente y revisa la guía de configuración posterior.</li><li>Instala controladores, actualizaciones y aplicaciones necesarias; comprueba el funcionamiento de Windows Update, Microsoft Store, audio, red, suspensión y periféricos.</li></ol><p>Los requisitos y el procedimiento cambian entre versiones de Atlas. No reutilices instrucciones antiguas sin comprobarlas en la documentación vigente.</p></section>
-<section class="modding-content"><h2>Checklist para preparar equipos de terceros</h2><div class="modding-checklist"><p>Antes de instalar Atlas en el ordenador de otra persona:</p><ul><li>Confirma que el propietario entiende qué cambios se aplicarán y acepta el proceso.</li><li>Comprueba compatibilidad de juegos, anticheat, impresoras, VPN, software corporativo y periféricos.</li><li>Guarda copia de los datos personales y comprueba que puede restaurarse.</li><li>Apunta edición, versión y compilación de Windows, además del hardware y los controladores.</li><li>Explica qué funciones de Windows pueden cambiar y cómo consultar la documentación.</li><li>Después de instalar, prueba actualizaciones, Defender/Seguridad de Windows, red, sonido, Bluetooth, suspensión y aplicaciones críticas.</li><li>Entrega al usuario la información de cambios y las limitaciones que hayas detectado.</li></ul></div><p><strong>Importante:</strong> una modificación puede mejorar determinados aspectos, pero no garantiza más FPS, menor latencia ni mayor seguridad en todos los equipos. Mide antes y después y evita desactivar protecciones solo para conseguir un resultado de rendimiento.</p></section>
-<section class="modding-content"><h2>Actualizaciones y reversión</h2><p>Atlas debe mantenerse conforme a sus instrucciones oficiales. Antes de actualizar, revisa los cambios de la nueva versión y conserva copias de seguridad. No elimines manualmente componentes ni apliques scripts de terceros sin comprender sus efectos. Si necesitas retirar Atlas, consulta el procedimiento de la versión instalada: no presupongas que deshacer todos los cambios equivale a volver a un Windows original.</p></section>
-<section class="modding-content"><h2>Recursos oficiales</h2><ul class="modding-resources"><li><a href="https://atlasos.net/" target="_blank" rel="noopener noreferrer">Web oficial de AtlasOS</a></li><li><a href="https://atlasos.net/docs/" target="_blank" rel="noopener noreferrer">Documentación e instalación</a></li><li><a href="https://atlasos.net/docs/install/" target="_blank" rel="noopener noreferrer">Guía de instalación actual</a></li><li><a href="https://atlasos.net/docs/install/requirements/" target="_blank" rel="noopener noreferrer">Requisitos y compilaciones compatibles</a></li><li><a href="https://atlasos.net/docs/install/manager/" target="_blank" rel="noopener noreferrer">Instalación con Atlas Manager</a></li><li><a href="https://docs.atlasos.net/getting-started/" target="_blank" rel="noopener noreferrer">Documentación histórica y rutas de actualización</a></li><li><a href="https://github.com/Atlas-OS/Atlas" target="_blank" rel="noopener noreferrer">Repositorio y código fuente</a></li></ul></section>
-</div></body></html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="description" content="Documentación de AtlasOS, proyecto abierto que aplica ajustes de privacidad, usabilidad y rendimiento sobre Windows.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://noocoks.github.io/Libreta/; script-src-attr 'none'; style-src 'self' https://noocoks.github.io/Libreta/; style-src-attr 'none'; style-src-elem 'self' https://noocoks.github.io/Libreta/; img-src 'self' https://noocoks.github.io/Libreta/ data:; font-src 'self' https://noocoks.github.io/Libreta/; connect-src 'self' https://noocoks.github.io/Libreta/; frame-src 'self'; form-action 'self';">
+<title>AtlasOS · Modding</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<link rel="stylesheet" href="/Libreta/res/css/modding.css">
+<script src="/Libreta/res/js/page.js">
+</script>
+</head>
+<body>
+<div class="page modding-page" data-cat="modding windows atlasos">
+<div id="breadcrumb">
+</div>
+<header class="modding-subhero">
+<p class="modding-kicker">MODDING / WINDOWS / CONFIGURACIÓN</p>
+<h1>AtlasOS</h1>
+<p>Un proyecto de configuración de Windows orientado a reducir actividad en segundo plano y distracciones, ajustar privacidad y ofrecer más control sobre determinadas funciones del sistema.</p>
+</header>
+<div class="modding-callout">
+<strong>Qué es y qué no es:</strong> Atlas no es una distribución independiente. Es un proyecto abierto que aplica una configuración (playbook) sobre una instalación compatible de Windows. El código y los cambios se publican para que puedan revisarse.</div>
+<section class="modding-content">
+<h2>Versiones y compatibilidad: importante</h2>
+<p>Atlas ha cambiado de requisitos y método de instalación con el tiempo. La documentación vigente de Atlas Manager se centra en versiones públicas compatibles de <strong>Windows 11</strong>; Windows 10 y versiones antiguas de Atlas siguen procedimientos distintos y no deben tratarse como si fueran la misma instalación.</p>
+<p>En particular, Atlas 0.4.1 pertenece a una generación anterior del proyecto. Si administras un equipo con esa versión, consulta su guía histórica y la ruta de actualización específica antes de aplicar instrucciones actuales. No intentes instalar la versión vigente encima de una instalación antigua siguiendo pasos genéricos.</p>
+<p>La documentación actual indica restricciones por edición: Windows 11 Home, LTSC y Server no están admitidos para el flujo actual. También recomienda una instalación limpia, copia de seguridad, cuenta administradora compatible, UAC activo y requisitos de hardware de Windows 11. Comprueba siempre la tabla de compilaciones admitidas antes de empezar.</p>
+</section>
+<section class="modding-content">
+<h2>Objetivo y enfoque</h2>
+<p>AtlasOS —también denominado Atlas— busca mejorar la experiencia de Windows para usuarios entusiastas mediante ajustes de privacidad, usabilidad y rendimiento. Entre sus áreas de trabajo están la reducción de telemetría seleccionada, la eliminación de aplicaciones preinstaladas concretas, cambios en servicios y procesos en segundo plano y controles para revertir o modificar determinadas decisiones.</p>
+<ul>
+<li>
+<strong>Privacidad:</strong> configura políticas y opciones para limitar parte de la recopilación de datos.</li>
+<li>
+<strong>Actividad en segundo plano:</strong> ajusta servicios, aplicaciones y tareas seleccionadas.</li>
+<li>
+<strong>Control:</strong> permite configurar individualmente distintos ajustes después de instalarlo.</li>
+<li>
+<strong>Transparencia:</strong> el proyecto publica sus playbooks, scripts y documentación.</li>
+</ul>
+</section>
+<section class="modding-content">
+<h2>Instalación y mantenimiento</h2>
+<p>La documentación actual del proyecto sitúa <strong>Atlas Manager</strong> como método de instalación. El asistente comprueba el equipo, gestiona actualizaciones de Windows y Microsoft Store, permite elegir el flujo adecuado y aplica Atlas. También ofrece crear un medio de instalación con Atlas integrado.</p>
+<ol>
+<li>Lee la guía oficial y confirma que la versión, compilación y edición de Windows están dentro de los requisitos publicados para la versión de Atlas que vas a instalar.</li>
+<li>Realiza una copia de seguridad de los archivos del usuario y conserva instaladores, controladores y claves de recuperación necesarios.</li>
+<li>Para el flujo actual de Atlas Manager, prepara una instalación limpia de una edición compatible de Windows 11. No presupongas que una instalación de Windows 10 o una edición Home, LTSC o Server es compatible.</li>
+<li>Descarga Atlas Manager únicamente desde la web oficial o las publicaciones oficiales del repositorio. Es el método de instalación indicado por la documentación actual.</li>
+<li>Completa las decisiones del asistente y revisa la guía de configuración posterior.</li>
+<li>Instala controladores, actualizaciones y aplicaciones necesarias; comprueba el funcionamiento de Windows Update, Microsoft Store, audio, red, suspensión y periféricos.</li>
+</ol>
+<p>Los requisitos y el procedimiento cambian entre versiones de Atlas. No reutilices instrucciones antiguas sin comprobarlas en la documentación vigente.</p>
+</section>
+<section class="modding-content">
+<h2>Checklist para preparar equipos de terceros</h2>
+<div class="modding-checklist">
+<p>Antes de instalar Atlas en el ordenador de otra persona:</p>
+<ul>
+<li>Confirma que el propietario entiende qué cambios se aplicarán y acepta el proceso.</li>
+<li>Comprueba compatibilidad de juegos, anticheat, impresoras, VPN, software corporativo y periféricos.</li>
+<li>Guarda copia de los datos personales y comprueba que puede restaurarse.</li>
+<li>Apunta edición, versión y compilación de Windows, además del hardware y los controladores.</li>
+<li>Explica qué funciones de Windows pueden cambiar y cómo consultar la documentación.</li>
+<li>Después de instalar, prueba actualizaciones, Defender/Seguridad de Windows, red, sonido, Bluetooth, suspensión y aplicaciones críticas.</li>
+<li>Entrega al usuario la información de cambios y las limitaciones que hayas detectado.</li>
+</ul>
+</div>
+<p>
+<strong>Importante:</strong> una modificación puede mejorar determinados aspectos, pero no garantiza más FPS, menor latencia ni mayor seguridad en todos los equipos. Mide antes y después y evita desactivar protecciones solo para conseguir un resultado de rendimiento.</p>
+</section>
+<section class="modding-content">
+<h2>Actualizaciones y reversión</h2>
+<p>Atlas debe mantenerse conforme a sus instrucciones oficiales. Antes de actualizar, revisa los cambios de la nueva versión y conserva copias de seguridad. No elimines manualmente componentes ni apliques scripts de terceros sin comprender sus efectos. Si necesitas retirar Atlas, consulta el procedimiento de la versión instalada: no presupongas que deshacer todos los cambios equivale a volver a un Windows original.</p>
+</section>
+<section class="modding-content">
+<h2>Recursos oficiales</h2>
+<ul class="modding-resources">
+<li>
+<a href="https://atlasos.net/" target="_blank" rel="noopener noreferrer">Web oficial de AtlasOS</a>
+</li>
+<li>
+<a href="https://atlasos.net/docs/" target="_blank" rel="noopener noreferrer">Documentación e instalación</a>
+</li>
+<li>
+<a href="https://atlasos.net/docs/install/" target="_blank" rel="noopener noreferrer">Guía de instalación actual</a>
+</li>
+<li>
+<a href="https://atlasos.net/docs/install/requirements/" target="_blank" rel="noopener noreferrer">Requisitos y compilaciones compatibles</a>
+</li>
+<li>
+<a href="https://atlasos.net/docs/install/manager/" target="_blank" rel="noopener noreferrer">Instalación con Atlas Manager</a>
+</li>
+<li>
+<a href="https://docs.atlasos.net/getting-started/" target="_blank" rel="noopener noreferrer">Documentación histórica y rutas de actualización</a>
+</li>
+<li>
+<a href="https://github.com/Atlas-OS/Atlas" target="_blank" rel="noopener noreferrer">Repositorio y código fuente</a>
+</li>
+</ul>
+</section>
+</div>
+</body>
+</html>
