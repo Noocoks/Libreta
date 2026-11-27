@@ -279,6 +279,15 @@ div.page {
     color: #d4d9de;
     font-size: 13.5px;
     line-height: 1.75;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* El texto normal no se selecciona; el código sigue siendo seleccionable. */
+div.page pre,
+div.page code {
+    -webkit-user-select: text;
+    user-select: text;
 }
 
 div.page h1,
