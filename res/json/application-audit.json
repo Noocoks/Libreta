@@ -334,10 +334,14 @@
       "id": "7-zip",
       "name": "7-Zip",
       "path": "subpags/software/apps/7-zip.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.7-zip.org/",
+        "https://www.7-zip.org/license.txt",
+        "https://www.7-zip.org/faq.html"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "localsend",
@@ -442,10 +446,15 @@
       "id": "winscp",
       "name": "WinSCP",
       "path": "subpags/software/apps/winscp.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://winscp.net/eng/index.php",
+        "https://winscp.net/eng/docs/introduction",
+        "https://winscp.net/eng/docs/protocols",
+        "https://winscp.net/eng/docs/security"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "kde-connect",
@@ -757,10 +766,15 @@
       "id": "vlc",
       "name": "VLC",
       "path": "subpags/software/apps/vlc.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.videolan.org/vlc/",
+        "https://www.videolan.org/vlc/download-windows.html",
+        "https://wiki.videolan.org/Documentation:Documentation/",
+        "https://www.videolan.org/developers/vlc.html"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "kdenlive",
@@ -778,19 +792,29 @@
       "id": "rufus",
       "name": "Rufus",
       "path": "subpags/software/apps/rufus.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://rufus.ie/",
+        "https://github.com/pbatard/rufus",
+        "https://github.com/pbatard/rufus/wiki/FAQ",
+        "https://github.com/pbatard/rufus/wiki/Security"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "ventoy",
       "name": "Ventoy",
       "path": "subpags/software/apps/ventoy.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.ventoy.net/",
+        "https://www.ventoy.net/en/doc_start.html",
+        "https://github.com/ventoy/Ventoy",
+        "https://www.ventoy.net/en/doc_secure.html"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "jdownloader",
@@ -1039,10 +1063,15 @@
       "id": "libreoffice",
       "name": "LibreOffice",
       "path": "subpags/software/apps/libreoffice.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.libreoffice.org/",
+        "https://www.libreoffice.org/licenses/",
+        "https://www.libreoffice.org/system-requirements/",
+        "https://documentation.libreoffice.org/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "autohotkey",
@@ -1057,10 +1086,15 @@
       "id": "powertoys",
       "name": "PowerToys",
       "path": "subpags/software/apps/powertoys.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/microsoft/PowerToys",
+        "https://learn.microsoft.com/en-us/windows/powertoys/",
+        "https://learn.microsoft.com/en-us/windows/powertoys/install",
+        "https://learn.microsoft.com/en-us/windows/powertoys/data-and-privacy"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "joplin",
