@@ -3,8 +3,8 @@ const { test, expect } = require("@playwright/test");
 test.describe("Biblioteca de aplicaciones", () => {
     test("el catálogo refleja el total, no incluye apps solo de pago y carga logotipos SVG locales", async ({ page }) => {
         await page.goto("subpags/software/apps/index.html");
-        await expect(page.locator("#application-results")).toContainText("108 aplicaciones disponibles");
-        await expect(page.locator("[data-app-card]")).toHaveCount(108);
+        await expect(page.locator("#application-results")).toContainText("107 aplicaciones disponibles");
+        await expect(page.locator("[data-app-card]")).toHaveCount(107);
         for (const slug of ["mydockfinder", "wallpaper-engine", "lossless-scaling", "anima-engine", "file-pilot"]) {
             await expect(page.locator('[data-app-card] a[href="./' + slug + '.html"]')).toHaveCount(0);
         }
