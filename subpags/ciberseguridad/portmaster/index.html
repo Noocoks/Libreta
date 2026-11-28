@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Portmaster: cortafuegos de aplicaciones y monitorización de conexiones de red para Windows y Linux.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://noocoks.github.io/Libreta/; script-src-attr 'none'; style-src 'self' https://noocoks.github.io/Libreta/; style-src-attr 'none'; style-src-elem 'self' https://noocoks.github.io/Libreta/; img-src 'self' https://noocoks.github.io/Libreta/ data:; font-src 'self' https://noocoks.github.io/Libreta/; connect-src 'self' https://noocoks.github.io/Libreta/; frame-src 'self'; form-action 'self';">
+<title>Portmaster · Ciberseguridad</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body>
+<main class="page">
+<hr>
+<nav class="application-breadcrumb" aria-label="Navegación">
+<a href="../index.html">Ciberseguridad</a><span aria-hidden="true">›</span><span>Portmaster</span>
+</nav>
+<header class="application-detail-hero">
+<p class="library-eyebrow">Cortafuegos y privacidad de red</p>
+<h1>Portmaster</h1>
+<p class="library-lead">Cortafuegos de aplicaciones y monitorización de conexiones para Windows y GNU/Linux. Permite observar qué aplicaciones se comunican, aplicar reglas por proceso y bloquear dominios de seguimiento a nivel DNS.</p>
+<p class="application-audience"><strong>Público objetivo:</strong> usuarios avanzados y administradores que necesitan controlar el tráfico de red de sus equipos</p>
+<p class="application-audience"><strong>Plataformas:</strong> Windows y distribuciones GNU/Linux compatibles</p>
+</header>
+<section class="application-detail-section">
+<h2>Qué es y cómo funciona</h2>
+<p>Portmaster es una suite de privacidad y cortafuegos de aplicaciones desarrollada por Safing. Intercepta conexiones a nivel de pila de red y asocia los flujos con los procesos que los generan. En Windows utiliza Windows Filtering Platform (WFP) y un controlador de kernel; en Linux integra reglas mediante nfqueue y obtiene información de procesos con mecanismos del sistema como eBPF y /proc.</p>
+<p>La interfaz presenta las conexiones por aplicación y permite definir reglas globales o específicas. También puede bloquear dominios de anuncios, rastreadores y malware mediante listas DNS. La actividad base se procesa localmente; las funciones de SPN utilizan infraestructura externa.</p>
+</section>
+<section class="application-detail-section">
+<h2>Funciones principales</h2>
+<ul>
+<li>Monitorización de conexiones entrantes y salientes por aplicación</li>
+<li>Reglas de permitir/bloquear por aplicación, dominio, país o tipo de conexión</li>
+<li>Bloqueo DNS de rastreadores, anuncios y dominios maliciosos</li>
+<li>DNS cifrado mediante DNS-over-HTTPS o DNS-over-TLS</li>
+<li>Historial y análisis de actividad de red, con funciones avanzadas de pago</li>
+<li>SPN (Safing Privacy Network), servicio opcional de privacidad con suscripción</li>
+</ul>
+</section>
+<section class="application-detail-section">
+<h2>Instalación y configuración</h2>
+<p>Descarga el instalador desde la web oficial de Safing o desde el repositorio oficial. En Windows, el componente de red utiliza WFP; en Linux, la instalación configura reglas y permisos de red propios de la distribución. Revisa la guía específica de tu sistema y conserva acceso local al equipo durante la primera configuración.</p>
+<p>Empieza en modo de monitorización para observar las conexiones habituales. Crea reglas específicas para aplicaciones que conozcas y evita bloquear servicios del sistema por nombre sin comprobar su función. Exporta o documenta las reglas antes de realizar cambios importantes.</p>
+</section>
+<section class="application-detail-section">
+<h2>Licencia y distribución</h2>
+<p>Portmaster es gratuito y de código abierto. Algunas funciones avanzadas, como SPN y determinados informes de actividad o ancho de banda, se ofrecen como servicios de pago. La licencia del código y las condiciones de cada servicio son independientes.</p>
+</section>
+<section class="application-detail-section">
+<h2>Seguridad, privacidad y limitaciones</h2>
+<p>Portmaster interviene en la pila de red y utiliza componentes de bajo nivel; una regla incorrecta puede cortar la conectividad de una aplicación o del propio sistema. Mantén un método de recuperación y evita modificar reglas críticas en una sesión remota sin acceso alternativo.</p>
+<p>Puede coexistir con el Firewall de Windows, pero otros cortafuegos, VPN y filtros de red pueden generar conflictos o rutas inesperadas. Cambia una configuración cada vez y verifica DNS, conectividad y resolución de nombres tras cada ajuste.</p>
+<p>El proyecto declara que la actividad base se procesa localmente, salvo el servicio SPN. Revisa la política de privacidad y las condiciones de las funciones conectadas antes de activarlas.</p>
+</section>
+<section class="application-detail-section">
+<h2>Fuentes oficiales</h2>
+<ul>
+<li><a href="https://safing.io/portmaster/" target="_blank" rel="noopener noreferrer">Portmaster — Safing</a></li>
+<li><a href="https://github.com/safing/portmaster" target="_blank" rel="noopener noreferrer">Repositorio oficial</a></li>
+<li><a href="https://docs.safing.io/" target="_blank" rel="noopener noreferrer">Documentación oficial</a></li>
+</ul>
+</section>
+<p class="application-review-note">Verificación editorial: 28 de noviembre de 2026. La versión 2 y las funciones de pago pueden cambiar; consulta siempre la documentación oficial antes de modificar el cortafuegos.</p>
+<hr>
+</main>
+</body>
+</html>
