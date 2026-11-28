@@ -209,55 +209,79 @@
       "id": "revo-uninstaller",
       "name": "Revo Uninstaller",
       "path": "subpags/software/apps/revo-uninstaller.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.revouninstaller.com/es/products/revo-uninstaller-free/",
+        "https://www.revouninstaller.com/es/revo-uninstaller-free-download/",
+        "https://www.revouninstaller.com/es/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "geek-uninstaller",
       "name": "Geek Uninstaller",
       "path": "subpags/software/apps/geek-uninstaller.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://geekuninstaller.com/download",
+        "https://geekuninstaller.com/",
+        "https://geekuninstaller.com/es/download"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "bulk-crap-uninstaller",
       "name": "Bulk Crap Uninstaller",
       "path": "subpags/software/apps/bulk-crap-uninstaller.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.bcuninstaller.com/",
+        "https://github.com/BCUninstaller/Bulk-Crap-Uninstaller",
+        "https://github.com/BCUninstaller/Bulk-Crap-Uninstaller/blob/master/README.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "display-driver-uninstaller-ddu",
       "name": "Display Driver Uninstaller (DDU)",
       "path": "subpags/software/apps/display-driver-uninstaller-ddu.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.wagnardsoft.com/content/Download-Display-Driver-Uninstaller-DDU-18160",
+        "https://www.wagnardsoft.com/content/How-use-Display-Driver-Uninstaller-DDU-Guide-Tutorial",
+        "https://www.wagnardsoft.com/forums/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "unigetui",
       "name": "UniGetUI",
       "path": "subpags/software/apps/unigetui.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://devolutions.net/unigetui/",
+        "https://github.com/Devolutions/UniGetUI",
+        "https://github.com/Devolutions/UniGetUI/blob/main/README.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "wiztree",
       "name": "WizTree",
       "path": "subpags/software/apps/wiztree.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://diskanalyzer.com/",
+        "https://diskanalyzer.com/download",
+        "https://diskanalyzer.com/faq"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "quicklook",
@@ -276,10 +300,14 @@
       "id": "bulk-rename-utility",
       "name": "Bulk Rename Utility",
       "path": "subpags/software/apps/bulk-rename-utility.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.bulkrenameutility.co.uk/",
+        "https://www.bulkrenameutility.co.uk/License.php",
+        "https://www.bulkrenameutility.co.uk/Download.php"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "freefilesync",
@@ -298,28 +326,42 @@
       "id": "ditto",
       "name": "Ditto",
       "path": "subpags/software/apps/ditto.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://ditto-cp.sourceforge.io/",
+        "https://github.com/sabrogden/Ditto",
+        "https://github.com/sabrogden/Ditto/blob/master/ReadMe.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "everything",
       "name": "Everything",
       "path": "subpags/software/apps/everything.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.voidtools.com/",
+        "https://www.voidtools.com/en-us/support/everything/installing_everything/",
+        "https://www.voidtools.com/en-us/support/everything/indexes/",
+        "https://www.voidtools.com/en-us/faq/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "files",
       "name": "Files",
       "path": "subpags/software/apps/files.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://files.community/",
+        "https://github.com/files-community/Files",
+        "https://files.community/docs/",
+        "https://github.com/files-community/Files/blob/main/LICENSE-MIT"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "recuva",
