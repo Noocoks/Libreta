@@ -151,6 +151,25 @@ def validate_catalog(root: Path = ROOT) -> list[str]:
         errors.append("El registro de auditoría debe contener exactamente una entrada por ficha del catálogo.")
     if len({item.get("id") for item in audit_records if isinstance(item, dict)}) != len(audit_records):
         errors.append("Hay identificadores duplicados en application-audit.json.")
+    audit_ids = {item.get("id") for item in audit_records if isinstance(item, dict)}
+    excluded_records = audit.get("excluded", [])
+    if not isinstance(excluded_records, list):
+        errors.append("excluded en application-audit.json debe ser una lista.")
+        excluded_records = []
+    excluded_ids = [item.get("id") for item in excluded_records if isinstance(item, dict)]
+    if len(set(excluded_ids)) != len(excluded_ids):
+        errors.append("Hay identificadores duplicados en la lista de exclusiones.")
+    for excluded in excluded_records:
+        if not isinstance(excluded, dict):
+            errors.append("Entrada de exclusión no válida.")
+            continue
+        if not excluded.get("id") or not excluded.get("reason") or not excluded.get("decisionDate"):
+            errors.append("Cada exclusión debe indicar id, fecha y motivo.")
+        if excluded.get("id") in audit_ids:
+            errors.append(f"La aplicación excluida {excluded.get('id')!r} sigue dentro del catálogo.")
+        if excluded.get("path") in tree_apps or excluded.get("path") in catalog_apps:
+            errors.append(f"La ficha excluida {excluded.get('id')!r} ha reaparecido en el catálogo.")
+
     allowed_status = {"verified", "partial", "pending"}
     for record in audit_records:
         if not isinstance(record, dict):
