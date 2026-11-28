@@ -1075,19 +1075,6 @@
       "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
-      "id": "plexusx",
-      "name": "PlexusX",
-      "path": "subpags/software/apps/plexusx.html",
-      "status": "partial",
-      "lastVerified": "2026-11-28",
-      "sources": [
-        "https://plexusx.lol/",
-        "https://plexusx.lol/trust",
-        "https://www.trustpilot.com/review/plexusx.lol"
-      ],
-      "note": "La fuente oficial no fue accesible durante la revisión; las afirmaciones del proveedor no se han validado de forma independiente."
-    },
-    {
       "id": "heroic-games-launcher",
       "name": "Heroic Games Launcher",
       "path": "subpags/software/apps/heroic-games-launcher.html",
@@ -1420,6 +1407,14 @@
         "https://www.pdfgear.com/edit-pdf/"
       ],
       "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    }
+  ],
+  "excluded": [
+    {
+      "id": "plexusx",
+      "name": "PlexusX",
+      "decisionDate": "2026-11-28",
+      "reason": "Retirado del catálogo general porque la fuente oficial y su página de verificación no fueron accesibles; no se pudo comprobar de forma independiente la licencia, privacidad, requisitos ni integridad del instalador. No se recomienda instalar hasta poder verificar esos elementos."
     }
   ]
 }
