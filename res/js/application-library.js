@@ -9,7 +9,7 @@ var icons={
 "tailscale":"tailscale","rustdesk":"rustdesk","localsend":"localsend",
 "obsidian":"obsidian","libreoffice":"libreoffice","autohotkey":"autohotkey",
 "epic-games-store":"epicgames","ubisoft-connect":"ubisoft","bitwarden":"bitwarden",
-"keepassxc":"keepassxc","proton-vpn":"protonvpn","winamp":"winamp","inkscape":"inkscape","kdenlive":"kdenlive","dbeaver-community":"dbeaver","joplin":"joplin","vscodium":"vscodium","syncthing":"syncthing","freecad":"freecad","mixxx":"mixxx","kde-connect":"kdeconnect","windhawk":"windhawk","seelen-ui":"seelen-ui","quicklook":"quicklook"
+"keepassxc":"keepassxc","proton-vpn":"protonvpn","winamp":"winamp","inkscape":"inkscape","kdenlive":"kdenlive","dbeaver-community":"dbeaver","joplin":"joplin","vscodium":"vscodium","syncthing":"syncthing","freecad":"freecad","mixxx":"mixxx","kde-connect":"kdeconnect","windhawk":"windhawk","seelen-ui":"seelen-ui","quicklook":"quicklook","curseforge":"curseforge","msi-afterburner":"msi","heroic-games-launcher":"heroic"
 };
 document.querySelectorAll("[data-app-card]").forEach(function(card){
 var link=card.querySelector(".library-card-link");
