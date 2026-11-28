@@ -40,6 +40,11 @@ test.describe("Selector de facetas", () => {
         await trigger.click();
         const menu = page.locator("#facet-menu");
         await expect(menu).toBeVisible();
+        await expect(menu).toHaveAttribute("aria-modal", "true");
+        expect(await menu.evaluate(element => element.parentElement === document.body)).toBe(true);
+        const triggerBounds = await trigger.boundingBox();
+        expect(triggerBounds).not.toBeNull();
+        expect(triggerBounds.height).toBeLessThan(56);
         const bounds = await menu.boundingBox();
         expect(bounds).not.toBeNull();
         expect(bounds.x).toBe(0);
@@ -48,6 +53,9 @@ test.describe("Selector de facetas", () => {
         expect(bounds.height).toBe(844);
         await menu.getByRole("button", { name: /Diccionario técnico/ }).click();
         await expect(menu).toBeHidden();
+        await expect(menu).toHaveAttribute("aria-modal", "false");
+        await expect(trigger).toHaveAttribute("aria-expanded", "false");
+        await expect(trigger).toBeVisible();
         await expect(page.locator("#facet-heading")).toHaveText("// DICCIONARIO");
         await expect(page.locator("#facet-secondary-view")).toBeVisible();
         await expect(page.locator(".facet-dictionary-entry").first()).toBeVisible();
