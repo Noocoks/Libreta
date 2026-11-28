@@ -85,10 +85,14 @@
       "id": "fluentflyout",
       "name": "FluentFlyout",
       "path": "subpags/software/apps/fluentflyout.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://fluentflyout.com/download/",
+        "https://fluentflyout.com/faq/",
+        "https://github.com/FluentFlyout/FluentFlyout"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "winstep-nexus-dock",
@@ -367,10 +371,14 @@
       "id": "recuva",
       "name": "Recuva",
       "path": "subpags/software/apps/recuva.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.ccleaner.com/recuva/download",
+        "https://support.ccleaner.com/",
+        "https://www.ccleaner.com/recuva"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "7-zip",
@@ -470,19 +478,28 @@
       "id": "droidcam",
       "name": "DroidCam",
       "path": "subpags/software/apps/droidcam.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://droidcam.app/",
+        "https://droidcam.app/help/",
+        "https://droidcam.app/download/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "littlebigmouse",
       "name": "LittleBigMouse",
       "path": "subpags/software/apps/littlebigmouse.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://littlebigmouse.mgth.fr/",
+        "https://github.com/mgth/LittleBigMouse",
+        "https://github.com/mgth/LittleBigMouse/releases",
+        "https://github.com/mgth/LittleBigMouse/blob/master/PRIVACY.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "winscp",
@@ -617,10 +634,15 @@
       "id": "eartrumpet",
       "name": "EarTrumpet",
       "path": "subpags/software/apps/eartrumpet.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://eartrumpet.app/",
+        "https://github.com/File-New-Project/EarTrumpet",
+        "https://github.com/File-New-Project/EarTrumpet/blob/master/PRIVACY.md",
+        "https://github.com/File-New-Project/EarTrumpet/blob/master/LICENSE"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "peace",
@@ -706,37 +728,54 @@
       "id": "screentogif",
       "name": "ScreenToGif",
       "path": "subpags/software/apps/screentogif.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.screentogif.com/",
+        "https://github.com/NickeManarin/ScreenToGif",
+        "https://github.com/NickeManarin/ScreenToGif/releases"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "sharex",
       "name": "ShareX",
       "path": "subpags/software/apps/sharex.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://getsharex.com/",
+        "https://github.com/ShareX/ShareX",
+        "https://github.com/ShareX/ShareX/blob/develop/README.md",
+        "https://github.com/ShareX/ShareX/blob/develop/PRIVACY.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "lightshot",
       "name": "Lightshot",
       "path": "subpags/software/apps/lightshot.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://lightshot.co/en/download.html",
+        "https://app.prntscr.com/en/",
+        "https://app.prntscr.com/en/privacy.html"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "text-grab",
       "name": "Text Grab",
       "path": "subpags/software/apps/text-grab.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/TheJoeFin/Text-Grab",
+        "https://github.com/TheJoeFin/Text-Grab/releases",
+        "https://github.com/TheJoeFin/Text-Grab/blob/main/README.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "obs-studio",
@@ -755,10 +794,15 @@
       "id": "upscayl",
       "name": "Upscayl",
       "path": "subpags/software/apps/upscayl.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://upscayl.org/",
+        "https://github.com/upscayl/upscayl",
+        "https://github.com/upscayl/upscayl/releases",
+        "https://github.com/upscayl/upscayl-ncnn"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "blender",
