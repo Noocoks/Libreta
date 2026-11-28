@@ -27,9 +27,13 @@ class CatalogParser(HTMLParser):
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
-        if tag == "section" and values.get("data-library-category") is not None:
-            self.current_category = values.get("id")
-            self.category_counts[self.current_category or ""] = 0
+        classes = set((values.get("class") or "").split())
+        if tag == "section" and "library-category" in classes:
+            category_id = values.get("id")
+            if not category_id or not category_id.startswith("library-category-"):
+                return
+            self.current_category = category_id
+            self.category_counts[category_id] = 0
         if tag == "article" and "data-app-card" in values:
             self.current = {"href": "", "title": "", "category": self.current_category or ""}
         if self.current is not None and tag == "a" and "library-card-link" in (values.get("class") or ""):
