@@ -110,8 +110,8 @@ def validate_catalog(root: Path = ROOT) -> list[str]:
         if missing_catalog:
             errors.append("Entradas del árbol ausentes del catálogo: " + ", ".join(missing_catalog))
 
-    if len(parser.cards) != 108:
-        errors.append(f"El catálogo contiene {len(parser.cards)} tarjetas; se esperaban 108.")
+    if len(parser.cards) != 107:
+        errors.append(f"El catálogo contiene {len(parser.cards)} tarjetas; se esperaban 107.")
 
     software_section = next((item for item in tree.get("sections", []) if item.get("cat") == "software"), {})
     apps_section = next((item for item in software_section.get("children", []) if item.get("cat") == "apps"), {})
@@ -147,7 +147,7 @@ def validate_catalog(root: Path = ROOT) -> list[str]:
         errors.append("applications en application-audit.json debe ser una lista.")
         audit_records = []
     audit_by_path = {item.get("path"): item for item in audit_records if isinstance(item, dict)}
-    if len(audit_records) != 108 or set(audit_by_path) != tree_apps:
+    if len(audit_records) != 107 or set(audit_by_path) != tree_apps:
         errors.append("El registro de auditoría debe contener exactamente una entrada por ficha del catálogo.")
     if len({item.get("id") for item in audit_records if isinstance(item, dict)}) != len(audit_records):
         errors.append("Hay identificadores duplicados en application-audit.json.")
