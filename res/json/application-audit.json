@@ -608,15 +608,6 @@
       "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
     },
     {
-      "id": "portmaster",
-      "name": "Portmaster",
-      "path": "subpags/software/apps/portmaster.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
-    },
-    {
       "id": "keepassxc",
       "name": "KeePassXC",
       "path": "subpags/software/apps/keepassxc.html",
