@@ -238,6 +238,17 @@
             "correo",
             "suplantacion"
           ]
+        },
+        {
+          "name": "Portmaster",
+          "cat": "portmaster",
+          "path": "subpags/ciberseguridad/portmaster/index.html",
+          "tags": [
+            "ciberseguridad",
+            "firewall",
+            "monitorizacion de red",
+            "privacidad"
+          ]
         }
       ],
       "tags": [
@@ -875,15 +886,6 @@
                   "name": "Proton VPN",
                   "cat": "proton-vpn",
                   "path": "subpags/software/apps/proton-vpn.html",
-                  "tags": [
-                    "software",
-                    "navegacion-privacidad-y-credenciales"
-                  ]
-                },
-                {
-                  "name": "Portmaster",
-                  "cat": "portmaster",
-                  "path": "subpags/software/apps/portmaster.html",
                   "tags": [
                     "software",
                     "navegacion-privacidad-y-credenciales"
