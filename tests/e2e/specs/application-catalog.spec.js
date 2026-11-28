@@ -10,7 +10,7 @@ test.describe("Biblioteca de aplicaciones", () => {
         }
         const category = page.locator("#library-category-8 details");
         await category.locator("summary").click();
-        const blenderCard = page.locator('[data-app-card] a[href="./blender.html"]').locator("..");
+        const blenderCard = page.locator("[data-app-card]").filter({ has: page.locator('a[href="./blender.html"]') });
         const logo = blenderCard.locator("img.library-app-logo");
         await expect(logo).toBeVisible();
         await expect(logo).toHaveAttribute("src", "/Libreta/images/apps/blender.svg");
