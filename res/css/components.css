@@ -429,6 +429,19 @@ details[open] .arrow {
  * MAPEO DE CATEGORÍAS → VARIABLES
  ******************************************************************************/
 /* Categorías */
+[data-cat~="software"],
+[data-cat~="apps"] {
+    --active: var(--accent-bright);
+    --icon: var(--icon-software);
+}
+
+[data-cat~="modding"],
+[data-cat~="modding-windows"],
+[data-cat~="modding-linux"],
+[data-cat~="modding-android"] {
+    --active: var(--accent-bright);
+    --icon: var(--icon-modding);
+}
 [data-cat~="ciberseguridad"] {
     --active: var(--cat-main);
     --icon: var(--icon-ciberseguridad);

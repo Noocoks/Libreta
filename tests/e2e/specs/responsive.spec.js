@@ -1,4 +1,5 @@
 const { test, expect } = require("@playwright/test");
+const { expectTreeReady } = require("../helpers/tree");
 
 const viewports = [
     { name: "móvil pequeño", width: 320, height: 640 },
@@ -15,7 +16,7 @@ for (const viewport of viewports) {
         });
 
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
 
         const toggle = page.locator("#tree_panel_toggle_btn");
         await expect(toggle).toBeVisible();

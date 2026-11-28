@@ -1,9 +1,10 @@
 const { test, expect } = require("@playwright/test");
+const { expectTreeReady } = require("../helpers/tree");
 
 test.describe("Controles del árbol", () => {
     test.beforeEach(async ({ page }) => {
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
     });
 
     test("abrir y cerrar todas las ramas actualiza su estado accesible", async ({ page }) => {
@@ -43,19 +44,65 @@ test.describe("Controles del árbol", () => {
 
         const libraryNode = page.locator('#tree_root > li[data-cat="software"]');
         await expect(libraryNode).toHaveCount(1);
-        await expect(libraryNode.getByRole("link", { name: "Biblioteca de aplicaciones", exact: true })).toBeVisible();
+        await expect(libraryNode.locator(":scope > a")).toBeVisible();
 
         const branchToggle = libraryNode.locator(":scope > button[aria-expanded]");
         await expect(branchToggle).toHaveCount(1);
         await branchToggle.click();
 
-        const catalogLink = libraryNode.getByRole("link", { name: "Catálogo de aplicaciones", exact: true });
+        const catalogLink = libraryNode.locator(":scope > ul.subtree > li > a").filter({ hasText: "Catálogo de aplicaciones" });
         await expect(catalogLink).toBeVisible();
         await catalogLink.click();
 
         const catalog = page.frameLocator("#page_frame");
-        await expect(catalog.getByRole("heading", { name: "Biblioteca de aplicaciones", exact: true })).toBeVisible();
+        await expect(catalog.locator("h1").first()).toHaveText("Biblioteca de aplicaciones");
         await expect(catalog.locator(".library-category")).toHaveCount(16);
+    });
+
+    test("Modding aparece como sección independiente y ofrece sus plataformas", async ({ page }) => {
+        await expectTreeReady(page);
+
+        const panelToggle = page.locator("#tree_panel_toggle_btn");
+        const treePanel = page.locator(".tree-panel");
+        if (await treePanel.evaluate(el => el.classList.contains("hidden"))) {
+            await panelToggle.click();
+        }
+        await expect(treePanel).not.toHaveClass(/hidden/);
+
+        const moddingNode = page.locator('#tree_root > li[data-cat="modding"]');
+        await expect(moddingNode).toHaveCount(1);
+        await expect(moddingNode.locator(":scope > a")).toBeVisible();
+
+        const branchToggle = moddingNode.locator(":scope > button[aria-expanded]");
+        await expect(branchToggle).toHaveCount(1);
+        await branchToggle.click();
+
+        for (const platform of ["Windows", "Linux", "Android"]) {
+            await expect(moddingNode.locator(":scope > ul.subtree > li > a").filter({ hasText: platform })).toBeVisible();
+        }
+
+        await moddingNode.locator(":scope > a").click();
+        if (await panelToggle.getAttribute("aria-expanded") === "true") {
+            await panelToggle.click();
+        }
+
+        const content = page.frameLocator("#page_frame");
+        await expect(content.locator("h1").first()).toHaveText("Modding");
+
+        const cards = content.locator(".modding-card");
+        const expectedProjects = [
+            "AtlasOS", "Ubuntu", "Linux Mint", "Kali Linux", "Arch Linux", "BlackArch",
+            "Fedora", "Red Hat Enterprise Linux", "Debian", "Parrot OS", "CachyOS",
+            "SteamOS", "LineageOS", "crDroid"
+        ];
+        await expect(cards).toHaveCount(expectedProjects.length);
+
+        for (const project of expectedProjects) {
+            // Match the exact project title, not descriptive text (e.g. "Debian-based").
+            const projectTitle = content.locator(".modding-card-copy h3").getByRole("link", { name: project, exact: true });
+            await expect(projectTitle).toHaveCount(1);
+            await expect(projectTitle).toBeVisible();
+        }
     });
 
 });

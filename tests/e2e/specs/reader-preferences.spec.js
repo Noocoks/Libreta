@@ -1,12 +1,13 @@
 const { test, expect } = require("@playwright/test");
+const { expectTreeReady } = require("../helpers/tree");
 
 async function openFirstDocument(page) {
     await page.goto("wiki.html");
-    await expect(page.locator("#tree_root > li")).toHaveCount(4);
+    await expectTreeReady(page);
 
     // Trigger the real tree navigation handler without depending on the
     // entrance animation or the link's viewport position.
-    await page.locator("#tree_root > li").first().locator(":scope > a")
+    await page.locator('#tree_root > li[data-cat="ciberseguridad"]').locator(":scope > a")
         .evaluate(element => element.click());
 
     await expect(page.frameLocator("#page_frame").locator(".page")).toBeVisible();
