@@ -20,22 +20,39 @@
     var glossary = null;
     var glossaryPromise = null;
 
-    function setMenu(open) {
+    function placeMenu(open, mobile) {
+        var destination = mobile && open ? document.body : switcher;
+        if (menu.parentElement !== destination) destination.appendChild(menu);
+    }
+
+    function syncMenuLayout() {
         var mobile = window.matchMedia("(max-width: 900px)").matches;
-        if (mobile && open && menu.parentElement !== document.body) document.body.appendChild(menu);
-        if (mobile && !open && menu.parentElement !== switcher) switcher.appendChild(menu);
+        placeMenu(!menu.hidden, mobile);
+        menu.setAttribute("aria-modal", String(mobile && !menu.hidden));
+        var shell = document.querySelector(".two-panels");
+        if (shell) {
+            shell.inert = mobile && !menu.hidden;
+            if (mobile && !menu.hidden) shell.setAttribute("aria-hidden", "true");
+            else shell.removeAttribute("aria-hidden");
+        }
+        var treePanel = document.querySelector(".tree-panel");
+        if (treePanel) treePanel.classList.toggle("facet-menu-expanded", !menu.hidden && !mobile);
+    }
+
+    function setMenu(open, restoreFocus) {
+        var mobile = window.matchMedia("(max-width: 900px)").matches;
+        if (open) previousFocus = document.activeElement;
+        placeMenu(open, mobile);
         menu.hidden = !open;
-        menu.setAttribute("aria-modal", String(mobile && open));
         trigger.setAttribute("aria-expanded", String(open));
         document.body.classList.toggle("facet-menu-open", open);
-        var treePanel = document.querySelector(".tree-panel");
-        if (treePanel) treePanel.classList.toggle("facet-menu-expanded", open && !mobile);
+        syncMenuLayout();
         if (open) {
-            previousFocus = document.activeElement;
             var first = menu.querySelector("[data-facet]");
             if (first) first.focus();
-        } else if (previousFocus && typeof previousFocus.focus === "function") {
+        } else if (restoreFocus !== false && previousFocus && typeof previousFocus.focus === "function") {
             previousFocus.focus();
+            previousFocus = null;
         }
     }
 
@@ -212,8 +229,12 @@
         if (remember) {
             try { window.localStorage.setItem(KEY, name); } catch (error) { /* Preferencia opcional. */ }
         }
-        setMenu(false);
+        setMenu(false, false);
     }
+
+    window.addEventListener("resize", function () {
+        if (!menu.hidden) syncMenuLayout();
+    });
 
     trigger.addEventListener("click", function () { setMenu(menu.hidden); });
     if (close) close.addEventListener("click", function () { setMenu(false); });
