@@ -37,15 +37,20 @@ class ContentSecurityPolicyTests(unittest.TestCase):
         self.assertTrue(any("falta directiva: object-src" in error for error in errors))
         self.assertTrue(any("directiva duplicada: default-src" in error for error in errors))
 
-    def test_iframe_sandbox_accepts_only_the_exact_minimum_permission(self):
-        self.assertTrue(has_exact_iframe_sandbox_permissions({"allow-scripts"}))
+    def test_iframe_sandbox_allows_only_isolated_external_popups(self):
+        self.assertTrue(has_exact_iframe_sandbox_permissions({
+            "allow-scripts",
+            "allow-popups",
+            "allow-popups-to-escape-sandbox",
+        }))
         for permissions in (
             set(),
-            {"allow-same-origin"},
-            {"allow-scripts", "allow-same-origin"},
+            {"allow-scripts"},
             {"allow-scripts", "allow-popups"},
-            {"allow-scripts", "allow-forms"},
-            {"allow-scripts", "allow-top-navigation"},
+            {"allow-scripts", "allow-popups", "allow-popups-to-escape-sandbox", "allow-same-origin"},
+            {"allow-scripts", "allow-popups", "allow-popups-to-escape-sandbox", "allow-forms"},
+            {"allow-scripts", "allow-popups", "allow-popups-to-escape-sandbox", "allow-top-navigation"},
+            {"allow-scripts", "allow-same-origin"},
         ):
             self.assertFalse(has_exact_iframe_sandbox_permissions(permissions))
 

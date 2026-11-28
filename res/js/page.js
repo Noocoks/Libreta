@@ -147,9 +147,10 @@ document.addEventListener("click", function (e) {
      * Los enlaces HTTP(S) externos salen del iframe en una pestaña nueva.
      * Se aplica antes de comprobar modificadores para conservar Ctrl/Cmd+clic.
      */
+    var navigationOrigin = parentOrigin || window.location.origin;
     if (
         (target.protocol === "http:" || target.protocol === "https:") &&
-        target.origin !== parentOrigin
+        target.origin !== navigationOrigin
     ) {
         link.target = "_blank";
         var relTokens = (link.getAttribute("rel") || "")

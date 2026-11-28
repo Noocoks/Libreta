@@ -129,8 +129,12 @@ OPTIONAL_CSP = {"frame-src": ["'self'"]}
 
 
 def has_exact_iframe_sandbox_permissions(sandbox: set[str]) -> bool:
-    """El iframe de documentación solo puede ejecutar scripts aislados."""
-    return sandbox == {"allow-scripts"}
+    """Autoriza scripts y popups aislados, sin acceso same-origin ni navegación superior."""
+    return sandbox == {
+        "allow-scripts",
+        "allow-popups",
+        "allow-popups-to-escape-sandbox",
+    }
 
 
 def validate_csp_policy(policy: str, sandboxed_document: bool = False) -> list[str]:

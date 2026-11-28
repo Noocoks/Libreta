@@ -63,7 +63,13 @@ test.describe("Navegación principal", () => {
 test("iframe sandbox isolates documentation without allow-same-origin", async ({ page }) => {
  await page.goto("wiki.html");
         await openIndex(page); await openIndex(page); const frame=page.locator("#page_frame");
- await expect(frame).toHaveAttribute("sandbox","allow-scripts");
+ const sandboxPermissions = await frame.getAttribute("sandbox");
+ await expect(sandboxPermissions.split(/\s+/).sort()).toEqual([
+  "allow-popups",
+  "allow-popups-to-escape-sandbox",
+  "allow-scripts"
+ ]);
+ expect(sandboxPermissions).not.toContain("allow-same-origin");
  await expect(frame).toHaveAttribute("referrerpolicy","same-origin");
  const cyberSecurity=page.locator('#tree_root > li[data-cat="ciberseguridad"]');
  await cyberSecurity.locator(":scope > button").click();
@@ -167,7 +173,7 @@ test.describe("Enlaces del contenido", () => {
         const originalSrc = await iframe.getAttribute("src");
         const originalUrl = page.url();
 
-        await page.route("https://example.org/**", (route) => route.fulfill({
+        await context.route("https://example.org/**", (route) => route.fulfill({
             status: 200,
             contentType: "text/html",
             body: "<h1>External destination</h1>"
@@ -205,7 +211,7 @@ test.describe("Enlaces del contenido", () => {
         const content = page.frameLocator("#page_frame");
         await expect(content.locator("h1").first()).toBeVisible();
         const internalLink = content.locator('a[href*="osint/index.html"]').first();
-        await expect(internalLink).toHaveAttribute("target", /^(?!_blank$).*$/);
+        await expect(internalLink).not.toHaveAttribute("target", "_blank");
         const anchor = content.locator('a[href^="#"]').first();
         if (await anchor.count()) {
             await expect(anchor).not.toHaveAttribute("target", "_blank");

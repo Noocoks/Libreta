@@ -116,7 +116,13 @@ test.describe("Exportación a PDF", () => {
         await confirmPrint.click();
         await expect.poll(() => page.evaluate(() => window.__libretaPrintCalls)).toBe(1);
         await expect(page.locator("#page_frame")).toHaveAttribute("height", String(expectedHeight));
-        await expect(page.locator("#page_frame")).toHaveAttribute("sandbox", "allow-scripts");
+        const sandboxPermissions = await page.locator("#page_frame").getAttribute("sandbox");
+        expect(sandboxPermissions.split(/\s+/).sort()).toEqual([
+            "allow-popups",
+            "allow-popups-to-escape-sandbox",
+            "allow-scripts"
+        ]);
+        expect(sandboxPermissions).not.toContain("allow-same-origin");
 
         await page.emulateMedia({ media: "print" });
         await expect(page.locator(".tree-panel")).toBeHidden();
