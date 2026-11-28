@@ -1064,3 +1064,160 @@ document.addEventListener("click", function (ev) {
         initWindowsCategoryCounts();
     }
 })();
+
+/* ==============================
+   DICCIONARIO CONTEXTUAL
+   Primera aparición de cada concepto por documento.
+============================== */
+(function () {
+    "use strict";
+    var glossaryPromise = null;
+    function loadGlossary() {
+        if (!glossaryPromise) {
+            var script = document.querySelector('script[src*="/res/js/page.js"]');
+            if (!script) return Promise.reject(new Error("No se pudo determinar la ruta del glosario"));
+            var dataUrl = new URL("../json/glossary.json", new URL(script.src, document.baseURI));
+            glossaryPromise = fetch(dataUrl.href, { credentials: "same-origin" }).then(function (response) {
+                if (!response.ok) throw new Error("No se pudo cargar glossary.json (" + response.status + ")");
+                return response.json();
+            });
+        }
+        return glossaryPromise;
+    }
+    function escapeRegex(value) {
+        return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+    function foldText(value) {
+        var folded = "";
+        var starts = [];
+        var ends = [];
+        for (var index = 0; index < value.length;) {
+            var codePoint = value.codePointAt(index);
+            var character = String.fromCodePoint(codePoint);
+            var next = index + character.length;
+            var normalized = character.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("es");
+            if (!normalized && starts.length) ends[ends.length - 1] = next;
+            for (var offset = 0; offset < normalized.length; offset++) {
+                starts.push(index);
+                ends.push(next);
+            }
+            folded += normalized;
+            index = next;
+        }
+        return { value: folded, starts: starts, ends: ends };
+    }
+    function positionTooltip(term) {
+        if (window.matchMedia("(max-width: 600px)").matches) return;
+        var rect = term.getBoundingClientRect();
+        var width = Math.min(310, window.innerWidth - 40);
+        var center = rect.left + rect.width / 2;
+        var align = center < width / 2 + 12 ? "left" :
+            center > window.innerWidth - width / 2 - 12 ? "right" : "center";
+        term.dataset.tooltipAlign = align;
+        term.dataset.tooltipPlacement = rect.top < 125 ? "below" : "above";
+    }
+    function enhanceText(root, concepts) {
+        var aliases = [];
+        var aliasLookup = Object.create(null);
+        concepts.forEach(function (item) {
+            [item.term].concat(item.aliases || []).forEach(function (alias) {
+                if (typeof alias !== "string" || !alias.trim()) return;
+                var folded = foldText(alias.trim()).value;
+                if (!folded) return;
+                aliases.push({ value: folded, item: item });
+                aliasLookup[folded] = item;
+            });
+        });
+        aliases.sort(function (a, b) { return b.value.length - a.value.length; });
+        var pattern = new RegExp("(^|[^\\p{L}\\p{N}_])(" + aliases.map(function (entry) {
+            return escapeRegex(entry.value);
+        }).join("|") + ")(?=$|[^\\p{L}\\p{N}_])", "gu");
+        var seen = Object.create(null);
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+            acceptNode: function (node) {
+                var parent = node.parentElement;
+                if (!parent || !node.nodeValue.trim() ||
+                    parent.closest("script,style,pre,code,textarea,input,select,button,a,svg,.glossary-term,[contenteditable=true],[data-no-glossary]")) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        });
+        var nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach(function (node) {
+            var source = node.nodeValue;
+            var foldedSource = foldText(source);
+            pattern.lastIndex = 0;
+            var fragment = document.createDocumentFragment();
+            var cursor = 0;
+            var changed = false;
+            var match;
+            while ((match = pattern.exec(foldedSource.value))) {
+                var item = aliasLookup[match[2]];
+                if (!item || seen[item.id]) continue;
+                var termStart = match.index + match[1].length;
+                var termEnd = termStart + match[2].length;
+                var originalStart = foldedSource.starts[termStart];
+                var originalEnd = foldedSource.ends[termEnd - 1];
+                if (typeof originalStart !== "number" || typeof originalEnd !== "number" ||
+                    originalStart < cursor || originalEnd <= originalStart) continue;
+                if (originalStart > cursor) fragment.appendChild(document.createTextNode(source.slice(cursor, originalStart)));
+                var term = document.createElement("span");
+                term.className = "glossary-term";
+                term.textContent = source.slice(originalStart, originalEnd);
+                term.tabIndex = 0;
+                term.setAttribute("role", "button");
+                term.setAttribute("aria-expanded", "false");
+                term.setAttribute("aria-label", term.textContent + ": " + item.definition);
+                term.dataset.definition = item.definition;
+                term.dataset.conceptId = item.id;
+                term.addEventListener("pointerenter", function () { positionTooltip(term); });
+                term.addEventListener("focus", function () { positionTooltip(term); });
+                term.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    var expanded = term.getAttribute("aria-expanded") !== "true";
+                    document.querySelectorAll(".glossary-term[aria-expanded=true]").forEach(function (other) {
+                        if (other !== term) other.setAttribute("aria-expanded", "false");
+                    });
+                    term.setAttribute("aria-expanded", String(expanded));
+                    if (expanded) positionTooltip(term);
+                });
+                term.addEventListener("keydown", function (event) {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        term.click();
+                    }
+                });
+                fragment.appendChild(term);
+                cursor = originalEnd;
+                seen[item.id] = true;
+                changed = true;
+            }
+            if (!changed) return;
+            if (cursor < source.length) fragment.appendChild(document.createTextNode(source.slice(cursor)));
+            node.parentNode.replaceChild(fragment, node);
+        });
+    }
+    function initGlossary() {
+        var root = document.querySelector(".page") || document.body;
+        if (!root || root.dataset.glossaryEnhanced === "true") return;
+        root.dataset.glossaryEnhanced = "true";
+        loadGlossary().then(function (data) {
+            if (!data || data.version !== 1 || !Array.isArray(data.concepts)) throw new Error("Estructura de glosario inválida");
+            enhanceText(root, data.concepts);
+        }).catch(function (error) {
+            delete root.dataset.glossaryEnhanced;
+            console.error("Diccionario contextual no disponible:", error);
+        });
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initGlossary, { once: true });
+    else initGlossary();
+    document.addEventListener("click", function (event) {
+        if (!event.target.closest || !event.target.closest(".glossary-term")) {
+            document.querySelectorAll(".glossary-term[aria-expanded=true]").forEach(function (term) {
+                term.setAttribute("aria-expanded", "false");
+            });
+        }
+    });
+})();

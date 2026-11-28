@@ -1,0 +1,328 @@
+{
+  "version": 1,
+  "updated": "2026-11-28",
+  "concepts": [
+    {
+      "id": "api",
+      "term": "API",
+      "aliases": [
+        "interfaz de programación de aplicaciones"
+      ],
+      "definition": "Conjunto de reglas y puntos de acceso que permite que un programa utilice funciones o datos de otro software sin conocer todos sus detalles internos.",
+      "category": "Desarrollo",
+      "level": 2,
+      "path": "subpags/diccionario/api/index.html",
+      "related": [
+        "http",
+        "tls",
+        "cli"
+      ]
+    },
+    {
+      "id": "bios-uefi",
+      "term": "BIOS/UEFI",
+      "aliases": [
+        "BIOS",
+        "UEFI",
+        "firmware de arranque"
+      ],
+      "definition": "Firmware de la placa base que inicializa el hardware y prepara el proceso de arranque del sistema operativo. UEFI es el estándar moderno que sustituyó al BIOS tradicional.",
+      "category": "Sistemas",
+      "level": 2,
+      "path": "subpags/diccionario/bios-uefi/index.html",
+      "related": [
+        "kernel",
+        "driver"
+      ]
+    },
+    {
+      "id": "cache",
+      "term": "Caché",
+      "aliases": [
+        "cache"
+      ],
+      "definition": "Almacenamiento temporal de datos calculados o consultados con frecuencia para acelerar accesos posteriores. Su contenido puede descartarse y regenerarse.",
+      "category": "Sistemas",
+      "level": 1,
+      "related": [
+        "cpu",
+        "ram"
+      ]
+    },
+    {
+      "id": "cli",
+      "term": "CLI",
+      "aliases": [
+        "interfaz de línea de comandos",
+        "command line interface"
+      ],
+      "definition": "Interfaz en la que el usuario interactúa con un programa escribiendo órdenes de texto en una terminal o consola.",
+      "category": "Desarrollo",
+      "level": 1,
+      "related": [
+        "api",
+        "git"
+      ]
+    },
+    {
+      "id": "contenedor",
+      "term": "Contenedor",
+      "aliases": [
+        "contenedores",
+        "container"
+      ],
+      "definition": "Entorno de ejecución aislado que comparte el kernel del sistema anfitrión, pero mantiene separados procesos, red, sistema de archivos y otros recursos mediante mecanismos del sistema operativo.",
+      "category": "Desarrollo",
+      "level": 2,
+      "path": "subpags/diccionario/contenedores/index.html",
+      "related": [
+        "kernel",
+        "namespace",
+        "cgroups"
+      ]
+    },
+    {
+      "id": "cpu",
+      "term": "CPU",
+      "aliases": [
+        "procesador",
+        "unidad central de procesamiento"
+      ],
+      "definition": "Unidad de procesamiento que ejecuta instrucciones de los programas y coordina operaciones del sistema. Su rendimiento depende, entre otros factores, de arquitectura, frecuencia, núcleos y carga.",
+      "category": "Hardware",
+      "level": 1,
+      "related": [
+        "ram",
+        "cache"
+      ]
+    },
+    {
+      "id": "csp",
+      "term": "CSP",
+      "aliases": [
+        "content security policy",
+        "política de seguridad de contenido"
+      ],
+      "definition": "Mecanismo del navegador que limita los orígenes y tipos de recursos que una página puede cargar o ejecutar, reduciendo determinadas clases de ataques como la inyección de scripts.",
+      "category": "Seguridad web",
+      "level": 2,
+      "path": "subpags/diccionario/csp/index.html",
+      "related": [
+        "http",
+        "https"
+      ]
+    },
+    {
+      "id": "cgroups",
+      "term": "cgroups",
+      "aliases": [
+        "control groups"
+      ],
+      "definition": "Mecanismo del kernel Linux para organizar procesos en grupos y aplicar límites o contabilización de recursos como CPU, memoria y E/S.",
+      "category": "Linux",
+      "level": 2,
+      "path": "subpags/diccionario/cgroups/index.html",
+      "related": [
+        "contenedor",
+        "namespace",
+        "kernel"
+      ]
+    },
+    {
+      "id": "dns",
+      "term": "DNS",
+      "aliases": [
+        "domain name system",
+        "sistema de nombres de dominio"
+      ],
+      "definition": "Sistema distribuido que traduce nombres de dominio, como example.org, a registros utilizados por redes IP y otros servicios.",
+      "category": "Redes",
+      "level": 1,
+      "related": [
+        "lan",
+        "firewall"
+      ]
+    },
+    {
+      "id": "driver",
+      "term": "Controlador",
+      "aliases": [
+        "driver",
+        "drivers"
+      ],
+      "definition": "Software que permite al sistema operativo comunicarse con un dispositivo de hardware y utilizar sus funciones mediante una interfaz definida.",
+      "category": "Sistemas",
+      "level": 1,
+      "related": [
+        "kernel",
+        "bios-uefi"
+      ]
+    },
+    {
+      "id": "firewall",
+      "term": "Firewall",
+      "aliases": [
+        "cortafuegos"
+      ],
+      "definition": "Sistema que aplica reglas para permitir, bloquear o registrar tráfico de red según criterios como direcciones, puertos, protocolos, aplicaciones o estado de conexión.",
+      "category": "Redes",
+      "level": 1,
+      "related": [
+        "lan",
+        "dns",
+        "https"
+      ]
+    },
+    {
+      "id": "git",
+      "term": "Git",
+      "aliases": [
+        "control de versiones distribuido"
+      ],
+      "definition": "Sistema distribuido de control de versiones que registra cambios en archivos mediante commits y permite trabajar con ramas, integrar cambios y recuperar estados anteriores.",
+      "category": "Desarrollo",
+      "level": 1,
+      "related": [
+        "cli"
+      ]
+    },
+    {
+      "id": "http",
+      "term": "HTTP",
+      "aliases": [
+        "hypertext transfer protocol"
+      ],
+      "definition": "Protocolo de aplicación basado en peticiones y respuestas que permite transferir recursos y metadatos entre clientes y servidores web.",
+      "category": "Redes",
+      "level": 1,
+      "related": [
+        "https",
+        "tls",
+        "dns"
+      ]
+    },
+    {
+      "id": "https",
+      "term": "HTTPS",
+      "aliases": [
+        "http sobre tls"
+      ],
+      "definition": "HTTP protegido mediante TLS, que aporta cifrado del transporte, integridad de los datos y autenticación del servidor mediante certificados.",
+      "category": "Redes",
+      "level": 1,
+      "related": [
+        "http",
+        "tls",
+        "csp"
+      ]
+    },
+    {
+      "id": "kernel",
+      "term": "Kernel",
+      "aliases": [
+        "núcleo del sistema",
+        "núcleo"
+      ],
+      "definition": "Parte central del sistema operativo que administra recursos del equipo y ofrece servicios fundamentales a los procesos, como planificación, memoria, dispositivos y llamadas al sistema.",
+      "category": "Sistemas",
+      "level": 2,
+      "path": "subpags/diccionario/kernel/index.html",
+      "related": [
+        "namespace",
+        "cgroups",
+        "driver"
+      ]
+    },
+    {
+      "id": "lan",
+      "term": "LAN",
+      "aliases": [
+        "red de área local"
+      ],
+      "definition": "Red que conecta dispositivos dentro de un ámbito geográfico limitado, como una vivienda, oficina o laboratorio.",
+      "category": "Redes",
+      "level": 1,
+      "related": [
+        "dns",
+        "firewall"
+      ]
+    },
+    {
+      "id": "namespace",
+      "term": "Namespace",
+      "aliases": [
+        "namespaces",
+        "espacio de nombres"
+      ],
+      "definition": "Mecanismo del kernel Linux que proporciona a un conjunto de procesos una vista aislada de determinados recursos del sistema, como procesos, interfaces de red o puntos de montaje.",
+      "category": "Linux",
+      "level": 2,
+      "path": "subpags/diccionario/namespaces/index.html",
+      "related": [
+        "contenedor",
+        "cgroups",
+        "kernel"
+      ]
+    },
+    {
+      "id": "ram",
+      "term": "RAM",
+      "aliases": [
+        "memoria ram",
+        "memoria de acceso aleatorio"
+      ],
+      "definition": "Memoria de trabajo volátil donde el sistema mantiene temporalmente datos e instrucciones que necesitan acceso rápido mientras el equipo está encendido.",
+      "category": "Hardware",
+      "level": 1,
+      "related": [
+        "cpu",
+        "cache"
+      ]
+    },
+    {
+      "id": "ssd",
+      "term": "SSD",
+      "aliases": [
+        "unidad de estado sólido"
+      ],
+      "definition": "Dispositivo de almacenamiento no volátil que utiliza memoria flash para guardar datos. No tiene platos mecánicos y ofrece acceso aleatorio rápido.",
+      "category": "Hardware",
+      "level": 1,
+      "related": [
+        "ram"
+      ]
+    },
+    {
+      "id": "tls",
+      "term": "TLS",
+      "aliases": [
+        "transport layer security"
+      ],
+      "definition": "Protocolo criptográfico que protege comunicaciones en red mediante cifrado, integridad y autenticación de los extremos según el contexto y la configuración.",
+      "category": "Redes",
+      "level": 2,
+      "path": "subpags/diccionario/tls/index.html",
+      "related": [
+        "https",
+        "http",
+        "api"
+      ]
+    },
+    {
+      "id": "vm",
+      "term": "Máquina virtual",
+      "aliases": [
+        "máquinas virtuales",
+        "virtual machine",
+        "vm"
+      ],
+      "definition": "Entorno de cómputo virtualizado que ejecuta un sistema operativo invitado sobre hardware virtual proporcionado por un hipervisor.",
+      "category": "Virtualización",
+      "level": 1,
+      "related": [
+        "kernel",
+        "contenedor"
+      ]
+    }
+  ]
+}

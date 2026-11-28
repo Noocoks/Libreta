@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="description" content="cgroups es una función del kernel Linux para agrupar procesos y medir o controlar el consumo de recursos.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://noocoks.github.io/Libreta/; script-src-attr 'none'; style-src 'self' https://noocoks.github.io/Libreta/; style-src-attr 'none'; style-src-elem 'self' https://noocoks.github.io/Libreta/; img-src 'self' https://noocoks.github.io/Libreta/ data:; font-src 'self' https://noocoks.github.io/Libreta/; connect-src 'self' https://noocoks.github.io/Libreta/; frame-src 'self'; form-action 'self';">
+<title>Control groups (cgroups) · Diccionario técnico</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body><main class="page glossary-article" data-cat="diccionario cgroups">
+<nav class="application-breadcrumb" aria-label="Navegación"><a href="../index.html">Diccionario técnico</a><span aria-hidden="true">›</span><span>Control groups (cgroups)</span></nav>
+<header class="glossary-hero"><p class="library-eyebrow">LIBRETA / DICCIONARIO TÉCNICO</p><h1>Control groups (cgroups)</h1><p class="library-lead">cgroups es una función del kernel Linux para agrupar procesos y medir o controlar el consumo de recursos.</p></header>
+<section class="application-detail-section"><h2>Concepto y contexto</h2><p>Los controladores de cgroups pueden administrar recursos como CPU, memoria, I/O, PIDs y presión de recursos. cgroups v2 presenta una jerarquía unificada y una interfaz común en cgroupfs; muchas distribuciones modernas y runtimes de contenedores la utilizan.</p></section>
+<section class="application-detail-section"><h2>Funcionamiento técnico</h2><p>En cgroups v2, archivos como cpu.max, memory.max, pids.max y memory.current exponen límites o métricas en el grupo correspondiente. systemd organiza servicios y scopes mediante esta infraestructura cuando está configurado para usarla.</p></section>
+<section class="application-detail-section"><h2>Consideraciones prácticas y seguridad</h2><p>No edites manualmente jerarquías gestionadas por systemd o un runtime sin conocer su modelo de propiedad. Los límites de memoria pueden provocar terminación de procesos por OOM; valida efectos y registros.</p></section>
+<p class="application-review-note">Artículo técnico de consulta. Comprueba siempre la documentación oficial de la plataforma y la versión concreta que estés utilizando.</p>
+<p><a href="../index.html">← Volver al diccionario</a></p>
+</main></body></html>

@@ -60,6 +60,12 @@ jobs:
       - name: Validate tree routes, local links and Python syntax
         run: python scripts/validate_project.py
 
+      - name: Validate glossary concepts, aliases and article references
+        run: python scripts/validate_glossary.py
+
+      - name: Validate application catalog, tree parity and SVG brand assets
+        run: python scripts/validate_catalog.py
+
       - name: Validate CSS resources and HTML fragments
         run: python scripts/validate_assets.py
 

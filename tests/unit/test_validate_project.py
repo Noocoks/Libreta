@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.validate_project import strict_json_loads, resolve_local_reference, validate_tree_data
+from scripts.validate_project import strict_json_loads, resolve_local_reference, validate_tree_data, dictionary_page_paths
 
 
 class TreeValidationTests(unittest.TestCase):
@@ -89,6 +89,20 @@ class TreeValidationTests(unittest.TestCase):
     def test_local_reference_allows_external_http_urls(self):
         source = self.root / "subpags" / "example" / "index.html"
         self.assertIsNone(resolve_local_reference(source, "https://example.com/page", self.root))
+
+    def test_dictionary_articles_are_allowed_outside_the_navigation_tree(self):
+        glossary = self.root / "res" / "json" / "glossary.json"
+        glossary.parent.mkdir(parents=True)
+        glossary.write_text(
+            '{"concepts":[{"path":"subpags/diccionario/kernel/index.html"},'
+            '{"path":"subpags/diccionario/../outside/index.html"},'
+            '{"path":"subpags/other/index.html"}]}',
+            encoding="utf-8",
+        )
+        self.assertEqual(
+            dictionary_page_paths(self.root),
+            {"subpags/diccionario/index.html", "subpags/diccionario/kernel/index.html"},
+        )
 
     def test_strict_json_accepts_standard_json(self):
         self.assertEqual(
