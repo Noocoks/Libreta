@@ -70,7 +70,7 @@ test.describe("Selector de facetas", () => {
         await expectTreeReady(page);
         await page.locator("#facet-trigger").click();
         await page.locator("#facet-menu").getByRole("button", { name: /Diccionario técnico/ }).click();
-        await expect(page.locator("#facet-heading")).toHaveText("Diccionario");
+        await expect(page.locator("#facet-heading")).toHaveText("// DICCIONARIO");
         await page.reload();
         await expectTreeReady(page);
         await expect(page.locator("#facet-heading")).toHaveText("Diccionario");
