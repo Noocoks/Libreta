@@ -1311,15 +1311,6 @@
                   ]
                 },
                 {
-                  "name": "PlexusX",
-                  "cat": "plexusx",
-                  "path": "subpags/software/apps/plexusx.html",
-                  "tags": [
-                    "software",
-                    "videojuegos-y-experiencia-gaming"
-                  ]
-                },
-                {
                   "name": "Heroic Games Launcher",
                   "cat": "heroic-games-launcher",
                   "path": "subpags/software/apps/heroic-games-launcher.html",
