@@ -794,24 +794,6 @@
                   ]
                 },
                 {
-                  "name": "DroidCam",
-                  "cat": "droidcam",
-                  "path": "subpags/software/apps/droidcam.html",
-                  "tags": [
-                    "software",
-                    "redes-transferencia-y-acceso-remoto"
-                  ]
-                },
-                {
-                  "name": "LittleBigMouse",
-                  "cat": "littlebigmouse",
-                  "path": "subpags/software/apps/littlebigmouse.html",
-                  "tags": [
-                    "software",
-                    "redes-transferencia-y-acceso-remoto"
-                  ]
-                },
-                {
                   "name": "WinSCP",
                   "cat": "winscp",
                   "path": "subpags/software/apps/winscp.html",
@@ -1048,6 +1030,15 @@
                     "software",
                     "captura-streaming-y-comunicacion-audiovisual"
                   ]
+                },
+                {
+                  "name": "DroidCam",
+                  "cat": "droidcam",
+                  "path": "subpags/software/apps/droidcam.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
+                  ]
                 }
               ]
             },
@@ -1268,6 +1259,15 @@
                   "tags": [
                     "software",
                     "hardware-diagnostico-y-perifericos"
+                  ]
+                },
+                {
+                  "name": "LittleBigMouse",
+                  "cat": "littlebigmouse",
+                  "path": "subpags/software/apps/littlebigmouse.html",
+                  "tags": [
+                    "software",
+                    "redes-transferencia-y-acceso-remoto"
                   ]
                 }
               ]
