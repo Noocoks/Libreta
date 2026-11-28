@@ -1414,7 +1414,8 @@
       "id": "plexusx",
       "name": "PlexusX",
       "decisionDate": "2026-11-28",
-      "reason": "Retirado del catálogo general porque la fuente oficial y su página de verificación no fueron accesibles; no se pudo comprobar de forma independiente la licencia, privacidad, requisitos ni integridad del instalador. No se recomienda instalar hasta poder verificar esos elementos."
+      "reason": "Retirado del catálogo general porque la fuente oficial y su página de verificación no fueron accesibles; no se pudo comprobar de forma independiente la licencia, privacidad, requisitos ni integridad del instalador. No se recomienda instalar hasta poder verificar esos elementos.",
+      "path": "subpags/software/apps/plexusx.html"
     }
   ]
 }
