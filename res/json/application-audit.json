@@ -1032,10 +1032,15 @@
       "id": "deepl",
       "name": "DeepL",
       "path": "subpags/software/apps/deepl.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.deepl.com/",
+        "https://www.deepl.com/en/terms-of-use",
+        "https://www.deepl.com/es/privacy",
+        "https://www.deepl.com/pro"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "obsidian",
@@ -1077,10 +1082,15 @@
       "id": "autohotkey",
       "name": "AutoHotkey",
       "path": "subpags/software/apps/autohotkey.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.autohotkey.com/",
+        "https://github.com/AutoHotkey/AutoHotkey",
+        "https://www.autohotkey.com/docs/v2/",
+        "https://github.com/AutoHotkey/AutoHotkey/releases"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "powertoys",
@@ -1184,10 +1194,15 @@
       "id": "notepad",
       "name": "Notepad++",
       "path": "subpags/software/apps/notepad.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://notepad-plus-plus.org/",
+        "https://github.com/notepad-plus-plus/notepad-plus-plus",
+        "https://npp-user-manual.org/docs/getting-started/",
+        "https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/README.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "dbeaver-community",
@@ -1216,10 +1231,15 @@
       "id": "pdfgear",
       "name": "PDFgear",
       "path": "subpags/software/apps/pdfgear.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.pdfgear.com/",
+        "https://www.pdfgear.com/pdfgear-for-windows/index.htm",
+        "https://www.pdfgear.com/privacy-policy/",
+        "https://www.pdfgear.com/edit-pdf/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     }
   ]
 }
