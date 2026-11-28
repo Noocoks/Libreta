@@ -1,4 +1,5 @@
 const { test, expect } = require("@playwright/test");
+const { expectTreeReady } = require("../helpers/tree");
 
 test.describe("Sistema de movimiento", () => {
     test("la portada mantiene su contenido visible y accesible", async ({ page }) => {
@@ -36,14 +37,14 @@ test.describe("Sistema de movimiento", () => {
 
     test("la navegación de documentos usa estados CSS y no estilos inline", async ({ page }) => {
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         const indexToggle = page.locator("#tree_panel_toggle_btn");
         if (await indexToggle.getAttribute("aria-expanded") !== "true") {
             await indexToggle.click();
             await expect(indexToggle).toHaveAttribute("aria-expanded", "true");
         }
         const iframe = page.locator("#page_frame");
-        await page.locator("#tree_root > li").first().locator(":scope > a").click();
+        await page.locator('#tree_root > li[data-cat="ciberseguridad"]').locator(":scope > a").click();
         await expect(page.frameLocator("#page_frame").locator("h1").first()).toBeVisible();
         await expect(iframe).not.toHaveAttribute("style", /opacity/);
         await expect(page.locator(".page-panel")).not.toHaveClass(/is-loading/);
@@ -64,10 +65,10 @@ test.describe("Sistema de movimiento", () => {
         }
 
         await page.goto("wiki.html");
-        // El árbol actual incluye cuatro áreas raíz: Ciberseguridad, Android, IA y Biblioteca de aplicaciones.
-        await expect(page.locator(".tree.ready #tree_root > li")).toHaveCount(4);
+        // El árbol debe conservar sus áreas esenciales, pero puede incorporar nuevas secciones.
+        await expectTreeReady(page);
         const wikiDurations = await page.evaluate(() => {
-            return [".tree.ready #tree_root > li", ".page-panel iframe"].map((selector) => {
+            return ['.tree.ready #tree_root > li[data-cat="ciberseguridad"]', ".page-panel iframe"].map((selector) => {
                 const style = getComputedStyle(document.querySelector(selector));
                 return { animation: style.animationDuration, transition: style.transitionDuration };
             });

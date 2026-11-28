@@ -1,4 +1,5 @@
 const { test, expect } = require("@playwright/test");
+const { expectTreeReady } = require("../helpers/tree");
 
 async function fulfillDocumentForLocalTest(route, response) {
     const documentResponse = response || await route.fetch();
@@ -26,7 +27,7 @@ test.beforeEach(async ({ page }) => {
 
 async function openFirstSection(page) {
     await page.goto("wiki.html");
-    await expect(page.locator("#tree_root > li")).toHaveCount(4);
+    await expectTreeReady(page);
     await page.evaluate(() => {
         if (!window.navigate("subpags/ciberseguridad/index.html", true)) {
             throw new Error("No se pudo iniciar la navegación de prueba");
@@ -62,7 +63,7 @@ test.describe("Carga y transiciones de documentos", () => {
 
     test("mantiene visible la carga durante una respuesta lenta y la retira al terminar", async ({ page }) => {
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         let releaseResponse;
         const responseGate = new Promise((resolve) => { releaseResponse = resolve; });
         await page.route("**/subpags/ciberseguridad/index.html", async (route) => {
@@ -84,7 +85,7 @@ test.describe("Carga y transiciones de documentos", () => {
 
     test("los cambios rápidos no permiten que una página anterior cierre la carga de la actual", async ({ page }) => {
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         await page.evaluate(() => {
             window.navigate("subpags/ciberseguridad/index.html", true);
             window.navigate("subpags/ciberseguridad/adfb/index.html", true);
@@ -99,7 +100,7 @@ test.describe("Carga y transiciones de documentos", () => {
 
     test("muestra un error recuperable si la página no anuncia que está lista", async ({ page }) => {
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         await page.route("**/subpags/ciberseguridad/index.html", (route) => route.abort());
         await page.evaluate(() => { window.NAVIGATION_LOAD_TIMEOUT = 250; });
         await page.evaluate(() => window.navigate("subpags/ciberseguridad/index.html", true));
@@ -113,7 +114,7 @@ test.describe("Carga y transiciones de documentos", () => {
 
     test("permite reintentar después de un error", async ({ page }) => {
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         let fail = true;
         await page.route("**/subpags/ciberseguridad/index.html", async (route) => {
             if (fail) {
@@ -154,7 +155,7 @@ test.describe("Carga y transiciones de documentos", () => {
     test("el indicador y el botón de recuperación siguen siendo accesibles en móvil", async ({ page }) => {
         await page.setViewportSize({ width: 390, height: 844 });
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         await page.route("**/subpags/ciberseguridad/index.html", (route) => route.abort());
         await page.evaluate(() => { window.NAVIGATION_LOAD_TIMEOUT = 250; });
         await page.evaluate(() => window.navigate("subpags/ciberseguridad/index.html", true));

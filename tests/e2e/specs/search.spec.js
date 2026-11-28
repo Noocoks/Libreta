@@ -1,9 +1,10 @@
 const { test, expect } = require("@playwright/test");
+const { expectTreeReady } = require("../helpers/tree");
 
 test.describe("Buscador y etiquetas", () => {
     test.beforeEach(async ({ page }) => {
         await page.goto("wiki.html");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         const toggle = page.locator("#tree_panel_toggle_btn");
         if (await toggle.getAttribute("aria-expanded") !== "true") {
             await toggle.click();
@@ -40,7 +41,7 @@ test.describe("Buscador y etiquetas", () => {
         await page.getByRole("button", { name: "Limpiar búsqueda" }).click();
 
         await expect(search).toHaveValue("");
-        await expect(page.locator("#tree_root > li")).toHaveCount(4);
+        await expectTreeReady(page);
         await expect(page.getByRole("link", { name: /Ciberseguridad/ })).toBeVisible();
     });
 
