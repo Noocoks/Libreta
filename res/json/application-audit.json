@@ -526,28 +526,43 @@
       "id": "brave",
       "name": "Brave",
       "path": "subpags/software/apps/brave.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://brave.com/",
+        "https://github.com/brave/brave-browser",
+        "https://support.brave.com/",
+        "https://brave.com/shields/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "firefox",
       "name": "Firefox",
       "path": "subpags/software/apps/firefox.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.mozilla.org/firefox/",
+        "https://www.mozilla.org/en-US/MPL/2.0/",
+        "https://support.mozilla.org/",
+        "https://firefox-source-docs.mozilla.org/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "librewolf",
       "name": "LibreWolf",
       "path": "subpags/software/apps/librewolf.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://librewolf.net/",
+        "https://librewolf.net/docs/faq/",
+        "https://librewolf.net/installation/windows/",
+        "https://gitlab.com/librewolf-community/browser"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "bitwarden",
@@ -588,10 +603,15 @@
       "id": "keepassxc",
       "name": "KeePassXC",
       "path": "subpags/software/apps/keepassxc.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://keepassxc.org/",
+        "https://keepassxc.org/docs/",
+        "https://keepassxc.org/docs/KeePassXC_GettingStarted",
+        "https://github.com/keepassxreboot/keepassxc"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "eartrumpet",
@@ -606,46 +626,69 @@
       "id": "peace",
       "name": "Peace",
       "path": "subpags/software/apps/peace.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://sourceforge.net/projects/peace-equalizer-apo-extension/",
+        "https://github.com/peace-equalizer/peace-equalizer-apo",
+        "https://sourceforge.net/projects/equalizerapo/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "voicemeeter",
       "name": "VoiceMeeter",
       "path": "subpags/software/apps/voicemeeter.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://vb-audio.com/Voicemeeter/",
+        "https://voicemeeter.com/",
+        "https://vb-audio.com/Services/licensing.htm",
+        "https://vb-audio.com/Voicemeeter/Voicemeeter_UserManual.pdf"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "spicetify",
       "name": "Spicetify",
       "path": "subpags/software/apps/spicetify.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://spicetify.app/",
+        "https://github.com/spicetify/cli",
+        "https://github.com/spicetify/docs/blob/main/docs/getting-started.md",
+        "https://github.com/spicetify/spicetify-themes"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "winamp",
       "name": "Winamp",
       "path": "subpags/software/apps/winamp.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.winamp.com/",
+        "https://support.winamp.com/winamp-desktop-player-for-windows",
+        "https://support.winamp.com/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "audacity",
       "name": "Audacity",
       "path": "subpags/software/apps/audacity.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.audacityteam.org/",
+        "https://github.com/audacity/audacity",
+        "https://manual.audacityteam.org/",
+        "https://github.com/audacity/audacity/blob/master/LICENSE.txt"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "mixxx",
