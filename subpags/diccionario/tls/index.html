@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="description" content="TLS es un protocolo criptográfico que protege comunicaciones entre aplicaciones sobre una conexión de transporte. Aporta confidencialidad, integridad ">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://noocoks.github.io/Libreta/; script-src-attr 'none'; style-src 'self' https://noocoks.github.io/Libreta/; style-src-attr 'none'; style-src-elem 'self' https://noocoks.github.io/Libreta/; img-src 'self' https://noocoks.github.io/Libreta/ data:; font-src 'self' https://noocoks.github.io/Libreta/; connect-src 'self' https://noocoks.github.io/Libreta/; frame-src 'self'; form-action 'self';">
+<title>Transport Layer Security (TLS) · Diccionario técnico</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body><main class="page glossary-article" data-cat="diccionario tls">
+<nav class="application-breadcrumb" aria-label="Navegación"><a href="../index.html">Diccionario técnico</a><span aria-hidden="true">›</span><span>Transport Layer Security (TLS)</span></nav>
+<header class="glossary-hero"><p class="library-eyebrow">LIBRETA / DICCIONARIO TÉCNICO</p><h1>Transport Layer Security (TLS)</h1><p class="library-lead">TLS es un protocolo criptográfico que protege comunicaciones entre aplicaciones sobre una conexión de transporte. Aporta confidencialidad, integridad y autenticación mediante certificados cuando se valida correctamente el servidor.</p></header>
+<section class="application-detail-section"><h2>Concepto y contexto</h2><p>En el handshake, cliente y servidor negocian parámetros criptográficos, autentican el servidor mediante su certificado y establecen secretos compartidos. Las versiones modernas utilizan intercambio de claves efímero y cifrados autenticados para proteger los datos de aplicación.</p></section>
+<section class="application-detail-section"><h2>Funcionamiento técnico</h2><p>TLS 1.3 simplifica el handshake y elimina algoritmos heredados inseguros. La validación del certificado incluye cadena de confianza, vigencia y correspondencia del nombre del servidor. La configuración de protocolos, suites y certificados depende del software y su versión.</p></section>
+<section class="application-detail-section"><h2>Consideraciones prácticas y seguridad</h2><p>No desactives la validación de certificados para resolver errores de conexión. Corrige el almacén de confianza, nombre, cadena o reloj del sistema. TLS protege el transporte, no garantiza que el servicio remoto sea legítimo o seguro.</p></section>
+<p class="application-review-note">Artículo técnico de consulta. Comprueba siempre la documentación oficial de la plataforma y la versión concreta que estés utilizando.</p>
+<p><a href="../index.html">← Volver al diccionario</a></p>
+</main></body></html>

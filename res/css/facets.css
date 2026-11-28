@@ -1,0 +1,80 @@
+/* Selector de facetas: panel de consulta independiente del árbol. */
+.facet-switcher{position:relative;margin:10px 10px 14px;z-index:20}
+.facet-trigger{display:grid;grid-template-columns:1fr auto;gap:.3rem .6rem;width:100%;padding:.75rem .85rem;text-align:left;border:1px solid var(--border);border-radius:9px;background:linear-gradient(115deg,rgba(121,0,24,.22),rgba(255,255,255,.025));color:var(--text)}
+.facet-trigger:hover{border-color:rgba(209,74,104,.65);background:linear-gradient(115deg,rgba(121,0,24,.32),rgba(255,255,255,.04))}
+.facet-trigger-kicker{grid-column:1/-1;color:var(--accent-light);font:700 .62rem/1.2 monospace;letter-spacing:.15em}
+.facet-trigger-current{display:flex;align-items:center;gap:.55rem;font-size:.95rem}
+.facet-trigger-dot{width:7px;height:7px;border-radius:50%;background:var(--accent-light);box-shadow:0 0 12px rgba(209,74,104,.55)}
+.facet-trigger-action{align-self:center;color:var(--muted);font-size:1.15rem}
+.facet-menu[hidden],.facet-secondary-view[hidden]{display:none!important}
+.facet-menu{position:absolute;top:calc(100% + 9px);left:0;width:min(560px,calc(100vw - 32px));padding:1.1rem;border:1px solid rgba(209,74,104,.32);border-radius:13px;background:linear-gradient(145deg,#19212a,#0d1117 75%);box-shadow:0 22px 65px rgba(0,0,0,.62);z-index:500}
+.facet-menu-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:0 0 1rem;border-bottom:1px solid var(--border)}
+.facet-menu-header h2{margin:.2rem 0 .35rem;font-size:1.35rem;letter-spacing:.02em}
+.facet-menu-header p:last-child{margin:0;color:var(--muted);font-size:.82rem}
+.facet-menu-kicker{margin:0;color:var(--accent-light);font:700 .65rem monospace;letter-spacing:.16em}
+.facet-menu-close{width:34px;height:34px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,.035);font-size:1.4rem;line-height:1}
+.facet-menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;padding:1rem 0}
+.facet-option{display:grid;grid-template-columns:38px minmax(0,1fr) 15px;align-items:center;gap:.7rem;min-width:0;min-height:78px;padding:.8rem;border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.025);text-align:left;color:var(--text)}
+.facet-option:hover,.facet-option.is-active{border-color:rgba(209,74,104,.7);background:rgba(121,0,24,.19)}
+.facet-option-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:8px;background:rgba(209,74,104,.12);color:#e38a9d;font-size:1rem;font-weight:800}
+.facet-option strong,.facet-option small{display:block}
+.facet-option strong{font-size:.88rem}
+.facet-option small{margin-top:.25rem;color:var(--muted);font-size:.7rem;line-height:1.4}
+.facet-option-arrow{color:var(--accent-light)}
+.facet-menu-footer{display:flex;justify-content:space-between;gap:.75rem;padding-top:.8rem;border-top:1px solid var(--border);color:var(--muted);font-size:.65rem}
+.facet-menu-footer span:first-child{color:var(--accent-light);font-weight:800;letter-spacing:.12em}
+.facet-view-intro{margin:0 12px .8rem;color:var(--muted);font-size:.8rem;line-height:1.5}
+.facet-dictionary-search{display:block;width:calc(100% - 24px);min-height:40px;margin:0 12px .65rem;padding:.6rem .75rem;border:1px solid var(--border);border-radius:7px;background:#0a0e13;color:var(--text);font:inherit}
+.facet-dictionary-status{margin:0 12px .6rem;color:var(--accent-light);font-size:.72rem}
+.facet-dictionary-results{display:grid;gap:.45rem;padding:0 10px 14px}
+.facet-dictionary-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.2rem .5rem;padding:.65rem .7rem;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,.02)}
+.facet-dictionary-term{padding:0;text-align:left;color:var(--text);font-weight:750}
+.facet-dictionary-term:hover{color:#f18ba0}
+.facet-dictionary-category{color:var(--muted);font-size:.65rem}
+.facet-dictionary-definition{grid-column:1/-1;margin:.35rem 0 0;color:#c4cbd1;font-size:.78rem;line-height:1.55}
+.facet-dictionary-more{grid-column:1/-1;color:var(--accent-light);font-size:.72rem;text-decoration:none}
+body.facet-menu-open{overflow:hidden}
+@media(max-width:900px){
+ .facet-switcher{margin:8px 10px 12px}
+ .facet-menu{position:fixed;inset:0;width:100%;height:100vh;height:100dvh;max-height:100vh;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;padding:calc(env(safe-area-inset-top,0px) + 1.15rem) max(1rem,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 1rem) max(1rem,env(safe-area-inset-left,0px));border:0;border-radius:0;background:radial-gradient(ellipse at 10% 0%,rgba(121,0,24,.22),transparent 42%),linear-gradient(160deg,#171e26,#090c10 78%);box-shadow:none;z-index:1000}
+ .facet-menu-header{padding-bottom:1.2rem}
+ .facet-menu-header h2{font-size:clamp(1.5rem,6vw,2rem)}
+ .facet-menu-grid{grid-template-columns:1fr;gap:.65rem;padding:1.2rem 0}
+ .facet-option{min-height:76px;padding:.95rem}
+ .facet-option strong{font-size:.96rem}
+ .facet-option small{font-size:.76rem}
+ .facet-menu-footer{position:sticky;bottom:0;padding:.85rem 0 max(.4rem,env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(9,12,16,0),#090c10 30%)}
+}
+@media(min-width:901px){
+ .facet-menu{max-height:min(78vh,720px);overflow-y:auto}
+}
+@media(prefers-reduced-motion:reduce){.facet-trigger,.facet-option{transition:none}}
+
+/* Iconografía de marca y diccionario contextual. */
+.library-card-top{display:flex;align-items:center;gap:.55rem;min-height:28px}
+.library-app-logo{display:block;width:30px;height:30px;flex:0 0 30px;object-fit:contain}
+.tree-app-logo{display:inline-block;width:17px;height:17px;margin:0 4px 0 2px;vertical-align:-4px;object-fit:contain}
+.glossary-term{position:relative;display:inline;text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--accent-light);text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:700;cursor:help;border-radius:2px}
+.glossary-term:hover,.glossary-term:focus-visible,.glossary-term[aria-expanded=true]{color:#f18ba0;background:rgba(121,0,24,.12);outline-offset:2px}
+.glossary-term::after{position:absolute;z-index:1000;left:50%;bottom:calc(100% + 10px);width:min(310px,calc(100vw - 40px));padding:.75rem .85rem;border:1px solid rgba(209,74,104,.45);border-radius:8px;background:#151b22;color:#e8edf1;box-shadow:0 12px 32px rgba(0,0,0,.42);font-size:.82rem;font-weight:450;line-height:1.55;white-space:normal;content:attr(data-definition);opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,4px);transition:opacity .15s ease,transform .15s ease,visibility .15s}
+.glossary-term:hover::after,.glossary-term:focus-visible::after,.glossary-term[aria-expanded=true]::after{opacity:1;visibility:visible;transform:translate(-50%,0)}
+@media(max-width:600px){.glossary-term::after{position:fixed;left:12px;right:12px;bottom:12px;width:auto;max-width:none;transform:translateY(4px)}.glossary-term:hover::after,.glossary-term:focus-visible::after,.glossary-term[aria-expanded=true]::after{transform:translateY(0)}}
+
+.facet-dictionary-related{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;margin-top:.4rem}
+.facet-dictionary-related>span{width:100%;color:var(--muted);font-size:.66rem}
+.facet-dictionary-related button{padding:.25rem .45rem;border:1px solid rgba(209,74,104,.28);border-radius:5px;color:#d9a3af;font-size:.68rem}
+.facet-dictionary-related button:hover{background:rgba(121,0,24,.2);color:#fff}
+
+.glossary-term[data-tooltip-align="left"]::after{left:0;transform:translate(0,4px)}
+.glossary-term[data-tooltip-align="right"]::after{left:auto;right:0;transform:translate(0,4px)}
+.glossary-term[data-tooltip-align="left"]:hover::after,.glossary-term[data-tooltip-align="left"]:focus-visible::after,.glossary-term[data-tooltip-align="left"][aria-expanded=true]::after{left:0;transform:translate(0,0)}
+.glossary-term[data-tooltip-align="right"]:hover::after,.glossary-term[data-tooltip-align="right"]:focus-visible::after,.glossary-term[data-tooltip-align="right"][aria-expanded=true]::after{left:auto;right:0;transform:translate(0,0)}
+.glossary-term[data-tooltip-placement="below"]::after{top:calc(100% + 10px);bottom:auto}
+.glossary-term[data-tooltip-placement="below"]:hover::after,.glossary-term[data-tooltip-placement="below"]:focus-visible::after,.glossary-term[data-tooltip-placement="below"][aria-expanded=true]::after{transform:translate(-50%,0)}
+.glossary-term[data-tooltip-placement="below"][data-tooltip-align="left"]:hover::after,.glossary-term[data-tooltip-placement="below"][data-tooltip-align="left"]:focus-visible::after,.glossary-term[data-tooltip-placement="below"][data-tooltip-align="left"][aria-expanded=true]::after{transform:translate(0,0)}
+.glossary-term[data-tooltip-placement="below"][data-tooltip-align="right"]:hover::after,.glossary-term[data-tooltip-placement="below"][data-tooltip-align="right"]:focus-visible::after,.glossary-term[data-tooltip-placement="below"][data-tooltip-align="right"][aria-expanded=true]::after{transform:translate(0,0)}
+
+.library-app-logo{padding:4px;border-radius:6px;background:#f3f3f3}
+.tree-app-logo{padding:2px;border-radius:4px;background:#f3f3f3}
+@media(min-width:901px){.tree-panel.facet-menu-expanded{overflow:visible}}
+@media(prefers-reduced-motion:reduce){.glossary-term::after{transition:none}}

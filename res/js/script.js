@@ -205,7 +205,22 @@ function getAllowedPath(file_path) {
         return null;
     }
 
-    return findCanonicalTreePath(treeData.sections, relativePath);
+    var canonicalTreePath = findCanonicalTreePath(treeData.sections, relativePath);
+    if (canonicalTreePath !== null) return canonicalTreePath;
+
+    /* Artículos del diccionario: rutas estáticas explícitas, fuera del árbol temático. */
+    var glossaryArticlePaths = [
+        "subpags/diccionario/index.html",
+        "subpags/diccionario/api/index.html",
+        "subpags/diccionario/bios-uefi/index.html",
+        "subpags/diccionario/contenedores/index.html",
+        "subpags/diccionario/csp/index.html",
+        "subpags/diccionario/cgroups/index.html",
+        "subpags/diccionario/kernel/index.html",
+        "subpags/diccionario/namespaces/index.html",
+        "subpags/diccionario/tls/index.html"
+    ];
+    return glossaryArticlePaths.indexOf(relativePath) !== -1 ? relativePath : null;
 }
 
 var navigationLoadTimer = null;
@@ -529,6 +544,26 @@ function createTreeNode(item) {
     link.href = "#";
     link.textContent = item.name;
 
+    var appIconFiles = {
+        "blender":"blender","gimp":"gimp","krita":"krita","obs-studio":"obsstudio",
+        "docker-desktop":"docker","steam":"steam","brave":"brave","firefox":"firefox",
+        "audacity":"audacity","7-zip":"7zip","qbittorrent":"qbittorrent",
+        "tailscale":"tailscale","rustdesk":"rustdesk","localsend":"localsend",
+        "obsidian":"obsidian","libreoffice":"libreoffice","autohotkey":"autohotkey",
+        "epic-games-store":"epicgames","ubisoft-connect":"ubisoft","bitwarden":"bitwarden",
+        "keepassxc":"keepassxc","proton-vpn":"protonvpn","winamp":"winamp","inkscape":"inkscape","kdenlive":"kdenlive","dbeaver-community":"dbeaver","joplin":"joplin","vscodium":"vscodium","syncthing":"syncthing","freecad":"freecad","mixxx":"mixxx","kde-connect":"kdeconnect","windhawk":"windhawk","seelen-ui":"seelen-ui","quicklook":"quicklook"
+    };
+    if (item.cat && appIconFiles[item.cat]) {
+        var appIcon = document.createElement("img");
+        appIcon.className = "tree-app-logo";
+        appIcon.src = "/Libreta/images/apps/" + appIconFiles[item.cat] + ".svg";
+        appIcon.alt = "";
+        appIcon.setAttribute("aria-hidden", "true");
+        appIcon.loading = "lazy";
+        appIcon.addEventListener("error", function () { appIcon.remove(); }, { once: true });
+        li.appendChild(appIcon);
+    }
+
     link.onclick = function (e) {
         e.preventDefault();
         changeFrame(item.path);
@@ -658,6 +693,7 @@ function loadTree() {
             treeData = data;
             buildTree(data);
             loadRecentPages();
+            window.dispatchEvent(new CustomEvent("libreta:tree-ready"));
 
             // En móvil y tablet, priorizar el contenido y dejar el índice como drawer.
             // El botón ya está creado por el evento load antes de que termine este fetch.
@@ -928,6 +964,17 @@ function collectAllowedPaths(nodes, result) {
         }
         if (node && Array.isArray(node.children)) collectAllowedPaths(node.children, result);
     });
+    [
+        "subpags/diccionario/index.html",
+        "subpags/diccionario/api/index.html",
+        "subpags/diccionario/bios-uefi/index.html",
+        "subpags/diccionario/contenedores/index.html",
+        "subpags/diccionario/csp/index.html",
+        "subpags/diccionario/cgroups/index.html",
+        "subpags/diccionario/kernel/index.html",
+        "subpags/diccionario/namespaces/index.html",
+        "subpags/diccionario/tls/index.html"
+    ].forEach(function (path) { result.push(path); });
     return result;
 }
 

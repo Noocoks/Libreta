@@ -27,10 +27,33 @@
         <div class="tree-panel">
             <div class="tree">
 
+                <div class="facet-switcher" id="facet-switcher">
+                    <button class="facet-trigger" id="facet-trigger" type="button" aria-haspopup="dialog" aria-controls="facet-menu" aria-expanded="false">
+                        <span class="facet-trigger-kicker">LIBRETA / VISTAS</span>
+                        <span class="facet-trigger-current"><span class="facet-trigger-dot" aria-hidden="true"></span><strong id="facet-current-label">Índice</strong></span>
+                        <span class="facet-trigger-action" aria-hidden="true">⌄</span>
+                    </button>
+                    <section class="facet-menu" id="facet-menu" role="dialog" aria-labelledby="facet-menu-title" aria-modal="false" hidden>
+                        <header class="facet-menu-header">
+                            <div><p class="facet-menu-kicker">LIBRETA / NAVEGACIÓN</p><h2 id="facet-menu-title">Explorar facetas</h2><p>Accede a las distintas formas de consultar la documentación.</p></div>
+                            <button class="facet-menu-close" id="facet-menu-close" type="button" aria-label="Cerrar menú de facetas">×</button>
+                        </header>
+                        <div class="facet-menu-grid">
+                            <button class="facet-option is-active" type="button" data-facet="index"><span class="facet-option-icon" aria-hidden="true">⌘</span><span><strong>Índice</strong><small>Explorar el árbol completo de documentación</small></span><span class="facet-option-arrow" aria-hidden="true">→</span></button>
+                            <button class="facet-option" type="button" data-facet="dictionary"><span class="facet-option-icon" aria-hidden="true">Aa</span><span><strong>Diccionario técnico</strong><small>Buscar conceptos, siglas y definiciones</small></span><span class="facet-option-arrow" aria-hidden="true">→</span></button>
+                            <button class="facet-option" type="button" data-facet="library"><span class="facet-option-icon" aria-hidden="true">▤</span><span><strong>Biblioteca de aplicaciones</strong><small>Explorar software por actividad y finalidad</small></span><span class="facet-option-arrow" aria-hidden="true">→</span></button>
+                            <button class="facet-option" type="button" data-facet="modding"><span class="facet-option-icon" aria-hidden="true">⌬</span><span><strong>Modding</strong><small>Sistemas, ROMs y modificaciones</small></span><span class="facet-option-arrow" aria-hidden="true">→</span></button>
+                        </div>
+                        <footer class="facet-menu-footer"><span>VISTAS DE CONSULTA</span><span>Selecciona una faceta para continuar</span></footer>
+                    </section>
+                </div>
+
                 <!-- Índice Ini -->
                 <div class="index-title">
-                    <h1>Índice</h1>
+                    <h1 id="facet-heading">// ÍNDICE</h1>
                 </div>
+
+                <div class="facet-secondary-view" id="facet-secondary-view" hidden></div>
 
                 <details class="reader-settings" id="reader-settings">
                     <summary>Preferencias de lectura</summary>
@@ -164,6 +187,7 @@
     </div>
     <script src="/Libreta/res/js/knowledge-dashboard.js" defer></script>
     <script src="/Libreta/res/js/wiki-controls.js" defer></script>
+    <script src="/Libreta/res/js/facets.js" defer></script>
 </body>
 
 </html>

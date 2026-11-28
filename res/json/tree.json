@@ -482,27 +482,9 @@
                   ]
                 },
                 {
-                  "name": "Wallpaper Engine",
-                  "cat": "wallpaper-engine",
-                  "path": "subpags/software/apps/wallpaper-engine.html",
-                  "tags": [
-                    "software",
-                    "personalizacion-y-escritorio"
-                  ]
-                },
-                {
                   "name": "Rainmeter",
                   "cat": "rainmeter",
                   "path": "subpags/software/apps/rainmeter.html",
-                  "tags": [
-                    "software",
-                    "personalizacion-y-escritorio"
-                  ]
-                },
-                {
-                  "name": "MyDockFinder",
-                  "cat": "mydockfinder",
-                  "path": "subpags/software/apps/mydockfinder.html",
                   "tags": [
                     "software",
                     "personalizacion-y-escritorio"
@@ -539,15 +521,6 @@
                   "name": "Seelen UI",
                   "cat": "seelen-ui",
                   "path": "subpags/software/apps/seelen-ui.html",
-                  "tags": [
-                    "software",
-                    "personalizacion-y-escritorio"
-                  ]
-                },
-                {
-                  "name": "Anima Engine",
-                  "cat": "anima-engine",
-                  "path": "subpags/software/apps/anima-engine.html",
                   "tags": [
                     "software",
                     "personalizacion-y-escritorio"
@@ -747,15 +720,6 @@
                   ]
                 },
                 {
-                  "name": "File Pilot",
-                  "cat": "file-pilot",
-                  "path": "subpags/software/apps/file-pilot.html",
-                  "tags": [
-                    "software",
-                    "archivos-compresion-y-gestion-documental"
-                  ]
-                },
-                {
                   "name": "Recuva",
                   "cat": "recuva",
                   "path": "subpags/software/apps/recuva.html",
@@ -830,15 +794,6 @@
                   ]
                 },
                 {
-                  "name": "Sunshine",
-                  "cat": "sunshine",
-                  "path": "subpags/software/apps/sunshine.html",
-                  "tags": [
-                    "software",
-                    "redes-transferencia-y-acceso-remoto"
-                  ]
-                },
-                {
                   "name": "DroidCam",
                   "cat": "droidcam",
                   "path": "subpags/software/apps/droidcam.html",
@@ -863,6 +818,28 @@
                   "tags": [
                     "software",
                     "redes-transferencia-y-acceso-remoto"
+                  ]
+                },
+                {
+                  "name": "KDE Connect",
+                  "cat": "kde-connect",
+                  "path": "subpags/software/apps/kde-connect.html",
+                  "tags": [
+                    "móvil",
+                    "integración",
+                    "archivos",
+                    "portapapeles"
+                  ]
+                },
+                {
+                  "name": "Syncthing",
+                  "cat": "syncthing",
+                  "path": "subpags/software/apps/syncthing.html",
+                  "tags": [
+                    "sincronización",
+                    "archivos",
+                    "P2P",
+                    "backup"
                   ]
                 }
               ]
@@ -1003,6 +980,18 @@
                     "software",
                     "audio-musica-y-produccion-sonora"
                   ]
+                },
+                {
+                  "name": "Mixxx",
+                  "cat": "mixxx",
+                  "path": "subpags/software/apps/mixxx.html",
+                  "tags": [
+                    "audio",
+                    "DJ",
+                    "mezcla",
+                    "MIDI",
+                    "música"
+                  ]
                 }
               ]
             },
@@ -1106,6 +1095,28 @@
                     "software",
                     "diseno-ilustracion-y-creacion-visual"
                   ]
+                },
+                {
+                  "name": "Inkscape",
+                  "cat": "inkscape",
+                  "path": "subpags/software/apps/inkscape.html",
+                  "tags": [
+                    "vectorial",
+                    "SVG",
+                    "ilustración",
+                    "diseño"
+                  ]
+                },
+                {
+                  "name": "FreeCAD",
+                  "cat": "freecad",
+                  "path": "subpags/software/apps/freecad.html",
+                  "tags": [
+                    "CAD",
+                    "paramétrico",
+                    "3D",
+                    "ingeniería"
+                  ]
                 }
               ]
             },
@@ -1152,6 +1163,17 @@
                   "tags": [
                     "software",
                     "video-edicion-y-posproduccion"
+                  ]
+                },
+                {
+                  "name": "Kdenlive",
+                  "cat": "kdenlive",
+                  "path": "subpags/software/apps/kdenlive.html",
+                  "tags": [
+                    "vídeo",
+                    "edición",
+                    "montaje",
+                    "posproducción"
                   ]
                 }
               ]
@@ -1314,15 +1336,6 @@
                   ]
                 },
                 {
-                  "name": "Lossless Scaling",
-                  "cat": "lossless-scaling",
-                  "path": "subpags/software/apps/lossless-scaling.html",
-                  "tags": [
-                    "software",
-                    "videojuegos-y-experiencia-gaming"
-                  ]
-                },
-                {
                   "name": "Magpie",
                   "cat": "magpie",
                   "path": "subpags/software/apps/magpie.html",
@@ -1365,6 +1378,17 @@
                   "tags": [
                     "software",
                     "videojuegos-y-experiencia-gaming"
+                  ]
+                },
+                {
+                  "name": "Sunshine",
+                  "cat": "sunshine",
+                  "path": "subpags/software/apps/sunshine.html",
+                  "tags": [
+                    "videojuegos",
+                    "streaming",
+                    "Moonlight",
+                    "juegos"
                   ]
                 }
               ]
@@ -1430,6 +1454,17 @@
                   "tags": [
                     "software",
                     "productividad-organizacion-y-oficina"
+                  ]
+                },
+                {
+                  "name": "Joplin",
+                  "cat": "joplin",
+                  "path": "subpags/software/apps/joplin.html",
+                  "tags": [
+                    "notas",
+                    "Markdown",
+                    "tareas",
+                    "sincronización"
                   ]
                 }
               ]
@@ -1524,6 +1559,28 @@
                   "tags": [
                     "software",
                     "desarrollo-y-herramientas-para-programadores"
+                  ]
+                },
+                {
+                  "name": "DBeaver Community",
+                  "cat": "dbeaver-community",
+                  "path": "subpags/software/apps/dbeaver-community.html",
+                  "tags": [
+                    "SQL",
+                    "bases de datos",
+                    "JDBC",
+                    "desarrollo"
+                  ]
+                },
+                {
+                  "name": "VSCodium",
+                  "cat": "vscodium",
+                  "path": "subpags/software/apps/vscodium.html",
+                  "tags": [
+                    "editor",
+                    "código",
+                    "VS Code",
+                    "desarrollo"
                   ]
                 }
               ]

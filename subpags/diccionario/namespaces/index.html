@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="description" content="Los namespaces aíslan la vista que tienen los procesos de determinados recursos globales del sistema. Son una de las bases del aislamiento de contened">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://noocoks.github.io/Libreta/; script-src-attr 'none'; style-src 'self' https://noocoks.github.io/Libreta/; style-src-attr 'none'; style-src-elem 'self' https://noocoks.github.io/Libreta/; img-src 'self' https://noocoks.github.io/Libreta/ data:; font-src 'self' https://noocoks.github.io/Libreta/; connect-src 'self' https://noocoks.github.io/Libreta/; frame-src 'self'; form-action 'self';">
+<title>Namespaces de Linux · Diccionario técnico</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body><main class="page glossary-article" data-cat="diccionario namespaces">
+<nav class="application-breadcrumb" aria-label="Navegación"><a href="../index.html">Diccionario técnico</a><span aria-hidden="true">›</span><span>Namespaces de Linux</span></nav>
+<header class="glossary-hero"><p class="library-eyebrow">LIBRETA / DICCIONARIO TÉCNICO</p><h1>Namespaces de Linux</h1><p class="library-lead">Los namespaces aíslan la vista que tienen los procesos de determinados recursos globales del sistema. Son una de las bases del aislamiento de contenedores en Linux.</p></header>
+<section class="application-detail-section"><h2>Concepto y contexto</h2><p>Entre los tipos habituales están mount (montajes), PID (identificadores de proceso), network (interfaces, rutas y puertos), IPC (comunicación entre procesos), UTS (hostname y dominio), user (identificadores y capacidades) y cgroup (vista de cgroups).</p></section>
+<section class="application-detail-section"><h2>Funcionamiento técnico</h2><p>Un proceso puede pertenecer simultáneamente a varios namespaces. Herramientas como unshare y nsenter permiten crear o entrar en namespaces para administración y experimentación. Los runtimes de contenedores coordinan estos mecanismos con cgroups, capacidades y políticas adicionales.</p></section>
+<section class="application-detail-section"><h2>Consideraciones prácticas y seguridad</h2><p>Los namespaces aíslan vistas, pero no sustituyen por sí solos a una política completa de seguridad. Comprueba capacidades, montajes, llamadas permitidas, usuarios, red y acceso a dispositivos.</p></section>
+<p class="application-review-note">Artículo técnico de consulta. Comprueba siempre la documentación oficial de la plataforma y la versión concreta que estés utilizando.</p>
+<p><a href="../index.html">← Volver al diccionario</a></p>
+</main></body></html>

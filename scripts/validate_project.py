@@ -244,6 +244,29 @@ def check_json() -> dict:
     return data
 
 
+def dictionary_page_paths(root: Path = ROOT) -> set[str]:
+    """Rutas documentales del diccionario: páginas consultables, no nodos del árbol."""
+    paths = {"subpags/diccionario/index.html"}
+    glossary_file = root / "res/json/glossary.json"
+    try:
+        data = json.loads(glossary_file.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return paths
+    concepts = data.get("concepts", []) if isinstance(data, dict) else []
+    if not isinstance(concepts, list):
+        return paths
+    for concept in concepts:
+        if not isinstance(concept, dict):
+            continue
+        path = concept.get("path")
+        if not isinstance(path, str) or not path.startswith("subpags/diccionario/") or not path.endswith("/index.html"):
+            continue
+        parts = path.split("/")
+        if "\\" not in path and all(part not in {"", ".", ".."} for part in parts):
+            paths.add(path)
+    return paths
+
+
 def check_tree(data: dict) -> set[str]:
     tree_paths, validation_errors = validate_tree_data(data)
     ERRORS.extend(validation_errors)
@@ -251,7 +274,7 @@ def check_tree(data: dict) -> set[str]:
         path.relative_to(ROOT).as_posix()
         for path in (ROOT / "subpags").rglob("*.html")
     }
-    for relative in sorted(content_pages - tree_paths):
+    for relative in sorted(content_pages - tree_paths - dictionary_page_paths()):
         ERRORS.append(f"Página HTML no incluida en tree.json: {relative}")
     return tree_paths
 

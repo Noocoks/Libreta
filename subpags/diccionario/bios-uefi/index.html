@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Nooko">
+<meta name="description" content="BIOS y UEFI son firmware de plataforma que prepara el equipo para iniciar un sistema operativo. UEFI es la especificación moderna y no debe confundirs">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://noocoks.github.io/Libreta/; script-src-attr 'none'; style-src 'self' https://noocoks.github.io/Libreta/; style-src-attr 'none'; style-src-elem 'self' https://noocoks.github.io/Libreta/; img-src 'self' https://noocoks.github.io/Libreta/ data:; font-src 'self' https://noocoks.github.io/Libreta/; connect-src 'self' https://noocoks.github.io/Libreta/; frame-src 'self'; form-action 'self';">
+<title>BIOS y UEFI · Diccionario técnico</title>
+<link rel="stylesheet" href="/Libreta/res/css/styles.css">
+<script src="/Libreta/res/js/page.js"></script>
+</head>
+<body><main class="page glossary-article" data-cat="diccionario bios-uefi">
+<nav class="application-breadcrumb" aria-label="Navegación"><a href="../index.html">Diccionario técnico</a><span aria-hidden="true">›</span><span>BIOS y UEFI</span></nav>
+<header class="glossary-hero"><p class="library-eyebrow">LIBRETA / DICCIONARIO TÉCNICO</p><h1>BIOS y UEFI</h1><p class="library-lead">BIOS y UEFI son firmware de plataforma que prepara el equipo para iniciar un sistema operativo. UEFI es la especificación moderna y no debe confundirse con el BIOS heredado.</p></header>
+<section class="application-detail-section"><h2>Concepto y contexto</h2><p>Durante el encendido, el firmware inicializa componentes esenciales, ejecuta comprobaciones y selecciona un dispositivo o entrada de arranque. En equipos UEFI, el firmware puede cargar una aplicación EFI desde la partición del sistema EFI (ESP), normalmente en un disco con tabla GPT.</p></section>
+<section class="application-detail-section"><h2>Funcionamiento técnico</h2><p>UEFI define servicios de arranque y variables persistentes, admite controladores EFI y puede aplicar Secure Boot para verificar firmas de componentes de arranque. El modo CSM/Legacy permite compatibilidad con arranque BIOS antiguo, pero puede cambiar los requisitos de particionado y arranque.</p></section>
+<section class="application-detail-section"><h2>Consideraciones prácticas y seguridad</h2><p>Antes de cambiar opciones como Secure Boot, TPM, CSM o modo SATA, registra la configuración original y comprueba el método de arranque de Windows/Linux. Cambiarlo sin preparar el sistema puede impedir el arranque o activar recuperación de cifrado.</p></section>
+<p class="application-review-note">Artículo técnico de consulta. Comprueba siempre la documentación oficial de la plataforma y la versión concreta que estés utilizando.</p>
+<p><a href="../index.html">← Volver al diccionario</a></p>
+</main></body></html>

@@ -1,0 +1,1158 @@
+{
+  "version": 1,
+  "updated": "2026-11-28",
+  "policy": "free-functional-tier",
+  "applications": [
+    {
+      "id": "nilesoft-shell",
+      "name": "Nilesoft Shell",
+      "path": "subpags/software/apps/nilesoft-shell.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.nilesoft.org/",
+        "https://github.com/moudey/shell",
+        "https://www.nilesoft.org/docs"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "translucenttb",
+      "name": "TranslucentTB",
+      "path": "subpags/software/apps/translucenttb.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/TranslucentTB/TranslucentTB",
+        "https://github.com/TranslucentTB/TranslucentTB/releases",
+        "https://translucenttb.io/"
+      ],
+      "note": "Datos contrastados con la documentación oficial; las condiciones de uso y compatibilidad se revisan de nuevo si cambia la versión."
+    },
+    {
+      "id": "windhawk",
+      "name": "Windhawk",
+      "path": "subpags/software/apps/windhawk.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://windhawk.net/",
+        "https://github.com/ramensoftware/windhawk",
+        "https://github.com/ramensoftware/windhawk-mods"
+      ],
+      "note": "Datos contrastados con la documentación oficial; las condiciones de uso y compatibilidad se revisan de nuevo si cambia la versión."
+    },
+    {
+      "id": "lively-wallpaper",
+      "name": "Lively Wallpaper",
+      "path": "subpags/software/apps/lively-wallpaper.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/lively-community/lively",
+        "https://github.com/lively-community/lively/wiki/Getting-Started",
+        "https://github.com/lively-community/lively/releases"
+      ],
+      "note": "Datos contrastados con la documentación oficial; las condiciones de uso y compatibilidad se revisan de nuevo si cambia la versión."
+    },
+    {
+      "id": "rainmeter",
+      "name": "Rainmeter",
+      "path": "subpags/software/apps/rainmeter.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.rainmeter.net/",
+        "https://docs.rainmeter.net/manual/getting-started/setting-up/",
+        "https://github.com/rainmeter/rainmeter"
+      ],
+      "note": "Datos contrastados con la documentación oficial; las condiciones de uso y compatibilidad se revisan de nuevo si cambia la versión."
+    },
+    {
+      "id": "twinkle-tray",
+      "name": "Twinkle Tray",
+      "path": "subpags/software/apps/twinkle-tray.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://twinkletray.com/",
+        "https://github.com/xanderfrangos/twinkle-tray",
+        "https://github.com/xanderfrangos/twinkle-tray/blob/master/README.md"
+      ],
+      "note": "Datos contrastados con la documentación oficial; las condiciones de uso y compatibilidad se revisan de nuevo si cambia la versión."
+    },
+    {
+      "id": "fluentflyout",
+      "name": "FluentFlyout",
+      "path": "subpags/software/apps/fluentflyout.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "winstep-nexus-dock",
+      "name": "Winstep Nexus Dock",
+      "path": "subpags/software/apps/winstep-nexus-dock.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.winstep.net/nexus.asp",
+        "https://www.winstep.net/releases.asp",
+        "https://www.winstep.net/help/Nx/nexus.htm",
+        "https://www.winstep.net/comparisonfaq.asp"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "seelen-ui",
+      "name": "Seelen UI",
+      "path": "subpags/software/apps/seelen-ui.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/eythaann/Seelen-UI",
+        "https://github.com/eythaann/Seelen-UI/releases",
+        "https://github.com/eythaann/Seelen-UI/blob/master/README.md"
+      ],
+      "note": "Datos contrastados con la documentación oficial; las condiciones de uso y compatibilidad se revisan de nuevo si cambia la versión."
+    },
+    {
+      "id": "wintoys",
+      "name": "Wintoys",
+      "path": "subpags/software/apps/wintoys.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://apps.microsoft.com/detail/9p8ltpgcbzxd",
+        "https://bogdan-patraucean.github.io/about/wintoys/changelog.html",
+        "https://bogdan-patraucean.github.io/about/wintoys/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "winutil-chris-titus-tech",
+      "name": "WinUtil (Chris Titus Tech)",
+      "path": "subpags/software/apps/winutil-chris-titus-tech.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/ChrisTitusTech/winutil",
+        "https://github.com/ChrisTitusTech/winutil/blob/main/docs/src/content/docs/guides/getting-started.mdx"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "o-o-shutup10",
+      "name": "O&O ShutUp10++",
+      "path": "subpags/software/apps/o-o-shutup10.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.oo-software.com/en/download/current/ooshutup10",
+        "https://manuals.oo-software.com/ooshutup10/es/",
+        "https://manuals.oo-software.com/ooshutup10/es/docs/faq/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "autoruns",
+      "name": "Autoruns",
+      "path": "subpags/software/apps/autoruns.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns",
+        "https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "system-informer",
+      "name": "System Informer",
+      "path": "subpags/software/apps/system-informer.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://systeminformer.com/downloads",
+        "https://www.systeminformer.com/readme",
+        "https://www.systeminformer.com/about.php",
+        "https://github.com/winsiderss/systeminformer"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "process-explorer-procexp",
+      "name": "Process Explorer (Procexp)",
+      "path": "subpags/software/apps/process-explorer-procexp.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer",
+        "https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "rammap",
+      "name": "RAMMap",
+      "path": "subpags/software/apps/rammap.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://learn.microsoft.com/en-us/sysinternals/downloads/rammap",
+        "https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "revo-uninstaller",
+      "name": "Revo Uninstaller",
+      "path": "subpags/software/apps/revo-uninstaller.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "geek-uninstaller",
+      "name": "Geek Uninstaller",
+      "path": "subpags/software/apps/geek-uninstaller.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "bulk-crap-uninstaller",
+      "name": "Bulk Crap Uninstaller",
+      "path": "subpags/software/apps/bulk-crap-uninstaller.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "display-driver-uninstaller-ddu",
+      "name": "Display Driver Uninstaller (DDU)",
+      "path": "subpags/software/apps/display-driver-uninstaller-ddu.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "unigetui",
+      "name": "UniGetUI",
+      "path": "subpags/software/apps/unigetui.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "wiztree",
+      "name": "WizTree",
+      "path": "subpags/software/apps/wiztree.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "quicklook",
+      "name": "QuickLook",
+      "path": "subpags/software/apps/quicklook.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/QL-Win/QuickLook",
+        "https://github.com/QL-Win/QuickLook/blob/master/SUPPORTED_FORMATS.md",
+        "https://github.com/QL-Win/QuickLook/blob/master/PRIVACY.md"
+      ],
+      "note": "Datos contrastados con la documentación oficial; las condiciones de uso y compatibilidad se revisan de nuevo si cambia la versión."
+    },
+    {
+      "id": "bulk-rename-utility",
+      "name": "Bulk Rename Utility",
+      "path": "subpags/software/apps/bulk-rename-utility.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "freefilesync",
+      "name": "FreeFileSync",
+      "path": "subpags/software/apps/freefilesync.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://freefilesync.org/",
+        "https://freefilesync.org/faq.php",
+        "https://freefilesync.org/download.php"
+      ],
+      "note": "Datos contrastados con la documentación oficial; las condiciones de uso y compatibilidad se revisan de nuevo si cambia la versión."
+    },
+    {
+      "id": "ditto",
+      "name": "Ditto",
+      "path": "subpags/software/apps/ditto.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "everything",
+      "name": "Everything",
+      "path": "subpags/software/apps/everything.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "files",
+      "name": "Files",
+      "path": "subpags/software/apps/files.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "recuva",
+      "name": "Recuva",
+      "path": "subpags/software/apps/recuva.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "7-zip",
+      "name": "7-Zip",
+      "path": "subpags/software/apps/7-zip.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "localsend",
+      "name": "LocalSend",
+      "path": "subpags/software/apps/localsend.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://localsend.org/",
+        "https://github.com/localsend/localsend",
+        "https://github.com/localsend/protocol/blob/main/README.md",
+        "https://github.com/localsend/protocol/blob/main/v1.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "rustdesk",
+      "name": "RustDesk",
+      "path": "subpags/software/apps/rustdesk.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://rustdesk.com/docs/",
+        "https://rustdesk.com/docs/en/self-host/",
+        "https://rustdesk.com/docs/en/self-host/rustdesk-server-oss/",
+        "https://github.com/rustdesk/rustdesk"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "tailscale",
+      "name": "Tailscale",
+      "path": "subpags/software/apps/tailscale.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://tailscale.com/pricing",
+        "https://tailscale.com/docs/install",
+        "https://tailscale.com/docs/how-to/quickstart"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "scrcpy",
+      "name": "scrcpy",
+      "path": "subpags/software/apps/scrcpy.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/Genymobile/scrcpy",
+        "https://github.com/Genymobile/scrcpy/blob/master/doc/windows.md",
+        "https://github.com/Genymobile/scrcpy/blob/master/doc/connection.md",
+        "https://github.com/Genymobile/scrcpy/blob/master/FAQ.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "vysor",
+      "name": "Vysor",
+      "path": "subpags/software/apps/vysor.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.vysor.app/",
+        "https://www.vysor.app/faq.html",
+        "https://www.vysor.app/features.html"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "sunshine",
+      "name": "Sunshine",
+      "path": "subpags/software/apps/sunshine.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/LizardByte/Sunshine",
+        "https://docs.lizardbyte.dev/projects/sunshine/en/latest/",
+        "https://github.com/moonlight-stream/moonlight-qt"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "droidcam",
+      "name": "DroidCam",
+      "path": "subpags/software/apps/droidcam.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "littlebigmouse",
+      "name": "LittleBigMouse",
+      "path": "subpags/software/apps/littlebigmouse.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "winscp",
+      "name": "WinSCP",
+      "path": "subpags/software/apps/winscp.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "kde-connect",
+      "name": "KDE Connect",
+      "path": "subpags/software/apps/kde-connect.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://apps.kde.org/kdeconnect/",
+        "https://userbase.kde.org/KDEConnect"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "syncthing",
+      "name": "Syncthing",
+      "path": "subpags/software/apps/syncthing.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://syncthing.net/downloads/",
+        "https://docs.syncthing.net/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "brave",
+      "name": "Brave",
+      "path": "subpags/software/apps/brave.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "firefox",
+      "name": "Firefox",
+      "path": "subpags/software/apps/firefox.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "librewolf",
+      "name": "LibreWolf",
+      "path": "subpags/software/apps/librewolf.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "bitwarden",
+      "name": "Bitwarden",
+      "path": "subpags/software/apps/bitwarden.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://bitwarden.com/help/password-manager-plans/",
+        "https://bitwarden.com/open-source/",
+        "https://bitwarden.com/help/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "proton-vpn",
+      "name": "Proton VPN",
+      "path": "subpags/software/apps/proton-vpn.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://protonvpn.com/free-vpn",
+        "https://protonvpn.com/pricing",
+        "https://protonvpn.com/support/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "portmaster",
+      "name": "Portmaster",
+      "path": "subpags/software/apps/portmaster.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "keepassxc",
+      "name": "KeePassXC",
+      "path": "subpags/software/apps/keepassxc.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "eartrumpet",
+      "name": "EarTrumpet",
+      "path": "subpags/software/apps/eartrumpet.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "peace",
+      "name": "Peace",
+      "path": "subpags/software/apps/peace.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "voicemeeter",
+      "name": "VoiceMeeter",
+      "path": "subpags/software/apps/voicemeeter.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "spicetify",
+      "name": "Spicetify",
+      "path": "subpags/software/apps/spicetify.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "winamp",
+      "name": "Winamp",
+      "path": "subpags/software/apps/winamp.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "audacity",
+      "name": "Audacity",
+      "path": "subpags/software/apps/audacity.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "mixxx",
+      "name": "Mixxx",
+      "path": "subpags/software/apps/mixxx.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://mixxx.org/download/",
+        "https://manual.mixxx.org/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "screentogif",
+      "name": "ScreenToGif",
+      "path": "subpags/software/apps/screentogif.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "sharex",
+      "name": "ShareX",
+      "path": "subpags/software/apps/sharex.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "lightshot",
+      "name": "Lightshot",
+      "path": "subpags/software/apps/lightshot.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "text-grab",
+      "name": "Text Grab",
+      "path": "subpags/software/apps/text-grab.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "obs-studio",
+      "name": "OBS Studio",
+      "path": "subpags/software/apps/obs-studio.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://obsproject.com/es/download/",
+        "https://obsproject.com/kb/obs-studio-overview",
+        "https://obsproject.com/help/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "upscayl",
+      "name": "Upscayl",
+      "path": "subpags/software/apps/upscayl.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "blender",
+      "name": "Blender",
+      "path": "subpags/software/apps/blender.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.blender.org/download/",
+        "https://www.blender.org/download/requirements/",
+        "https://www.blender.org/press/blender-5-3-release/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "gimp",
+      "name": "GIMP",
+      "path": "subpags/software/apps/gimp.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "krita",
+      "name": "Krita",
+      "path": "subpags/software/apps/krita.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "inkscape",
+      "name": "Inkscape",
+      "path": "subpags/software/apps/inkscape.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://inkscape.org/release/",
+        "https://inkscape-manuals.readthedocs.io/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "freecad",
+      "name": "FreeCAD",
+      "path": "subpags/software/apps/freecad.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.freecad.org/downloads",
+        "https://wiki.freecad.org/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "handbrake",
+      "name": "HandBrake",
+      "path": "subpags/software/apps/handbrake.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://handbrake.fr/",
+        "https://handbrake.fr/docs/en/latest/",
+        "https://github.com/HandBrake/HandBrake",
+        "https://handbrake.fr/docs/en/latest/technical/system-requirements.html"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "losslesscut",
+      "name": "LosslessCut",
+      "path": "subpags/software/apps/losslesscut.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "davinci-resolve",
+      "name": "DaVinci Resolve",
+      "path": "subpags/software/apps/davinci-resolve.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "vlc",
+      "name": "VLC",
+      "path": "subpags/software/apps/vlc.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "kdenlive",
+      "name": "Kdenlive",
+      "path": "subpags/software/apps/kdenlive.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://kdenlive.org/download/",
+        "https://docs.kdenlive.org/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "rufus",
+      "name": "Rufus",
+      "path": "subpags/software/apps/rufus.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "ventoy",
+      "name": "Ventoy",
+      "path": "subpags/software/apps/ventoy.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "jdownloader",
+      "name": "JDownloader",
+      "path": "subpags/software/apps/jdownloader.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "qbittorrent",
+      "name": "qBittorrent",
+      "path": "subpags/software/apps/qbittorrent.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.qbittorrent.org/",
+        "https://www.qbittorrent.org/download",
+        "https://github.com/qbittorrent/qBittorrent"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "crystaldiskinfo",
+      "name": "CrystalDiskInfo",
+      "path": "subpags/software/apps/crystaldiskinfo.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "cpu-z",
+      "name": "CPU-Z",
+      "path": "subpags/software/apps/cpu-z.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.cpuid.com/softwares/cpu-z.html",
+        "https://www.cpuid.com/softwares/cpu-z.html#version-history"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "fan-control",
+      "name": "Fan Control",
+      "path": "subpags/software/apps/fan-control.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/Rem0o/FanControl.Releases",
+        "https://github.com/Rem0o/FanControl.Releases/releases",
+        "https://github.com/Rem0o/FanControl.Releases/blob/master/README.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "openrgb",
+      "name": "OpenRGB",
+      "path": "subpags/software/apps/openrgb.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://openrgb.org/",
+        "https://gitlab.com/CalcProgrammer1/OpenRGB",
+        "https://gitlab.com/CalcProgrammer1/OpenRGB/-/wikis/Supported-Devices"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "msi-afterburner",
+      "name": "MSI Afterburner",
+      "path": "subpags/software/apps/msi-afterburner.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "capframex",
+      "name": "CapFrameX",
+      "path": "subpags/software/apps/capframex.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/CXWorld/CapFrameX",
+        "https://github.com/CXWorld/CapFrameX/releases",
+        "https://github.com/CXWorld/CapFrameX/blob/master/README.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
+    },
+    {
+      "id": "nvidia-profile-inspector",
+      "name": "NVIDIA Profile Inspector",
+      "path": "subpags/software/apps/nvidia-profile-inspector.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "plexusx",
+      "name": "PlexusX",
+      "path": "subpags/software/apps/plexusx.html",
+      "status": "partial",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://plexusx.lol/",
+        "https://plexusx.lol/trust",
+        "https://www.trustpilot.com/review/plexusx.lol"
+      ],
+      "note": "La fuente oficial no fue accesible durante la revisión; las afirmaciones del proveedor no se han validado de forma independiente."
+    },
+    {
+      "id": "heroic-games-launcher",
+      "name": "Heroic Games Launcher",
+      "path": "subpags/software/apps/heroic-games-launcher.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "playnite",
+      "name": "Playnite",
+      "path": "subpags/software/apps/playnite.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://playnite.link/",
+        "https://api.playnite.link/docs/manual/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "magpie",
+      "name": "Magpie",
+      "path": "subpags/software/apps/magpie.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "curseforge",
+      "name": "CurseForge",
+      "path": "subpags/software/apps/curseforge.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "epic-games-store",
+      "name": "Epic Games Store",
+      "path": "subpags/software/apps/epic-games-store.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "steam",
+      "name": "Steam",
+      "path": "subpags/software/apps/steam.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "ubisoft-connect",
+      "name": "Ubisoft Connect",
+      "path": "subpags/software/apps/ubisoft-connect.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "deepl",
+      "name": "DeepL",
+      "path": "subpags/software/apps/deepl.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "obsidian",
+      "name": "Obsidian",
+      "path": "subpags/software/apps/obsidian.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://obsidian.md/license",
+        "https://obsidian.md/pricing.html",
+        "https://help.obsidian.md/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "flow-launcher",
+      "name": "Flow Launcher",
+      "path": "subpags/software/apps/flow-launcher.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "libreoffice",
+      "name": "LibreOffice",
+      "path": "subpags/software/apps/libreoffice.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "autohotkey",
+      "name": "AutoHotkey",
+      "path": "subpags/software/apps/autohotkey.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "powertoys",
+      "name": "PowerToys",
+      "path": "subpags/software/apps/powertoys.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "joplin",
+      "name": "Joplin",
+      "path": "subpags/software/apps/joplin.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://joplinapp.org/help/",
+        "https://joplinapp.org/help/install/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "buzz",
+      "name": "Buzz",
+      "path": "subpags/software/apps/buzz.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "neuralagent",
+      "name": "NeuralAgent",
+      "path": "subpags/software/apps/neuralagent.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://getneuralagent.com/pricing",
+        "https://getneuralagent.com/security",
+        "https://getneuralagent.com/privacy-policy",
+        "https://getneuralagent.com/terms-of-service"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "docker-desktop",
+      "name": "Docker Desktop",
+      "path": "subpags/software/apps/docker-desktop.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://docs.docker.com/desktop/setup/install/windows-install/",
+        "https://docs.docker.com/desktop/features/wsl/",
+        "https://docs.docker.com/subscription-billing/desktop-license/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "java-jdk",
+      "name": "Java (JDK)",
+      "path": "subpags/software/apps/java-jdk.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "apache-netbeans",
+      "name": "Apache NetBeans",
+      "path": "subpags/software/apps/apache-netbeans.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "visual-studio-code",
+      "name": "Visual Studio Code",
+      "path": "subpags/software/apps/visual-studio-code.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "responsively-app",
+      "name": "Responsively App",
+      "path": "subpags/software/apps/responsively-app.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "notepad",
+      "name": "Notepad++",
+      "path": "subpags/software/apps/notepad.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    },
+    {
+      "id": "dbeaver-community",
+      "name": "DBeaver Community",
+      "path": "subpags/software/apps/dbeaver-community.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://dbeaver.io/download/",
+        "https://dbeaver.com/docs/dbeaver/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "vscodium",
+      "name": "VSCodium",
+      "path": "subpags/software/apps/vscodium.html",
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/VSCodium/vscodium"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambian versión, licencia o requisitos."
+    },
+    {
+      "id": "pdfgear",
+      "name": "PDFgear",
+      "path": "subpags/software/apps/pdfgear.html",
+      "status": "pending",
+      "lastVerified": null,
+      "sources": [],
+      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+    }
+  ]
+}
