@@ -865,10 +865,14 @@
       "id": "msi-afterburner",
       "name": "MSI Afterburner",
       "path": "subpags/software/apps/msi-afterburner.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.msi.com/Landing/afterburner/graphics-cards",
+        "https://www.msi.com/Landing/afterburner/graphics-cards#download",
+        "https://www.guru3d.com/files-details/rtss-rivatuner-statistics-server-download.html"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "capframex",
@@ -887,10 +891,14 @@
       "id": "nvidia-profile-inspector",
       "name": "NVIDIA Profile Inspector",
       "path": "subpags/software/apps/nvidia-profile-inspector.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/Orbmu2k/nvidiaProfileInspector",
+        "https://github.com/Orbmu2k/nvidiaProfileInspector/releases",
+        "https://github.com/Orbmu2k/nvidiaProfileInspector/blob/master/README.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "plexusx",
@@ -909,10 +917,15 @@
       "id": "heroic-games-launcher",
       "name": "Heroic Games Launcher",
       "path": "subpags/software/apps/heroic-games-launcher.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://heroicgameslauncher.com/",
+        "https://heroicgameslauncher.com/faq",
+        "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki",
+        "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "playnite",
@@ -930,46 +943,66 @@
       "id": "magpie",
       "name": "Magpie",
       "path": "subpags/software/apps/magpie.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/Blinue/Magpie",
+        "https://github.com/Blinue/Magpie/releases",
+        "https://github.com/Blinue/Magpie/blob/main/README.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "curseforge",
       "name": "CurseForge",
       "path": "subpags/software/apps/curseforge.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.curseforge.com/download/app",
+        "https://support.curseforge.com/support/solutions/articles/9000193488-getting-started/1000",
+        "https://www.overwolf.com/app/overwolf-curseforge"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "epic-games-store",
       "name": "Epic Games Store",
       "path": "subpags/software/apps/epic-games-store.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://store.epicgames.com/en-US/download",
+        "https://www.epicgames.com/help/en-US/",
+        "https://store.epicgames.com/en-US/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "steam",
       "name": "Steam",
       "path": "subpags/software/apps/steam.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://store.steampowered.com/about/",
+        "https://help.steampowered.com/",
+        "https://partner.steamgames.com/doc/home"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "ubisoft-connect",
       "name": "Ubisoft Connect",
       "path": "subpags/software/apps/ubisoft-connect.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.ubisoft.com/es-es/ubisoft-connect",
+        "https://www.ubisoft.com/en-us/help/account",
+        "https://www.ubisoft.com/en-us/help"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "deepl",
