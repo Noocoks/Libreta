@@ -77,7 +77,7 @@
       "path": "subpags/diccionario/contenedores/index.html",
       "related": [
         "kernel",
-        "namespaces",
+        "namespace",
         "cgroups"
       ]
     },
@@ -124,7 +124,7 @@
       "path": "subpags/diccionario/cgroups/index.html",
       "related": [
         "contenedor",
-        "namespaces",
+        "namespace",
         "kernel"
       ]
     },
@@ -228,7 +228,7 @@
       "level": 2,
       "path": "subpags/diccionario/kernel/index.html",
       "related": [
-        "namespaces",
+        "namespace",
         "cgroups",
         "driver"
       ]
