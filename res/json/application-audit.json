@@ -812,19 +812,29 @@
       "id": "gimp",
       "name": "GIMP",
       "path": "subpags/software/apps/gimp.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.gimp.org/",
+        "https://www.gimp.org/downloads/",
+        "https://www.gimp.org/docs/userfaq.html",
+        "https://www.gimp.org/about/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "krita",
       "name": "Krita",
       "path": "subpags/software/apps/krita.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://krita.org/en/download/",
+        "https://krita.org/en/about/license/",
+        "https://docs.krita.org/",
+        "https://apps.kde.org/krita/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "inkscape",
@@ -868,19 +878,29 @@
       "id": "losslesscut",
       "name": "LosslessCut",
       "path": "subpags/software/apps/losslesscut.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://losslesscut.app/",
+        "https://losslesscut.app/docs/faq",
+        "https://github.com/mifi/lossless-cut",
+        "https://github.com/mifi/lossless-cut/releases"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "davinci-resolve",
       "name": "DaVinci Resolve",
       "path": "subpags/software/apps/davinci-resolve.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.blackmagicdesign.com/es/products/davinciresolve",
+        "https://www.blackmagicdesign.com/support/family/davinci-resolve-and-fusion",
+        "https://www.blackmagicdesign.com/products/davinciresolve/techspecs",
+        "https://www.blackmagicdesign.com/products/davinciresolve/training"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "vlc",
@@ -940,10 +960,15 @@
       "id": "jdownloader",
       "name": "JDownloader",
       "path": "subpags/software/apps/jdownloader.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://jdownloader.org/jdownloader2",
+        "https://support.jdownloader.org/en/knowledgebase/article/software-offers-during-installation",
+        "https://support.jdownloader.org/",
+        "https://jdownloader.org/checksums"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "qbittorrent",
@@ -962,10 +987,15 @@
       "id": "crystaldiskinfo",
       "name": "CrystalDiskInfo",
       "path": "subpags/software/apps/crystaldiskinfo.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://crystalmark.info/en/software/CrystalDiskInfo/",
+        "https://crystalmark.info/en/software/crystaldiskinfo/crystaldiskinfo-license/",
+        "https://crystalmark.info/en/software/crystaldiskinfo/crystaldiskinfo-general-information/",
+        "https://crystalmark.info/en/download/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "cpu-z",
@@ -1179,10 +1209,15 @@
       "id": "flow-launcher",
       "name": "Flow Launcher",
       "path": "subpags/software/apps/flow-launcher.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.flowlauncher.com/",
+        "https://github.com/Flow-Launcher/Flow.Launcher",
+        "https://github.com/Flow-Launcher/docs/blob/main/installation.md",
+        "https://github.com/Flow-Launcher/Flow.Launcher/releases"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "libreoffice",
@@ -1242,10 +1277,15 @@
       "id": "buzz",
       "name": "Buzz",
       "path": "subpags/software/apps/buzz.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://github.com/chidiwilliams/buzz",
+        "https://chidiwilliams.github.io/buzz/",
+        "https://github.com/chidiwilliams/buzz/blob/main/README.md",
+        "https://github.com/chidiwilliams/buzz/blob/main/docs/docs/faq.md"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "neuralagent",
@@ -1278,37 +1318,57 @@
       "id": "java-jdk",
       "name": "Java (JDK)",
       "path": "subpags/software/apps/java-jdk.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://www.oracle.com/java/technologies/downloads/",
+        "https://www.oracle.com/java/technologies/javase/jdk-faqs.html",
+        "https://jdk.java.net/",
+        "https://adoptium.net/"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "apache-netbeans",
       "name": "Apache NetBeans",
       "path": "subpags/software/apps/apache-netbeans.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://netbeans.apache.org/",
+        "https://github.com/apache/netbeans",
+        "https://netbeans.apache.org/front/main/download/",
+        "https://github.com/apache/netbeans/blob/master/LICENSE"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "visual-studio-code",
       "name": "Visual Studio Code",
       "path": "subpags/software/apps/visual-studio-code.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://code.visualstudio.com/",
+        "https://code.visualstudio.com/docs/supporting/faq",
+        "https://code.visualstudio.com/license",
+        "https://github.com/microsoft/vscode"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "responsively-app",
       "name": "Responsively App",
       "path": "subpags/software/apps/responsively-app.html",
-      "status": "pending",
-      "lastVerified": null,
-      "sources": [],
-      "note": "Pendiente de auditoría editorial y contraste de fuentes oficiales."
+      "status": "verified",
+      "lastVerified": "2026-11-28",
+      "sources": [
+        "https://responsively.app/",
+        "https://github.com/responsively-org/responsively-app",
+        "https://github.com/responsively-org/responsively-app-releases",
+        "https://github.com/responsively-org/responsively-app/blob/master/LICENSE"
+      ],
+      "note": "Datos contrastados con fuentes oficiales; revisar de nuevo si cambia versión, licencia o requisitos."
     },
     {
       "id": "notepad",
