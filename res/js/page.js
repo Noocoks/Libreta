@@ -124,31 +124,15 @@ window.addEventListener("message", function (e) {
 ============================== */
 document.addEventListener("click", function (e) {
 
-    if (
-        e.defaultPrevented ||
-        e.button !== 0 ||
-        e.metaKey ||
-        e.ctrlKey ||
-        e.shiftKey ||
-        e.altKey
-    ) {
-        return;
-    }
+    if (e.defaultPrevented) return;
 
     var link = e.target.closest
         ? e.target.closest("a")
         : null;
 
-    if (
-        !link ||
-        link.hasAttribute("download") ||
-        (link.target && link.target.toLowerCase() !== "_self")
-    ) {
-        return;
-    }
+    if (!link || link.hasAttribute("download")) return;
 
     var href = link.getAttribute("href");
-
     if (!href || href.trim().startsWith("#")) return;
 
     var target;
@@ -159,7 +143,38 @@ document.addEventListener("click", function (e) {
         return;
     }
 
-    /* Bloquear protocolos ejecutables; conservar mailto:, tel: y enlaces externos. */
+    /*
+     * Los enlaces HTTP(S) externos salen del iframe en una pestaña nueva.
+     * Se aplica antes de comprobar modificadores para conservar Ctrl/Cmd+clic.
+     */
+    var navigationOrigin = parentOrigin || window.location.origin;
+    if (
+        (target.protocol === "http:" || target.protocol === "https:") &&
+        target.origin !== navigationOrigin
+    ) {
+        link.target = "_blank";
+        var relTokens = (link.getAttribute("rel") || "")
+            .split(/\s+/)
+            .filter(Boolean);
+        ["noopener", "noreferrer"].forEach(function (token) {
+            if (relTokens.indexOf(token) === -1) relTokens.push(token);
+        });
+        link.setAttribute("rel", relTokens.join(" "));
+        return;
+    }
+
+    if (
+        e.button !== 0 ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.shiftKey ||
+        e.altKey ||
+        (link.target && link.target.toLowerCase() !== "_self")
+    ) {
+        return;
+    }
+
+    /* Bloquear protocolos ejecutables; conservar mailto: y tel:. */
     if (
         target.protocol === "javascript:" ||
         target.protocol === "data:" ||
@@ -169,10 +184,8 @@ document.addEventListener("click", function (e) {
         return;
     }
 
-    if (
-        target.origin !== window.location.origin ||
-        (target.protocol !== "http:" && target.protocol !== "https:")
-    ) {
+    if (target.origin !== window.location.origin ||
+        (target.protocol !== "http:" && target.protocol !== "https:")) {
         return;
     }
 
