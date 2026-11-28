@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.validate_project import validate_tree_data
+from scripts.validate_project import strict_json_loads, resolve_local_reference, validate_tree_data
 
 
 class TreeValidationTests(unittest.TestCase):
@@ -62,6 +62,39 @@ class TreeValidationTests(unittest.TestCase):
         self.assertTrue(any(".name" in error for error in errors))
         _, errors = validate_tree_data({"title": "x", "sections": "bad"}, self.root)
         self.assertTrue(any("sections debe ser una lista" in error for error in errors))
+
+    def test_strict_json_rejects_duplicate_object_keys(self):
+        with self.assertRaisesRegex(ValueError, "clave JSON duplicada"):
+            strict_json_loads('{"title":"first","title":"second","sections":[]}')
+
+    def test_strict_json_rejects_non_standard_numeric_constants(self):
+        for constant in ("NaN", "Infinity", "-Infinity"):
+            with self.subTest(constant=constant):
+                with self.assertRaisesRegex(ValueError, "constante JSON no estándar"):
+                    strict_json_loads('{"title":"Libreta","sections":[],"value":' + constant + '}')
+
+    def test_local_reference_rejects_encoded_traversal_and_malformed_urls(self):
+        source = self.root / "subpags" / "example" / "index.html"
+        for reference in (
+            "../../../outside.html",
+            "%2e%2e/%2e%2e/outside.html",
+            "bad%2",
+            "http://[invalid-ipv6",
+        ):
+            with self.subTest(reference=reference):
+                target = resolve_local_reference(source, reference, self.root)
+                self.assertIsNotNone(target)
+                self.assertFalse(target.is_file())
+
+    def test_local_reference_allows_external_http_urls(self):
+        source = self.root / "subpags" / "example" / "index.html"
+        self.assertIsNone(resolve_local_reference(source, "https://example.com/page", self.root))
+
+    def test_strict_json_accepts_standard_json(self):
+        self.assertEqual(
+            strict_json_loads('{"title":"Libreta","sections":[]}'),
+            {"title": "Libreta", "sections": []},
+        )
 
 
 
